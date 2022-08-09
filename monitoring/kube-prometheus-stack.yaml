@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: monitoring
+  chart:
+    spec:
+      version: 39.x
+      chart: kube-prometheus-stack
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values:
+    grafana:
+      service:
+        type: LoadBalancer
+      ingress:
+        enabled: true
+        hosts: []
+      persistence:
+        enabled: true
+        type: pvc
+        size: 10Gi
+    prometheus:
+      service:
+        type: LoadBalancer
+      ingress:
+        enabled: true
+        hosts: []
+      prometheusSpec:
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: standard
+              resources:
+                requests:
+                  storage: 10Gi
