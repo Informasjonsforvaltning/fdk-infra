@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: flux-system
+spec:
+  values:
+    grafana:
+      ingress:
+        annotations:
+          ingress.gcp.kubernetes.io/pre-shared-cert: stjerne-fdk-digdir-no-ssl-2,stjerne-staging-fdk-digdir-no-ssl-2
+          kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-grafana-v4
+    prometheus:
+      ingress:
+        annotations:
+          ingress.gcp.kubernetes.io/pre-shared-cert: stjerne-fdk-digdir-no-ssl-2,stjerne-staging-fdk-digdir-no-ssl-2
+          kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-prometheus-v4
