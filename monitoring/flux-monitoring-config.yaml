@@ -6,6 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h0m0s
+  targetNamespace: flux-system
   path: ./manifests/monitoring/monitoring-config
   prune: true
   sourceRef:
