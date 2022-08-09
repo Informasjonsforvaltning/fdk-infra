@@ -5,8 +5,6 @@ metadata:
   name: monitoring-config
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: kube-prometheus-stack
   interval: 1h0m0s
   path: ./manifests/monitoring/monitoring-config
   prune: true
