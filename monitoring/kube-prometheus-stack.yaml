@@ -37,6 +37,9 @@ spec:
         enabled: true
         hosts: []
       prometheusSpec:
+        # allow Prometheus to discover all PodMonitors/ServiceMonitors within its namespace, without applying label filtering
+        podMonitorSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
         storageSpec:
           volumeClaimTemplate:
             spec:
