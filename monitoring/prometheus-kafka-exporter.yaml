@@ -1,0 +1,26 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: prometheus-kafka-exporter
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: monitoring
+  chart:
+    spec:
+      version: 1.x
+      chart: prometheus-kafka-exporter
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values:
+    kafkaServer:
+      - kafka-1:9092
+    serviceMonitor:
+      enabled: true

@@ -5,6 +5,6 @@ resources:
   - flux-monitoring-config.yaml
   - flux-monitoring-repo.yaml
   - kube-prometheus-stack.yaml
-  - kube-prometheus-kafka-exporter.yaml
+  - prometheus-kafka-exporter.yaml
   - namespace.yaml
   - prometheus-community.yaml
