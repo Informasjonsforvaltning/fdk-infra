@@ -3,5 +3,5 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - helm-repo.yaml
-  - nginx-ingress.yaml
+  - ingress-nginx.yaml
   - namespace.yaml
