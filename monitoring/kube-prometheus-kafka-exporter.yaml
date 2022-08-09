@@ -22,5 +22,6 @@ spec:
   values:
     kafkaServer:
       - kafka-1:9092
-    serviceMonitor:
-      enabled: true
+    prometheus:
+      serviceMonitor:
+        enabled: true
