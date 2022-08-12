@@ -6,5 +6,4 @@ metadata:
   namespace: ingress-nginx
 spec:
   healthCheck:
-    port: 10254
     requestPath: /healthz
