@@ -23,3 +23,5 @@ spec:
     controller:
       service:
         type: NodePort
+        annotations:
+          cloud.google.com/backend-config: '{"ports": {"80":"ingress-nginx"}}'
