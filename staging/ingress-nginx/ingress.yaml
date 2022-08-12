@@ -1,0 +1,9 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx
+  namespace: ingress-nginx
+  annotations:
+    ingress.gcp.kubernetes.io/pre-shared-cert: stjerne-staging-fdk-digdir-no-ssl-2
+    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v4
