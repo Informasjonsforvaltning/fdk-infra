@@ -6,4 +6,5 @@ metadata:
   namespace: ingress-nginx
 spec:
   healthCheck:
+    port: 80
     requestPath: /healthz
