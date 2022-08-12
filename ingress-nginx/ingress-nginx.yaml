@@ -22,7 +22,4 @@ spec:
   values:
     controller:
       service:
-        external:
-          enabled: false
-        internal:
-          enabled: true
+        type: NodePort
