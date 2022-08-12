@@ -24,4 +24,4 @@ spec:
       service:
         type: NodePort
         annotations:
-          cloud.google.com/backend-config: '{"ports": {"http":"ingress-nginx"}}'
+          cloud.google.com/backend-config: '{"ports": {"http":"nginx"}}'
