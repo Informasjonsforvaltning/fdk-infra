@@ -5,4 +5,5 @@ resources:
   - helm-repo.yaml
   - ingress-nginx.yaml
   - namespace.yaml
+  - backend-config.yaml
   - ingress.yaml

@@ -1,0 +1,9 @@
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: nginx
+  namespace: ingress-nginx
+spec:
+  healthCheck:
+    requestPath: /healthz
