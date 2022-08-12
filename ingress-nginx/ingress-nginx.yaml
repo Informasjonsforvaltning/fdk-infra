@@ -19,4 +19,10 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
-  values: {}
+  values:
+    controller:
+      service:
+        external:
+          enabled: false
+        internal:
+          enabled: true
