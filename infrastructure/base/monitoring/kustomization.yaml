@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - flux-monitoring-config.yaml
   - flux-monitoring-repo.yaml
-  - kube-prometheus-stack.yaml
-  - prometheus-kafka-exporter.yaml
+  - helm-release-kafka-exporter.yaml
+  - helm-release-prometheus.yaml
+  - helm-repo.yaml
   - namespace.yaml
-  - prometheus-community.yaml

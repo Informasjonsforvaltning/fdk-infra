@@ -2,11 +2,11 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: ingress-nginx
+  name: nginx
   namespace: flux-system
 spec:
   interval: 5m
-  targetNamespace: ingress-nginx
+  targetNamespace: nginx
   chart:
     spec:
       version: 2.x
@@ -24,4 +24,4 @@ spec:
       service:
         type: NodePort
         annotations:
-          cloud.google.com/backend-config: '{"ports": {"http":"nginx"}}'
+          cloud.google.com/backend-config: '{"default": "nginx-controller"}'

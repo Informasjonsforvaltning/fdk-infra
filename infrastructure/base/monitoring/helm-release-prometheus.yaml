@@ -27,8 +27,6 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: nginx
-        # overridden for each specific cluster
-        hosts: []
       persistence:
         enabled: true
         type: pvc
@@ -40,8 +38,6 @@ spec:
         enabled: true
         annotations:
           kubernetes.io/ingress.class: nginx
-        # overridden for each specific cluster
-        hosts: []
       prometheusSpec:
         # allow Prometheus to discover all PodMonitors/ServiceMonitors within its namespace, without applying label filtering
         podMonitorSelectorNilUsesHelmValues: false
