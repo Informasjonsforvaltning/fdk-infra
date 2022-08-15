@@ -24,4 +24,5 @@ spec:
       service:
         type: NodePort
         annotations:
+          cloud.google.com/frontend-config: '{"ports": {"http":"nginx"}}'
           cloud.google.com/backend-config: '{"ports": {"http":"nginx"}}'

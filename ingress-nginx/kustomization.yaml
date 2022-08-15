@@ -6,4 +6,5 @@ resources:
   - ingress-nginx.yaml
   - namespace.yaml
   - backend-config.yaml
+  - frontend-config.yaml
   - ingress.yaml
