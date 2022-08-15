@@ -4,14 +4,16 @@ kind: Ingress
 metadata:
   name: nginx
   namespace: ingress-nginx
+  annotations:
+    networking.gke.io/v1beta1.FrontendConfig: nginx
 spec:
   rules:
-  - http:
-      paths:
-      - backend:
-          service:
-            name: ingress-nginx-ingress-nginx-controller 
-            port:
-              number: 80
-        path: /
-        pathType: Prefix
+    - http:
+        paths:
+          - backend:
+              service:
+                name: ingress-nginx-ingress-nginx-controller
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
