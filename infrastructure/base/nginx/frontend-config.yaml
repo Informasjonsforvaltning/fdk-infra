@@ -2,8 +2,8 @@
 apiVersion: networking.gke.io/v1beta1
 kind: FrontendConfig
 metadata:
-  name: nginx
-  namespace: ingress-nginx
+  name: nginx-controller
+  namespace: nginx
 spec:
   redirectToHttps:
     enabled: true

@@ -2,17 +2,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx
-  namespace: ingress-nginx
+  name: nginx-controller
+  namespace: nginx
   annotations:
-    networking.gke.io/v1beta1.FrontendConfig: nginx
+    networking.gke.io/v1beta1.FrontendConfig: nginx-controller
 spec:
   rules:
     - http:
         paths:
           - backend:
               service:
-                name: ingress-nginx-ingress-nginx-controller
+                name: nginx-nginx-controller
                 port:
                   number: 80
             path: /
