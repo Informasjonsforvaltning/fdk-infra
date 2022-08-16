@@ -26,6 +26,7 @@ spec:
         prometheus.io/port: "10254"
         prometheus.io/scrape: "true"
       config:
+        proxy-set-headers: nginx/custom-headers
         use-forwarded-headers: "true"
         compute-full-forwarded-for: "true"
       service:
