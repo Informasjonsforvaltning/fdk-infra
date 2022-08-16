@@ -39,6 +39,7 @@ spec:
         annotations:
           kubernetes.io/ingress.class: nginx
       prometheusSpec:
+        scrapeInterval: 10s
         # allow Prometheus to discover all PodMonitors/ServiceMonitors within its namespace, without applying label filtering
         podMonitorSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
