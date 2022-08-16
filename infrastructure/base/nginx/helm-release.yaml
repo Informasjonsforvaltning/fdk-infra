@@ -27,6 +27,8 @@ spec:
         prometheus.io/scrape: "true"
       config:
         proxy-set-headers: nginx/custom-headers
+        hide-headers:
+          - X-Forwarded-Proto
       service:
         type: NodePort
         annotations:
