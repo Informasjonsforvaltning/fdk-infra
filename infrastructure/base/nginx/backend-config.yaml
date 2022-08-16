@@ -7,3 +7,6 @@ metadata:
 spec:
   healthCheck:
     requestPath: /healthz
+  customRequestHeaders:
+    headers:
+    - X-Forwarded-Port:443
