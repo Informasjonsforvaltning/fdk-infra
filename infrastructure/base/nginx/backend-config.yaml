@@ -9,4 +9,4 @@ spec:
     requestPath: /healthz
   customRequestHeaders:
     headers:
-    - X-Forwarded-Port:443
+      - X-Forwarded-Port:443
