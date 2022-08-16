@@ -50,43 +50,24 @@ spec:
                 requests:
                   storage: 10Gi
         additionalScrapeConfigs:
-          - job_name: kubernetes-service-endpoints
+          - job_name: kubernetes-pods-containers
             kubernetes_sd_configs:
-              - role: service
+              - role: pod
             relabel_configs:
-              # annotation 'prometheus.io/scrape' must be set to 'true'
-              - action: keep
-                regex: true
-                source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scrape]
-              # service cannot be in kube-system or prom namespaces
-              - action: drop
-                regex: (kube-system|prom)
-                source_labels: [__meta_kubernetes_namespace]
-              # service port name must end with word 'metrics'
-              - action: keep
-                regex: .*metrics
-                source_labels: [__meta_kubernetes_service_port_name]
-              # allow override of http scheme
-              - action: replace
-                regex: (https?)
-                source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
-                target_label: __scheme__
-              # allow override of default /metrics path
-              - action: replace
-                regex: (.+)
-                source_labels: [__meta_kubernetes_service_annotation_prometheus_io_path]
+              - source_labels:
+                  - __meta_kubernetes_namespace
+                  - __meta_kubernetes_service_annotation_prometheus_io_scrape
+                action: keep
+                regex: kubeflow;true
+              - source_labels:
+                  - __meta_kubernetes_pod_annotation_prometheus_io_path
+                action: replace
                 target_label: __metrics_path__
-              # allow override of default port
-              - action: replace
+                regex: (.+)
+              - source_labels:
+                  - __address__
+                  - __meta_kubernetes_pod_annotation_prometheus_io_port
+                action: replace
                 regex: ([^:]+)(?::\d+)?;(\d+)
                 replacement: $1:$2
-                source_labels: [__address__, __meta_kubernetes_service_annotation_prometheus_io_port]
                 target_label: __address__
-              - action: labelmap
-                regex: __meta_kubernetes_service_label_(.+)
-              - action: replace
-                source_labels: [__meta_kubernetes_namespace]
-                target_label: kubernetes_namespace
-              - action: replace
-                source_labels: [__meta_kubernetes_service_name]
-                target_label: kubernetes_name
