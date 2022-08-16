@@ -25,6 +25,8 @@ spec:
         prometheus.io/path: /metrics
         prometheus.io/port: "10254"
         prometheus.io/scrape: "true"
+      config:
+        proxy-set-headers: nginx/custom-headers
       service:
         type: NodePort
         annotations:
