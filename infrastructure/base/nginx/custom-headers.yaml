@@ -4,4 +4,4 @@ metadata:
   name: custom-headers
   namespace: nginx
 data:
-  X-Forwarded-Port: 443
+  X-Forwarded-Port: "443"
