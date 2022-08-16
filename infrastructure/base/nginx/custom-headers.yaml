@@ -1,7 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: custom-headers
-  namespace: nginx
-data:
-  X-Forwarded-Port: "443"
