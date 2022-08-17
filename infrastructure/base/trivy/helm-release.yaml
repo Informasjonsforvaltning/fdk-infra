@@ -34,3 +34,4 @@ spec:
           memory: 512Mi
     operator:
       vulnerabilityScannerScanOnlyCurrentRevisions: true
+      configAuditScannerScanOnlyCurrentRevisions: true
