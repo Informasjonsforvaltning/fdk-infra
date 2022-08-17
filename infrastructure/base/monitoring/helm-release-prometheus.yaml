@@ -22,7 +22,7 @@ spec:
   values:
     grafana:
       service:
-        type: LoadBalancer
+        type: NodePort
       ingress:
         enabled: true
         annotations:
@@ -33,7 +33,7 @@ spec:
         size: 10Gi
     prometheus:
       service:
-        type: LoadBalancer
+        type: NodePort
       ingress:
         enabled: false
         annotations:
