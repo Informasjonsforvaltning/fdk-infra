@@ -24,7 +24,7 @@ spec:
       prometheus.io/port: "8080"
       prometheus.io/scrape: "true"
     trivy:
-      ignoreUnfixed: "true"
+      ignoreUnfixed: true
       resources:
         limits:
           cpu: 500m
@@ -32,3 +32,5 @@ spec:
         requests:
           cpu: 100m
           memory: 512Mi
+    operator:
+      vulnerabilityScannerScanOnlyCurrentRevisions: true
