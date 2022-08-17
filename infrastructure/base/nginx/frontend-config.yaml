@@ -5,5 +5,8 @@ metadata:
   name: nginx-controller
   namespace: nginx
 spec:
+  # Redirect all http requests to https in GKE loadbalancer. All requests to
+  # nginx loadbalancer are therefore originally https, TLS terminated at GKE
+  # loadbalancer, and forwarded to nginx loadbalancer as http.
   redirectToHttps:
     enabled: true

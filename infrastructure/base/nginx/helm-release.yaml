@@ -22,13 +22,16 @@ spec:
   values:
     controller:
       annotations:
-        prometheus.io/path: /metrics
+        # Scrape nginx controller pod for metrics.
         prometheus.io/port: "10254"
         prometheus.io/scrape: "true"
       config:
+        # Forward all 'X-Forwarded-*' headers, added by GKE loadbalancer.
         use-forwarded-headers: "true"
+        # Append the remote address to the X-Forwarded-For header instead of replacing it.
         compute-full-forwarded-for: "true"
       service:
         type: NodePort
         annotations:
+          # See backend-config.yaml.
           cloud.google.com/backend-config: '{"default": "nginx-controller"}'
