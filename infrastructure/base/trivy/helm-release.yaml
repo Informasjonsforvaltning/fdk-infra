@@ -25,10 +25,10 @@ spec:
       prometheus.io/scrape: "true"
     trivy:
       ignoreUnfixed: "true"
-    resources:
-      limits:
-        cpu: 500m
-        memory: 1024Mi
-      requests:
-        cpu: 100m
-        memory: 512Mi
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1024Mi
+        requests:
+          cpu: 100m
+          memory: 512Mi
