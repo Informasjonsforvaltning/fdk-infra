@@ -20,5 +20,15 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    podAnnotations:
+      prometheus.io/port: "8080"
+      prometheus.io/scrape: "true"
     trivy:
       ignoreUnfixed: "true"
+    resources:
+      limits:
+        cpu: 500m
+        memory: 1024Mi
+      requests:
+        cpu: 100m
+        memory: 512Mi
