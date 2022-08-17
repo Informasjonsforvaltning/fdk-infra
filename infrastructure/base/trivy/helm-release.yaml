@@ -1,0 +1,24 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: trivy-operator
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: trivy
+  chart:
+    spec:
+      version: 0.1.x
+      chart: trivy-operator
+      sourceRef:
+        kind: HelmRepository
+        name: aquasecurity
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values:
+    trivy:
+      ignoreUnfixed: "true"
