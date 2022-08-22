@@ -20,9 +20,9 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    podAnnotations:
-      prometheus.io/port: "8080"
-      prometheus.io/scrape: "true"
+    serviceMonitor:
+      enabled: true
+      interval: 60s
     trivy:
       ignoreUnfixed: true
       resources:
