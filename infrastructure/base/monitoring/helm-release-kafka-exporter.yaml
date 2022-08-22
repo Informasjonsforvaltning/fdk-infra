@@ -25,4 +25,4 @@ spec:
     prometheus:
       serviceMonitor:
         enabled: true
-        interval: 5s
+        interval: 10s
