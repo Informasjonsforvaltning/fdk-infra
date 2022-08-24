@@ -1,0 +1,17 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: flux-system
+spec:
+  values:
+    grafana:
+      ingress:
+        enabled: false
+        hosts:
+          - grafana.fellesdatakatalog.digdir.no
+    prometheus:
+      ingress:
+        hosts:
+          - prometheus.fellesdatakatalog.digdir.no
