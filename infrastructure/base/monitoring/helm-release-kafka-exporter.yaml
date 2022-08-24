@@ -20,8 +20,6 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    kafkaServer:
-      - kafka-1.staging:9092
     prometheus:
       serviceMonitor:
         enabled: true
