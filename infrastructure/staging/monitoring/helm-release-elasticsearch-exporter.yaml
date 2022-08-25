@@ -22,3 +22,5 @@ spec:
   values:
     es:
       uri: http://elasticsearch7.staging:9200
+    serviceMonitor:
+      enabled: true
