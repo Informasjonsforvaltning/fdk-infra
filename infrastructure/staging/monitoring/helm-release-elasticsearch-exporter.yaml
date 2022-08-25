@@ -1,0 +1,24 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kube-prometheus-stack
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: monitoring
+  chart:
+    spec:
+      version: 39.x
+      chart: prometheus-elasticsearch-exporter
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values:
+    es:
+      uri: http://elasticsearch7.staging:9200
