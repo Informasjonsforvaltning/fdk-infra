@@ -5,5 +5,6 @@ resources:
   - ../../base/monitoring
   - helm-release-elasticsearch-exporter.yaml
 patchesStrategicMerge:
-  - helm-release-values.yaml
   - helm-release-kafka-exporter-values.yaml
+  - helm-release-prometheus-values.yaml
+  - helm-release-thanos-values.yaml
