@@ -6,6 +6,11 @@ metadata:
   namespace: flux-system
 spec:
   values:
+    alertmanager:
+      ingress:
+        enabled: false
+        hosts:
+          - alertmanager.fellesdatakatalog.digdir.no
     grafana:
       ingress:
         enabled: false
@@ -13,5 +18,6 @@ spec:
           - grafana.fellesdatakatalog.digdir.no
     prometheus:
       ingress:
+        enabled: false
         hosts:
           - prometheus.fellesdatakatalog.digdir.no

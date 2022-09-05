@@ -20,9 +20,26 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    alertmanager:
+      service:
+        type: NodePort
+      ingress:
+        enabled: true
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          nginx.ingress.kubernetes.io/auth-type: basic
+          nginx.ingress.kubernetes.io/auth-secret: basic-auth
+          nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+      alertmanagerSpec:
+        logLevel: debug
+        alertmanagerConfigSelector:
+          matchLabels:
+            manager: default
     grafana:
       service:
         type: NodePort
+      serviceMonitor:
+        scrapeTimeout: 10s
       ingress:
         enabled: true
         annotations:
@@ -35,11 +52,21 @@ spec:
       service:
         type: NodePort
       ingress:
-        enabled: false
+        enabled: true
         annotations:
           kubernetes.io/ingress.class: nginx
+          nginx.ingress.kubernetes.io/auth-type: basic
+          nginx.ingress.kubernetes.io/auth-secret: basic-auth
+          nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+      thanosService:
+        enabled: true
       prometheusSpec:
-        scrapeInterval: 10s
+        thanos:
+          objectStorageConfig:
+            key: objstore.yml
+            name: thanos-objstore
+        scrapeInterval: 15s
+        scrapeTimeout: 10s
         # Allow Prometheus to discover all PodMonitors/ServiceMonitors within
         # its namespace, without applying label filtering.
         podMonitorSelectorNilUsesHelmValues: false
