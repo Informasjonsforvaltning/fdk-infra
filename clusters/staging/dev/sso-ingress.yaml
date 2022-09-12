@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: new-sso
+  namespace: staging
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: new-sso.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - backend:
+              service:
+                name: new-sso
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
