@@ -8,4 +8,3 @@ spec:
   values:
     kafkaServer:
       - kafka-1.staging:9092
-      - kafka-1.demo:9092
