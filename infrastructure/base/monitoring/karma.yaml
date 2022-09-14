@@ -20,9 +20,34 @@ spec:
           image: ghcr.io/prymitive/karma:latest
           ports:
             - containerPort: 8080
-          env:
-            - name: ALERTMANAGER_URI
-              value: http://monitoring-kube-prometheus-alertmanager.monitoring:9093
+          volumeMounts:
+            - name: config
+              mountPath: /karma.yaml
+              subPath: karma.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: karma-config
+            optional: true
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: karma-config
+  namespace: monitoring
+data:
+  karma.yaml: |
+    alertmanager:
+      servers:
+        - name: alertmanager
+          uri: http://monitoring-kube-prometheus-alertmanager.monitoring:9093
+    filters:
+      default:
+        - alertname!=Watchdog
+        - alertname!=InfoInhibitor
+        - alertname!=KubeControllerManagerDown
+        - alertname!=KubeProxyDown
+        - alertname!=KubeSchedulerDown
 ---
 apiVersion: v1
 kind: Service
