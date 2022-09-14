@@ -1,0 +1,21 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: rule
+  namespace: monitoring
+  labels:
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: fdk
+      rules:
+        - alert: MessageProcessingFailure
+          annotations:
+            description: A messsage was not processed successfully
+            summary: Failed to process message
+          expr: |-
+            sum(rate(processed_messages{status="error"}[30s])*30) by (fdk_service, kubernetes_namespace) > 0
+          for: 0s
+          labels:
+            severity: warning
