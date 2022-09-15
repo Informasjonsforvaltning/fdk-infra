@@ -114,6 +114,7 @@ spec:
   route:
     groupBy:
       - alertname
+    matchers: []
     groupWait: 10s
     groupInterval: 1m
     repeatInterval: 1h
