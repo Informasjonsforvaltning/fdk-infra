@@ -27,7 +27,7 @@ htpasswd -c /dev/stdout <user> | xargs -i kubectl create secret -n monitoring ge
 ### Slack api key for alertmanager
 
 ```
-kubectl create secret -n monitoring generic alertmanager-slack --from-literal=apiurl=<slack api url>
+kubectl create secret -n flux-system generic alertmanager-slack --from-literal=apiurl=<slack api url>
 ```
 
 ### Storage bucket for thanos

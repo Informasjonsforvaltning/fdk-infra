@@ -19,6 +19,11 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
+  valuesFrom:
+    - kind: Secret
+      name: alertmanager-slack
+      targetPath: alertmanager.config.global.slack_api_url
+      valuesKey: apiurl
   values:
     alertmanager:
       service:
@@ -35,6 +40,84 @@ spec:
         alertmanagerConfigSelector:
           matchLabels:
             manager: default
+      config:
+        route:
+          receiver: noop
+          routes:
+            - receiver: noop
+              matchers:
+                - alertname =~ "InfoInhibitor|Watchdog"
+            - receiver: slack
+              continue: true
+              group_by: ["..."]
+              group_wait: 10s
+              group_interval: 1m
+              repeat_interval: 1h
+        receivers:
+          - name: noop
+          - name: slack
+            slack_configs:
+              - channel: fdk-staging-alerts
+                send_resolved: true
+                username: Alertmanager
+                title: |
+                  {{- if (index .Alerts 0).Annotations.summary -}}
+                    {{ (index .Alerts 0).Annotations.summary }}
+                  {{- else if .CommonLabels.alertname -}}
+                    {{ .CommonLabels.alertname }}
+                  {{- else -}}
+                    Alert
+                  {{- end -}}
+                  {{- " " -}}
+                  {{- if eq .CommonLabels.severity "critical" -}}
+                    🔥
+                  {{- else if eq .CommonLabels.severity "error" -}}
+                    ❌
+                  {{- else if eq .CommonLabels.severity "warning" -}}
+                    ⚠️
+                  {{- else if eq .CommonLabels.severity "info" -}}
+                    ℹ️
+                  {{- else -}}
+                    ❕
+                  {{- end }}
+                pretext: ""
+                text: |
+                  {{ range .Alerts }}
+                    {{- if .Annotations.description -}}
+                      > _{{ .Annotations.description }}_
+                      {{- "\n" -}}
+                    {{- end -}}
+                    • alertname: `{{ .Labels.alertname }}`
+                    {{- "\n" -}}
+                    {{- if .Labels -}}
+                      {{- range .Labels.SortedPairs -}}
+                        {{- if not (or (eq .Name "alertname") (eq .Name "severity") (eq .Name "prometheus") (eq .Name "integration")) -}}
+                          • {{ .Name }}: `{{ .Value }}`
+                          {{- "\n" -}}
+                        {{- end -}}
+                      {{- end -}}
+                    {{- end -}}
+                  {{ end }}
+                icon_url: https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/256px-Prometheus_software_logo.svg.png
+                actions:
+                  - type: button
+                    text: "Query :mag:"
+                    url: "{{ (index .Alerts 0).GeneratorURL }}"
+                  - type: button
+                    text: "Dashboard :chart_with_upwards_trend:"
+                    url: "{{ (index .Alerts 0).Annotations.dashboard_url }}"
+                  - type: button
+                    text: "Silence :no_bell:"
+                    url: |
+                      {{ .ExternalURL }}/#/silences/new?filter=%7B
+                      {{- range .Alerts -}}
+                        {{- range .Labels.SortedPairs -}}
+                            {{- if ne .Name "alertname" -}}
+                                {{- .Name }}%3D%22{{- .Value -}}%22%2C%20
+                            {{- end -}}
+                        {{- end -}}
+                        alertname%3D%22{{- .Labels.alertname -}}%22%7D
+                      {{- end -}}
     grafana:
       service:
         type: NodePort
