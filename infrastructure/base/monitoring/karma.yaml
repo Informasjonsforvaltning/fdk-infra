@@ -45,9 +45,6 @@ data:
       default:
         - alertname!=Watchdog
         - alertname!=InfoInhibitor
-        - alertname!=KubeControllerManagerDown
-        - alertname!=KubeProxyDown
-        - alertname!=KubeSchedulerDown
 ---
 apiVersion: v1
 kind: Service
