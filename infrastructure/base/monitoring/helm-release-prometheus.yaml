@@ -26,6 +26,8 @@ spec:
       valuesKey: apiurl
   values:
     alertmanager:
+      annotations:
+        cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
       service:
         type: NodePort
       ingress:
