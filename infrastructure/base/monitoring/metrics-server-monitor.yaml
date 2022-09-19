@@ -1,0 +1,36 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: metrics-server
+  namespace: monitoring
+spec:
+  endpoints:
+    - bearerTokenFile: /var/run/secrets/kubernetes.io/serviceaccount/token
+      port: https
+      scheme: https
+      tlsConfig:
+        insecureSkipVerify: true
+  namespaceSelector:
+    matchNames:
+      - kube-system
+  jobLabel: metrics-server
+  selector:
+    matchLabels:
+      k8s-app: monitoring-metrics-server
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    k8s-app: monitoring-metrics-server
+  name: monitoring-metrics-server
+  namespace: kube-system
+spec:
+  ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: https
+  type: ClusterIP
+  selector:
+    k8s-app: metrics-server

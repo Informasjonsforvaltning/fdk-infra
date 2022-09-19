@@ -9,5 +9,6 @@ resources:
   - helm-release-prometheus.yaml
   - helm-release-thanos.yaml
   - karma.yaml
+  - metrics-server-monitor.yaml
   - namespace.yaml
   - prometheus-community-helm-repo.yaml
