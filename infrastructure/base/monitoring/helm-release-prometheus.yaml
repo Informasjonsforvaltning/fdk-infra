@@ -25,6 +25,15 @@ spec:
       targetPath: alertmanager.config.global.slack_api_url
       valuesKey: apiurl
   values:
+    coreDns:
+      enabled: false
+    kubeDns:
+      enabled: true
+    defaultRules:
+      rules:
+        kubeControllerManager: false
+        kubeProxy: false
+        kubeScheduler: false
     alertmanager:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
