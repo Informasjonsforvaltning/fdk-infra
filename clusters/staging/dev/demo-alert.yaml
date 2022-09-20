@@ -1,0 +1,22 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: demo-alert
+  namespace: monitoring
+  labels:
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: demo
+      rules:
+        - alert: DemoAlert
+          annotations:
+            description: "Wohoo, the demo works :raised_hands:"
+            summary: Demo alert
+          expr: |-
+            demo{} > 0
+          for: 0s
+          labels:
+            severity: info
+            dashboard_url: https://grafana.staging.fellesdatakatalog.digdir.no
