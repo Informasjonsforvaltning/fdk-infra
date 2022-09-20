@@ -61,9 +61,9 @@ spec:
             - receiver: slack
               continue: true
               group_by: ["..."]
-              group_wait: 10s
-              group_interval: 1m
-              repeat_interval: 1h
+              group_wait: 0s
+              group_interval: 0s
+              repeat_interval: 2h
         receivers:
           - name: noop
           - name: slack
