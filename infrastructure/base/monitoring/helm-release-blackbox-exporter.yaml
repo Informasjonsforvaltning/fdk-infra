@@ -23,11 +23,5 @@ spec:
     serviceMonitor:
       enabled: true
       targets:
-        - name: fdk
-          url: https://data.norge.no/
-        - name: datalandsbyen
-          url: https://datalandsbyen.norge.no/
-        - name: datafabrikken
-          url: https://datafabrikken.norge.no/
         - name: datajegeren
           url: https://datafabrikken.norge.no/finn-data/datajegeren
