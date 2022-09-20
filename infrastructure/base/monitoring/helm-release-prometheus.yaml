@@ -61,8 +61,8 @@ spec:
             - receiver: slack
               continue: true
               group_by: ["..."]
-              group_wait: 0s
-              group_interval: 0s
+              group_wait: 1s
+              group_interval: 1s
               repeat_interval: 2h
         receivers:
           - name: noop
@@ -102,7 +102,7 @@ spec:
                     {{- "\n" -}}
                     {{- if .Labels -}}
                       {{- range .Labels.SortedPairs -}}
-                        {{- if not (or (eq .Name "alertname") (eq .Name "severity") (eq .Name "prometheus") (eq .Name "integration")) -}}
+                        {{- if not (or (eq .Name "alertname") (eq .Name "dashboard_url") (eq .Name "severity") (eq .Name "prometheus") (eq .Name "integration")) -}}
                           • {{ .Name }}: `{{ .Value }}`
                           {{- "\n" -}}
                         {{- end -}}
@@ -116,7 +116,7 @@ spec:
                     url: "{{ (index .Alerts 0).GeneratorURL }}"
                   - type: button
                     text: "Dashboard :chart_with_upwards_trend:"
-                    url: "{{ (index .Alerts 0).Annotations.dashboard_url }}"
+                    url: "{{ (index .Alerts 0).Labels.dashboard_url }}"
                   - type: button
                     text: "Silence :no_bell:"
                     url: |
