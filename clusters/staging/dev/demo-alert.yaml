@@ -18,5 +18,5 @@ spec:
             demo{} > 0
           for: 0s
           labels:
-            severity: info
+            severity: warning
             dashboard_url: https://grafana.staging.fellesdatakatalog.digdir.no
