@@ -21,13 +21,19 @@ Secrets must be created manually.
 ### Basic auth for ingresses
 
 ```
-htpasswd -c /dev/stdout <user> | xargs -i kubectl create secret -n monitoring generic basic-auth --from-literal=auth={}
+htpasswd -c /dev/stdout <user> | xargs -i kubectl create secret -n monitoring generic ingress-basic-auth --from-literal=auth={}
 ```
 
 ### Slack api key for alertmanager
 
 ```
-kubectl create secret -n flux-system generic alertmanager-slack --from-literal=apiurl=<slack api url>
+kubectl create secret -n flux-system generic kube-prometheus-stack-alertmanager --from-literal=slack-apiurl=<slack api url>
+```
+
+### Grafana password
+
+```
+kubectl create secret -n flux-system generic kube-prometheus-stack-grafana --from-literal=password=<password>
 ```
 
 ### Storage bucket for thanos
