@@ -134,9 +134,10 @@ spec:
                         alertname%3D%22{{- .Labels.alertname -}}%22%7D
                       {{- end -}}
     grafana:
-      datasources:
-        url: http://monitoring-thanos-query-frontend.monitoring:9090
-        defaultDatasourceScrapeInterval: 5s
+      sidecar:
+        datasources:
+          url: http://monitoring-thanos-query-frontend.monitoring:9090
+          defaultDatasourceScrapeInterval: 5s
       service:
         type: NodePort
       serviceMonitor:
