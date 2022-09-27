@@ -7,6 +7,8 @@ metadata:
   annotations:
     # See frontend-config.yaml.
     networking.gke.io/v1beta1.FrontendConfig: nginx-controller
+    ingress.gcp.kubernetes.io/pre-shared-cert: stjerne-staging-fdk-digdir-no-ssl-2
+    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v4
 spec:
   rules:
     - http:
@@ -27,6 +29,8 @@ metadata:
   annotations:
     # See frontend-config.yaml.
     networking.gke.io/v1beta1.FrontendConfig: nginx-controller
+    ingress.gcp.kubernetes.io/pre-shared-cert: stjerne-staging-fdk-digdir-no-ssl-2
+    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v6
 spec:
   rules:
     - http:
