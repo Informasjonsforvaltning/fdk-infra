@@ -72,7 +72,7 @@ spec:
           - name: noop
           - name: slack
             slack_configs:
-              - channel: fdk-staging-alerts
+              - channel: ""
                 send_resolved: true
                 username: Alertmanager
                 title: |

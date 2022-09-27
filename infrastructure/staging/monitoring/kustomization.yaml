@@ -9,3 +9,12 @@ patchesStrategicMerge:
   - helm-release-prometheus-values.yaml
   - helm-release-thanos-values.yaml
   - karma.yaml
+patches:
+  - patch: |-
+      - op: add
+        path: /spec/values/alertmanager/config/receivers/1/slack_configs/0/channel
+        value: fdk-staging-alerts
+    target:
+      kind: HelmRelease
+      name: kube-prometheus-stack
+      namespace: flux-system
