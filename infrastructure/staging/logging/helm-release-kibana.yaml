@@ -1,0 +1,13 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: kibana
+  namespace: flux-system
+spec:
+  values:
+    ingress:
+      hosts:
+        - host: kibana.staging.fellesdatakatalog.digdir.no
+          paths:
+            - path: /
