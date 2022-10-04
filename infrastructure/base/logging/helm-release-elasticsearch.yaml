@@ -1,0 +1,22 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: elasticsearch
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: logging
+  chart:
+    spec:
+      version: 7.x
+      chart: elasticsearch
+      sourceRef:
+        kind: HelmRepository
+        name: elastic
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values: {}

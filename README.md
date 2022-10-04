@@ -24,6 +24,10 @@ Secrets must be created manually.
 htpasswd -c /dev/stdout <user> | xargs -i kubectl create secret -n monitoring generic ingress-basic-auth --from-literal=auth={}
 ```
 
+```
+htpasswd -c /dev/stdout <user> | xargs -i kubectl create secret -n logging generic ingress-basic-auth --from-literal=auth={}
+```
+
 ### Slack api key for alertmanager
 
 ```
