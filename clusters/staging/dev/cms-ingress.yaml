@@ -2,17 +2,17 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: new-sso
+  name: fdk-cms-service
   namespace: staging
 spec:
   ingressClassName: nginx
   rules:
-    - host: new-sso.staging.fellesdatakatalog.digdir.no
+    - host: cms.staging.fellesdatakatalog.digdir.no
       http:
         paths:
           - backend:
               service:
-                name: new-sso
+                name: fdk-cms-service
                 port:
                   number: 8080
             path: /
