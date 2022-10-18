@@ -4,5 +4,5 @@ kind: Kustomization
 resources:
   - demo-alert.yaml
   - metrics-editor.yaml
-  - sso-ingress.yaml
+  - cms-ingress.yaml
   - rule.yaml
