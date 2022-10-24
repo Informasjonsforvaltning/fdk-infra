@@ -19,6 +19,18 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
+  postRenderers:
+    - kustomize:
+      patchesStrategicMerge:
+        - kind: Deployment
+          apiVersion: apps/v1
+          metadata:
+            name: monitoring-kube-prometheus-stack-grafana
+          spec:
+            containers:
+              envFrom:
+                - secretRef:
+                  name: kube-prometheus-stack-grafana
   valuesFrom:
     - kind: Secret
       name: kube-prometheus-stack-alertmanager
