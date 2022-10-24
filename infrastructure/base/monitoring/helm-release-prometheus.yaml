@@ -30,7 +30,7 @@ spec:
               containers:
                 envFrom:
                   - secretRef:
-                    name: kube-prometheus-stack-grafana
+                      name: kube-prometheus-stack-grafana
   valuesFrom:
     - kind: Secret
       name: kube-prometheus-stack-alertmanager
