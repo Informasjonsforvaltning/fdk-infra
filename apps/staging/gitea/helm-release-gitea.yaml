@@ -1,0 +1,15 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitea
+  namespace: flux-system
+spec:
+  targetNamespace: staging
+  values:
+    ingress:
+      hosts:
+        - host: gitea.staging.fellesdatakatalog.digdir.no
+          paths:
+            - path: /
+              pathType: Prefix
