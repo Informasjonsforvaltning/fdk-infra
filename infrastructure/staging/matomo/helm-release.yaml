@@ -1,0 +1,12 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: matomo
+  namespace: flux-system
+spec:
+  values:
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hostname: matomo.staging.fellesdatakatalog.digdir.no
