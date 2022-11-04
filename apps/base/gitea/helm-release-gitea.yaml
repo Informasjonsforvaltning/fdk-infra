@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitea
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      version: 6.x
+      chart: gitea
+      sourceRef:
+        kind: HelmRepository
+        name: gitea
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  valuesFrom:
+    - kind: Secret
+      name: gitea
+      targetPath: gitea.admin.password
+      valuesKey: password
+  values:
+    gitea:
+      metrics:
+        enabled: true
+        serviceMonitor:
+          enabled: true
+    ingress:
+      enabled: true
+      className: nginx
+      annotations:
+        # nginx.ingress.kubernetes.io/auth-type: basic
+        nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
+        nginx.ingress.kubernetes.io/auth-realm: Authentication Required
