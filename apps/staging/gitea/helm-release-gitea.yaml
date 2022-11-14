@@ -18,6 +18,9 @@ spec:
       enabled: false
     gitea:
       config:
+        server:
+          # By default without https (results in warning)
+          ROOT_URL: https://gitea.staging.fellesdatakatalog.digdir.no
         database:
           DB_TYPE: postgres
   valuesFrom:
