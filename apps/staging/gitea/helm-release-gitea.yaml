@@ -13,3 +13,26 @@ spec:
           paths:
             - path: /
               pathType: Prefix
+    postgres:
+      enabled: false
+    gitea:
+      config:
+        database:
+          DB_TYPE: postgres
+  valuesFrom:
+    - kind: Secret
+      name: gitea-staging
+      targetPath: gitea.config.database.HOST
+      valuesKey: POSTGRES_HOST
+    - kind: Secret
+      name: gitea-staging
+      targetPath: gitea.config.database.USER
+      valuesKey: POSTGRES_USERNAME
+    - kind: Secret
+      name: gitea-staging
+      targetPath: gitea.config.database.PASSWD
+      valuesKey: POSTGRES_PASSWORD
+    - kind: Secret
+      name: gitea-staging
+      targetPath: gitea.config.database.NAME
+      valuesKey: POSTGRES_DB_NAME
