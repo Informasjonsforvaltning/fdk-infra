@@ -13,7 +13,7 @@ spec:
           paths:
             - path: /
               pathType: Prefix
-    postgres:
+    postgresql:
       enabled: false
     gitea:
       config:
