@@ -9,6 +9,9 @@ spec:
   values:
     ingress:
       enabled: true
+      annotations:
+        # Disable basic auth
+        nginx.ingress.kubernetes.io/auth-type: ""
       hosts:
         - host: gitea.staging.fellesdatakatalog.digdir.no
           paths:
@@ -24,6 +27,11 @@ spec:
         database:
           DB_TYPE: postgres
   valuesFrom:
+    # List is overwritten, not merged with base. Must therefore configure password here.
+    - kind: Secret
+      name: gitea-staging
+      targetPath: gitea.admin.password
+      valuesKey: ADMIN_PASSWORD
     - kind: Secret
       name: gitea-staging
       targetPath: gitea.config.database.HOST
