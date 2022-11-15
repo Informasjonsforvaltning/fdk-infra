@@ -9,9 +9,6 @@ spec:
   values:
     ingress:
       enabled: true
-      annotations:
-        # Disable basic auth
-        nginx.ingress.kubernetes.io/auth-type: ""
       hosts:
         - host: gitea.staging.fellesdatakatalog.digdir.no
           paths:
