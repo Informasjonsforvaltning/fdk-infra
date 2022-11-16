@@ -1,0 +1,26 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-error-pages-404
+  namespace: nginx
+data:
+  "404.html": |
+    <!DOCTYPE html>
+    <html>
+      <head><title>PAGE NOT FOUND</title></head>
+      <body>PAGE NOT FOUND</body>
+    </html>
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: custom-error-pages-503
+  namespace: nginx
+data:
+  "503.html": |
+    <!DOCTYPE html>
+    <html>
+      <head><title>CUSTOM SERVICE UNAVAILABLE</title></head>
+      <body>CUSTOM SERVICE UNAVAILABLE</body>
+    </html>
