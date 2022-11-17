@@ -36,3 +36,10 @@ spec:
         nginx.ingress.kubernetes.io/auth-type: basic
         nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
         nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+    resources:
+      requests:
+        cpu: 2000m
+        memory: 800Mi
+      limits:
+        cpu: 3000m
+        memory: 1200Mi
