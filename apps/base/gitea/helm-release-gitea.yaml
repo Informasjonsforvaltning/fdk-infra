@@ -29,6 +29,9 @@ spec:
         enabled: true
         serviceMonitor:
           enabled: true
+      config:
+        log:
+          LEVEL: Warn
     ingress:
       enabled: false
       className: nginx
