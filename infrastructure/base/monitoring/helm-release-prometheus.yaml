@@ -216,6 +216,7 @@ spec:
           # Use blackbox to gather metrics regarding ingresses.
           # Source: https://github.com/prometheus/prometheus/blob/c1b669bf9b0b1286ece53c977262089119783105/documentation/examples/prometheus-kubernetes.yml#L224-L260
           - job_name: kubernetes-ingresses
+            scrape_interval: 1m
             metrics_path: /probe
             params:
               module:
