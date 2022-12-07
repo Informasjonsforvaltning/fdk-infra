@@ -9,14 +9,14 @@ spec:
     query:
       ingress:
         # enabled: true
-        hostname: thanos-query.staging.fellesdatakatalog.digdir.no
+        hostname: thanos-query.dev.fellesdatakatalog.digdir.no
     queryFrontend:
       ingress:
-        hostname: thanos.staging.fellesdatakatalog.digdir.no
+        hostname: thanos.dev.fellesdatakatalog.digdir.no
     storegateway:
       ingress:
-        hostname: thanos-store.staging.fellesdatakatalog.digdir.no
+        hostname: thanos-store.dev.fellesdatakatalog.digdir.no
     compactor:
       ingress:
         # enabled: true
-        hostname: thanos-compactor.staging.fellesdatakatalog.digdir.no
+        hostname: thanos-compactor.dev.fellesdatakatalog.digdir.no

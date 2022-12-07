@@ -2,12 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: apps
+  name: monitoring
   namespace: flux-system
 spec:
-  interval: 10s
-  path: ./apps/staging
+  interval: 1m0s
+  retryInterval: 10s
+  path: ./infrastructure/dev/monitoring
   prune: true
   sourceRef:
     kind: GitRepository
     name: flux-system
+  dependsOn:
+    - name: nginx

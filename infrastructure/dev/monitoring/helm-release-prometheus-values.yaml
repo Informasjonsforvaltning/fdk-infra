@@ -9,12 +9,12 @@ spec:
     alertmanager:
       ingress:
         hosts:
-          - alertmanager.staging.fellesdatakatalog.digdir.no
+          - alertmanager.dev.fellesdatakatalog.digdir.no
     grafana:
       ingress:
         hosts:
-          - grafana.staging.fellesdatakatalog.digdir.no
+          - grafana.dev.fellesdatakatalog.digdir.no
     prometheus:
       ingress:
         hosts:
-          - prometheus.staging.fellesdatakatalog.digdir.no
+          - prometheus.dev.fellesdatakatalog.digdir.no

@@ -8,6 +8,6 @@ spec:
   values:
     ingress:
       hosts:
-        - host: kibana.staging.fellesdatakatalog.digdir.no
+        - host: kibana.dev.fellesdatakatalog.digdir.no
           paths:
             - path: /

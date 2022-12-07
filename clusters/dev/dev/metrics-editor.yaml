@@ -50,7 +50,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: metrics-editor.staging.fellesdatakatalog.digdir.no
+    - host: metrics-editor.dev.fellesdatakatalog.digdir.no
       http:
         paths:
           - path: /

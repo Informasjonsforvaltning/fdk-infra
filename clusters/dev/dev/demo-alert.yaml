@@ -19,4 +19,4 @@ spec:
           for: 0s
           labels:
             severity: warning
-            dashboard_url: https://grafana.staging.fellesdatakatalog.digdir.no
+            dashboard_url: https://grafana.dev.fellesdatakatalog.digdir.no
