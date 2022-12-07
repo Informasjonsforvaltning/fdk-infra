@@ -2,7 +2,4 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - demo-alert.yaml
-  - metrics-editor.yaml
   - cms-ingress.yaml
-  - rule.yaml
