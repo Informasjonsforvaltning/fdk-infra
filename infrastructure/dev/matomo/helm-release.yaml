@@ -9,4 +9,4 @@ spec:
     ingress:
       enabled: true
       ingressClassName: nginx
-      hostname: matomo.staging.fellesdatakatalog.digdir.no
+      hostname: matomo.dev.fellesdatakatalog.digdir.no

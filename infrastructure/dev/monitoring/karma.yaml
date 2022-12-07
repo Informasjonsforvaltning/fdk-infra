@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
 spec:
   rules:
-    - host: karma.staging.fellesdatakatalog.digdir.no
+    - host: karma.dev.fellesdatakatalog.digdir.no
       http:
         paths:
           - path: /

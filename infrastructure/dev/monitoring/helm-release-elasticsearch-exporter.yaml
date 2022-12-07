@@ -21,6 +21,6 @@ spec:
     crds: CreateReplace
   values:
     es:
-      uri: http://elasticsearch7.staging:9200
+      uri: http://elasticsearch.staging:9200
     serviceMonitor:
       enabled: true
