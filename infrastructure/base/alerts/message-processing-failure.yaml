@@ -2,7 +2,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: rule
+  name: message-processing-failure
   namespace: monitoring
   labels:
     release: monitoring-kube-prometheus-stack
