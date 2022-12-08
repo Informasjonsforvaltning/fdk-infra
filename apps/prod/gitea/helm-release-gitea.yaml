@@ -26,22 +26,22 @@ spec:
   valuesFrom:
     # List is overwritten, not merged with base. Must therefore configure password here.
     - kind: Secret
-      name: gitea-staging
+      name: gitea-prod
       targetPath: gitea.admin.password
       valuesKey: ADMIN_PASSWORD
     - kind: Secret
-      name: gitea-staging
+      name: gitea-prod
       targetPath: gitea.config.database.HOST
       valuesKey: POSTGRES_HOST
     - kind: Secret
-      name: gitea-staging
+      name: gitea-prod
       targetPath: gitea.config.database.USER
       valuesKey: POSTGRES_USERNAME
     - kind: Secret
-      name: gitea-staging
+      name: gitea-prod
       targetPath: gitea.config.database.PASSWD
       valuesKey: POSTGRES_PASSWORD
     - kind: Secret
-      name: gitea-staging
+      name: gitea-prod
       targetPath: gitea.config.database.NAME
       valuesKey: POSTGRES_DB_NAME
