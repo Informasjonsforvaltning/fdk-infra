@@ -1,0 +1,47 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gitea
+  namespace: flux-system
+spec:
+  targetNamespace: prod
+  values:
+    ingress:
+      enabled: true
+      hosts:
+        - host: gitea.fellesdatakatalog.digdir.no
+          paths:
+            - path: /
+              pathType: Prefix
+    postgresql:
+      enabled: false
+    gitea:
+      config:
+        server:
+          # By default without https (results in warning)
+          ROOT_URL: https://gitea.fellesdatakatalog.digdir.no
+        database:
+          DB_TYPE: postgres
+  valuesFrom:
+    # List is overwritten, not merged with base. Must therefore configure password here.
+    - kind: Secret
+      name: gitea-prod
+      targetPath: gitea.admin.password
+      valuesKey: ADMIN_PASSWORD
+    - kind: Secret
+      name: gitea-prod
+      targetPath: gitea.config.database.HOST
+      valuesKey: POSTGRES_HOST
+    - kind: Secret
+      name: gitea-prod
+      targetPath: gitea.config.database.USER
+      valuesKey: POSTGRES_USERNAME
+    - kind: Secret
+      name: gitea-prod
+      targetPath: gitea.config.database.PASSWD
+      valuesKey: POSTGRES_PASSWORD
+    - kind: Secret
+      name: gitea-prod
+      targetPath: gitea.config.database.NAME
+      valuesKey: POSTGRES_DB_NAME
