@@ -16,6 +16,9 @@ spec:
               pathType: Prefix
     postgresql:
       enabled: false
+    memcached:
+      image:
+        tag: 1.6.17-debian-11-r34  
     gitea:
       config:
         server:
