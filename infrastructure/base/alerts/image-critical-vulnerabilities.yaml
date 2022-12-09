@@ -1,0 +1,20 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: image-critical-vulnerabilities
+  namespace: monitoring
+  labels:
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: fdk
+      rules:
+        - alert: ImageCriticalVulnerabilities
+          annotations:
+            summary: Image has critical vulnerabilities
+            description: "{{ $labels.image_repository }} has more than 10 critical vulnerabilities!!!"
+          expr: trivy_image_vulnerabilities{severity="Critical"} >= 10
+          for: 0s
+          labels:
+            dashboard_url: https://grafana.fellesdatakatalog.digdir.no/d/trivy/trivy?orgId=1

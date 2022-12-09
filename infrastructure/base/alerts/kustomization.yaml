@@ -5,3 +5,4 @@ resources:
   - demo-alert.yaml
   - message-processing-failure.yaml
   - mail-processing-failure.yaml
+  - image-critical-vulnerabilities.yaml
