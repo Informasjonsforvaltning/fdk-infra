@@ -63,6 +63,14 @@ spec:
               matchers:
                 - alertname =~ "InfoInhibitor|Watchdog"
             - receiver: slack
+              continue: false
+              group_by: ["alertname"]
+              group_wait: 10m
+              group_interval: 30m
+              repeat_interval: 72h
+              matchers:
+                - alertname = "CriticalVulnerabilities"
+            - receiver: slack
               continue: true
               group_by: ["..."]
               group_wait: 1s
@@ -85,7 +93,7 @@ spec:
                   {{- end -}}
                   {{- " " -}}
                   {{- if eq .CommonLabels.severity "critical" -}}
-                    🔥
+                    🔥🚽
                   {{- else if eq .CommonLabels.severity "error" -}}
                     ❌
                   {{- else if eq .CommonLabels.severity "warning" -}}

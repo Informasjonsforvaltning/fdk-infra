@@ -13,8 +13,8 @@ spec:
         - alert: ImageCriticalVulnerabilities
           annotations:
             summary: Image has critical vulnerabilities
-            description: "{{ $labels.image_repository }} has more than 10 critical vulnerabilities!!!"
+            description: "{{ $labels.image_repository }} has {{ $value }} critical vulnerabilities."
           expr: trivy_image_vulnerabilities{severity="Critical"} >= 10
-          for: 0s
+          for: 10s
           labels:
             dashboard_url: https://grafana.fellesdatakatalog.digdir.no/d/trivy/trivy?orgId=1
