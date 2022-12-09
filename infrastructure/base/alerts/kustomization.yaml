@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - demo-alert.yaml
   - message-processing-failure.yaml
+  - mail-processing-failure.yaml

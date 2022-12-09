@@ -1,0 +1,21 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: mail-processing-failure
+  namespace: monitoring
+  labels:
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: fdk
+      rules:
+        - alert: MailProcessingFailure
+          annotations:
+            description: A mail request failed
+            summary: Failed to process mail request
+          expr: |-
+            rate(processed_mail_requests{status!="success"}[15s]) > 0
+          for: 0s
+          labels:
+            severity: warning
