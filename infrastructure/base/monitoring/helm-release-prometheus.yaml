@@ -135,7 +135,7 @@ spec:
                       {{ .ExternalURL }}/#/silences/new?filter=%7B
                       {{- range .Alerts -}}
                         {{- range .Labels.SortedPairs -}}
-                            {{- if ne .Name "alertname" -}}
+                            {{- if (and (ne .Name "alertname") (ne .Name "dashboard_url")) -}}
                                 {{- .Name }}%3D%22{{- .Value -}}%22%2C%20
                             {{- end -}}
                         {{- end -}}
