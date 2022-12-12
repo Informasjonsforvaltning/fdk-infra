@@ -15,7 +15,7 @@ spec:
             - path: /
               pathType: Prefix
     postgresql:
-      enabled: false    
+      enabled: false
     gitea:
       config:
         server:
