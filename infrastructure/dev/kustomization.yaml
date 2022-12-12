@@ -4,7 +4,6 @@ kind: Kustomization
 resources:
   - alerts.yaml
   - logging.yaml
-  - matomo.yaml
   - monitoring.yaml
   - nginx.yaml
   - trivy.yaml
