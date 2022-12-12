@@ -32,6 +32,9 @@ spec:
       config:
         log:
           LEVEL: Warn
+    memcached:
+      image:
+        tag: 1.6.17-debian-11-r34        
     ingress:
       enabled: false
       className: nginx
