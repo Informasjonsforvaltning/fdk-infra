@@ -5,7 +5,7 @@ resources:
   - ../../base/gitea
 patches:
   - target:
-      kind: Deployment
+      kind: HelmRelease
       name: gitea
     patch: |-
       - op: replace
