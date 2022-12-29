@@ -53,7 +53,7 @@ spec:
     compactor:
       enabled: true
       persistence:
-        size: 16Gi
+        size: 24Gi
       ingress:
         enabled: false
         ingressClassName: nginx
