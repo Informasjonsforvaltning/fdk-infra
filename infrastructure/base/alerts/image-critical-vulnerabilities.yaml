@@ -18,3 +18,4 @@ spec:
           for: 10s
           labels:
             dashboard_url: https://grafana.fellesdatakatalog.digdir.no/d/trivy/trivy?orgId=1
+            severity: warning
