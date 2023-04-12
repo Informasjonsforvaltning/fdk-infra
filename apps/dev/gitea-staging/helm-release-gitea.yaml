@@ -5,6 +5,14 @@ metadata:
   name: gitea
   namespace: flux-system
 spec:
+  chart:
+    spec:
+      version: 8.x
+      chart: gitea
+      sourceRef:
+        kind: HelmRepository
+        name: gitea
+      interval: 60m
   targetNamespace: staging
   values:
     ingress:
@@ -23,6 +31,9 @@ spec:
           ROOT_URL: https://gitea.staging.fellesdatakatalog.digdir.no
         database:
           DB_TYPE: postgres
+    memcached:
+      image:
+        tag: 1.6.19-debian-11-r10
   valuesFrom:
     # List is overwritten, not merged with base. Must therefore configure password here.
     - kind: Secret
