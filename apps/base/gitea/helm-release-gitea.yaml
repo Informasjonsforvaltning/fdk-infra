@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      version: 6.x
+      version: 8.x
       chart: gitea
       sourceRef:
         kind: HelmRepository
@@ -34,7 +34,7 @@ spec:
           LEVEL: Warn
     memcached:
       image:
-        tag: 1.6.17-debian-11-r34        
+        tag: 1.6.19-debian-11-r10
     ingress:
       enabled: false
       className: nginx
