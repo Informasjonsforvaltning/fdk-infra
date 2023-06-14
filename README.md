@@ -2,9 +2,11 @@
 
 Repo for FDK-infrastructure
 
-## Setup
+## Setup / Update
 
 ```
+Make sure you are running latest version of Flux (https://fluxcd.io/flux/installation/)
+
 export GITHUB_TOKEN=<github token>
 
 flux bootstrap github \
