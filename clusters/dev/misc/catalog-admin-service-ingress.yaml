@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: catalog-admin-service
+  namespace: staging
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: catalog-admin-service.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - backend:
+              service:
+                name: catalog-admin-service
+                port:
+                  number: 8080
+            path: /
+            pathType: Prefix
