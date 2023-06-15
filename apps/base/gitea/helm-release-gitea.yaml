@@ -34,7 +34,7 @@ spec:
           LEVEL: Warn
     memcached:
       image:
-        tag: 1.6.19-debian-11-r10
+        tag: 1.6.20-debian-11-r11
     ingress:
       enabled: false
       className: nginx
