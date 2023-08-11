@@ -22,7 +22,7 @@ spec:
           paths:
             - path: /
               pathType: Prefix
-    postgresql:
+    postgresql-ha:
       enabled: false
     gitea:
       config:
