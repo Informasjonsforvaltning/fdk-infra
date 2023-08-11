@@ -5,6 +5,14 @@ metadata:
   name: gitea
   namespace: flux-system
 spec:
+  chart:
+    spec:
+      version: 9.x
+      chart: gitea
+      sourceRef:
+        kind: HelmRepository
+        name: gitea
+      interval: 5m
   targetNamespace: staging
   values:
     ingress:
