@@ -14,7 +14,7 @@ spec:
           paths:
             - path: /
               pathType: Prefix
-    postgresql:
+    postgresql-ha:
       enabled: false
     gitea:
       config:
@@ -23,6 +23,10 @@ spec:
           ROOT_URL: https://gitea.demo.fellesdatakatalog.digdir.no
         database:
           DB_TYPE: postgres
+    persistence:
+      mount: true
+      create: false
+      claimName: data-demo-gitea-demo-0
   valuesFrom:
     # List is overwritten, not merged with base. Must therefore configure password here.
     - kind: Secret
