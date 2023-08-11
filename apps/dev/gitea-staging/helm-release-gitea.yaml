@@ -31,6 +31,9 @@ spec:
           ROOT_URL: https://gitea.staging.fellesdatakatalog.digdir.no
         database:
           DB_TYPE: postgres
+        persistence:
+          mount: true
+          create: false
   valuesFrom:
     # List is overwritten, not merged with base. Must therefore configure password here.
     - kind: Secret
@@ -53,3 +56,7 @@ spec:
       name: gitea-staging
       targetPath: gitea.config.database.NAME
       valuesKey: POSTGRES_DB_NAME
+    - kind: Secret
+      name: gitea-staging
+      targetPath: gitea.config.persistence.claimName
+      valuesKey: PERSISTENCE_CLAIMNAME
