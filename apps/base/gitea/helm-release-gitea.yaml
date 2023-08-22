@@ -6,6 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
+  strategy:
+    type: Recreate
   chart:
     spec:
       version: 9.x
