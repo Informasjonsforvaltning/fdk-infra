@@ -6,8 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
-  strategy:
-    type: Recreate
   chart:
     spec:
       version: 9.x
@@ -48,3 +46,5 @@ spec:
       limits:
         cpu: 3000m
         memory: 1200Mi
+    strategy:
+      type: Recreate
