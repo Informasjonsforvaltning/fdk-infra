@@ -16,6 +16,8 @@ spec:
               pathType: Prefix
     postgresql-ha:
       enabled: false
+    redis-cluster:
+      enabled: true
     gitea:
       config:
         server:
