@@ -1,0 +1,66 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: catalog-mongodb
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      version: 14.x
+      chart: mongodb
+      sourceRef:
+        kind: HelmRepository
+        name: catalog-mongodb
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  valuesFrom:
+    - kind: Secret
+      name: catalog-mongodb
+      targetPath: auth.rootPassword
+      valuesKey: ROOT_PASSWORD
+    - kind: Secret
+      name: catalog-mongodb
+      targetPath: auth.usernames
+      valuesKey: USERNAMES
+    - kind: Secret
+      name: catalog-mongodb
+      targetPath: auth.passwords
+      valuesKey: PASSWORDS
+    - kind: Secret
+      name: catalog-mongodb
+      targetPath: auth.databases
+      valuesKey: DATABASES
+    - kind: Secret
+      name: catalog-mongodb
+      targetPath: auth.replicaSetKey
+      valuesKey: REPLICASET_KEY
+  extraEnvVars:
+    - name: LOG_LEVEL
+      value: warning
+  values:
+    architecture: replicaset
+    nameOverride: catalog-mongodb
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    config:
+      log:
+        LEVEL: Warn
+    persistence:
+      resourcePolicy: keep
+      size: 10Gi
+    arbiter:
+      enabled: false
+    resources:
+      requests:
+        cpu: 1
+        memory: 800Mi
+      limits:
+        cpu: 3
+        memory: 1200Mi
