@@ -1,15 +1,13 @@
----
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../base/gitea
+- ../../base/gitea
 patches:
-  - target:
-      kind: HelmRelease
-      name: gitea
-    patch: |-
-      - op: replace
-        path: /metadata/name
-        value: gitea-staging
-patchesStrategicMerge:
-  - helm-release-gitea.yaml
+- patch: |-
+    - op: replace
+      path: /metadata/name
+      value: gitea-staging
+  target:
+    kind: HelmRelease
+    name: gitea
+- path: helm-release-gitea.yaml

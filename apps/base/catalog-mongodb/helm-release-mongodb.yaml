@@ -1,0 +1,42 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: catalog-mongodb
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      version: 14.x
+      chart: mongodb
+      sourceRef:
+        kind: HelmRepository
+        name: catalog-mongodb
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values:
+    architecture: replicaset
+    nameOverride: catalog-mongodb
+    replicaCount: 3
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+    persistence:
+      resourcePolicy: keep
+      size: 10Gi
+    arbiter:
+      enabled: false
+    resources:
+      requests:
+        cpu: 500m
+        memory: 400Mi
+        ephemeral-storage: "2Gi"
+      limits:
+        cpu: 1
+        memory: 800Mi
+        ephemeral-storage: "4Gi"
