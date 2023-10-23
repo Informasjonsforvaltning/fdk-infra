@@ -5,3 +5,4 @@ resources:
   - gitea-demo.yaml
   - gitea-staging.yaml
   - catalog-mongodb-staging.yaml
+  - backstage-staging.yaml
