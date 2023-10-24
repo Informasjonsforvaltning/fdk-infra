@@ -5,3 +5,4 @@ resources:
   - apps.yaml
   - infrastructure.yaml
   - misc
+  - elasticsearch-operator
