@@ -1,0 +1,17 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: elasticsearch-operator
+  namespace: flux-system
+spec:
+  targetNamespace: elastic-system
+  chart:
+    spec:
+      chart: eck-operator
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: elasticsearch-operator
+      version: 2.x
+  interval: 5m0s

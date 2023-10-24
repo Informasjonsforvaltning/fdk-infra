@@ -6,3 +6,4 @@ resources:
   - gitea-staging.yaml
   - catalog-mongodb-staging.yaml
   - backstage-staging.yaml
+  - catalog-elasticsearch-staging.yaml

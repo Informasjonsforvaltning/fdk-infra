@@ -7,3 +7,4 @@ resources:
   - monitoring.yaml
   - nginx.yaml
   - trivy.yaml
+  - elasticsearch-operator
