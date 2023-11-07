@@ -9,7 +9,7 @@ spec:
   targetNamespace: trivy
   chart:
     spec:
-      version: 0.1.x
+      version: 0.16.x
       chart: trivy-operator
       sourceRef:
         kind: HelmRepository
