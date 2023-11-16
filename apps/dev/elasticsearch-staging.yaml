@@ -2,12 +2,12 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: catalog-elasticsearch
+  name: elasticsearch
   namespace: flux-system
 spec:
   interval: 1m0s
   retryInterval: 10s
-  path: ./apps/dev/catalog-elasticsearch-staging
+  path: ./apps/dev/elasticsearch-staging
   prune: true
   sourceRef:
     kind: GitRepository
