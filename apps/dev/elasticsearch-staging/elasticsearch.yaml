@@ -2,7 +2,7 @@
 apiVersion: elasticsearch.k8s.elastic.co/v1
 kind: Elasticsearch
 metadata:
-  name: catalog-elasticsearch
+  name: elasticsearch
   namespace: staging
 spec:
   version: 8.10.4
@@ -26,11 +26,11 @@ spec:
                 - name: xpack.security.enabled
                   value: "true"
                 - name: cluster.name
-                  value: catalog-elasticsearch
+                  value: elasticsearch
                 - name: ELASTIC_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: catalog-elasticsearch
+                      name: elasticsearch
                       key: ELASTIC_PASSWORD
               resources:
                 requests:
@@ -69,11 +69,11 @@ spec:
               - name: xpack.security.enabled
                 value: "true"
               - name: cluster.name
-                value: catalog-elasticsearch
+                value: elasticsearch
               - name: ELASTIC_PASSWORD
                 valueFrom:
                   secretKeyRef:
-                    name: catalog-elasticsearch
+                    name: elasticsearch
                     key: ELASTIC_PASSWORD
             resources:
               requests:
