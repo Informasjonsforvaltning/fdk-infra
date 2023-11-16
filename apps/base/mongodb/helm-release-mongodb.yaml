@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: catalog-mongodb
+  name: mongodb
   namespace: flux-system
 spec:
   interval: 5m
@@ -12,7 +12,7 @@ spec:
       chart: mongodb
       sourceRef:
         kind: HelmRepository
-        name: catalog-mongodb
+        name: mongodb
       interval: 60m
   install:
     crds: Create
@@ -20,7 +20,7 @@ spec:
     crds: CreateReplace
   values:
     architecture: replicaset
-    nameOverride: catalog-mongodb
+    nameOverride: mongodb
     replicaCount: 3
     metrics:
       enabled: true

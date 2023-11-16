@@ -4,6 +4,6 @@ kind: Kustomization
 resources:
   - gitea-demo.yaml
   - gitea-staging.yaml
-  - catalog-mongodb-staging.yaml
+  - mongodb-staging.yaml
   - backstage-staging.yaml
   - catalog-elasticsearch-staging.yaml
