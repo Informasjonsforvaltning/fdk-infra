@@ -30,7 +30,7 @@ spec:
                 - name: ELASTIC_PASSWORD
                   valueFrom:
                     secretKeyRef:
-                      name: elasticsearch
+                      name: elasticsearch-es
                       key: ELASTIC_PASSWORD
               resources:
                 requests:
@@ -73,7 +73,7 @@ spec:
               - name: ELASTIC_PASSWORD
                 valueFrom:
                   secretKeyRef:
-                    name: elasticsearch
+                    name: elasticsearch-es
                     key: ELASTIC_PASSWORD
             resources:
               requests:
