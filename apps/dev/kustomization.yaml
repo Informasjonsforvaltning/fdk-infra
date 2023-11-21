@@ -7,3 +7,4 @@ resources:
   - mongodb-staging.yaml
   - backstage-staging.yaml
   - elasticsearch-staging.yaml
+  - elasticsearch-demo.yaml
