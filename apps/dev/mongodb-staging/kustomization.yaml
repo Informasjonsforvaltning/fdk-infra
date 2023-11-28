@@ -6,7 +6,7 @@ patches:
 - patch: |-
     - op: replace
       path: /metadata/name
-      value: mongodb
+      value: mongodb-staging
   target:
     kind: HelmRelease
     name: mongodb
