@@ -5,6 +5,7 @@ resources:
   - gitea-demo.yaml
   - gitea-staging.yaml
   - mongodb-staging.yaml
+  - mongodb-demo.yaml
   - backstage-staging.yaml
   - elasticsearch-staging.yaml
   - elasticsearch-demo.yaml
