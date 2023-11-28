@@ -2,18 +2,18 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: mongodb-staging
+  name: mongodb-demo
   namespace: flux-system
 spec:
-  targetNamespace: staging
+  targetNamespace: demo
   values:
-    namespaceOverride: staging
+    namespaceOverride: demo
   valuesFrom:
     - kind: Secret
-      name: mongodb-staging
+      name: mongodb-demo
       targetPath: auth.rootPassword
       valuesKey: ROOT_PASSWORD
     - kind: Secret
-      name: mongodb-staging
+      name: mongodb-demo
       targetPath: auth.replicaSetKey
       valuesKey: REPLICASET_KEY
