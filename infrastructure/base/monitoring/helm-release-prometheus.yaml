@@ -191,7 +191,7 @@ spec:
               storageClassName: standard
               resources:
                 requests:
-                  storage: 20Gi
+                  storage: 30Gi
         additionalScrapeConfigs:
           # Configure scraping of pods with 'prometheus.io/scrape' annotation 'true'.
           # 'prometheus.io/port' and 'prometheus.io/path' may be customized.
