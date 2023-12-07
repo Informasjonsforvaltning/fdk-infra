@@ -7,22 +7,12 @@ metadata:
 spec:
   targetNamespace: demo
   values:
-    ingress:
-      enabled: true
-      hosts:
-        - host: gitea.demo.fellesdatakatalog.digdir.no
-          paths:
-            - path: /
-              pathType: Prefix
     postgresql-ha:
       enabled: false
     redis-cluster:
       enabled: true
     gitea:
       config:
-        server:
-          # By default without https (results in warning)
-          ROOT_URL: https://gitea.demo.fellesdatakatalog.digdir.no
         database:
           DB_TYPE: postgres
     persistence:
