@@ -175,6 +175,8 @@ spec:
           memory: 1250Mi
       thanosService:
         enabled: true
+      thanosIngress:
+        enabled: true
       prometheusSpec:
         thanos:
           objectStorageConfig:
