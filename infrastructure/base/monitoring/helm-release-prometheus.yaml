@@ -159,6 +159,7 @@ spec:
         type: pvc
         size: 10Gi
     prometheus:
+      enabled: true
       service:
         type: NodePort
       ingress:
