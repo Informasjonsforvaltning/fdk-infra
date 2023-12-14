@@ -178,8 +178,9 @@ spec:
       prometheusSpec:
         thanos:
           objectStorageConfig:
-            key: objstore.yml
-            name: thanos-objstore
+            existingSecret:
+              key: objstore.yml
+              name: thanos-objstore
         scrapeInterval: 15s
         scrapeTimeout: 10s
         # Allow Prometheus to discover all PodMonitors/ServiceMonitors within
