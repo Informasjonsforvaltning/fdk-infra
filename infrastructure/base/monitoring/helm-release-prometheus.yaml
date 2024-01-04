@@ -181,7 +181,7 @@ spec:
             existingSecret:
               key: objstore.yml
               name: thanos-objstore
-        scrapeInterval: 15s
+        scrapeInterval: 30s
         scrapeTimeout: 10s
         # Allow Prometheus to discover all PodMonitors/ServiceMonitors within
         # its namespace, without applying label filtering.
