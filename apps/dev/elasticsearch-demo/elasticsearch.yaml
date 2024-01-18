@@ -20,8 +20,6 @@ spec:
                 privileged: true
                 runAsUser: 0
               command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
-            - name: max-map-count-check
-              command: ['sh', '-c', "while true; do mmc=$(cat /proc/sys/vm/max_map_count); if [ ${mmc} -eq 262144 ]; then exit 0; fi; sleep 1; done"]
           containers:
             - name: elasticsearch
               env:
