@@ -230,6 +230,7 @@ spec:
               - source_labels:
                   - __meta_kubernetes_pod_label_app
                 action: replace
+                regex: (.+)
                 target_label: fdk_service
           # Use blackbox to gather metrics regarding ingresses.
           # Source: https://github.com/prometheus/prometheus/blob/c1b669bf9b0b1286ece53c977262089119783105/documentation/examples/prometheus-kubernetes.yml#L224-L260
