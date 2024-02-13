@@ -228,7 +228,7 @@ spec:
                 action: replace
                 target_label: kubernetes_pod_name
               - source_labels:
-                  - application
+                  - __meta_kubernetes_pod_label_app
                 action: replace
                 target_label: fdk_service
           # Use blackbox to gather metrics regarding ingresses.
