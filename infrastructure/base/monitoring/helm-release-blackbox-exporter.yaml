@@ -20,11 +20,54 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    config:
+      modules:
+        http_2xx:
+          prober: http
+          timeout: 5s
+          http:
+            valid_http_versions: ["HTTP/1.1", "HTTP/2.0"]
+            valid_status_codes:
+              - 200
+              - 204
+            follow_redirects: true
+            preferred_ip_protocol: "ip4"
+      scrape_configs:
+        - job_name: 'kubernetes-ingresses'
+
+          metrics_path: /probe
+          params:
+            module: [http_2xx]
+
+          kubernetes_sd_configs:
+            - role: ingress
+
+          relabel_configs:
+            - source_labels: [__meta_kubernetes_ingress_annotation_prometheus_io_probe]
+              action: keep
+              regex: true
+            - source_labels: [__address__]
+              regex: (.+);(.+)
+              replacement: https://${1}
+              target_label: __param_target
+            - source_labels: [__address__]
+              regex: (catalog-admin\..+)
+              replacement: https://${1}/api/ping
+              target_label: __param_target  
+            - source_labels: [__param_target]
+              target_label: instance
+            - action: labelmap
+              regex: __meta_kubernetes_ingress_label_(.+)
+            - source_labels: [__meta_kubernetes_namespace]
+              target_label: kubernetes_namespace
+            - source_labels: [__meta_kubernetes_ingress_name]
+              target_label: kubernetes_name
     serviceMonitor:
       enabled: true
       targets:
         - name: datajegeren
           url: https://datafabrikken.norge.no/finn-data/datajegeren
+        
 #
 # TODO: TEST Probe
 #
