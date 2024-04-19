@@ -21,6 +21,7 @@ spec:
     crds: CreateReplace
   values:
     controller:
+      allowSnippetAnnotations: true
       annotations:
         # Scrape nginx controller pod for metrics.
         prometheus.io/port: "10254"
