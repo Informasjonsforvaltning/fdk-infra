@@ -5,3 +5,4 @@ resources:
   - gitea.yaml
   - elasticsearch.yaml
   - mongodb.yaml
+  - nginx-harvester.yaml

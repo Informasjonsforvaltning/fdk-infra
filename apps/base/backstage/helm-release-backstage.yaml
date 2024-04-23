@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      version: 1.4.x
+      version: 1.9.x
       chart: backstage
       sourceRef:
         kind: HelmRepository
