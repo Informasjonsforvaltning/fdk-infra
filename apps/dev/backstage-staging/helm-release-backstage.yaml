@@ -8,3 +8,10 @@ spec:
   targetNamespace: staging
   values:
     namespaceOverride: staging
+    backstage:
+      extraEnvVars:
+        - name: APP_CONFIG_backend_database_client
+          value: pg
+      extraEnvVarsSecrets:
+        - backstage
+

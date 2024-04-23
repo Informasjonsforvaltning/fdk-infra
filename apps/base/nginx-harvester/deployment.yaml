@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-harvester
+  labels:
+    app: nginx-harvester
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-harvester
+  template:
+    metadata:
+      labels:
+        app: nginx-harvester
+    spec:
+      containers:
+        - name: nginx-harvester
+          image: nginx:alpine
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+      volumes:
+        - name: "config"
+          configMap:
+            name: "nginx-harvester-config"

@@ -9,3 +9,5 @@ resources:
   - backstage-staging.yaml
   - elasticsearch-staging.yaml
   - elasticsearch-demo.yaml
+  - nginx-harvester-staging.yaml
+  - nginx-harvester-demo.yaml
