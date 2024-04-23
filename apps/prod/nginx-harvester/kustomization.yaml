@@ -17,3 +17,10 @@ patches:
     target:
       kind: ConfigMap
       name: nginx-harvester
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: prod
+    target:
+      kind: Service
+      name: nginx-harvester
