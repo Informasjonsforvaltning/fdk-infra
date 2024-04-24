@@ -24,3 +24,4 @@ patches:
     target:
       kind: Service
       name: nginx-harvester
+  - path: config-map.yaml

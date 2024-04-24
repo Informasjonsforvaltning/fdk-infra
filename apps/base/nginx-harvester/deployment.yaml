@@ -24,7 +24,22 @@ spec:
             - mountPath: /etc/nginx/nginx.conf
               name: config
               subPath: nginx.conf
+            - mountPath: /etc/nginx/conf.d/server.dataset.conf
+              name: config-server
+              subPath: server.dataset.conf
+            - mountPath: /etc/nginx/conf.d/server.data-service.conf
+              name: config-server
+              subPath: server.data-service.conf
+            - mountPath: /etc/nginx/conf.d/server.concept.conf
+              name: config-server
+              subPath: server.concept.conf
+            - mountPath: /etc/nginx/conf.d/server.information-model.conf
+              name: config-server
+              subPath: server.information-model.conf
       volumes:
         - name: "config"
           configMap:
             name: "nginx-harvester"
+        - name: "config-server"
+          configMap:
+            name: "nginx-harvester-server"

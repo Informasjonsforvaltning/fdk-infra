@@ -1,0 +1,44 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-harvester-server
+  namespace: staging
+data:
+  server.dataset.conf: |
+    server {
+      listen                8080;
+      server_name           datasets.staging.fellesdatakatalog.digdir.no;      
+      
+      location / {
+        proxy_pass http://fdk-dataset-harvester:8080;
+      }
+    }
+  server.data-service.conf: |
+    server {
+      listen                8080;
+      server_name           dataservices.staging.fellesdatakatalog.digdir.no data-services.staging.fellesdatakatalog.digdir.no;
+      
+      location / {
+        proxy_pass http://fdk-dataservice-harvester:8080;
+      }
+    }
+  server.concept.conf: |
+    server {
+      listen                8080;
+      server_name           concepts.staging.fellesdatakatalog.digdir.no;
+      
+      location / {
+        proxy_pass http://fdk-concept-harvester:8080;
+      }
+    }
+  server.information-model.conf: |
+    server {
+      listen                8080;
+      server_name           informationmodels.staging.fellesdatakatalog.digdir.no information-models.staging.fellesdatakatalog.digdir.no;
+    
+      location / {
+        proxy_pass http://fdk-informationmodel-harvester:8080;
+      }
+    }  
+    
