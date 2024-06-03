@@ -14,6 +14,13 @@ data:
     }
     
     http {
+      server_names_hash_bucket_size 128;
+      limit_req_zone $binary_remote_addr zone=harvester_limit:10m rate=5r/m;
+      limit_req_status 429;
+      # Add headers for rate limiting
+      add_header X-RateLimit-Limit 5 always;
+      add_header X-RateLimit-Burst 10 always;
+      add_header X-RateLimit-Delay 5 always;
       charset utf-8;
       server_tokens off;
     
