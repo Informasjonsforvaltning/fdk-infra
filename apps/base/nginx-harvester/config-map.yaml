@@ -21,7 +21,7 @@ data:
         # Extract the second to last IP
         ~^(?:[^,]+,)*([^,]+),[^,]+$ $1;
         # Use the only IP if there's just one
-        ^[^,]+$ $1;
+        ~^[^,]+$ $1;
       }
       limit_req_zone $client_ip zone=harvester_limit:10m rate=1r/s;
       limit_req_status 429;
