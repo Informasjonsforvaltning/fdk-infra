@@ -18,8 +18,10 @@ data:
       map $http_x_forwarded_for $client_ip {
         # Default to $remote_addr if X-Forwarded-For is empty
         "" $remote_addr;
-        # Extract the second to last IP if there are at least two IPs
-        ~^(?P<real_client_ip>(?:[^,]+,)+[^,]+),[^,]+$ $real_client_ip;
+        # Extract the second to last IP
+        ~^(?:[^,]+,)*([^,]+),[^,]+$ $1;
+        # Use the only IP if there's just one
+        ^[^,]+$ $1;
       }
       limit_req_zone $client_ip zone=harvester_limit:10m rate=1r/s;
       limit_req_status 429;
