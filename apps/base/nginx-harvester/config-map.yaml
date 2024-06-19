@@ -20,8 +20,6 @@ data:
         "" $remote_addr;
         # Extract the second to last IP if there are at least two IPs
         ~^(?P<real_client_ip>(?:[^,]+,)+[^,]+),[^,]+$ $real_client_ip;
-        # Use the first IP if there's only one
-        ~^(?P<real_client_ip>[^,]+)$ $real_client_ip;
       }
       limit_req_zone $client_ip zone=harvester_limit:10m rate=1r/s;
       limit_req_status 429;
