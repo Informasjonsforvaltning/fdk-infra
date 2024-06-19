@@ -11,7 +11,7 @@ data:
       server_name           datasets.staging.fellesdatakatalog.digdir.no;
     
       location / {
-        limit_req zone=harvester_limit burst=10 delay=5;
+        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-dataset-harvester:8080;
       }
 
@@ -22,7 +22,7 @@ data:
       server_name           dataservices.staging.fellesdatakatalog.digdir.no data-services.staging.fellesdatakatalog.digdir.no;
     
       location / {
-        limit_req zone=harvester_limit burst=10 delay=5;
+        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-dataservice-harvester:8080;
       }
     }
@@ -32,7 +32,7 @@ data:
       server_name           concepts.staging.fellesdatakatalog.digdir.no;
     
       location / {
-        limit_req zone=harvester_limit burst=10 delay=5;
+        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-concept-harvester:8080;
       }
         
@@ -43,7 +43,7 @@ data:
       server_name           informationmodels.staging.fellesdatakatalog.digdir.no information-models.staging.fellesdatakatalog.digdir.no;
     
       location / {
-        limit_req zone=harvester_limit burst=10 delay=5;
+        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-informationmodel-harvester:8080;
       }
         

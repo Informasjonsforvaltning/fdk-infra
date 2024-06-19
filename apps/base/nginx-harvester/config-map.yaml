@@ -23,12 +23,12 @@ data:
         # Use the first IP if there's only one
         ~^(?P<real_client_ip>[^,]+)$ $real_client_ip;
       }
-      limit_req_zone $client_ip zone=harvester_limit:10m rate=5r/m;
+      limit_req_zone $client_ip zone=harvester_limit:10m rate=1r/s;
       limit_req_status 429;
       # Add headers for rate limiting
-      add_header X-RateLimit-Limit 5 always;
-      add_header X-RateLimit-Burst 10 always;
-      add_header X-RateLimit-Delay 5 always;
+      add_header X-RateLimit-Limit 1 always;
+      add_header X-RateLimit-Burst 3 always;
+      add_header X-RateLimit-Delay 1 always;
       charset utf-8;
       server_tokens off;
     
