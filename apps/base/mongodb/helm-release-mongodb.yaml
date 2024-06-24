@@ -8,7 +8,7 @@ spec:
   interval: 5m
   chart:
     spec:
-      version: 14.x
+      version: 15.x
       chart: mongodb
       sourceRef:
         kind: HelmRepository
