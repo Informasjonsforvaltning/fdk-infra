@@ -8,9 +8,10 @@ data:
   server.dataset.conf: |
     server {
       listen                8080;
-      server_name           datasets.demo.fellesdatakatalog.digdir.no;      
-      
+      server_name           datasets.demo.fellesdatakatalog.digdir.no;
+    
       location / {
+        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-dataset-harvester:8080;
       }
     }
@@ -18,8 +19,9 @@ data:
     server {
       listen                8080;
       server_name           dataservices.demo.fellesdatakatalog.digdir.no data-services.demo.fellesdatakatalog.digdir.no;
-      
+    
       location / {
+        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-dataservice-harvester:8080;
       }
     }
@@ -27,8 +29,9 @@ data:
     server {
       listen                8080;
       server_name           concepts.demo.fellesdatakatalog.digdir.no;
-      
+    
       location / {
+        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-concept-harvester:8080;
       }
     }
@@ -38,6 +41,7 @@ data:
       server_name           informationmodels.demo.fellesdatakatalog.digdir.no information-models.demo.fellesdatakatalog.digdir.no;
     
       location / {
+        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-informationmodel-harvester:8080;
       }
     }  

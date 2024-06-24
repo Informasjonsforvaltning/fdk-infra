@@ -14,6 +14,21 @@ data:
     }
     
     http {
+      server_names_hash_bucket_size 128;
+      map $http_x_forwarded_for $client_ip {
+        # Default to $remote_addr if X-Forwarded-For is empty
+        "" $remote_addr;
+        # Extract the second to last IP
+        ~^(?:[^,]+,)*([^,]+),[^,]+$ $1;
+        # Use the only IP if there's just one
+        ~^[^,]+$ $1;
+      }
+      limit_req_zone $client_ip zone=harvester_limit:10m rate=1r/s;
+      limit_req_status 429;
+      # Add headers for rate limiting
+      add_header X-RateLimit-Limit 1 always;
+      add_header X-RateLimit-Burst 3 always;
+      add_header X-RateLimit-Delay 1 always;
       charset utf-8;
       server_tokens off;
     
