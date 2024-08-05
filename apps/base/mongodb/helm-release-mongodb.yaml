@@ -19,6 +19,14 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    resources:
+      requests:
+        cpu: 250m
+        memory: 500Mi
+        ephemeral-storage: 5Gi
+      limits:
+        memory: 500Mi
+        ephemeral-storage: 10Gi
     architecture: replicaset
     nameOverride: mongodb
     replicaCount: 3
@@ -26,16 +34,9 @@ spec:
       enabled: true
       serviceMonitor:
         enabled: true
+      resourcesPreset: none
     persistence:
       resourcePolicy: keep
       size: 10Gi
     arbiter:
       enabled: false
-    resources:
-      requests:
-        cpu: 500m
-        memory: 500Mi
-        ephemeral-storage: 2Gi
-      limits:
-        memory: 500Mi
-        ephemeral-storage: 4Gi
