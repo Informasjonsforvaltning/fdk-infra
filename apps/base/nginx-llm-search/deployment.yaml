@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-llm-search
+  labels:
+    app: nginx-llm-search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-llm-search
+  template:
+    metadata:
+      labels:
+        app: nginx-llm-search
+    spec:
+      containers:
+        - name: nginx-llm-search
+          image: nginx:alpine
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+            - mountPath: /etc/nginx/conf.d/server.nginx-llm-search-server.conf
+              name: config-server
+              subPath: server.nginx-llm-search-server.conf
+      volumes:
+        - name: "config"
+          configMap:
+            name: "nginx-llm-search"
+        - name: "config-server"
+          configMap:
+            name: "nginx-llm-search-server"
