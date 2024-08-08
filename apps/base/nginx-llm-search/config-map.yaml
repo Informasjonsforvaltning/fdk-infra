@@ -71,18 +71,12 @@ data:
       # today) would display gibberish if their proxy gave them the gzipped version.
       gzip_vary          on;
     
-      # Short term caching
-      open_file_cache max=1000 inactive=20s;
-      open_file_cache_valid 30s;
-      open_file_cache_min_uses 5;
-      open_file_cache_errors off;
-    
       # Tune Nginx buffers 
       proxy_busy_buffers_size   512k;
       proxy_buffers   4 512k;
       proxy_buffer_size   256k;
     
-      client_max_body_size  20M;
+      client_max_body_size  1M;
     
       include /etc/nginx/conf.d/*.conf;
     }
