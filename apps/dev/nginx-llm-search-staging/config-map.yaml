@@ -14,6 +14,11 @@ data:
       listen                8080;
       server_name           aisearch.api.staging.fellesdatakatalog.digdir.no;
     
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
       location / {
         limit_req zone=llm_limit burst=20 delay=10;
         proxy_pass http://fdk-llm-search-service:8080;

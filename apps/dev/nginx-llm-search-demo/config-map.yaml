@@ -13,6 +13,11 @@ data:
       real_ip_recursive on;
       listen                8080;
       server_name           aisearch.api.demo.fellesdatakatalog.digdir.no;
+        
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
         limit_req zone=llm_limit burst=20 delay=10;
