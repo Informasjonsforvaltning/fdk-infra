@@ -31,6 +31,8 @@ spec:
         use-forwarded-headers: "true"
         # Append the remote address to the X-Forwarded-For header instead of replacing it.
         compute-full-forwarded-for: "true"
+        # Modify default rate limiting return code to 429.
+        limit-req-status-code: "429"
       service:
         type: NodePort
         annotations:
