@@ -36,6 +36,12 @@ spec:
             - mountPath: /etc/nginx/conf.d/server.information-model.conf
               name: config-server
               subPath: server.information-model.conf
+            - mountPath: /etc/nginx/conf.d/server.event.conf
+              name: config-server
+              subPath: server.event.conf
+            - mountPath: /etc/nginx/conf.d/server.service.conf
+              name: config-server
+              subPath: server.service.conf
       volumes:
         - name: "config"
           configMap:
