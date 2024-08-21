@@ -44,5 +44,24 @@ data:
         limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-informationmodel-harvester:8080;
       }
-    }  
+    }
+  server.event.conf: |  
+    server {
+      listen                8080;
+      server_name           events.demo.fellesdatakatalog.digdir.no;
     
+      location / {
+        limit_req zone=harvester_limit burst=3 delay=1;
+        proxy_pass http://fdk-event-harvester:8080;
+      }
+    }
+  server.service.conf: |  
+    server {
+      listen                8080;
+      server_name           services.demo.fellesdatakatalog.digdir.no;
+    
+      location / {
+        limit_req zone=harvester_limit burst=3 delay=1;
+        proxy_pass http://fdk-public-service-harvester:8080;
+      }
+    }  
