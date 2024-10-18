@@ -7,7 +7,7 @@ metadata:
   annotations:
     # See frontend-config.yaml.
     networking.gke.io/v1beta1.FrontendConfig: nginx-controller
-    ingress.gcp.kubernetes.io/pre-shared-cert: stjerne-staging-fdk-digdir-no-ssl-4, stjerne-demo-fdk-digdir-no-ssl-4, stjerne-dev-fdk-digdir-no-ssl-2, stjerne-api-staging-fdk-digdir-no-ssl-2, stjerne-api-demo-fdk-digdir-no-ssl-2
+    ingress.gcp.kubernetes.io/pre-shared-cert: stjerne-staging-fdk-digdir-no-ssl-4, stjerne-demo-fdk-digdir-no-ssl-4, stjerne-dev-fdk-digdir-no-ssl-2, stjerne-api-staging-fdk-digdir-no-ssl-3, stjerne-api-demo-fdk-digdir-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v4
 spec:
   rules:
@@ -29,7 +29,7 @@ metadata:
   annotations:
     # See frontend-config.yaml.
     networking.gke.io/v1beta1.FrontendConfig: nginx-controller
-    ingress.gcp.kubernetes.io/pre-shared-cert: stjerne-staging-fdk-digdir-no-ssl-4, stjerne-demo-fdk-digdir-no-ssl-4, stjerne-dev-fdk-digdir-no-ssl-2, stjerne-api-staging-fdk-digdir-no-ssl-2, stjerne-api-demo-fdk-digdir-no-ssl-2
+    ingress.gcp.kubernetes.io/pre-shared-cert: stjerne-staging-fdk-digdir-no-ssl-4, stjerne-demo-fdk-digdir-no-ssl-4, stjerne-dev-fdk-digdir-no-ssl-2, stjerne-api-staging-fdk-digdir-no-ssl-3, stjerne-api-demo-fdk-digdir-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v6
 spec:
   rules:
