@@ -5,3 +5,4 @@ resources:
   - elasticsearch.yaml
   - mongodb.yaml
   - nginx-harvester.yaml
+  - nginx-catalog.yaml

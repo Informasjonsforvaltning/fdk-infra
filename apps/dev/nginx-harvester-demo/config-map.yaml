@@ -7,18 +7,37 @@ metadata:
 data:
   server.dataset.conf: |
     server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
       listen                8080;
       server_name           datasets.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
-        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-dataset-harvester:8080;
       }
     }
   server.data-service.conf: |
     server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
       listen                8080;
       server_name           dataservices.demo.fellesdatakatalog.digdir.no data-services.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
         limit_req zone=harvester_limit burst=3 delay=1;
@@ -27,8 +46,18 @@ data:
     }
   server.concept.conf: |
     server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
       listen                8080;
       server_name           concepts.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
         limit_req zone=harvester_limit burst=3 delay=1;
@@ -37,8 +66,18 @@ data:
     }
   server.information-model.conf: |
     server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
       listen                8080;
       server_name           informationmodels.demo.fellesdatakatalog.digdir.no information-models.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
         limit_req zone=harvester_limit burst=3 delay=1;
@@ -47,8 +86,18 @@ data:
     }
   server.event.conf: |  
     server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
       listen                8080;
       server_name           events.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
         limit_req zone=harvester_limit burst=3 delay=1;
@@ -57,8 +106,18 @@ data:
     }
   server.service.conf: |  
     server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
       listen                8080;
       server_name           services.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
         limit_req zone=harvester_limit burst=3 delay=1;

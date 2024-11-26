@@ -1,0 +1,83 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-catalog-server
+  namespace: demo
+data:
+  server.dataset.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           dataset-catalog.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://dataset-catalog:8080;
+      }
+    }
+  server.data-service.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           dataservice-catalog.demo.fellesdatakatalog.digdir.no data-service-catalog.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://dataservice-catalog:8080;
+      }
+    }
+  server.concept.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           concept-catalog.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://concept-catalog:8080;
+      }
+    }
+  server.service.conf: |  
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           service-catalog.demo.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://service-catalog:8080;
+      }
+    }
