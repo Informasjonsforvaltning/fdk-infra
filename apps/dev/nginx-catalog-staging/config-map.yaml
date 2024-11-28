@@ -1,0 +1,159 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-catalog-server
+  namespace: staging
+data:
+  server.dataset.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           dataset-catalog.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://dataset-catalog:8080;
+      }
+    }
+  server.data-service.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           dataservice-catalog.staging.fellesdatakatalog.digdir.no data-service-catalog.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://dataservice-catalog:8080;
+      }
+    }
+  server.concept.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           concept-catalog.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://concept-catalog:8080;
+      }
+    }
+  server.service.conf: |  
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           service-catalog.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://service-catalog:8080;
+      }
+    }
+  server.terms.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           terms.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://terms-and-conditions:8080;
+      }
+    }
+  server.catalog-admin.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           catalog-admin-service.staging.fellesdatakatalog.digdir.no catalog-admin.api.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://catalog-admin-service:8080;
+      }
+    }
+  server.catalog-comments.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           catalog-comments.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://catalog-comments-service:8080;
+      }
+    }
+  server.catalog-history.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           catalog-history.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=catalog_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://catalog-history-service:8080;
+      }
+    }

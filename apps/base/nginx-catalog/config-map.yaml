@@ -1,0 +1,88 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-catalog
+data:
+  nginx.conf: |
+    worker_processes auto;
+    
+    events {
+      use epoll;
+      worker_connections 1024;
+      multi_accept on;
+    }
+    
+    http {
+      server_names_hash_bucket_size 128;
+      map $http_x_forwarded_for $client_ip {
+        # Default to $remote_addr if X-Forwarded-For is empty
+        "" $remote_addr;
+        # Extract the second to last IP
+        ~^(?:[^,]+,)*([^,]+),[^,]+$ $1;
+        # Use the only IP if there's just one
+        ~^[^,]+$ $1;
+      }
+      limit_req_zone $client_ip zone=catalog_limit:10m rate=1r/s;
+      limit_req_status 429;
+      # Add headers for rate limiting
+      add_header X-RateLimit-Limit 1 always;
+      add_header X-RateLimit-Burst 3 always;
+      add_header X-RateLimit-Delay 1 always;
+      charset utf-8;
+      server_tokens off;
+    
+      # Enable compression both for HTTP/1.0 and HTTP/1.1.
+      gzip_http_version  1.1;
+    
+      # Compression level (1-9).
+      # 5 is a perfect compromise between size and cpu usage, offering about
+      # 75% reduction for most ascii files (almost identical to level 9).
+      gzip_comp_level    5;
+    
+      # Gzip compression
+      gzip on;
+      gzip_types
+      application/atom+xml
+      application/javascript
+      application/json
+      application/rss+xml
+      application/x-font-ttf
+      application/x-web-app-manifest+json
+      application/xhtml+xml
+      application/xml
+      font/opentype
+      image/svg+xml
+      image/x-icon
+      text/css
+      text/plain
+      text/x-component
+      text/turtle;
+      gzip_proxied    no-cache no-store private expired auth;
+      gzip_min_length 1000;
+    
+      # Compress data even for clients that are connecting to us via proxies,
+      # identified by the "Via" header (required for CloudFront).
+      gzip_proxied       any;
+    
+      # Tell proxies to cache both the gzipped and regular version of a resource
+      # whenever the client's Accept-Encoding capabilities header varies;
+      # Avoids the issue where a non-gzip capable client (which is extremely rare
+      # today) would display gibberish if their proxy gave them the gzipped version.
+      gzip_vary          on;
+    
+      # Short term caching
+      open_file_cache max=1000 inactive=20s;
+      open_file_cache_valid 30s;
+      open_file_cache_min_uses 5;
+      open_file_cache_errors off;
+    
+      # Tune Nginx buffers 
+      proxy_busy_buffers_size   512k;
+      proxy_buffers   4 512k;
+      proxy_buffer_size   256k;
+    
+      client_max_body_size  20M;
+    
+      include /etc/nginx/conf.d/*.conf;
+    }

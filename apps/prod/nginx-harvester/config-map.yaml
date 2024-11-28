@@ -9,9 +9,14 @@ data:
     server {
       listen                8080;
       server_name           datasets.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
-        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-dataset-harvester:8080;
       }
     }
@@ -19,9 +24,14 @@ data:
     server {
       listen                8080;
       server_name           dataservices.fellesdatakatalog.digdir.no data-services.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
-        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-dataservice-harvester:8080;
       }
     }
@@ -29,9 +39,14 @@ data:
     server {
       listen                8080;
       server_name           concepts.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
-        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-concept-harvester:8080;
       }
     }
@@ -39,9 +54,14 @@ data:
     server {
       listen                8080;
       server_name           informationmodels.fellesdatakatalog.digdir.no information-models.fellesdatakatalog.digdir.no;
+       limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
-        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-informationmodel-harvester:8080;
       }
     }
@@ -49,9 +69,14 @@ data:
     server {
       listen                8080;
       server_name           events.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
-        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-event-harvester:8080;
       }
     }
@@ -59,9 +84,14 @@ data:
     server {
       listen                8080;
       server_name           services.fellesdatakatalog.digdir.no;
+      limit_req zone=harvester_limit burst=3 delay=1;
+    
+      location ~ ^/(ping|ready|prometheus) {
+        deny all;
+        return 404;
+      }
     
       location / {
-        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-public-service-harvester:8080;
       }
     }  

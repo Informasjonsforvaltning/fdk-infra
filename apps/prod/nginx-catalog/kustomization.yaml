@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base/nginx-catalog
+- config-map.yaml
+patches:
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: prod
+    target:
+      kind: Deployment
+      name: nginx-catalog
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: prod
+    target:
+      kind: ConfigMap
+      name: nginx-catalog
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: prod
+    target:
+      kind: Service
+      name: nginx-catalog

@@ -1,0 +1,57 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-catalog
+  labels:
+    app: nginx-catalog
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-catalog
+  template:
+    metadata:
+      labels:
+        app: nginx-catalog
+    spec:
+      containers:
+        - name: nginx-catalog
+          image: nginx:alpine
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+            - mountPath: /etc/nginx/conf.d/server.dataset.conf
+              name: config-server
+              subPath: server.dataset.conf
+            - mountPath: /etc/nginx/conf.d/server.data-service.conf
+              name: config-server
+              subPath: server.data-service.conf
+            - mountPath: /etc/nginx/conf.d/server.concept.conf
+              name: config-server
+              subPath: server.concept.conf
+            - mountPath: /etc/nginx/conf.d/server.service.conf
+              name: config-server
+              subPath: server.service.conf
+            - mountPath: /etc/nginx/conf.d/server.terms.conf
+              name: config-server
+              subPath: server.terms.conf
+            - mountPath: /etc/nginx/conf.d/server.catalog-admin.conf
+              name: config-server
+              subPath: server.catalog-admin.conf
+            - mountPath: /etc/nginx/conf.d/server.catalog-comments.conf
+              name: config-server
+              subPath: server.catalog-comments.conf
+            - mountPath: /etc/nginx/conf.d/server.catalog-history.conf
+              name: config-server
+              subPath: server.catalog-history.conf
+      volumes:
+        - name: "config"
+          configMap:
+            name: "nginx-catalog"
+        - name: "config-server"
+          configMap:
+            name: "nginx-catalog-server"
