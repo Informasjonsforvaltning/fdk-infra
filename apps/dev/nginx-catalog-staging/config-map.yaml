@@ -15,7 +15,7 @@ data:
       server_name           dataset-catalog.staging.fellesdatakatalog.digdir.no;
       limit_req zone=catalog_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -34,7 +34,7 @@ data:
       server_name           dataservice-catalog.staging.fellesdatakatalog.digdir.no data-service-catalog.staging.fellesdatakatalog.digdir.no;
       limit_req zone=catalog_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -53,7 +53,7 @@ data:
       server_name           concept-catalog.staging.fellesdatakatalog.digdir.no;
       limit_req zone=catalog_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -72,7 +72,7 @@ data:
       server_name           service-catalog.staging.fellesdatakatalog.digdir.no;
       limit_req zone=catalog_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -91,7 +91,7 @@ data:
       server_name           terms.staging.fellesdatakatalog.digdir.no;
       limit_req zone=catalog_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -110,7 +110,7 @@ data:
       server_name           catalog-admin-service.staging.fellesdatakatalog.digdir.no catalog-admin.api.staging.fellesdatakatalog.digdir.no;
       limit_req zone=catalog_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -129,7 +129,7 @@ data:
       server_name           catalog-comments.staging.fellesdatakatalog.digdir.no;
       limit_req zone=catalog_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -148,7 +148,7 @@ data:
       server_name           catalog-history.staging.fellesdatakatalog.digdir.no;
       limit_req zone=catalog_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
