@@ -54,7 +54,7 @@ data:
     server {
       listen                8080;
       server_name           informationmodels.fellesdatakatalog.digdir.no information-models.fellesdatakatalog.digdir.no;
-       limit_req zone=harvester_limit burst=3 delay=1;
+      limit_req zone=harvester_limit burst=3 delay=1;
     
       location ~ ^/(ping|ready|prometheus) {
         deny all;
