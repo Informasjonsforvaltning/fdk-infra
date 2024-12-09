@@ -21,7 +21,6 @@ data:
       }
     
       location / {
-        limit_req zone=harvester_limit burst=3 delay=1;
         proxy_pass http://fdk-dataset-harvester:8080;
       }
 
