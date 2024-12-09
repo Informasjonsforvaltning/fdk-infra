@@ -15,7 +15,7 @@ data:
       server_name           datasets.staging.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -35,7 +35,7 @@ data:
       server_name           dataservices.staging.fellesdatakatalog.digdir.no data-services.staging.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -54,7 +54,7 @@ data:
       server_name           concepts.staging.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -73,7 +73,7 @@ data:
       server_name           informationmodels.staging.fellesdatakatalog.digdir.no information-models.staging.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -92,7 +92,7 @@ data:
       server_name           events.staging.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
@@ -111,7 +111,7 @@ data:
       server_name           services.staging.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ ^/prometheus {
+      location ~ /prometheus/?$ {
         deny all;
         return 404;
       }
