@@ -12,3 +12,10 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
+  postBuild:
+    - cmd:
+        - kubectl
+        - rollout
+        - restart
+        - deployment/nginx-harvester
+        - --namespace=prod
