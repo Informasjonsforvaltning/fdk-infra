@@ -12,8 +12,6 @@ spec:
       app: nginx-catalog
   template:
     metadata:
-      annotations:
-        checksum/config: "{{ .metadata.annotations['fluxcd.io/checksum'] }}"
       labels:
         app: nginx-catalog
     spec:
