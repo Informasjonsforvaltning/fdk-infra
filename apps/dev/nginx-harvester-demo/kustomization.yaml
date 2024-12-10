@@ -3,6 +3,11 @@ kind: Kustomization
 resources:
   - ../../base/nginx-harvester
   - config-map.yaml
+
+generatorOptions:
+  annotations:
+    fluxcd.io/checksum: "{{ ConfigMap checksum }}"
+
 patches:
   - patch: |-
       - op: add

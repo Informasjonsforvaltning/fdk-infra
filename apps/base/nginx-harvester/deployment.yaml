@@ -12,6 +12,8 @@ spec:
       app: nginx-harvester
   template:
     metadata:
+      annotations:
+        checksum/config: "{{ .metadata.annotations['fluxcd.io/checksum'] }}"
       labels:
         app: nginx-harvester
     spec:
