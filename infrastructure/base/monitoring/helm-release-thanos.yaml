@@ -45,6 +45,8 @@ spec:
           nginx.ingress.kubernetes.io/auth-realm: Authentication Required
     storegateway:
       enabled: true
+      persistence:
+        size: 24Gi
       ingress:
         enabled: true
         ingressClassName: nginx
