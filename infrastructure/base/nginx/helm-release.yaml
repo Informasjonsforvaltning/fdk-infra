@@ -9,7 +9,7 @@ spec:
   targetNamespace: nginx
   chart:
     spec:
-      version: 4.x
+      version: 4.11.x
       chart: ingress-nginx
       sourceRef:
         kind: HelmRepository
