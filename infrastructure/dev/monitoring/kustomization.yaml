@@ -4,12 +4,11 @@ kind: Kustomization
 resources:
   - ../../base/monitoring
   - helm-release-elasticsearch-exporter.yaml
-patchesStrategicMerge:
-  - helm-release-kafka-exporter-values.yaml
-  - helm-release-prometheus-values.yaml
-  - helm-release-thanos-values.yaml
-  - karma.yaml
 patches:
+  - path: helm-release-kafka-exporter-values.yaml
+  - path: helm-release-prometheus-values.yaml
+  - path: helm-release-thanos-values.yaml
+  - path: karma.yaml
   - patch: |-
       - op: add
         path: /spec/values/alertmanager/config/receivers/1/slack_configs/0/channel
