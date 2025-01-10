@@ -9,7 +9,7 @@ spec:
   targetNamespace: monitoring
   chart:
     spec:
-      version: 55.x
+      version: 67.x
       chart: kube-prometheus-stack
       sourceRef:
         kind: HelmRepository
@@ -185,8 +185,10 @@ spec:
         scrapeTimeout: 10s
         # Allow Prometheus to discover all PodMonitors/ServiceMonitors within
         # its namespace, without applying label filtering.
-        podMonitorSelectorNilUsesHelmValues: false
-        serviceMonitorSelectorNilUsesHelmValues: false
+        podMonitorSelector:
+          matchLabels: null
+        serviceMonitorSelector:
+          matchLabels: null
         storageSpec:
           volumeClaimTemplate:
             spec:
