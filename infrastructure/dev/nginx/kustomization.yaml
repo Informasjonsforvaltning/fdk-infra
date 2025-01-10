@@ -6,5 +6,5 @@ resources:
   - configmap-error-pages.yaml
   - frontend-config.yaml
   - ingress.yaml
-patchesStrategicMerge:
-  - helm-release.yaml
+patches:
+  - path: helm-release.yaml
