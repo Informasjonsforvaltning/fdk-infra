@@ -5,7 +5,7 @@ metadata:
   name: elasticsearch
   namespace: staging
 spec:
-  version: 8.17.1
+  version: 8.17.0
   volumeClaimDeletePolicy: DeleteOnScaledownOnly
   nodeSets:
     - name: master
