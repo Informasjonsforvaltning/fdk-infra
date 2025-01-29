@@ -13,6 +13,7 @@ spec:
     - secretName: es-user-catalog-view-api
     - secretName: es-user-concept-catalog
     - secretName: es-user-fdk-search-service
+    - secretName: es-user-fdk-reports-bff
   volumeClaimDeletePolicy: DeleteOnScaledownOnly
   nodeSets:
     - name: master

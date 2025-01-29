@@ -5,7 +5,15 @@ metadata:
   name: elasticsearch
   namespace: demo
 spec:
-  version: 8.10.4
+  version: 8.17.0
+  auth:
+    roles:
+      - secretName: es-roles
+    fileRealm:
+      - secretName: es-user-catalog-view-api
+      - secretName: es-user-concept-catalog
+      - secretName: es-user-fdk-search-service
+      - secretName: es-user-fdk-reports-bff
   volumeClaimDeletePolicy: DeleteOnScaledownOnly
   nodeSets:
     - name: master
