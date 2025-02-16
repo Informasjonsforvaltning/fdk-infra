@@ -5,7 +5,7 @@ metadata:
   name: elasticsearch
   namespace: demo
 spec:
-  version: 8.17.0
+  version: 8.17.2
   auth:
     roles:
       - secretName: es-roles
@@ -35,11 +35,6 @@ spec:
                   value: "true"
                 - name: cluster.name
                   value: elasticsearch
-                - name: ELASTIC_PASSWORD
-                  valueFrom:
-                    secretKeyRef:
-                      name: elasticsearch-es
-                      key: ELASTIC_PASSWORD
               resources:
                 requests:
                   memory: 2Gi
@@ -78,11 +73,6 @@ spec:
                 value: "true"
               - name: cluster.name
                 value: elasticsearch
-              - name: ELASTIC_PASSWORD
-                valueFrom:
-                  secretKeyRef:
-                    name: elasticsearch-es
-                    key: ELASTIC_PASSWORD
             resources:
               requests:
                 memory: 6Gi

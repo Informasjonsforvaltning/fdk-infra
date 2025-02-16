@@ -5,7 +5,7 @@ metadata:
   name: elasticsearch
   namespace: staging
 spec:
-  version: 8.17.0
+  version: 8.17.2
   auth:
     roles:
     - secretName: es-roles
