@@ -21,68 +21,48 @@ spec:
   values:
     auth:
       enabled: true
-      existingSecret: mongodb-users
-      customUsers:
-        - user: "$(user-1-name)"
-          password: "$(user-1-password)"
-          roles: "$(user-1-roles)"
-        - user: "$(user-2-name)"
-          password: "$(user-2-password)"
-          roles: "$(user-2-roles)"
-        - user: "$(user-3-name)"
-          password: "$(user-3-password)"
-          roles: "$(user-3-roles)"
-        - user: "$(user-4-name)"
-          password: "$(user-4-password)"
-          roles: "$(user-4-roles)"
-        - user: "$(user-5-name)"
-          password: "$(user-5-password)"
-          roles: "$(user-5-roles)"
-        - user: "$(user-6-name)"
-          password: "$(user-6-password)"
-          roles: "$(user-6-roles)"
-        - user: "$(user-7-name)"
-          password: "$(user-7-password)"
-          roles: "$(user-7-roles)"
-        - user: "$(user-8-name)"
-          password: "$(user-8-password)"
-          roles: "$(user-8-roles)"
-        - user: "$(user-9-name)"
-          password: "$(user-9-password)"
-          roles: "$(user-9-roles)"
-        - user: "$(user-10-name)"
-          password: "$(user-10-password)"
-          roles: "$(user-10-roles)"
-        - user: "$(user-11-name)"
-          password: "$(user-11-password)"
-          roles: "$(user-11-roles)"
-        - user: "$(user-12-name)"
-          password: "$(user-12-password)"
-          roles: "$(user-12-roles)"
-        - user: "$(user-13-name)"
-          password: "$(user-13-password)"
-          roles: "$(user-13-roles)"
-        - user: "$(user-14-name)"
-          password: "$(user-14-password)"
-          roles: "$(user-14-roles)"
-        - user: "$(user-15-name)"
-          password: "$(user-15-password)"
-          roles: "$(user-15-roles)"
-        - user: "$(user-16-name)"
-          password: "$(user-16-password)"
-          roles: "$(user-16-roles)"
-        - user: "$(user-17-name)"
-          password: "$(user-17-password)"
-          roles: "$(user-17-roles)"
-        - user: "$(user-18-name)"
-          password: "$(user-18-password)"
-          roles: "$(user-18-roles)"
-        - user: "$(user-19-name)"
-          password: "$(user-19-password)"
-          roles: "$(user-19-roles)"
-        - user: "$(user-20-name)"
-          password: "$(user-20-password)"
-          roles: "$(user-20-roles)"
+      existingSecret: mongodb-cluster-init
+      usernames:
+        - user-1-name
+        - user-2-name
+        - user-3-name
+        - user-4-name
+        - user-5-name
+        - user-6-name
+        - user-7-name
+        - user-8-name
+        - user-9-name
+        - user-10-name
+        - user-11-name
+        - user-12-name
+        - user-13-name
+        - user-14-name
+        - user-15-name
+        - user-16-name
+        - user-17-name
+        - user-18-name
+        - user-19-name
+      passwords:
+        - user-1-password
+        - user-2-password
+        - user-3-password
+        - user-4-password
+        - user-5-password
+        - user-6-password
+        - user-7-password
+        - user-8-password
+        - user-9-password
+        - user-10-password
+        - user-11-password
+        - user-12-password
+        - user-13-password
+        - user-14-password
+        - user-15-password
+        - user-16-password
+        - user-17-password
+        - user-18-password
+        - user-19-password
+    initdbScriptsConfigMap: mongodb-init-scripts
     resources:
       requests:
         cpu: 250m
