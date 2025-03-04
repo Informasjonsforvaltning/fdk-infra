@@ -83,9 +83,6 @@ spec:
         - user: "$(user-20-name)"
           password: "$(user-20-password)"
           roles: "$(user-20-roles)"
-        - user: "$(user-21-name)"
-          password: "$(user-21-password)"
-          roles: "$(user-21-roles)"
     resources:
       requests:
         cpu: 250m
