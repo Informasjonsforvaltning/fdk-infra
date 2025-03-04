@@ -21,7 +21,7 @@ spec:
   values:
     auth:
       enabled: true
-      existingSecret: mongodb-cluster-users
+      existingSecret: mongodb-users
       customUsers:
         - user: "$(user-1-name)"
           password: "$(user-1-password)"
