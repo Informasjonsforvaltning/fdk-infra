@@ -8,12 +8,3 @@ spec:
   targetNamespace: prod
   values:
     namespaceOverride: prod
-  valuesFrom:
-    - kind: Secret
-      name: mongodb-prod
-      targetPath: auth.rootPassword
-      valuesKey: ROOT_PASSWORD
-    - kind: Secret
-      name: mongodb-prod
-      targetPath: auth.replicaSetKey
-      valuesKey: REPLICASET_KEY

@@ -8,12 +8,3 @@ spec:
   targetNamespace: staging
   values:
     namespaceOverride: staging
-  valuesFrom:
-    - kind: Secret
-      name: mongodb-staging
-      targetPath: auth.rootPassword
-      valuesKey: ROOT_PASSWORD
-    - kind: Secret
-      name: mongodb-staging
-      targetPath: auth.replicaSetKey
-      valuesKey: REPLICASET_KEY

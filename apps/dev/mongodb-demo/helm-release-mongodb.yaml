@@ -8,12 +8,3 @@ spec:
   targetNamespace: demo
   values:
     namespaceOverride: demo
-  valuesFrom:
-    - kind: Secret
-      name: mongodb-demo
-      targetPath: auth.rootPassword
-      valuesKey: ROOT_PASSWORD
-    - kind: Secret
-      name: mongodb-demo
-      targetPath: auth.replicaSetKey
-      valuesKey: REPLICASET_KEY

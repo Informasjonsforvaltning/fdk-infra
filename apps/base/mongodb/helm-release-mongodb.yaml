@@ -19,6 +19,70 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    auth:
+      enabled: true
+      existingSecret: mongodb-cluster-init
+      usernames:
+        - user-1-name
+        - user-2-name
+        - user-3-name
+        - user-4-name
+        - user-5-name
+        - user-6-name
+        - user-7-name
+        - user-8-name
+        - user-9-name
+        - user-10-name
+        - user-11-name
+        - user-12-name
+        - user-13-name
+        - user-14-name
+        - user-15-name
+        - user-16-name
+        - user-17-name
+        - user-18-name
+        - user-19-name
+      passwords:
+        - user-1-password
+        - user-2-password
+        - user-3-password
+        - user-4-password
+        - user-5-password
+        - user-6-password
+        - user-7-password
+        - user-8-password
+        - user-9-password
+        - user-10-password
+        - user-11-password
+        - user-12-password
+        - user-13-password
+        - user-14-password
+        - user-15-password
+        - user-16-password
+        - user-17-password
+        - user-18-password
+        - user-19-password
+      databases:
+        - user-1-db
+        - user-2-db
+        - user-3-db
+        - user-4-db
+        - user-5-db
+        - user-6-db
+        - user-7-db
+        - user-8-db
+        - user-9-db
+        - user-10-db
+        - user-11-db
+        - user-12-db
+        - user-13-db
+        - user-14-db
+        - user-15-db
+        - user-16-db
+        - user-17-db
+        - user-18-db
+        - user-19-db
+    initdbScriptsConfigMap: mongodb-init-scripts
     resources:
       requests:
         cpu: 250m
