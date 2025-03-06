@@ -8,6 +8,4 @@ spec:
   targetNamespace: demo
   values:
     namespaceOverride: demo
-    configuration: |-
-      systemLog:
-        quiet: true
+    disableSystemLog: true
