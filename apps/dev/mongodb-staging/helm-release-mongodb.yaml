@@ -9,5 +9,5 @@ spec:
   values:
     namespaceOverride: staging
     configuration: |-
-      systemlog:
+      systemLog:
         quiet: true

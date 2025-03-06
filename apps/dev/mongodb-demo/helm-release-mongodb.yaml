@@ -10,6 +10,4 @@ spec:
     namespaceOverride: demo
     configuration: |-
       systemLog:
-        component:
-          network:
-            verbosity: "W"
+        quiet: true
