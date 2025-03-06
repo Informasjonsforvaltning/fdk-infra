@@ -8,3 +8,8 @@ spec:
   targetNamespace: prod
   values:
     namespaceOverride: prod
+    configuration: |-
+      systemLog:
+        component:
+          network:
+            verbosity: "W"

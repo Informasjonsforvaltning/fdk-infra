@@ -8,3 +8,8 @@ spec:
   targetNamespace: demo
   values:
     namespaceOverride: demo
+    configuration: |-
+      systemLog:
+        component:
+          network:
+            verbosity: "W"

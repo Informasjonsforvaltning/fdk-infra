@@ -8,3 +8,6 @@ spec:
   targetNamespace: staging
   values:
     namespaceOverride: staging
+    configuration: |-
+      systemlog:
+        quiet: true
