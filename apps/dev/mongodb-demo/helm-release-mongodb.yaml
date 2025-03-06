@@ -8,3 +8,4 @@ spec:
   targetNamespace: demo
   values:
     namespaceOverride: demo
+    disableSystemLog: true

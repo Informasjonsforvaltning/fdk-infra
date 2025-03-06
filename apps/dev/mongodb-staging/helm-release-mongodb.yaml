@@ -8,3 +8,4 @@ spec:
   targetNamespace: staging
   values:
     namespaceOverride: staging
+    disableSystemLog: true
