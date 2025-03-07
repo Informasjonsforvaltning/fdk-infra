@@ -9,7 +9,7 @@ spec:
   targetNamespace: monitoring
   chart:
     spec:
-      version: 67.x
+      version: 69.x
       chart: kube-prometheus-stack
       sourceRef:
         kind: HelmRepository
@@ -31,6 +31,9 @@ spec:
   values:
     coreDns:
       enabled: false
+    crds:
+      upgradeJob:
+        enabled: true
     kubeDns:
       enabled: true
     defaultRules:
