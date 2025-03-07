@@ -9,7 +9,7 @@ spec:
   targetNamespace: monitoring
   chart:
     spec:
-      version: 12.x
+      version: 15.x
       chart: thanos
       sourceRef:
         kind: HelmRepository

@@ -9,7 +9,7 @@ spec:
   targetNamespace: monitoring
   chart:
     spec:
-      version: 67.x
+      version: 69.x
       chart: kube-prometheus-stack
       sourceRef:
         kind: HelmRepository
@@ -206,7 +206,7 @@ spec:
               - source_labels:
                   - __meta_kubernetes_pod_annotation_prometheus_io_scrape
                 action: keep
-                regex: true
+                regex: "true"
               - source_labels:
                   - __meta_kubernetes_pod_annotation_prometheus_io_path
                 action: replace
