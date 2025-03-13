@@ -12,7 +12,7 @@ spec:
       chart: mongodb
       sourceRef:
         kind: HelmRepository
-        name: mongodb
+        name: bitnami-oci
       interval: 60m
   install:
     crds: Create

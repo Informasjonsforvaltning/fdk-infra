@@ -9,7 +9,7 @@ spec:
   targetNamespace: monitoring
   chart:
     spec:
-      version: 8.x
+      version: 9.x
       chart: prometheus-blackbox-exporter
       sourceRef:
         kind: HelmRepository
