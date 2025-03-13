@@ -9,11 +9,11 @@ spec:
   targetNamespace: monitoring
   chart:
     spec:
-      version: 12.x
+      version: 15.x
       chart: thanos
       sourceRef:
         kind: HelmRepository
-        name: bitnami
+        name: bitnami-oci
       interval: 60m
   install:
     crds: Create
@@ -47,6 +47,12 @@ spec:
       enabled: true
       persistence:
         size: 24Gi
+      resources:
+        requests:
+          memory: 2500Mi
+          cpu: 150m
+      networkPolicy:
+        enabled: false
       ingress:
         enabled: true
         ingressClassName: nginx
