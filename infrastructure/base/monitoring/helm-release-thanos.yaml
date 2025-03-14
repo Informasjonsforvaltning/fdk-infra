@@ -39,8 +39,6 @@ spec:
         requests:
           memory: 300Mi
           cpu: 100m
-        limits:
-          memory: 300Mi
     queryFrontend:
       ingress:
         enabled: true
