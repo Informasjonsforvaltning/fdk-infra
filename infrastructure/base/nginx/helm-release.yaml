@@ -33,6 +33,8 @@ spec:
         compute-full-forwarded-for: "true"
         # Modify default rate limiting return code to 429.
         limit-req-status-code: "429"
+        # Disable access log.
+        disable-access-log: "true"
       service:
         type: NodePort
         annotations:
