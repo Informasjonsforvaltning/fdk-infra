@@ -9,7 +9,7 @@ spec:
   targetNamespace: monitoring
   chart:
     spec:
-      version: 69.x
+      version: 70.x
       chart: kube-prometheus-stack
       sourceRef:
         kind: HelmRepository
