@@ -43,6 +43,7 @@ spec:
         - user-18-name
         - user-19-name
         - user-20-name
+        - user-21-name
       passwords:
         - user-1-password
         - user-2-password
@@ -64,6 +65,7 @@ spec:
         - user-18-password
         - user-19-password
         - user-20-password
+        - user-21-password
       databases:
         - user-1-db
         - user-2-db
@@ -85,6 +87,7 @@ spec:
         - user-18-db
         - user-19-db
         - user-20-db
+        - user-21-db
     initdbScriptsConfigMap: mongodb-init-scripts
     resources:
       requests:
