@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base/nginx-apis
+- config-map.yaml
+patches:
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: demo
+    target:
+      kind: Deployment
+      name: nginx-apis
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: demo
+    target:
+      kind: ConfigMap
+      name: nginx-apis
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: demo
+    target:
+      kind: Service
+      name: nginx-apis

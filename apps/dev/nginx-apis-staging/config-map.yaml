@@ -1,0 +1,161 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-apis-server
+  namespace: staging
+data:
+  server.catalog-view.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           catalog-view.api.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://catalog-view-api:8080;
+      }
+    }
+  server.search.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           search.api.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://fdk-search-service:8080;
+      }
+    }
+  server.resource.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           resource.api.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://fdk-resource-service:8080;
+      }
+    }
+  server.aisearch.conf: |  
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           aisearch.api.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://fdk-llm-search-service:8080;
+      }
+    }
+  server.statistics.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           statistics.api.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://fdk-statistics-service:8080;
+      }
+    }
+  server.access-request.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           access-request.api.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://access-request-api:8080;
+      }
+    }
+  server.admin-api.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+    #TODO: Finne ut hva adressen til denne skal være
+      server_name           admin-api.staging.fellesdatakatalog.digdir.no harvest-admin.api.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://fdk-harvest-admin:8080;
+      }
+    }
+  server.mqa-scoring-api.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+    #TODO: Finne ut hva adressen til denne skal være
+      server_name           mqa-scoring-api.staging.fellesdatakatalog.digdir.no mqa-scoring.api.staging.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://fdk-mqa-scoring-api:8080;
+      }
+    }
