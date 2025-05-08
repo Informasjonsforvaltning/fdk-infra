@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-monitoring
+  labels:
+    app: nginx-monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-monitoring
+  template:
+    metadata:
+      labels:
+        app: nginx-monitoring
+    spec:
+      containers:
+        - name: nginx-monitoring
+          image: nginx:alpine
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+            - mountPath: /etc/nginx/conf.d/server.karma.conf
+              name: config-server
+              subPath: server.karma.conf
+            - mountPath: /etc/nginx/conf.d/server.alertmanager.conf
+              name: config-server
+              subPath: server.alertmanager.conf
+            - mountPath: /etc/nginx/conf.d/server.prometheus.conf
+              name: config-server
+              subPath: server.prometheus.conf
+            - mountPath: /etc/nginx/conf.d/server.grafana.conf
+              name: config-server
+              subPath: server.grafana.conf
+            - mountPath: /etc/nginx/conf.d/server.thanos.conf
+              name: config-server
+              subPath: server.thanos.conf
+            - mountPath: /etc/nginx/conf.d/server.thanos-store.conf
+              name: config-server
+              subPath: server.thanos-store.conf
+      volumes:
+        - name: "config"
+          configMap:
+            name: "nginx-monitoring"
+        - name: "config-server"
+          configMap:
+            name: "nginx-monitoring-server"
