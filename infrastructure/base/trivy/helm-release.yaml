@@ -35,4 +35,4 @@ spec:
     operator:
       vulnerabilityScannerScanOnlyCurrentRevisions: true
       configAuditScannerScanOnlyCurrentRevisions: true
-      scanJobTTL: "3600"
+      scanJobTTL: 10m
