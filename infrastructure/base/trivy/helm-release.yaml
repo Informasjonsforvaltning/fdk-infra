@@ -20,6 +20,7 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    excludeNamespaces: "kube-system"
     serviceMonitor:
       enabled: true
       interval: 60s
