@@ -159,3 +159,117 @@ data:
         proxy_pass http://fdk-mqa-scoring-api:8080;
       }
     }
+  server.catalog-admin.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           catalog-admin.api.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://catalog-admin-service:8080;
+      }
+    }
+  server.sparql-service.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           sparql.api.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://fdk-sparql-service:8080;
+      }
+    }
+  server.reference-data.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           reference-data.api.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://reference-data:8080;
+      }
+    }
+  server.organization-bff.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           organization-bff.api.fellesdatakatalog.digdir.no organization-bff.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://fdk-organization-bff:8080;
+      }
+    }
+  server.organization-catalog.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           organization-catalog.api.fellesdatakatalog.digdir.no organization-catalog.fellesdatakatalog.digdir.no organization-catalogue.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://organization-catalog:8080;
+      }
+    }
+  server.reports-bff.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           reports-bff.api.fellesdatakatalog.digdir.no reports-bff.fellesdatakatalog.digdir.no;
+      limit_req zone=api_limit burst=6 delay=2;
+    
+      location ~ /prometheus/?$ {
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        proxy_pass http://fdk-reports-bff:8080;
+      }
+    }

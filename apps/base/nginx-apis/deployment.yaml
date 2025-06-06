@@ -48,6 +48,24 @@ spec:
             - mountPath: /etc/nginx/conf.d/server.mqa-scoring-api.conf
               name: config-server
               subPath: server.mqa-scoring-api.conf
+            - mountPath: /etc/nginx/conf.d/server.catalog-admin.conf
+              name: config-server
+              subPath: server.catalog-admin.conf
+            - mountPath: /etc/nginx/conf.d/server.sparql.conf
+              name: config-server
+              subPath: server.sparql.conf
+            - mountPath: /etc/nginx/conf.d/server.reference-data.conf
+              name: config-server
+              subPath: server.reference-data.conf
+            - mountPath: /etc/nginx/conf.d/server.organization-bff.conf
+              name: config-server
+              subPath: server.organization-bff.conf
+            - mountPath: /etc/nginx/conf.d/server.organization-catalog.conf
+              name: config-server
+              subPath: server.organization-catalog.conf
+            - mountPath: /etc/nginx/conf.d/server.reports-bff.conf
+              name: config-server
+              subPath: server.reports-bff.conf
       volumes:
         - name: "config"
           configMap:
