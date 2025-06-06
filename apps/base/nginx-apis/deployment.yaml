@@ -1,0 +1,75 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-apis
+  labels:
+    app: nginx-apis
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx-apis
+  template:
+    metadata:
+      labels:
+        app: nginx-apis
+    spec:
+      containers:
+        - name: nginx-apis
+          image: nginx:alpine
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+            - mountPath: /etc/nginx/conf.d/server.catalog-view.conf
+              name: config-server
+              subPath: server.catalog-view.conf
+            - mountPath: /etc/nginx/conf.d/server.search.conf
+              name: config-server
+              subPath: server.search.conf
+            - mountPath: /etc/nginx/conf.d/server.resource.conf
+              name: config-server
+              subPath: server.resource.conf
+            - mountPath: /etc/nginx/conf.d/server.aisearch.conf
+              name: config-server
+              subPath: server.aisearch.conf
+            - mountPath: /etc/nginx/conf.d/server.statistics.conf
+              name: config-server
+              subPath: server.statistics.conf
+            - mountPath: /etc/nginx/conf.d/server.access-request.conf
+              name: config-server
+              subPath: server.access-request.conf
+            - mountPath: /etc/nginx/conf.d/server.admin-api.conf
+              name: config-server
+              subPath: server.admin-api.conf
+            - mountPath: /etc/nginx/conf.d/server.mqa-scoring-api.conf
+              name: config-server
+              subPath: server.mqa-scoring-api.conf
+            - mountPath: /etc/nginx/conf.d/server.catalog-admin.conf
+              name: config-server
+              subPath: server.catalog-admin.conf
+            - mountPath: /etc/nginx/conf.d/server.sparql.conf
+              name: config-server
+              subPath: server.sparql.conf
+            - mountPath: /etc/nginx/conf.d/server.reference-data.conf
+              name: config-server
+              subPath: server.reference-data.conf
+            - mountPath: /etc/nginx/conf.d/server.organization-bff.conf
+              name: config-server
+              subPath: server.organization-bff.conf
+            - mountPath: /etc/nginx/conf.d/server.organization-catalog.conf
+              name: config-server
+              subPath: server.organization-catalog.conf
+            - mountPath: /etc/nginx/conf.d/server.reports-bff.conf
+              name: config-server
+              subPath: server.reports-bff.conf
+      volumes:
+        - name: "config"
+          configMap:
+            name: "nginx-apis"
+        - name: "config-server"
+          configMap:
+            name: "nginx-apis-server"
