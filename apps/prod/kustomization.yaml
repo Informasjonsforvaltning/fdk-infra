@@ -6,3 +6,4 @@ resources:
   - mongodb.yaml
   - nginx-harvester.yaml
   - nginx-catalog.yaml
+  - nginx-monitoring.yaml
