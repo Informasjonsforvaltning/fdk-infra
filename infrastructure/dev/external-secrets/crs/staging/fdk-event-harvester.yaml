@@ -1,0 +1,16 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: fdk-event-harvester
+  namespace: staging
+spec:
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: fdk-event-harvester
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: fdk-event-harvester-staging

@@ -12,6 +12,7 @@ The infrastructure leverages GitOps principles to manage Kubernetes deployments.
 - **MongoDB Replica Set**: For data storage.
 - **Elasticsearch (ECK)**: For search capabilities.
 - **Trivy Operator**: For vulnerability scanning.
+- **External Secrets Operator**: For managing secrets from external sources.
 
 ## Directory structure
 ```
