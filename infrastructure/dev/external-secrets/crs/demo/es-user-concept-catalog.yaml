@@ -1,0 +1,16 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: es-user-concept-catalog
+  namespace: demo
+spec:
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: es-user-concept-catalog
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: es-user-concept-catalog-demo
