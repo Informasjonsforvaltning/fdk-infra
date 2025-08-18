@@ -1,0 +1,27 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base/nginx-monitoring
+- config-map.yaml
+patches:
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: monitoring
+    target:
+      kind: Deployment
+      name: nginx-monitoring
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: monitoring
+    target:
+      kind: ConfigMap
+      name: nginx-monitoring
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: monitoring
+    target:
+      kind: Service
+      name: nginx-monitoring
