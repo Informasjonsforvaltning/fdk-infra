@@ -48,6 +48,9 @@ spec:
             - mountPath: /etc/nginx/conf.d/server.catalog-history.conf
               name: config-server
               subPath: server.catalog-history.conf
+            - mountPath: /etc/nginx/conf.d/server.catalog-portal.conf
+              name: config-server
+              subPath: server.catalog-portal.conf
       volumes:
         - name: "config"
           configMap:
