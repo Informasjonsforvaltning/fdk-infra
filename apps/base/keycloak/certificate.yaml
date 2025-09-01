@@ -1,0 +1,16 @@
+---
+# Certificate for internal Keycloak TLS
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: keycloak-internal-tls
+spec:
+  # This will be overridden by environment-specific patches
+  secretName: keycloak-internal-tls
+  issuerRef:
+    name: selfsigned-issuer # Base issuer, will be overridden per environment
+    kind: ClusterIssuer
+  # dnsNames will be set by environment-specific patches
+  # Internal certificates can use shorter validity
+  duration: 2160h # 90 days
+  renewBefore: 360h # 15 days

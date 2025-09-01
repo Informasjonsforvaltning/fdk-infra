@@ -1,0 +1,8 @@
+---
+# Base issuers - shared across environments
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}

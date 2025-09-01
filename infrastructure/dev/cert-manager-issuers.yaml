@@ -1,0 +1,17 @@
+---
+# ClusterIssuers for dev environment
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dev
+spec:
+  acme:
+    # Use production Let's Encrypt server since dev environments are internet-facing
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin@fellesdatakatalog.digdir.no
+    privateKeySecretRef:
+      name: letsencrypt-dev
+    solvers:
+      - http01:
+          ingress:
+            class: nginx

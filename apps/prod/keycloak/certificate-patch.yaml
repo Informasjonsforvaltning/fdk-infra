@@ -1,0 +1,13 @@
+---
+# Certificate patch for production environment
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: keycloak-internal-tls
+spec:
+  issuerRef:
+    name: letsencrypt-prod # Use production environment issuer
+  dnsNames:
+    - keycloak.fellesdatakatalog.digdir.no
+    - keycloak-admin.fellesdatakatalog.digdir.no
+
