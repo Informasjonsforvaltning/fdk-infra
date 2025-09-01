@@ -1,0 +1,14 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: keycloak-staging
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  retryInterval: 10s
+  path: ./apps/dev/keycloak-staging
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system

@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - alerts.yaml
   - external-secrets.yaml
+  - cert-manager.yaml
+  - cert-manager-issuers.yaml
   - monitoring.yaml
   - nginx.yaml
   - trivy.yaml

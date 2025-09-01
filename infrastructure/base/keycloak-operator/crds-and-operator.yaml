@@ -1,0 +1,140 @@
+---
+# CRDs
+apiVersion: v1
+kind: List
+items:
+  - apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: keycloak-operator-system
+  - apiVersion: v1
+    kind: Namespace
+    metadata:
+      name: keycloak
+
+---
+# ServiceAccount for Keycloak Operator
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: keycloak-operator
+  namespace: keycloak
+  labels:
+    app: keycloak-operator
+
+---
+# RBAC - ClusterRole for Keycloak Operator
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: keycloak-operator
+rules:
+  - apiGroups: [""]
+    resources:
+      [
+        "pods",
+        "services",
+        "endpoints",
+        "persistentvolumeclaims",
+        "events",
+        "configmaps",
+        "secrets",
+      ]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["keycloak.org"]
+    resources: ["keycloaks", "keycloakrealmimports"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["keycloak.org"]
+    resources: ["keycloaks/status", "keycloakrealmimports/status"]
+    verbs: ["get", "update", "patch"]
+
+---
+# RBAC - ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: keycloak-operator
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: keycloak-operator
+subjects:
+  - kind: ServiceAccount
+    name: keycloak-operator
+    namespace: keycloak
+
+---
+# Apply CRDs (cluster-scoped)
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: keycloak-crds
+  namespace: keycloak
+data:
+  apply.sh: |
+    #! /bin/sh
+    set -e
+    kubectl apply -f vendor/keycloaks.k8s.keycloak.org-v1.yml
+    kubectl apply -f vendor/keycloakrealmimports.k8s.keycloak.org-v1.yml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak-operator
+  namespace: keycloak
+  labels:
+    app: keycloak-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels: { app: keycloak-operator }
+  template:
+    metadata:
+      labels: { app: keycloak-operator }
+      annotations:
+        seccomp.security.alpha.kubernetes.io/pod: runtime/default
+        apparmor.security.beta.kubernetes.io/pod: runtime/default
+    spec:
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: keycloak-operator
+      containers:
+        - name: operator
+          image: quay.io/keycloak/keycloak-operator:26.3.3
+          imagePullPolicy: Always
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 1000
+            runAsGroup: 1000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5

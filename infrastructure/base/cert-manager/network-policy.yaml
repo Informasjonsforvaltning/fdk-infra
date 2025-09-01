@@ -1,0 +1,40 @@
+---
+# NetworkPolicy for cert-manager
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: cert-manager-network-policy
+  namespace: cert-manager
+spec:
+  podSelector:
+    matchLabels:
+      app: cert-manager
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow metrics scraping
+    - ports:
+        - protocol: TCP
+          port: 9402
+      from:
+        - namespaceSelector:
+            matchLabels:
+              name: monitoring
+  egress:
+    # Allow DNS resolution
+    - ports:
+        - protocol: UDP
+          port: 53
+      to:
+        - namespaceSelector:
+            matchLabels:
+              name: kube-system
+    # Allow ACME challenges
+    - ports:
+        - protocol: TCP
+          port: 80
+        - protocol: TCP
+          port: 443
+      to:
+        - namespaceSelector: {}

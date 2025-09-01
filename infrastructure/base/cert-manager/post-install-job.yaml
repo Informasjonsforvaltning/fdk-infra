@@ -1,0 +1,74 @@
+---
+# Job to execute the post-install script
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: cert-manager-post-install
+  namespace: cert-manager
+  annotations:
+    # Run this job after cert-manager is installed
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "5"
+spec:
+  # Only run once
+  backoffLimit: 3
+  template:
+    spec:
+      # Use a service account with proper permissions
+      serviceAccountName: cert-manager-post-install
+      restartPolicy: Never
+      containers:
+        - name: post-install
+          image: bitnami/kubectl:latest
+          command:
+            - /bin/bash
+            - -c
+            - |
+              echo "Waiting for cert-manager to be ready..."
+              kubectl wait --for=condition=ready pod -l app.kubernetes.io/instance=cert-manager -n cert-manager --timeout=300s
+              
+              echo "Re-enabling webhook validation..."
+              kubectl label namespace cert-manager cert-manager.io/disable-validation=false --overwrite
+              
+              echo "Validation re-enabled successfully!"
+              
+              # Verify the label was removed
+              kubectl get namespace cert-manager -o jsonpath='{.metadata.labels.cert-manager\.io/disable-validation}'
+              
+              echo "Post-installation complete!"
+          env:
+            - name: KUBECONFIG
+              value: /var/run/secrets/kubernetes.io/serviceaccount/kubeconfig
+---
+# ServiceAccount for the post-install job
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: cert-manager-post-install
+  namespace: cert-manager
+---
+# RBAC permissions for the post-install job
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cert-manager-post-install
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "namespaces"]
+    verbs: ["get", "list", "watch", "patch", "update"]
+  - apiGroups: [""]
+    resources: ["pods/log"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cert-manager-post-install
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cert-manager-post-install
+subjects:
+  - kind: ServiceAccount
+    name: cert-manager-post-install
+    namespace: cert-manager
