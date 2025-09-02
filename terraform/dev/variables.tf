@@ -54,46 +54,6 @@ variable "global_ip_addresses" {
   })
 }
 
-# Cloud Armor WAF Configuration Variables
-variable "cloud_armor_waf_config" {
-  description = "Cloud Armor WAF rule configurations - kept in Secret Manager"
-  type = object({
-    # Sensitivity levels for different services
-    nginx_controller = object({
-      xss_sensitivity  = number
-      sqli_sensitivity = number
-      rce_sensitivity  = number
-      xss_opt_outs     = list(string)
-      sqli_opt_outs    = list(string)
-      rce_opt_outs     = list(string)
-    })
-
-    # Add other services as needed
-    registration = object({
-      xss_sensitivity  = number
-      sqli_sensitivity = number
-      rfi_sensitivity  = number
-      rce_sensitivity  = number
-      xss_opt_outs     = list(string)
-      sqli_opt_outs    = list(string)
-      rfi_opt_outs     = list(string)
-      rce_opt_outs     = list(string)
-    })
-
-    # Template for other services
-    admin = object({
-      xss_sensitivity  = number
-      sqli_sensitivity = number
-      rfi_sensitivity  = number
-      rce_sensitivity  = number
-      xss_opt_outs     = list(string)
-      sqli_opt_outs    = list(string)
-      rfi_opt_outs     = list(string)
-      rce_opt_outs     = list(string)
-    })
-  })
-}
-
 # Cloud Armor Policy Names and Configurations
 variable "cloud_armor_policies" {
   description = "Cloud Armor security policy names and configurations - kept in Secret Manager"
@@ -101,22 +61,6 @@ variable "cloud_armor_policies" {
     name        = string
     preview     = optional(bool, false)
     enable_ddos = optional(bool, false)
-  }))
-}
-
-# Cloud Armor Opt-out Rules for old-style policies
-variable "cloud_armor_opt_outs" {
-  description = "Cloud Armor WAF opt-out rule configurations for old-style policies - kept in Secret Manager"
-  type = map(object({
-    xss_opt_outs        = optional(list(string), [])
-    sqli_opt_outs       = optional(list(string), [])
-    rfi_opt_outs        = optional(list(string), [])
-    rce_opt_outs        = optional(list(string), [])
-    additional_opt_outs = optional(list(string), [])
-    # Additional fields for search policy
-    methodenforcement_opt_outs = optional(list(string), [])
-    scannerdetection_opt_outs  = optional(list(string), [])
-    php_opt_outs               = optional(list(string), [])
   }))
 }
 
@@ -166,8 +110,10 @@ variable "network_config" {
 variable "snapshots" {
   description = "Snapshot names for disk restoration - kept in Secret Manager"
   type = object({
-    staging_mongodb = string
-    demo_mongodb    = string
+    staging_mongodb           = string
+    demo_mongodb              = string
+    staging_strapi            = string
+    staging_community_service = string
   })
 }
 
@@ -180,18 +126,24 @@ variable "recaptcha_site_key" {
 # Cloud Armor WAF Expressions
 variable "cloud_armor_waf_expressions" {
   description = "Pre-built WAF expressions for Cloud Armor policies - kept in Secret Manager"
-  type = map(string)
+  type        = map(string)
 }
 
 # Disk Configuration
 variable "disk_labels" {
   description = "Common labels for all compute disks - kept in Secret Manager"
+  type        = map(string)
+}
+
+# Snapshot Schedule Configuration
+variable "snapshot_schedule_config" {
+  description = "Snapshot schedule policy configuration - kept in Secret Manager"
   type = object({
-    goog_gke_cluster_id_base32            = string
-    goog_gke_node_pool_provisioning_model = string
-    goog_gke_volume                       = string
-    managed_by_cnrm                       = string
-    web                                   = string
+    policy_name           = string
+    max_retention_days    = number
+    on_source_disk_delete = string
+    days_in_cycle         = number
+    start_time           = string
   })
 }
 
@@ -202,15 +154,15 @@ variable "gke_cluster_config" {
     default_max_pods_per_node = number
     enable_shielded_nodes     = bool
     autoscaling_profile       = string
-    release_channel          = string
-    networking_mode          = string
-    
+    release_channel           = string
+    networking_mode           = string
+
     maintenance_policy = object({
       start_time = string
       end_time   = string
       recurrence = string
     })
-    
+
     node_config = object({
       disk_size_gb    = number
       disk_type       = string
@@ -219,49 +171,49 @@ variable "gke_cluster_config" {
       logging_variant = string
       labels          = map(string)
       oauth_scopes    = list(string)
-      
+
       shielded_instance_config = object({
         enable_integrity_monitoring = bool
         enable_secure_boot          = bool
       })
-      
+
       advanced_machine_features = object({
         threads_per_core = number
       })
-      
-      metadata = map(string)
+
+      metadata        = map(string)
       resource_labels = map(string)
     })
-    
+
     addons_config = object({
       gce_persistent_disk_csi_driver_enabled = bool
       horizontal_pod_autoscaling_disabled    = bool
       http_load_balancing_disabled           = bool
-      network_policy_disabled               = bool
+      network_policy_disabled                = bool
     })
-    
+
     logging_config = object({
       enable_components = list(string)
     })
-    
+
     monitoring_config = object({
-      enable_components                     = list(string)
+      enable_components                       = list(string)
       advanced_datapath_observability_enabled = bool
     })
-    
+
     network_policy = object({
       enabled  = bool
       provider = string
     })
-    
+
     private_cluster_config = object({
-      enable_private_nodes        = bool
+      enable_private_nodes         = bool
       master_global_access_enabled = bool
     })
-    
+
     service_external_ips_enabled = bool
     database_encryption_state    = string
-    resource_labels             = map(string)
+    resource_labels              = map(string)
   })
 }
 
@@ -272,21 +224,21 @@ variable "gke_node_pools" {
     initial_node_count = number
     node_count         = number
     max_pods_per_node  = number
-    
+
     autoscaling = optional(object({
       location_policy = string
       max_node_count  = number
     }))
-    
+
     management = object({
       auto_repair  = bool
       auto_upgrade = bool
     })
-    
+
     network_config = object({
       enable_private_nodes = bool
     })
-    
+
     node_config = object({
       disk_size_gb    = number
       disk_type       = string
@@ -295,24 +247,24 @@ variable "gke_node_pools" {
       logging_variant = string
       labels          = optional(map(string), {})
       oauth_scopes    = list(string)
-      
+
       shielded_instance_config = object({
         enable_integrity_monitoring = bool
         enable_secure_boot          = bool
       })
-      
+
       advanced_machine_features = object({
         threads_per_core = number
       })
-      
-      metadata = map(string)
+
+      metadata        = map(string)
       resource_labels = map(string)
     })
-    
+
     queued_provisioning = object({
       enabled = bool
     })
-    
+
     upgrade_settings = object({
       max_surge = number
       strategy  = string

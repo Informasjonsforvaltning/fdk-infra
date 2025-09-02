@@ -1,18 +1,18 @@
-resource "google_compute_resource_policy" "snapshot_daily_14_days" {
-  name    = "${var.disk_prefix}-snapshot-${var.region}-daily-14-days"
+resource "google_compute_resource_policy" "disk_backup_policy" {
+  name    = var.snapshot_schedule_config.policy_name
   project = var.project_id
   region  = var.region
 
   snapshot_schedule_policy {
     retention_policy {
-      max_retention_days    = 14
-      on_source_disk_delete = "KEEP_AUTO_SNAPSHOTS"
+      max_retention_days    = var.snapshot_schedule_config.max_retention_days
+      on_source_disk_delete = var.snapshot_schedule_config.on_source_disk_delete
     }
 
     schedule {
       daily_schedule {
-        days_in_cycle = 1
-        start_time    = "23:00"
+        days_in_cycle = var.snapshot_schedule_config.days_in_cycle
+        start_time    = var.snapshot_schedule_config.start_time
       }
     }
 

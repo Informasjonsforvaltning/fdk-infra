@@ -16,6 +16,7 @@ resource "google_compute_disk" "staging_community_service" {
   physical_block_size_bytes = 4096
   project                   = var.project_id
   size                      = 10
+  snapshot                  = "https://www.googleapis.com/compute/v1/projects/${var.project_id}/global/snapshots/${var.snapshots.staging_community_service}"
   type                      = "pd-standard"
   zone                      = var.zone
 }
@@ -94,7 +95,8 @@ resource "google_compute_disk" "staging_strapi" {
   name                      = "${var.disk_prefix}-staging-strapi"
   physical_block_size_bytes = 4096
   project                   = var.project_id
-  size                      = 100
+  size                      = 50
+  snapshot                  = "https://www.googleapis.com/compute/v1/projects/${var.project_id}/global/snapshots/${var.snapshots.staging_strapi}"
   type                      = "pd-standard"
   zone                      = var.zone
 }
