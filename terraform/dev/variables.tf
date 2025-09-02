@@ -143,7 +143,7 @@ variable "snapshot_schedule_config" {
     max_retention_days    = number
     on_source_disk_delete = string
     days_in_cycle         = number
-    start_time           = string
+    start_time            = string
   })
 }
 
