@@ -5,9 +5,10 @@ resources:
   - alerts.yaml
   - external-secrets.yaml
   - cert-manager.yaml
-  - cert-manager-issuers.yaml
   #  - logging.yaml
   - monitoring.yaml
   - nginx.yaml
   - trivy.yaml
   - elasticsearch-operator
+  # Apply issuers after cert-manager is ready
+  - cert-manager-issuers.yaml

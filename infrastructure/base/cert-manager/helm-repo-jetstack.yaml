@@ -1,0 +1,10 @@
+---
+# Helm repository for Jetstack charts
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: jetstack
+  namespace: cert-manager
+spec:
+  interval: 1h
+  url: https://charts.jetstack.io
