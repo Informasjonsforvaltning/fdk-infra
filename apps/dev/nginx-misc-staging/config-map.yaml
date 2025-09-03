@@ -1,0 +1,227 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-misc-server
+  namespace: staging
+data:
+  server.admin.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           admin.staging.fellesdatakatalog.digdir.no;
+    
+    
+      location ~ /prometheus/?$ {
+        limit_req zone=prometheus_limit burst=3 delay=1;
+        add_header X-RateLimit-Limit 1 always;
+        add_header X-RateLimit-Burst 3 always;
+        add_header X-RateLimit-Delay 1 always;
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        limit_req zone=admin_limit burst=30 delay=10;
+        add_header X-RateLimit-Limit 10 always;
+        add_header X-RateLimit-Burst 30 always;
+        add_header X-RateLimit-Delay 10 always;
+        proxy_pass http://fdk-admin-gui:8080;
+      }
+    }
+  server.cms.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           cms.staging.fellesdatakatalog.digdir.no;
+    
+      location ~ /prometheus/?$ {
+        limit_req zone=prometheus_limit burst=3 delay=1;
+        add_header X-RateLimit-Limit 1 always;
+        add_header X-RateLimit-Burst 3 always;
+        add_header X-RateLimit-Delay 1 always;
+        deny all;
+        return 404;
+      }    
+    
+      location / {
+        limit_req zone=cms_limit burst=30 delay=10;
+        add_header X-RateLimit-Limit 25 always;
+        add_header X-RateLimit-Burst 50 always;
+        add_header X-RateLimit-Delay 25 always;
+        proxy_pass http://fdk-cms-service:8080;
+      }
+    }
+  server.community.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      limit_req_zone $client_ip zone=community_limit:10m rate=30r/s;
+      limit_req_status 429;
+      listen                8080;
+      server_name           community.staging.fellesdatakatalog.digdir.no;
+      client_max_body_size  200M;
+    
+      # Tune Nginx buffers 
+      proxy_busy_buffers_size   512k;
+      proxy_buffers   4 512k;
+      proxy_buffer_size   256k;
+    
+      # Only allow valid HTTP methods
+      if ($request_method !~ ^(GET|POST|PUT|DELETE|HEAD|OPTIONS|PATCH)$) {
+          return 405;
+      }
+    
+      #redirect http -> https
+      if ($http_x_forwarded_proto = "http") {
+          return 301 https://$host$request_uri;
+      }
+    
+    
+      # Enable compression both for HTTP/1.0 and HTTP/1.1.
+      gzip_http_version  1.1;
+    
+      # Compression level (1-9).
+      # 5 is a perfect compromise between size and cpu usage, offering about
+      # 75% reduction for most ascii files (almost identical to level 9).
+      gzip_comp_level    5;
+    
+      # Gzip compression
+      gzip on;
+      gzip_types
+          application/atom+xml
+          application/javascript
+          application/json
+          application/rss+xml
+          application/x-font-ttf
+          application/x-web-app-manifest+json
+          application/xhtml+xml
+          application/xml
+          font/opentype
+          image/svg+xml
+          image/x-icon
+          text/css
+          text/plain
+          text/x-component
+          text/turtle;
+      gzip_proxied    no-cache no-store private expired auth;
+      gzip_min_length 1000;
+    
+      # Compress data even for clients that are connecting to us via proxies,
+      # identified by the "Via" header (required for CloudFront).
+      gzip_proxied       any;
+    
+      # Tell proxies to cache both the gzipped and regular version of a resource
+      # whenever the client's Accept-Encoding capabilities header varies;
+      # Avoids the issue where a non-gzip capable client (which is extremely rare
+      # today) would display gibberish if their proxy gave them the gzipped version.
+      gzip_vary          on;
+    
+      add_header Strict-Transport-Security "max-age=63072000; includeSubdomains; preload" always;
+      add_header Referrer-Policy "same-origin" always;
+      add_header Vary "Accept, Accept-Encoding" always;
+      add_header X-Robots-Tag "noindex, nofollow, nosnippet, noarchive" always;
+      add_header X-Frame-Options "SAMEORIGIN" always;
+      add_header X-XSS-Protection "1; mode=block" always;
+      add_header X-Download-Options "noopen" always;
+      add_header X-Permitted-Cross-Domain-Policies "none" always;
+    
+      # Short term caching
+      open_file_cache max=1000 inactive=20s;
+      open_file_cache_valid 30s;
+      open_file_cache_min_uses 5;
+      open_file_cache_errors off;
+    
+      location ~ /prometheus/?$ {
+        limit_req zone=community_limit burst=3 delay=1;
+        add_header X-RateLimit-Limit 1 always;
+        add_header X-RateLimit-Burst 3 always;
+        add_header X-RateLimit-Delay 1 always;
+        deny all;
+        return 404;
+      }
+    
+      ## Default site location.
+      location / {
+        access_log off;
+        limit_req zone=community_limit burst=60 delay=30;
+        add_header X-RateLimit-Limit 15 always;
+        add_header X-RateLimit-Burst 60 always;
+        add_header X-RateLimit-Delay 30 always;
+        set $cors '';
+        if ($http_origin ~ '^https?://(localhost|.*\.?(staging|demo)\.fellesdatakatalog\.digdir\.no)') {
+          set $cors 'true';
+        }
+    
+        if ($cors = 'true') {
+          add_header 'Access-Control-Allow-Origin' "$http_origin" always;
+        }
+    
+        proxy_pass http://fdk-community-service:8080;
+    
+        #Socket.IO support
+        proxy_http_version 1.1;
+    
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+    
+        proxy_hide_header Access-Control-Allow-Origin;
+        proxy_hide_header Strict-Transport-Security;
+        proxy_hide_header Referrer-Policy;
+        proxy_hide_header X-Frame-Options;
+        proxy_hide_header X-Content-Type-Options;
+        proxy_hide_header X-Download-Options;
+        proxy_hide_header X-Powered-By;
+        proxy_hide_header X-XSS-Protection;
+        proxy_hide_header X-Permitted-Cross-Domain-Policies;
+      }
+      
+      root /var/www/;
+    
+      error_page            502 @maintenance;
+      error_page            503 @maintenance;
+      location @maintenance {
+         rewrite ^(.*)$     /http-error/maintenance.html break;
+      }
+    
+      location /http-error/ {
+        # Specifies that a given location can only be used for internal requests.
+        # returns a 404 Not Found http error if accessed directly.
+        internal;
+      }
+    }
+  server.sso.conf: |  
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           sso.staging.fellesdatakatalog.digdir.no;
+    
+      location ~ /prometheus/?$ {
+        limit_req zone=community_limit burst=3 delay=1;
+        add_header X-RateLimit-Limit 1 always;
+        add_header X-RateLimit-Burst 3 always;
+        add_header X-RateLimit-Delay 1 always;
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        limit_req zone=cms_limit burst=75 delay=15;
+        add_header X-RateLimit-Limit 15 always;
+        add_header X-RateLimit-Burst 75 always;
+        add_header X-RateLimit-Delay 15 always;
+        proxy_pass http://sso:8080;
+      }
+    }
