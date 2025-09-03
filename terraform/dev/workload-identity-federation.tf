@@ -57,6 +57,20 @@ resource "google_project_iam_member" "terraform_sa_storage_admin" {
   member  = "serviceAccount:${google_service_account.terraform_sa.email}"
 }
 
+# Grant Workload Identity Pool management permissions to Terraform CI service account
+resource "google_project_iam_member" "terraform_sa_workload_identity_admin" {
+  project = var.project_id
+  role    = "roles/iam.workloadIdentityPoolAdmin"
+  member  = "serviceAccount:${google_service_account.terraform_sa.email}"
+}
+
+# Grant project IAM administration permissions to Terraform CI service account
+resource "google_project_iam_member" "terraform_sa_project_iam_admin" {
+  project = var.project_id
+  role    = "roles/resourcemanager.projectIamAdmin"
+  member  = "serviceAccount:${google_service_account.terraform_sa.email}"
+}
+
 # Allow GitHub Actions from your repository to impersonate the Terraform CI service account
 resource "google_service_account_iam_member" "github_actions_terraform_sa" {
   service_account_id = google_service_account.terraform_sa.name
