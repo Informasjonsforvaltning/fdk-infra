@@ -4,6 +4,9 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-dev
+  annotations:
+    # Ensure cert-manager is fully deployed before applying issuers
+    fluxcd.io/automation: "true"
 spec:
   acme:
     # Use production Let's Encrypt server since dev environments are internet-facing

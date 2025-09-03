@@ -2,31 +2,45 @@
 
 This directory contains the Keycloak HA cluster configuration for different environments.
 
-## Architecture
+## Overview
 
-The Keycloak setup consists of:
+This directory contains the base configuration for Keycloak HA clusters deployed across different environments:
 
-- **Keycloak Operator**: Manages Keycloak instances (deployed in infrastructure)
-- **Keycloak HA Cluster**: Multiple Keycloak instances for high availability
-- **PostgreSQL Database**: External database for Keycloak data persistence
-- **Database Configuration**: Configured per environment via additionalOptions and external secret management
-
-## Environments
-
-### Base Configuration (`apps/base/keycloak/`)
-
-- Common Keycloak configuration shared across all environments
-- TLS certificate configuration
-- Base Keycloak settings
-
-### Development Environments
-
-- **Staging** (`apps/dev/keycloak-staging/`): 2 instances, moderate resources
-- **Demo** (`apps/dev/keycloak-demo/`): 1 instance, minimal resources
+- **Staging** (`apps/dev/keycloak-staging/`): 1 instance, minimal resources
+- **Demo** (`apps/dev/keycloak-demo/`): 2 instances, moderate resources
 
 ### Production Environment
 
 - **Production** (`apps/prod/keycloak/`): 3 instances, high resources
+
+## Environment-Specific Configurations
+
+### **Staging Environment** (`apps/dev/keycloak-staging/`)
+
+- **Domain**: `keycloak.staging.fellesdatakatalog.digdir.no`
+- **Admin Domain**: `keycloak-admin.staging.fellesdatakatalog.digdir.no`
+- **Instances**: 1
+- **Resources**: 200m-500m CPU, 256Mi-1Gi memory
+- **Database**: External PostgreSQL via secrets
+- **TLS**: Let's Encrypt (production server)
+
+### **Demo Environment** (`apps/dev/keycloak-demo/`)
+
+- **Domain**: `keycloak.demo.fellesdatakatalog.digdir.no`
+- **Admin Domain**: `keycloak-admin.demo.fellesdatakatalog.digdir.no`
+- **Instances**: 2
+- **Resources**: 250m-1 CPU, 512Mi-2Gi memory
+- **Database**: External PostgreSQL via secrets
+- **TLS**: Let's Encrypt (production server)
+
+### **Production Environment** (`apps/prod/keycloak/`)
+
+- **Domain**: `keycloak.fellesdatakatalog.digdir.no`
+- **Admin Domain**: `keycloak-admin.fellesdatakatalog.digdir.no`
+- **Instances**: 3
+- **Resources**: 1000m-4 CPU, 2Gi-8Gi memory
+- **Database**: External PostgreSQL via secrets
+- **TLS**: Let's Encrypt (production server)
 
 ## Configuration Structure
 
