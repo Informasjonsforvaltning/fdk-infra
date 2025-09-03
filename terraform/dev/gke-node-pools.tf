@@ -9,9 +9,9 @@ resource "google_container_node_pool" "pools" {
   name               = each.key
   max_pods_per_node  = each.value.max_pods_per_node
   # Only set node_count when autoscaling is disabled - GKE manages this when autoscaling is enabled
-  node_count         = each.value.autoscaling == null ? each.value.node_count : null
-  node_locations     = [var.zone]
-  project            = var.project_id
+  node_count     = each.value.autoscaling == null ? each.value.node_count : null
+  node_locations = [var.zone]
+  project        = var.project_id
 
   dynamic "autoscaling" {
     for_each = each.value.autoscaling != null ? [each.value.autoscaling] : []
@@ -77,7 +77,7 @@ resource "google_container_node_pool" "pools" {
   lifecycle {
     ignore_changes = [
       initial_node_count, # Only matters during creation, ignore drift afterwards
-      node_count         # When autoscaling is enabled, GKE manages this
+      node_count          # When autoscaling is enabled, GKE manages this
     ]
   }
 }
