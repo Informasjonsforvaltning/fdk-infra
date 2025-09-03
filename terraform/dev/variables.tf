@@ -222,7 +222,7 @@ variable "gke_node_pools" {
   description = "GKE node pool configurations - kept in Secret Manager"
   type = map(object({
     initial_node_count = number
-    node_count         = number
+    node_count         = optional(number)
     max_pods_per_node  = number
 
     autoscaling = optional(object({

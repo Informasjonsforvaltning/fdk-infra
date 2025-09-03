@@ -1,16 +1,11 @@
 # Staging Environment Persistent Disks
 
 locals {
-  staging_disk_labels = merge(var.disk_labels, {
-    goog-k8s-cluster-location = var.zone
-    goog-k8s-cluster-name     = var.project_id
-  })
+  staging_disk_labels = var.disk_labels
 }
 
 resource "google_compute_disk" "staging_community_service" {
-  labels = merge(local.staging_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.staging_disk_labels
 
   name                      = "${var.disk_prefix}-staging-community-service"
   physical_block_size_bytes = 4096
@@ -22,9 +17,7 @@ resource "google_compute_disk" "staging_community_service" {
 }
 
 resource "google_compute_disk" "staging_kafka_1" {
-  labels = merge(local.staging_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.staging_disk_labels
 
   name                      = "${var.disk_prefix}-staging-kafka-1"
   physical_block_size_bytes = 4096
@@ -35,9 +28,7 @@ resource "google_compute_disk" "staging_kafka_1" {
 }
 
 resource "google_compute_disk" "staging_mongodb_db" {
-  labels = merge(local.staging_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.staging_disk_labels
 
   name                      = "${var.disk_prefix}-staging-mongodb-db"
   physical_block_size_bytes = 4096
@@ -49,9 +40,7 @@ resource "google_compute_disk" "staging_mongodb_db" {
 }
 
 resource "google_compute_disk" "staging_rabbitmq" {
-  labels = merge(local.staging_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.staging_disk_labels
 
   name                      = "${var.disk_prefix}-staging-rabbitmq"
   physical_block_size_bytes = 4096
@@ -62,9 +51,7 @@ resource "google_compute_disk" "staging_rabbitmq" {
 }
 
 resource "google_compute_disk" "staging_reports_store" {
-  labels = merge(local.staging_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.staging_disk_labels
 
   name                      = "${var.disk_prefix}-staging-reports-store"
   physical_block_size_bytes = 4096
@@ -75,9 +62,7 @@ resource "google_compute_disk" "staging_reports_store" {
 }
 
 resource "google_compute_disk" "staging_static_rdf_server" {
-  labels = merge(local.staging_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.staging_disk_labels
 
   name                      = "${var.disk_prefix}-staging-static-rdf-server"
   physical_block_size_bytes = 4096
@@ -88,9 +73,7 @@ resource "google_compute_disk" "staging_static_rdf_server" {
 }
 
 resource "google_compute_disk" "staging_strapi" {
-  labels = merge(local.staging_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.staging_disk_labels
 
   name                      = "${var.disk_prefix}-staging-strapi"
   physical_block_size_bytes = 4096
@@ -102,9 +85,7 @@ resource "google_compute_disk" "staging_strapi" {
 }
 
 resource "google_compute_disk" "staging_zookeeper_1" {
-  labels = merge(local.staging_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.staging_disk_labels
 
   name                      = "${var.disk_prefix}-staging-zookeeper-1"
   physical_block_size_bytes = 4096

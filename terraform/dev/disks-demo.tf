@@ -1,16 +1,11 @@
 # Demo Environment Persistent Disks
 
 locals {
-  demo_disk_labels = merge(var.disk_labels, {
-    goog-k8s-cluster-location = var.zone
-    goog-k8s-cluster-name     = var.project_id
-  })
+  demo_disk_labels = var.disk_labels
 }
 
 resource "google_compute_disk" "demo_kafka_1" {
-  labels = merge(local.demo_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.demo_disk_labels
 
   name                      = "${var.disk_prefix}-demo-kafka-1"
   physical_block_size_bytes = 4096
@@ -21,9 +16,7 @@ resource "google_compute_disk" "demo_kafka_1" {
 }
 
 resource "google_compute_disk" "demo_mongodb_db" {
-  labels = merge(local.demo_disk_labels, {
-    goog-k8s-node-pool-name = "pool-2"
-  })
+  labels = local.demo_disk_labels
 
   name                      = "${var.disk_prefix}-demo-mongodb-db"
   physical_block_size_bytes = 4096
@@ -35,9 +28,7 @@ resource "google_compute_disk" "demo_mongodb_db" {
 }
 
 resource "google_compute_disk" "demo_rabbitmq" {
-  labels = merge(local.demo_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.demo_disk_labels
 
   name                      = "${var.disk_prefix}-demo-rabbitmq"
   physical_block_size_bytes = 4096
@@ -48,9 +39,7 @@ resource "google_compute_disk" "demo_rabbitmq" {
 }
 
 resource "google_compute_disk" "demo_reports_store" {
-  labels = merge(local.demo_disk_labels, {
-    goog-k8s-node-pool-name = "pool-5"
-  })
+  labels = local.demo_disk_labels
 
   name                      = "${var.disk_prefix}-demo-reports-store"
   physical_block_size_bytes = 4096
@@ -61,9 +50,7 @@ resource "google_compute_disk" "demo_reports_store" {
 }
 
 resource "google_compute_disk" "demo_static_rdf_server" {
-  labels = merge(local.demo_disk_labels, {
-    goog-k8s-node-pool-name = "pool-2"
-  })
+  labels = local.demo_disk_labels
 
   name                      = "${var.disk_prefix}-demo-static-rdf-server"
   physical_block_size_bytes = 4096
@@ -74,16 +61,7 @@ resource "google_compute_disk" "demo_static_rdf_server" {
 }
 
 resource "google_compute_disk" "demo_zookeeper_1" {
-  labels = {
-    goog-gke-cluster-id-base32            = "fxtnh4tztdbjn5kwvawqni24sdaxlshlylqm6iyp5wiaownidovq"
-    goog-gke-node-pool-provisioning-model = "on-demand"
-    goog-gke-volume                       = ""
-    goog-k8s-cluster-location             = var.zone
-    goog-k8s-cluster-name                 = var.project_id
-    goog-k8s-node-pool-name               = "pool-5"
-    managed-by-cnrm                       = "true"
-    web                                   = ""
-  }
+  labels = local.demo_disk_labels
 
   name                      = "${var.disk_prefix}-demo-zookeeper-1"
   physical_block_size_bytes = 4096
