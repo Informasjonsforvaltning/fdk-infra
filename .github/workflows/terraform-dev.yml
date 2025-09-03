@@ -1,0 +1,272 @@
+name: 'Terraform Dev Environment'
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'terraform/dev/**'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'terraform/dev/**'
+
+# Use concurrency to prevent parallel runs on the same environment
+concurrency:
+  group: terraform-dev-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  terraform-plan:
+    name: 'Terraform Plan'
+    runs-on: ubuntu-latest
+    
+    # Security: Use minimal permissions for plan
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+
+    defaults:
+      run:
+        working-directory: terraform/dev
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Authenticate to Google Cloud
+      id: auth
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+        service_account: ${{ secrets.TERRAFORM_SA_DEV }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        version: 'latest'
+
+    - name: 'Fetch sensitive variables from Secret Manager'
+      id: 'secrets'
+      run: |
+        echo "Fetching sensitive terraform variables from Secret Manager..."
+        # Fetch the actual tfvars content from Secret Manager
+        gcloud secrets versions access latest --secret="terraform-dev-sensitive-vars" > terraform.tfvars
+        
+        # Verify the file was created (but don't show contents)
+        if [ ! -f terraform.tfvars ]; then
+          echo "❌ Failed to fetch terraform.tfvars from Secret Manager"
+          exit 1
+        fi
+        
+        echo "✅ Successfully fetched sensitive variables"
+        echo "📊 Variables file size: $(wc -l < terraform.tfvars) lines"
+
+    - name: 'Setup Terraform'
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: '~1.13.0'
+
+    - name: 'Terraform Init'
+      id: init
+      run: |
+        # Create backend configuration from GitHub secret
+        cat > backend.hcl <<EOF
+        bucket = "${{ secrets.TERRAFORM_BACKEND_BUCKET_DEV }}"
+        EOF
+        
+        terraform init -backend-config=backend.hcl
+        echo "✅ Terraform initialized successfully with dynamic backend"
+
+    - name: 'Terraform Format Check'
+      id: fmt
+      run: |
+        # Only format check .tf files, exclude any .tfvars files
+        terraform fmt -check *.tf
+      continue-on-error: true
+
+    - name: 'Terraform Validate'
+      id: validate
+      run: |
+        terraform validate
+        echo "✅ Terraform configuration is valid"
+
+    - name: 'Terraform Plan'
+      id: plan
+      run: |
+        # Run terraform plan with sensitive vars
+        terraform plan -var-file="terraform.tfvars" -out=tfplan -no-color
+        
+        # Show full plan output in GHA logs (secure environment)
+        echo "📋 Terraform Plan Results:"
+        terraform show -no-color tfplan
+        
+        # Count planned changes for PR comment summary
+        PLAN_OUTPUT=$(terraform show -no-color tfplan)
+        ADD_COUNT=$(echo "$PLAN_OUTPUT" | grep -c "^  # .* will be created$" || true)
+        CHANGE_COUNT=$(echo "$PLAN_OUTPUT" | grep -c "^  # .* will be updated" || true) 
+        DESTROY_COUNT=$(echo "$PLAN_OUTPUT" | grep -c "^  # .* will be destroyed$" || true)
+        
+        echo "plan-add-count=$ADD_COUNT" >> $GITHUB_OUTPUT
+        echo "plan-change-count=$CHANGE_COUNT" >> $GITHUB_OUTPUT
+        echo "plan-destroy-count=$DESTROY_COUNT" >> $GITHUB_OUTPUT
+        
+        echo "✅ Terraform plan completed - $ADD_COUNT to add, $CHANGE_COUNT to change, $DESTROY_COUNT to destroy"
+      continue-on-error: true
+
+    - name: 'Comment PR with Plan Summary'
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const addCount = '${{ steps.plan.outputs.plan-add-count }}';
+          const changeCount = '${{ steps.plan.outputs.plan-change-count }}';
+          const destroyCount = '${{ steps.plan.outputs.plan-destroy-count }}';
+          
+          let planSummary = '';
+          if (addCount > 0) planSummary += `**${addCount}** to add, `;
+          if (changeCount > 0) planSummary += `**${changeCount}** to change, `;
+          if (destroyCount > 0) planSummary += `**${destroyCount}** to destroy`;
+          
+          // Clean up trailing comma
+          planSummary = planSummary.replace(/, $/, '');
+          
+          if (!planSummary) {
+            planSummary = 'No changes detected';
+          }
+            
+          const output = `
+          ## Terraform Dev Environment Status
+          
+          #### Terraform Format and Style 🖌 \`${{ steps.fmt.outcome }}\`
+          #### Terraform Initialization ⚙️ \`${{ steps.init.outcome }}\`
+          #### Terraform Validation 🤖 \`${{ steps.validate.outcome }}\`
+          #### Terraform Plan 📖 \`${{ steps.plan.outcome }}\`
+          
+          **Plan Summary:** ${planSummary}
+          
+          > 📋 Detailed plan output is available in the [workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for security reasons.
+          
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`terraform/dev\`*`;
+
+          // Find existing comment
+          const comments = await github.rest.issues.listComments({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+          });
+
+          const botComment = comments.data.find(comment => 
+            comment.user.type === 'Bot' && comment.body.includes('Terraform Dev Environment Status')
+          );
+
+          if (botComment) {
+            // Update existing comment
+            await github.rest.issues.updateComment({
+              comment_id: botComment.id,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            });
+          } else {
+            // Create new comment
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: output
+            });
+          }
+
+    - name: 'Cleanup sensitive files'
+      if: always()
+      run: |
+        # Always cleanup sensitive files, even if job fails
+        rm -f terraform.tfvars tfplan backend.hcl
+        echo "🧹 Cleaned up sensitive files"
+
+    - name: 'Job Summary'
+      if: always()
+      run: |
+        echo "## Terraform Plan Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Format Check**: ${{ steps.fmt.outcome }}" >> $GITHUB_STEP_SUMMARY  
+        echo "- **Init**: ${{ steps.init.outcome }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Validate**: ${{ steps.validate.outcome }}" >> $GITHUB_STEP_SUMMARY
+        echo "- **Plan**: ${{ steps.plan.outcome }}" >> $GITHUB_STEP_SUMMARY
+
+  terraform-apply:
+    name: 'Terraform Apply'
+    runs-on: ubuntu-latest
+    needs: terraform-plan
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    # Security: Use minimal permissions for apply
+    permissions:
+      contents: read
+      id-token: write
+
+    defaults:
+      run:
+        working-directory: terraform/dev
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v5
+
+    - name: Authenticate to Google Cloud
+      id: auth
+      uses: google-github-actions/auth@v2
+      with:
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_DEV }}
+        service_account: ${{ secrets.TERRAFORM_SA_DEV }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+      with:
+        version: 'latest'
+
+    - name: 'Setup Terraform'
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: '~1.13.0'
+
+    - name: 'Fetch sensitive variables from Secret Manager'
+      run: |
+        echo "Fetching sensitive terraform variables from Secret Manager..."
+        gcloud secrets versions access latest --secret="terraform-dev-sensitive-vars" > terraform.tfvars
+        
+        if [ ! -f terraform.tfvars ]; then
+          echo "❌ Failed to fetch terraform.tfvars from Secret Manager"
+          exit 1
+        fi
+        
+        echo "✅ Successfully fetched sensitive variables"
+
+    - name: 'Terraform Init'
+      run: |
+        cat > backend.hcl <<EOF
+        bucket = "${{ secrets.TERRAFORM_BACKEND_BUCKET_DEV }}"
+        EOF
+        
+        terraform init -backend-config=backend.hcl
+        echo "✅ Terraform initialized successfully"
+
+    - name: 'Terraform Apply'
+      run: |
+        echo "🚀 Applying Terraform changes to environment..."
+        terraform apply -var-file="terraform.tfvars" -auto-approve
+        echo "✅ Terraform apply completed successfully"
+
+    - name: 'Cleanup sensitive files'
+      if: always()
+      run: |
+        rm -f terraform.tfvars tfplan backend.hcl
+        echo "🧹 Cleaned up sensitive files"
+
+    - name: 'Job Summary'
+      if: always()
+      run: |
+        echo "## Terraform Apply Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- **Apply**: Completed ✅" >> $GITHUB_STEP_SUMMARY

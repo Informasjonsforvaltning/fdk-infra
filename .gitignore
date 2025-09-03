@@ -1,4 +1,6 @@
-.idea
+# IDE files
+.idea/
+.vscode/
 
 # Terraform
 terraform/.terraform/
@@ -11,6 +13,22 @@ terraform/**/*.tfstate
 terraform/**/*.tfstate.backup
 terraform/**/.terraform.lock.hcl
 terraform/**/terraform.tfvars
-terraform/
+**/terraform.tfvars
+**/backend.hcl
+**/*.tfplan
+**/.terraform/
 
+# Keep .terraform.lock.hcl - it should be committed for version consistency
+
+# Temporary files
+*.tmp
+*.bak
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude Code instructions (contains local paths and sensitive info)
 CLAUDE.md
+.claude/

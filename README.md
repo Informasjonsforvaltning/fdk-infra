@@ -26,10 +26,14 @@ fdk-infra/
 │   ├── dev/                       # Flux kustomization tree for development
 │   └── prod/                      # Flux kustomization tree for production
 │
-└── infrastructure/                # Base infrastructure components and dependencies
-    ├── base/                      # Base components shared across environments
-    ├── dev/                       # Development-specific components
-    └── prod/                      # Production-specific components
+├── infrastructure/                # Base infrastructure components and dependencies
+│   ├── base/                      # Base components shared across environments
+│   ├── dev/                       # Development-specific components
+│   └── prod/                      # Production-specific components
+│
+└── terraform/                     # Infrastructure as Code for cloud resources
+    ├── dev/                       # Development environment Terraform configs
+    └── prod/                      # Production environment Terraform configs (future)
 ```
 
 ## Prerequisites
@@ -37,7 +41,10 @@ fdk-infra/
   - [Flux CLI](https://fluxcd.io/docs/installation/)
   - [kubectl](https://kubernetes.io/docs/tasks/tools/)
   - [htpasswd](https://httpd.apache.org/docs/current/programs/htpasswd.html)
+  - [Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli) (for infrastructure management)
+  - [Google Cloud CLI](https://cloud.google.com/sdk/docs/install) (for GCP authentication)
 - Access to the target Kubernetes cluster
+- Appropriate GCP permissions for infrastructure management
 - Appropriate permissions to create secrets and deploy resources
 
 ## Setup and Deployment
@@ -52,7 +59,15 @@ flux bootstrap github \
   --branch=main \
   --path=./clusters/<cluster_name>
 ```
-### 2. Deploy applications:<br>
+### 2. Infrastructure Management:
+The `terraform/` directory contains Infrastructure as Code configurations for managing GCP resources:
+- **Secure by design**: All sensitive values stored in Secret Manager
+- **CI/CD ready**: GitHub Actions with Workload Identity Federation
+- **Environment-agnostic**: Completely abstracted and reusable configurations
+
+See [terraform/dev/README.md](terraform/dev/README.md) for detailed setup instructions.
+
+### 3. Deploy applications:<br>
 Flux will automatically synchronize the manifests defined in the repository to the specified cluster.
 
 ## Managing secrets
