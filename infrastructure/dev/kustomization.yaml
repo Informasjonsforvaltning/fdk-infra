@@ -11,5 +11,4 @@ resources:
   - nginx.yaml
   - trivy.yaml
   - elasticsearch-operator
-  # Apply issuers after cert-manager is ready
-  - cert-manager-issuers.yaml
+  # cert-manager-issuers.yaml moved to separate kustomization with dependency
