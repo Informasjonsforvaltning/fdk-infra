@@ -5,3 +5,4 @@ resources:
   - apps.yaml
   - flux-system
   - infrastructure.yaml
+  - infrastructure/cert-manager-issuers-kustomization.yaml

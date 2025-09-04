@@ -4,4 +4,5 @@ kind: Kustomization
 resources:
   - apps.yaml
   - infrastructure.yaml
+  - infrastructure/cert-manager-issuers-kustomization.yaml
   - misc

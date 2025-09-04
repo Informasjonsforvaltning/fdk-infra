@@ -6,8 +6,8 @@ resources:
   - external-secrets.yaml
   - keycloak-operator.yaml
   - cert-manager.yaml
-  - cert-manager-issuers.yaml
   - monitoring.yaml
   - nginx.yaml
   - trivy.yaml
   - elasticsearch-operator
+  # cert-manager-issuers.yaml moved to separate kustomization with dependency
