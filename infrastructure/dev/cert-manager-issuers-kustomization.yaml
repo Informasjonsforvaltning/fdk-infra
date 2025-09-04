@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 5m0s
   retryInterval: 1m0s
-  path: ./infrastructure/dev/cert-manager-issuers-only.yaml
+  path: ./cert-manager-issuers-only.yaml
   prune: true
   sourceRef:
     kind: GitRepository
