@@ -1,0 +1,20 @@
+---
+# ClusterIssuers for dev environment
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-dev
+  annotations:
+    # Ensure cert-manager is fully deployed before applying issuers
+    fluxcd.io/automation: "true"
+spec:
+  acme:
+    # Use production Let's Encrypt server since dev environments are internet-facing
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin@fellesdatakatalog.digdir.no
+    privateKeySecretRef:
+      name: letsencrypt-dev
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
