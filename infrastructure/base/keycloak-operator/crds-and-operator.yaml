@@ -111,6 +111,12 @@ rules:
   - apiGroups: ["k8s.keycloak.org"]
     resources: ["keycloaks/status", "keycloakrealmimports/status"]
     verbs: ["get", "update", "patch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses", "networkpolicies"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 
 ---
 # RBAC - ClusterRoleBinding
