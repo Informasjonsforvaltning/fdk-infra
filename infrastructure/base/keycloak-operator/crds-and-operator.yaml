@@ -186,3 +186,9 @@ spec:
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 5
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir: {}
