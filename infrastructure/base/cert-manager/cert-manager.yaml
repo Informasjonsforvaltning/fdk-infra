@@ -16,7 +16,7 @@ spec:
         name: jetstack
         namespace: cert-manager
   values:
-    installCRDs: true
+    installCRDs: false
     global:
       leaderElection:
         namespace: cert-manager
