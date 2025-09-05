@@ -182,13 +182,13 @@ spec:
               memory: 512Mi
           livenessProbe:
             httpGet:
-              path: /healthz
+              path: /q/health/live
               port: 8080
             initialDelaySeconds: 30
             periodSeconds: 10
           readinessProbe:
             httpGet:
-              path: /readyz
+              path: /q/health/ready
               port: 8080
             initialDelaySeconds: 5
             periodSeconds: 5
