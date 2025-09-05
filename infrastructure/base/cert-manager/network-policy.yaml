@@ -30,11 +30,14 @@ spec:
         - namespaceSelector:
             matchLabels:
               name: kube-system
-    # Allow ACME challenges
+    # Allow HTTPS to external registries and ACME challenges
+    - ports:
+        - protocol: TCP
+          port: 443
+      to: []
+    # Allow HTTP for ACME challenges
     - ports:
         - protocol: TCP
           port: 80
-        - protocol: TCP
-          port: 443
       to:
         - namespaceSelector: {}
