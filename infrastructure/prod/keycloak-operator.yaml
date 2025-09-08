@@ -10,6 +10,17 @@ spec:
   retryInterval: 1m0s
   path: ./infrastructure/base/keycloak-operator
   prune: true
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/env
+          value:
+            - name: WATCH_NAMESPACE
+              value: "prod"
+      target:
+        kind: Deployment
+        name: keycloak-operator
+        namespace: keycloak
   sourceRef:
     kind: GitRepository
     name: flux-system
