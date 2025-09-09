@@ -4,3 +4,7 @@ kind: Kustomization
 resources:
   - crds-and-operator.yaml
   - network-policy.yaml
+  - operator-deployment.yaml
+  - rbac-demo.yaml
+  - rbac-staging.yaml
+  - rbac-prod.yaml
