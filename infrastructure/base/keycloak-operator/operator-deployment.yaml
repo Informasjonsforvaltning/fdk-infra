@@ -1,10 +1,10 @@
 ---
-# Keycloak operator deployment for specific namespaces
+# Base Keycloak operator deployment template
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: keycloak-operator
-  namespace: keycloak
+  # namespace will be set by environment patches
 spec:
   replicas: 1
   selector:

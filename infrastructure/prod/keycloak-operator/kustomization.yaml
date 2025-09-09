@@ -2,7 +2,14 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../base/keycloak-operator/crds-and-operator.yaml
-  - ../../base/keycloak-operator/network-policy.yaml
+  - ../../base/keycloak-operator
   - rbac-prod.yaml
-  - keycloak-operator-prod.yaml
+patches:
+  - path: operator-prod-patch.yaml
+    target:
+      kind: Deployment
+      name: keycloak-operator
+  - path: network-policy-prod-patch.yaml
+    target:
+      kind: NetworkPolicy
+      name: keycloak-operator-network-policy
