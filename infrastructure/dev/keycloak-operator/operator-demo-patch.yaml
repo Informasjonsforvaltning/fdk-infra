@@ -1,0 +1,17 @@
+---
+# Patch for demo namespace operator
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak-operator
+  namespace: demo
+spec:
+  selector:
+    matchLabels:
+      app: keycloak-operator-demo
+  template:
+    metadata:
+      labels:
+        app: keycloak-operator-demo
+    spec:
+      serviceAccountName: keycloak-operator-demo

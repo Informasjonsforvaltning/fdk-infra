@@ -1,0 +1,7 @@
+---
+# Patch for demo namespace network policy
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: keycloak-operator-network-policy
+  namespace: demo

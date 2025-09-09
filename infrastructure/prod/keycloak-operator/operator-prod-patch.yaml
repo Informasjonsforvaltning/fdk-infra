@@ -1,0 +1,17 @@
+---
+# Patch for prod namespace operator
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keycloak-operator
+  namespace: prod
+spec:
+  selector:
+    matchLabels:
+      app: keycloak-operator-prod
+  template:
+    metadata:
+      labels:
+        app: keycloak-operator-prod
+    spec:
+      serviceAccountName: keycloak-operator-prod
