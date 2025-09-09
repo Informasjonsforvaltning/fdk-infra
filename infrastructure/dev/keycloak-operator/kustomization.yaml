@@ -2,23 +2,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - ../../base/keycloak-operator
-  - rbac-demo.yaml
-  - rbac-staging.yaml
-patches:
-  - path: operator-demo-patch.yaml
-    target:
-      kind: Deployment
-      name: keycloak-operator
-  - path: operator-staging-patch.yaml
-    target:
-      kind: Deployment
-      name: keycloak-operator
-  - path: network-policy-demo-patch.yaml
-    target:
-      kind: NetworkPolicy
-      name: keycloak-operator-network-policy
-  - path: network-policy-staging-patch.yaml
-    target:
-      kind: NetworkPolicy
-      name: keycloak-operator-network-policy
+  - ../../base/keycloak-operator/crds-only.yaml
+  - ../../base/keycloak-operator/cluster-role.yaml
+  - keycloak-operator-demo
+  - keycloak-operator-staging
