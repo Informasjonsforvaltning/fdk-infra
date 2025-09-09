@@ -1,40 +1,67 @@
-apiVersion: keycloak.org/v2alpha1
-kind: Keycloak
-metadata:
-  name: keycloak
-spec:
-  hostname:
-    hostname: keycloak.demo.fellesdatakatalog.digdir.no
-    admin: keycloak-admin.demo.fellesdatakatalog.digdir.no
-  instances: 2
-  resources:
-    requests:
-      cpu: 250m
-      memory: 512Mi
-    limits:
-      cpu: 1
-      memory: 2Gi  
-  ingress:
-    annotations:
-      cert-manager.io/cluster-issuer: letsencrypt-dev
-  additionalOptions:
-    - name: KC_DB_HOST
-      secret:
-        name: postgres-demo
-        key: HOST
-    - name: KC_DB_PORT
-      secret:
-        name: postgres-demo
-        key: PORT
-    - name: KC_DB_DATABASE
-      secret:
-        name: keycloak
-        key: POSTGRESQL_DB
-    - name: KC_DB_USERNAME
-      secret:
-        name: keycloak
-        key: POSTGRESQL_USER
-    - name: KC_DB_PASSWORD
-      secret:
-        name: keycloak
-        key: POSTGRESQL_PASSWORD
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/hostname/hostname
+        value: keycloak.demo.fellesdatakatalog.digdir.no
+      - op: replace
+        path: /spec/hostname/admin
+        value: keycloak-admin.demo.fellesdatakatalog.digdir.no
+      - op: replace
+        path: /spec/instances
+        value: 2
+      - op: replace
+        path: /spec/resources/requests/cpu
+        value: 250m
+      - op: replace
+        path: /spec/resources/requests/memory
+        value: 512Mi
+      - op: replace
+        path: /spec/resources/limits/cpu
+        value: "1"
+      - op: replace
+        path: /spec/resources/limits/memory
+        value: 2Gi
+      - op: replace
+        path: /spec/ingress/annotations/cert-manager.io~1cluster-issuer
+        value: letsencrypt-dev
+      - op: add
+        path: /spec/additionalOptions/-
+        value:
+          name: KC_DB_HOST
+          secret:
+            name: postgres-demo
+            key: HOST
+      - op: add
+        path: /spec/additionalOptions/-
+        value:
+          name: KC_DB_PORT
+          secret:
+            name: postgres-demo
+            key: PORT
+      - op: add
+        path: /spec/additionalOptions/-
+        value:
+          name: KC_DB_DATABASE
+          secret:
+            name: keycloak
+            key: POSTGRESQL_DB
+      - op: add
+        path: /spec/additionalOptions/-
+        value:
+          name: KC_DB_USERNAME
+          secret:
+            name: keycloak
+            key: POSTGRESQL_USER
+      - op: add
+        path: /spec/additionalOptions/-
+        value:
+          name: KC_DB_PASSWORD
+          secret:
+            name: keycloak
+            key: POSTGRESQL_PASSWORD
+    target:
+      kind: Keycloak
+      name: keycloak

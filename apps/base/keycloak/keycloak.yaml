@@ -40,12 +40,14 @@ spec:
   features:
     enabled:
       - admin-fine-grained-authz
+      - authorization
       - ciba
+      - client-auth-federated
       #- client-secret-rotation
       #- declarative-user-profile  # Not available in current version
       #- docker
       - dynamic-scopes
-      #- openid-connect  # Not available in current version
+      - organization
       #- preview
       - recovery-codes
       - scripts
