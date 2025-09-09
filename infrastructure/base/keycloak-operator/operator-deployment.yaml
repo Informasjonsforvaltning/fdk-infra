@@ -72,3 +72,64 @@ spec:
       volumes:
         - name: tmp
           emptyDir: {}
+
+---
+# NetworkPolicy for Keycloak Operator
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: keycloak-operator-network-policy
+  # namespace will be set by environment patches
+spec:
+  podSelector:
+    matchLabels:
+      app: keycloak-operator
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow health check probes from kubelet
+    - ports:
+        - protocol: TCP
+          port: 8080
+      from:
+        - namespaceSelector:
+            matchLabels:
+              name: kube-system
+  egress:
+    # Allow DNS resolution
+    - ports:
+        - protocol: UDP
+          port: 53
+      to:
+        - namespaceSelector:
+            matchLabels:
+              name: kube-system
+    # Allow HTTPS to external registries and APIs
+    - ports:
+        - protocol: TCP
+          port: 443
+      to: []
+    # Allow HTTP for external APIs if needed
+    - ports:
+        - protocol: TCP
+          port: 80
+      to: []
+    # Allow communication with Kubernetes API server
+    - ports:
+        - protocol: TCP
+          port: 443
+      to:
+        - namespaceSelector:
+            matchLabels:
+              name: kube-system
+    # Allow communication within the same namespace (for operator to manage Keycloak resources)
+    - ports:
+        - protocol: TCP
+          port: 8443 # Keycloak HTTPS port
+        - protocol: TCP
+          port: 8080 # Keycloak HTTP port (if enabled)
+      to:
+        - namespaceSelector:
+            matchLabels:
+              name: "" # Same namespace
