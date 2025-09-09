@@ -42,16 +42,18 @@ spec:
       - admin-fine-grained-authz
       - ciba
       #- client-secret-rotation
-      - declarative-user-profile
+      #- declarative-user-profile  # Not available in current version
       #- docker
       - dynamic-scopes
-      - openid-connect
+      #- openid-connect  # Not available in current version
       #- preview
       - recovery-codes
       - scripts
       - token-exchange
       - web-authn
   additionalOptions:
+    - name: KC_DB
+      value: "postgres"
     - name: KC_CACHE
       value: "ispn"
     - name: KC_CACHE_CONFIG_FILE
