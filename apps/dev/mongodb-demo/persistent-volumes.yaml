@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodb-demo-pvc
+  name: datadir-demo-mongodb-demo-0
   namespace: demo
 spec:
   accessModes:

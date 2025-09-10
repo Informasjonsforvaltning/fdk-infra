@@ -12,4 +12,3 @@ spec:
     persistence:
       resourcePolicy: keep
       size: 10Gi
-      existingClaim: "mongodb-demo-pvc"

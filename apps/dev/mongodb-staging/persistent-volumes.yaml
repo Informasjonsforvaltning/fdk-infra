@@ -16,7 +16,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodb-staging-pvc
+  name: datadir-staging-mongodb-staging-0
   namespace: staging
 spec:
   accessModes:
