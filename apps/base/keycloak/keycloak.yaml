@@ -40,7 +40,6 @@ spec:
   features:
     enabled:
       - admin-fine-grained-authz
-      - authorization
       - ciba
       - client-auth-federated
       - dynamic-scopes
