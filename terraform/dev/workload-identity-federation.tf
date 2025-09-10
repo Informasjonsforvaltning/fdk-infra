@@ -74,6 +74,13 @@ resource "google_project_iam_member" "terraform_sa_project_iam_admin" {
   member  = "serviceAccount:${google_service_account.terraform_sa.email}"
 }
 
+# Grant GKE cluster administration permissions to Terraform CI service account
+resource "google_project_iam_member" "terraform_sa_gke_admin" {
+  project = var.project_id
+  role    = "roles/container.clusterAdmin"
+  member  = "serviceAccount:${google_service_account.terraform_sa.email}"
+}
+
 # Allow GitHub Actions from your repository to impersonate the Terraform CI service account
 resource "google_service_account_iam_member" "github_actions_terraform_sa" {
   service_account_id = google_service_account.terraform_sa.name
