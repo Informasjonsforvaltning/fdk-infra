@@ -43,16 +43,10 @@ spec:
       - authorization
       - ciba
       - client-auth-federated
-      #- client-secret-rotation
-      #- declarative-user-profile  # Not available in current version
-      #- docker
       - dynamic-scopes
       - organization
-      #- preview
       - recovery-codes
       - scripts
-      - token-exchange
-      - web-authn
   additionalOptions:
     - name: KC_DB
       value: "postgres"
