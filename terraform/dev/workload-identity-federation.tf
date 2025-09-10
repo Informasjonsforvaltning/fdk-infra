@@ -18,11 +18,14 @@ resource "google_iam_workload_identity_pool_provider" "github" {
   disabled                           = false
 
   attribute_mapping = {
-    "google.subject"       = "assertion.sub"
-    "attribute.repository" = "assertion.repository"
-    "attribute.actor"      = "assertion.actor"
-    "attribute.ref"        = "assertion.ref"
+    "google.subject"             = "assertion.sub"
+    "attribute.repository"       = "assertion.repository"
+    "attribute.actor"            = "assertion.actor"
+    "attribute.ref"              = "assertion.ref"
+    "attribute.repository_owner" = "assertion.repository_owner"
   }
+
+  attribute_condition = "assertion.repository_owner=='${var.github_organization}'"
 
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
@@ -101,7 +104,7 @@ resource "google_service_account_iam_member" "github_actions_k8s_deploy_sa" {
   condition {
     title       = "Limit to specific repositories"
     description = "Allow access only from approved repositories"
-    expression  = "assertion.repository in ${jsonencode(var.k8s_deploy_allowed_repos)}"
+    expression  = "attribute.repository in ${jsonencode(var.k8s_deploy_allowed_repos)}"
   }
 }
 
