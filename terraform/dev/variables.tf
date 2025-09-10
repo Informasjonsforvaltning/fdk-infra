@@ -22,6 +22,11 @@ variable "github_repository" {
   type        = string
 }
 
+variable "github_organization" {
+  description = "GitHub organization name for Workload Identity Federation - kept in Secret Manager"
+  type        = string
+}
+
 variable "k8s_deploy_allowed_repos" {
   description = "List of repositories allowed to use k8s deploy service account - kept in Secret Manager"
   type        = list(string)

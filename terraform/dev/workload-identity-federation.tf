@@ -18,11 +18,14 @@ resource "google_iam_workload_identity_pool_provider" "github" {
   disabled                           = false
 
   attribute_mapping = {
-    "google.subject"       = "assertion.sub"
-    "attribute.repository" = "assertion.repository"
-    "attribute.actor"      = "assertion.actor"
-    "attribute.ref"        = "assertion.ref"
+    "google.subject"             = "assertion.sub"
+    "attribute.repository"       = "assertion.repository"
+    "attribute.actor"            = "assertion.actor"
+    "attribute.ref"              = "assertion.ref"
+    "attribute.repository_owner" = "assertion.repository_owner"
   }
+
+  attribute_condition = "assertion.repository_owner=='${var.github_organization}'"
 
   oidc {
     issuer_uri = "https://token.actions.githubusercontent.com"
@@ -93,16 +96,12 @@ resource "google_project_iam_member" "k8s_deploy_sa_gke_developer" {
 }
 
 # Allow GitHub Actions from specific repos to impersonate the K8s deploy service account
+# Create separate bindings for each allowed repository
 resource "google_service_account_iam_member" "github_actions_k8s_deploy_sa" {
+  for_each           = toset(var.k8s_deploy_allowed_repos)
   service_account_id = google_service_account.k8s_deploy_sa.name
   role               = "roles/iam.workloadIdentityUser"
-  member             = "principalSet://iam.googleapis.com/projects/${data.google_project.current.number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions.workload_identity_pool_id}/*"
-
-  condition {
-    title       = "Limit to specific repositories"
-    description = "Allow access only from approved repositories"
-    expression  = "assertion.repository in ${jsonencode(var.k8s_deploy_allowed_repos)}"
-  }
+  member             = "principalSet://iam.googleapis.com/projects/${data.google_project.current.number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions.workload_identity_pool_id}/attribute.repository/${each.value}"
 }
 
 # Outputs for use in GitHub Actions workflows
