@@ -9,3 +9,7 @@ spec:
   values:
     namespaceOverride: staging
     disableSystemLog: true
+    persistence:
+      resourcePolicy: keep
+      size: 10Gi
+      existingClaim: "mongodb-staging-pvc"

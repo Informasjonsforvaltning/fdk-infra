@@ -9,3 +9,7 @@ spec:
   values:
     namespaceOverride: demo
     disableSystemLog: true
+    persistence:
+      resourcePolicy: keep
+      size: 10Gi
+      existingClaim: "mongodb-demo-pvc"
