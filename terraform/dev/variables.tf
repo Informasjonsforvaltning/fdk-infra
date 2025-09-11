@@ -277,3 +277,18 @@ variable "gke_node_pools" {
   }))
 }
 
+variable "k8s_namespaces" {
+  description = "List of Kubernetes namespaces to create service accounts in - kept in Secret Manager"
+  type        = list(string)
+}
+
+variable "k8s_service_accounts" {
+  description = "List of Kubernetes service accounts to create for Workload Identity - kept in Secret Manager"
+  type        = list(string)
+}
+
+variable "k8s_to_gcp_service_account_mapping" {
+  description = "Mapping of Kubernetes service account names to GCP service account names - kept in Secret Manager"
+  type        = map(string)
+}
+

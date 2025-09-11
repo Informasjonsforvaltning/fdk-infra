@@ -26,3 +26,20 @@ resource "google_service_account" "eso_reader_sa" {
   display_name = "${var.project_id}-eso-reader-sa"
   project      = var.project_id
 }
+
+# Kubernetes Service Accounts for Workload Identity
+# These service accounts are linked to Google Cloud service accounts via Workload Identity
+
+resource "kubernetes_service_account" "workload_identity_service_accounts" {
+  for_each = toset([
+    for combination in setproduct(var.k8s_namespaces, var.k8s_service_accounts) : "${combination[0]}-${combination[1]}"
+  ])
+
+  metadata {
+    name      = join("-", slice(split("-", each.key), 1, length(split("-", each.key))))
+    namespace = split("-", each.key)[0]
+    annotations = {
+      "iam.gke.io/gcp-service-account" = "${var.k8s_to_gcp_service_account_mapping[join("-", slice(split("-", each.key), 1, length(split("-", each.key))))]}@${var.project_id}.iam.gserviceaccount.com"
+    }
+  }
+}
