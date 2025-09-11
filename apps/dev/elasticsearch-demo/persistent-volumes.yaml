@@ -1,0 +1,18 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: elasticsearch-demo-data-pv
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: standard
+  gcePersistentDisk:
+    pdName: elasticsearch-demo-data
+    fsType: ext4
+  claimRef:
+    namespace: demo
+    name: elasticsearch-data-elasticsearch-es-data-0

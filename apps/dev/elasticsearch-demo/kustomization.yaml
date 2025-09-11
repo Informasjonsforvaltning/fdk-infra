@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: demo
 resources:
   - elasticsearch.yaml
+  - persistent-volumes.yaml

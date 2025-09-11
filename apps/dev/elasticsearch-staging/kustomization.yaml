@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: staging
 resources:
   - elasticsearch.yaml
+  - persistent-volumes.yaml
