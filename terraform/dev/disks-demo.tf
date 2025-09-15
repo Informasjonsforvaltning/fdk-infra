@@ -60,6 +60,17 @@ resource "google_compute_disk" "demo_static_rdf_server" {
   zone                      = var.zone
 }
 
+resource "google_compute_disk" "demo_sparql" {
+  labels = local.demo_disk_labels
+
+  name                      = "${var.disk_prefix}-demo-sparql"
+  physical_block_size_bytes = 4096
+  project                   = var.project_id
+  size                      = 200
+  type                      = "pd-standard"
+  zone                      = var.zone
+}
+
 resource "google_compute_disk" "demo_zookeeper_1" {
   labels = local.demo_disk_labels
 
