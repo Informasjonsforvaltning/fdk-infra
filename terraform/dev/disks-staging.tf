@@ -84,6 +84,17 @@ resource "google_compute_disk" "staging_strapi" {
   zone                      = var.zone
 }
 
+resource "google_compute_disk" "staging_sparql" {
+  labels = local.staging_disk_labels
+
+  name                      = "${var.disk_prefix}-staging-sparql"
+  physical_block_size_bytes = 4096
+  project                   = var.project_id
+  size                      = 200
+  type                      = "pd-standard"
+  zone                      = var.zone
+}
+
 resource "google_compute_disk" "staging_zookeeper_1" {
   labels = local.staging_disk_labels
 
