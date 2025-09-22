@@ -13,3 +13,4 @@ resources:
   - nginx-catalog-demo.yaml
   - keycloak-staging.yaml
   - keycloak-demo.yaml
+  - keycloak-test.yaml
