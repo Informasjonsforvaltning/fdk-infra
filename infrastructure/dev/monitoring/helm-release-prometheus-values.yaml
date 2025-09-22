@@ -5,6 +5,9 @@ metadata:
   name: kube-prometheus-stack
   namespace: flux-system
 spec:
+  chart:
+    spec:
+      version: 77.x
   values:
     alertmanager:
       ingress:
