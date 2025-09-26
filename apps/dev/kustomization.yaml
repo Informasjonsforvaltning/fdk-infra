@@ -11,5 +11,5 @@ resources:
   - nginx-harvester-demo.yaml
   - nginx-catalog-staging.yaml
   - nginx-catalog-demo.yaml
-  - keycloak-staging.yaml
-  - keycloak-demo.yaml
+#  - keycloak-staging.yaml
+#  - keycloak-demo.yaml
