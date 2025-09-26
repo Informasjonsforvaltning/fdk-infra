@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: test/hos/keycloak-decouple
+    branch: main
   secretRef:
     name: flux-system
   url: ssh://git@github.com/Informasjonsforvaltning/fdk-infra
