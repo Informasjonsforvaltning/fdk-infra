@@ -19,6 +19,8 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    image:
+      repository: bitnamilegacy/mongodb
     auth:
       enabled: true
       existingSecret: mongodb-cluster-init
