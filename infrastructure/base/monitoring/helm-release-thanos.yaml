@@ -20,6 +20,8 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    image:
+      repository: bitnamilegacy/thanos
     existingObjstoreSecret: thanos-objstore
     query:
       extraFlags:
