@@ -7,4 +7,4 @@ metadata:
 spec:
   type: "oci"
   interval: 120m
-  url: oci://registry-1.docker.io/bitnamicharts
+  url: oci://registry-1.docker.io/bitnamilegacy
