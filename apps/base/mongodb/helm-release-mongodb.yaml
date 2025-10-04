@@ -103,6 +103,8 @@ spec:
     nameOverride: mongodb
     replicaCount: 3
     metrics:
+      image:
+        repository: bitnamilegacy/mongodb-exporter
       enabled: true
       serviceMonitor:
         enabled: true
