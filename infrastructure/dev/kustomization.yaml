@@ -4,7 +4,8 @@ kind: Kustomization
 resources:
   - alerts.yaml
   - external-secrets.yaml
-  - keycloak-operator.yaml
+  - keycloak-operator-demo.yaml
+  - keycloak-operator-staging.yaml
   - cert-manager.yaml
   - cert-manager-issuers.yaml
   #  - logging.yaml

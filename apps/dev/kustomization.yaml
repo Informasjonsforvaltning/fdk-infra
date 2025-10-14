@@ -4,12 +4,12 @@ kind: Kustomization
 resources:
   - mongodb-staging.yaml
   - mongodb-demo.yaml
-#  - backstage-staging.yaml
+  #  - backstage-staging.yaml
   - elasticsearch-staging.yaml
   - elasticsearch-demo.yaml
   - nginx-harvester-staging.yaml
   - nginx-harvester-demo.yaml
   - nginx-catalog-staging.yaml
   - nginx-catalog-demo.yaml
-#  - keycloak-staging.yaml
-#  - keycloak-demo.yaml
+  - keycloak-staging.yaml
+  - keycloak-demo.yaml

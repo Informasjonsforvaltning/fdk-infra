@@ -6,4 +6,4 @@ resources:
   - mongodb.yaml
   - nginx-harvester.yaml
   - nginx-catalog.yaml
-#  - keycloak.yaml
+  - keycloak.yaml

@@ -3,32 +3,74 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../../base/keycloak-operator
-  - rbac-demo.yaml
+  - rbac.yaml
 patches:
   - patch: |-
       - op: add
         path: /metadata/namespace
         value: demo
     target:
-      kind: Deployment
+      kind: ServiceAccount
       name: keycloak-operator
   - patch: |-
       - op: add
         path: /metadata/namespace
         value: demo
     target:
-      kind: NetworkPolicy
-      name: keycloak-operator-network-policy
+      kind: Role
+      name: keycloak-operator-role
   - patch: |-
-      - op: replace
-        path: /spec/selector/matchLabels/app
-        value: keycloak-operator-demo
-      - op: replace
-        path: /spec/template/metadata/labels/app
-        value: keycloak-operator-demo
+      - op: add
+        path: /metadata/namespace
+        value: demo
+    target:
+      kind: RoleBinding
+      name: keycloak-operator-role-binding
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: demo
+    target:
+      kind: RoleBinding
+      name: keycloak-operator-view
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: demo
+    target:
+      kind: RoleBinding
+      name: keycloakcontroller-role-binding
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: demo
+    target:
+      kind: RoleBinding
+      name: keycloakrealmimportcontroller-role-binding
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: demo
+    target:
+      kind: Service
+      name: keycloak-operator
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: demo
       - op: replace
         path: /spec/template/spec/serviceAccountName
-        value: keycloak-operator-demo
+        value: keycloak-operator
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: WATCH_NAMESPACE
+          value: demo
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: OPERATOR_NAMESPACE
+          value: demo
     target:
       kind: Deployment
       name: keycloak-operator
