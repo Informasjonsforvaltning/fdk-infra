@@ -2,68 +2,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: prod
 resources:
+  - keycloak.yaml
   - ../../base/keycloak
 patches:
   - target:
-      kind: Keycloak
-      name: keycloak
-    patch: |-
-      - op: add
-        path: /spec/hostname
-        value:
-          hostname: keycloak.fellesdatakatalog.digdir.no
-          admin: keycloak-admin.fellesdatakatalog.digdir.no
-      - op: replace
-        path: /spec/instances
-        value: 3
-      - op: add
-        path: /spec/resources
-        value:
-          requests:
-            cpu: 1000m
-            memory: 2Gi
-          limits:
-            cpu: "4"
-            memory: 8Gi
-      - op: replace
-        path: /spec/ingress/annotations/cert-manager.io~1cluster-issuer
-        value: letsencrypt-prod
-      - op: add
-        path: /spec/additionalOptions/-
-        value:
-          name: KC_DB_HOST
-          secret:
-            name: postgres-prod
-            key: HOST
-      - op: add
-        path: /spec/additionalOptions/-
-        value:
-          name: KC_DB_PORT
-          secret:
-            name: postgres-prod
-            key: PORT
-      - op: add
-        path: /spec/additionalOptions/-
-        value:
-          name: KC_DB_DATABASE
-          secret:
-            name: keycloak
-            key: POSTGRESQL_DB
-      - op: add
-        path: /spec/additionalOptions/-
-        value:
-          name: KC_DB_USERNAME
-          secret:
-            name: keycloak
-            key: POSTGRESQL_USER
-      - op: add
-        path: /spec/additionalOptions/-
-        value:
-          name: KC_DB_PASSWORD
-          secret:
-            name: keycloak
-            key: POSTGRESQL_PASSWORD
-  - path: certificate-patch.yaml
-    target:
       kind: Certificate
       name: keycloak-internal-tls
+    path: certificate-patch.yaml

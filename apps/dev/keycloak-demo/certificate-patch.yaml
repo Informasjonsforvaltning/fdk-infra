@@ -1,13 +1,10 @@
----
-# Certificate patch for demo environment
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: keycloak-internal-tls
+  namespace: demo
 spec:
   issuerRef:
     name: letsencrypt-dev # Use dev environment issuer
   dnsNames:
     - keycloak.demo.fellesdatakatalog.digdir.no
-    - keycloak-admin.demo.fellesdatakatalog.digdir.no
-
