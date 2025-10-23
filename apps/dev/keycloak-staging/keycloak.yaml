@@ -9,7 +9,8 @@ spec:
     admin: https://keycloak.staging.fellesdatakatalog.digdir.no
   instances: 3
   update:
-    strategy: Auto
+    strategy: Explicit
+    revision: "14"
   http:
     httpEnabled: false
     httpsPort: 8443
