@@ -1,0 +1,130 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: postgres-connection-alerts
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus
+    role: alert-rules
+spec:
+  groups:
+    - name: postgresql.connection.rules
+      interval: 30s
+      rules:
+        # Alert when connection usage exceeds 80% of max_connections
+        - alert: PostgreSQLHighConnectionUsage
+          expr: |
+            (
+              sum(pg_stat_activity_connections_total_connections)
+              /
+              sum(pg_settings_max_connections)
+            ) * 100 > 80
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "PostgreSQL connection usage is high ({{ $value | humanize }}%)"
+            description: |
+              PostgreSQL database is using {{ $value | humanize }}% of available connections.
+              Current connections: {{ with query "sum(pg_stat_activity_connections_total_connections)" }}{{ . | first | value }}{{ end }}
+              Max connections: {{ with query "sum(pg_settings_max_connections)" }}{{ . | first | value }}{{ end }}
+              Consider investigating connection pooling or increasing max_connections.
+
+        # Alert when connection usage exceeds 90% (critical)
+        - alert: PostgreSQLCriticalConnectionUsage
+          expr: |
+            (
+              sum(pg_stat_activity_connections_total_connections)
+              /
+              sum(pg_settings_max_connections)
+            ) * 100 > 90
+          for: 2m
+          labels:
+            severity: critical
+          annotations:
+            summary: "PostgreSQL connection usage is critical ({{ $value | humanize }}%)"
+            description: |
+              PostgreSQL database is using {{ $value | humanize }}% of available connections.
+              Current connections: {{ with query "sum(pg_stat_activity_connections_total_connections)" }}{{ . | first | value }}{{ end }}
+              Max connections: {{ with query "sum(pg_settings_max_connections)" }}{{ . | first | value }}{{ end }}
+              Database may start rejecting connections soon!
+
+        # Alert when there are too many idle connections
+        - alert: PostgreSQLTooManyIdleConnections
+          expr: |
+            pg_stat_activity_connections_idle_connections > 50
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "PostgreSQL has too many idle connections ({{ $value }})"
+            description: |
+              PostgreSQL has {{ $value }} idle connections.
+              This may indicate connection pooling issues or applications not closing connections properly.
+
+        # Alert when there are connections stuck in "idle in transaction"
+        - alert: PostgreSQLIdleInTransaction
+          expr: |
+            pg_stat_activity_connections_idle_in_transaction > 5
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "PostgreSQL has connections idle in transaction ({{ $value }})"
+            description: |
+              PostgreSQL has {{ $value }} connections that are idle in transaction.
+              These connections hold locks and can cause performance issues.
+              Investigate long-running transactions in your applications.
+
+        # Alert when there are many waiting connections (lock contention)
+        - alert: PostgreSQLHighWaitingConnections
+          expr: |
+            pg_stat_activity_connections_waiting_connections > 10
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "PostgreSQL has many waiting connections ({{ $value }})"
+            description: |
+              PostgreSQL has {{ $value }} connections waiting on locks or other events.
+              This indicates potential lock contention or slow queries.
+
+        # Alert when database is down or unreachable
+        - alert: PostgreSQLDown
+          expr: |
+            up{job="postgres-exporter"} == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "PostgreSQL exporter is down or cannot reach database"
+            description: |
+              The PostgreSQL exporter cannot reach the database or is not running.
+              Check database connectivity and exporter status.
+
+        # Alert on high number of rollbacks (may indicate application issues)
+        - alert: PostgreSQLHighRollbackRate
+          expr: |
+            rate(pg_stat_database_xact_rollback[5m]) > 10
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "PostgreSQL has high transaction rollback rate"
+            description: |
+              Database {{ $labels.datname }} is experiencing {{ $value | humanize }} rollbacks per second.
+              This may indicate application errors or constraint violations.
+
+        # Alert on replication lag (if HA is enabled)
+        - alert: PostgreSQLReplicationLag
+          expr: |
+            pg_replication_lag_lag_seconds > 30
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "PostgreSQL replication lag is high ({{ $value }}s)"
+            description: |
+              PostgreSQL replica is lagging {{ $value }} seconds behind the master.
+              This may impact read consistency for replicated queries.

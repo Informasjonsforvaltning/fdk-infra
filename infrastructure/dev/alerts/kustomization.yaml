@@ -4,10 +4,38 @@ kind: Kustomization
 resources:
   - ../../base/alerts
 patches:
-- target:
-    kind: PrometheusRule
-    name: image-critical-vulnerabilities
-  patch: |-
-    - op: replace
-      path: /spec/groups/0/rules/0/labels/dashboard_url
-      value: https://grafana.dev.fellesdatakatalog.digdir.no/d/trivy/trivy?orgId=1
+  - target:
+      kind: PrometheusRule
+      name: image-critical-vulnerabilities
+    patch: |-
+      - op: replace
+        path: /spec/groups/0/rules/0/labels/dashboard_url
+        value: https://grafana.dev.fellesdatakatalog.digdir.no/d/trivy/trivy?orgId=1
+  - target:
+      kind: PrometheusRule
+      name: postgres-connection-alerts
+    patch: |-
+      - op: add
+        path: /spec/groups/0/rules/0/annotations/dashboard_url
+        value: https://grafana.dev.fellesdatakatalog.digdir.no
+      - op: add
+        path: /spec/groups/0/rules/1/annotations/dashboard_url
+        value: https://grafana.dev.fellesdatakatalog.digdir.no
+      - op: add
+        path: /spec/groups/0/rules/2/annotations/dashboard_url
+        value: https://grafana.dev.fellesdatakatalog.digdir.no
+      - op: add
+        path: /spec/groups/0/rules/3/annotations/dashboard_url
+        value: https://grafana.dev.fellesdatakatalog.digdir.no
+      - op: add
+        path: /spec/groups/0/rules/4/annotations/dashboard_url
+        value: https://grafana.dev.fellesdatakatalog.digdir.no
+      - op: add
+        path: /spec/groups/0/rules/5/annotations/dashboard_url
+        value: https://grafana.dev.fellesdatakatalog.digdir.no
+      - op: add
+        path: /spec/groups/0/rules/6/annotations/dashboard_url
+        value: https://grafana.dev.fellesdatakatalog.digdir.no
+      - op: add
+        path: /spec/groups/0/rules/7/annotations/dashboard_url
+        value: https://grafana.dev.fellesdatakatalog.digdir.no
