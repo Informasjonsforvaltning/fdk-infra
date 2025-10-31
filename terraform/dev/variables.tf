@@ -76,7 +76,6 @@ variable "database_config" {
     instance_name         = string
     database_version      = string
     tier                  = string
-    disk_size             = number
     backup_start_time     = string
     backup_retention_days = number
     insights_enabled      = bool
@@ -84,6 +83,8 @@ variable "database_config" {
       day  = number
       hour = number
     })
+    # Database flags for performance tuning (optional)
+    database_flags = optional(map(string), {})
   })
 }
 

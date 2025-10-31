@@ -23,7 +23,6 @@ resource "google_sql_database_instance" "main" {
     connector_enforcement = "NOT_REQUIRED"
     disk_autoresize       = true
     disk_autoresize_limit = 0
-    disk_size             = var.database_config.disk_size
     disk_type             = "PD_SSD"
     edition               = "ENTERPRISE"
 
@@ -49,6 +48,15 @@ resource "google_sql_database_instance" "main" {
 
     pricing_plan = "PER_USE"
     tier         = var.database_config.tier
+
+    # Database flags for performance tuning
+    dynamic "database_flags" {
+      for_each = var.database_config.database_flags
+      content {
+        name  = database_flags.key
+        value = database_flags.value
+      }
+    }
 
     user_labels = {
       managed-by-cnrm = "true"

@@ -8,7 +8,8 @@ resource "kubernetes_namespace" "staging" {
       "managed-by" = "terraform"
     }
     annotations = {
-      "terraform.managed" = "true"
+      "terraform.managed"                 = "true",
+      "kustomize.toolkit.fluxcd.io/prune" = "disabled"
     }
   }
 }
@@ -20,7 +21,8 @@ resource "kubernetes_namespace" "demo" {
       "managed-by" = "terraform"
     }
     annotations = {
-      "terraform.managed" = "true"
+      "terraform.managed"                 = "true",
+      "kustomize.toolkit.fluxcd.io/prune" = "disabled"
     }
   }
 }

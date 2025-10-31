@@ -3,6 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - demo-alert.yaml
-  - message-processing-failure.yaml
-  - mail-processing-failure.yaml
   - image-critical-vulnerabilities.yaml
+  - mail-processing-failure.yaml
+  - message-processing-failure.yaml
+  - postgres-connection-alerts.yaml
