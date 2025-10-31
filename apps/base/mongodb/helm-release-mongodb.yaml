@@ -111,6 +111,7 @@ spec:
       resourcesPreset: none
       collector:
         replicasetstatus: false
+        diagnosticdata: false
     persistence:
       resourcePolicy: keep
       size: 10Gi
