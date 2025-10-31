@@ -110,8 +110,8 @@ spec:
         enabled: true
       resourcesPreset: none
       extraFlags:
-        - --collector.diagnosticdata
-        - --no-collector.replicasetstatus
+        - --compatible-mode
+        - --discovering-mode
     persistence:
       resourcePolicy: keep
       size: 10Gi
