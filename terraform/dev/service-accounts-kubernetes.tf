@@ -43,3 +43,14 @@ resource "kubernetes_service_account" "workload_identity_service_accounts" {
     }
   }
 }
+
+# Dedicated service account for monitoring namespace cloud-sql-proxy
+resource "kubernetes_service_account" "monitoring_cloud_sql_sa" {
+  metadata {
+    name      = var.monitoring_cloud_sql_k8s_sa_name
+    namespace = var.monitoring_namespace
+    annotations = {
+      "iam.gke.io/gcp-service-account" = "${var.monitoring_cloud_sql_gcp_sa}@${var.project_id}.iam.gserviceaccount.com"
+    }
+  }
+}

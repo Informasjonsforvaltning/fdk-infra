@@ -293,3 +293,18 @@ variable "k8s_to_gcp_service_account_mapping" {
   type        = map(string)
 }
 
+variable "monitoring_namespace" {
+  description = "Monitoring namespace name - kept in Secret Manager"
+  type        = string
+}
+
+variable "monitoring_cloud_sql_k8s_sa_name" {
+  description = "Kubernetes service account name for monitoring cloud-sql-proxy - kept in Secret Manager"
+  type        = string
+}
+
+variable "monitoring_cloud_sql_gcp_sa" {
+  description = "GCP service account for monitoring cloud-sql-proxy - kept in Secret Manager"
+  type        = string
+}
+
