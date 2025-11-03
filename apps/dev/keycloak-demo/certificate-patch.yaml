@@ -7,4 +7,4 @@ spec:
   issuerRef:
     name: letsencrypt-dev # Use dev environment issuer
   dnsNames:
-    - keycloak.demo.fellesdatakatalog.digdir.no
+    - sso.demo.fellesdatakatalog.digdir.no

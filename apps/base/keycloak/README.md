@@ -17,8 +17,8 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 
 ### **Staging Environment** (`apps/dev/keycloak-staging/`)
 
-- **Domain**: `keycloak.staging.fellesdatakatalog.digdir.no`
-- **Admin Domain**: `keycloak-admin.staging.fellesdatakatalog.digdir.no`
+- **Domain**: `sso.staging.fellesdatakatalog.digdir.no`
+- **Admin Domain**: `sso.staging.fellesdatakatalog.digdir.no`
 - **Instances**: 1
 - **Resources**: 200m-500m CPU, 256Mi-1Gi memory
 - **Database**: External PostgreSQL via secrets
@@ -26,8 +26,8 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 
 ### **Demo Environment** (`apps/dev/keycloak-demo/`)
 
-- **Domain**: `keycloak.demo.fellesdatakatalog.digdir.no`
-- **Admin Domain**: `keycloak-admin.demo.fellesdatakatalog.digdir.no`
+- **Domain**: `sso.demo.fellesdatakatalog.digdir.no`
+- **Admin Domain**: `sso.demo.fellesdatakatalog.digdir.no`
 - **Instances**: 2
 - **Resources**: 250m-1 CPU, 512Mi-2Gi memory
 - **Database**: External PostgreSQL via secrets
@@ -35,8 +35,8 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 
 ### **Production Environment** (`apps/prod/keycloak/`)
 
-- **Domain**: `keycloak.fellesdatakatalog.digdir.no`
-- **Admin Domain**: `keycloak-admin.fellesdatakatalog.digdir.no`
+- **Domain**: `sso.fellesdatakatalog.digdir.no`
+- **Admin Domain**: `sso.fellesdatakatalog.digdir.no`
 - **Instances**: 3
 - **Resources**: 1000m-4 CPU, 2Gi-8Gi memory
 - **Database**: External PostgreSQL via secrets
@@ -120,9 +120,9 @@ flux create kustomization keycloak --source=flux-system --path=./apps/prod/keycl
 
 ## Access URLs
 
-- **Staging**: https://keycloak.staging.fellesdatakatalog.digdir.no
-- **Demo**: https://keycloak.demo.fellesdatakatalog.digdir.no
-- **Production**: https://keycloak.fellesdatakatalog.digdir.no
+- **Staging**: https://sso.staging.fellesdatakatalog.digdir.no
+- **Demo**: https://sso.demo.fellesdatakatalog.digdir.no
+- **Production**: https://sso.fellesdatakatalog.digdir.no
 
 ## Admin Access
 

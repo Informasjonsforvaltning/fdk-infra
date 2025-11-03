@@ -5,8 +5,8 @@ metadata:
   namespace: staging
 spec:
   hostname:
-    hostname: https://keycloak.staging.fellesdatakatalog.digdir.no
-    admin: https://keycloak.staging.fellesdatakatalog.digdir.no
+    hostname: https://sso.staging.fellesdatakatalog.digdir.no
+    admin: https://sso.staging.fellesdatakatalog.digdir.no
   instances: 3
   update:
     strategy: Explicit
