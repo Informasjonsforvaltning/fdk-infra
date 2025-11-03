@@ -109,6 +109,9 @@ spec:
       serviceMonitor:
         enabled: true
       resourcesPreset: none
+      collector:
+        replicasetstatus: false
+        diagnosticdata: false
     persistence:
       resourcePolicy: keep
       size: 10Gi
