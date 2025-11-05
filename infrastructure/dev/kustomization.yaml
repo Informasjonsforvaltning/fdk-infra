@@ -5,7 +5,7 @@ resources:
   - alerts.yaml
   - cert-manager.yaml
   - cert-manager-issuers.yaml
-  - cloud-sql-proxy.yaml
+  - cloud-sql-proxy
   - elasticsearch-operator
   - external-secrets.yaml
   - keycloak-operator-demo.yaml
