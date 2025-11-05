@@ -5,8 +5,8 @@ metadata:
   namespace: staging
 spec:
   hostname:
-    hostname: https://sso.staging.fellesdatakatalog.digdir.no
-    admin: https://sso.staging.fellesdatakatalog.digdir.no
+    hostname: https://auth.staging.fellesdatakatalog.digdir.no
+    admin: https://auth.staging.fellesdatakatalog.digdir.no
   instances: 3
   update:
     strategy: Explicit

@@ -5,8 +5,8 @@ metadata:
   namespace: demo
 spec:
   hostname:
-    hostname: https://sso.demo.fellesdatakatalog.digdir.no
-    admin: https://sso.demo.fellesdatakatalog.digdir.no
+    hostname: https://auth.demo.fellesdatakatalog.digdir.no
+    admin: https://auth.demo.fellesdatakatalog.digdir.no
   instances: 3
   update:
     strategy: Explicit
