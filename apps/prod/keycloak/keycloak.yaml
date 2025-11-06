@@ -5,8 +5,8 @@ metadata:
   namespace: prod
 spec:
   hostname:
-    hostname: https://keycloak.fellesdatakatalog.digdir.no
-    admin: https://keycloak.fellesdatakatalog.digdir.no
+    hostname: https://auth.fellesdatakatalog.digdir.no
+    admin: https://auth.fellesdatakatalog.digdir.no
   instances: 3
   update:
     strategy: Explicit
