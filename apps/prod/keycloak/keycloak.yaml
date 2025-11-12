@@ -59,35 +59,25 @@ spec:
       - recovery-codes
       - scripts
   additionalOptions:
-    - name: KC_DB
-      value: "postgres"
-    - name: KC_CACHE
-      value: "ispn"
-    - name: KC_CACHE_CONFIG_FILE
-      value: "cache-ispn.xml"
-    - name: KC_HEALTH_ENABLED
-      value: "true"
-    - name: KC_METRICS_ENABLED
-      value: "true"
-    - name: KC_LOG_LEVEL
-      value: "INFO"
-    - name: KC_DB_HOST
+    - name: db
+      value: postgres
+    - name: db-url-host
       secret:
         name: postgres
         key: HOST
-    - name: KC_DB_PORT
+    - name: db-url-port
       secret:
         name: postgres
         key: PORT
-    - name: KC_DB_DATABASE
+    - name: db-url-database
       secret:
         name: keycloak
         key: POSTGRESQL_DB
-    - name: KC_DB_USERNAME
+    - name: db-username
       secret:
         name: keycloak
         key: POSTGRESQL_USER
-    - name: KC_DB_PASSWORD
+    - name: db-password
       secret:
         name: keycloak
         key: POSTGRESQL_PASSWORD
