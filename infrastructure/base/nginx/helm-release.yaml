@@ -9,7 +9,7 @@ spec:
   targetNamespace: nginx
   chart:
     spec:
-      version: 4.11.x
+      version: 4.14.x
       chart: ingress-nginx
       sourceRef:
         kind: HelmRepository
@@ -26,6 +26,9 @@ spec:
         # Scrape nginx controller pod for metrics.
         prometheus.io/port: "10254"
         prometheus.io/scrape: "true"
+      metrics:
+        # Enable metrics endpoint on port 10254 (disabled by default in v1.12+).
+        enabled: true
       config:
         # Forward all 'X-Forwarded-*' headers, added by GKE loadbalancer.
         use-forwarded-headers: "true"
@@ -35,8 +38,14 @@ spec:
         limit-req-status-code: "429"
         # Disable access log.
         disable-access-log: "true"
+        # Allow Critical-level annotations (configuration-snippet, server-snippet).
+        # Required for compatibility with ingress-nginx 1.12+ (chart version 4.12+).
+        annotations-risk-level: "Critical"
       service:
         type: NodePort
         annotations:
           # See backend-config.yaml.
           cloud.google.com/backend-config: '{"default": "nginx-controller"}'
+    # Disable default backend to prevent exposure of debug endpoints.
+    defaultBackend:
+      enabled: false

@@ -5,27 +5,4 @@ metadata:
   name: nginx
   namespace: flux-system
 spec:
-  values:
-    controller:
-      config:
-        custom-http-errors: "404,503"
-    defaultBackend:
-      enabled: true
-      image:
-        registry: registry.k8s.io
-        image: ingress-nginx/nginx-errors
-        tag: "v20220916-gd32f8c343@sha256:09c421ac743bace19ab77979b82186941c5125c95e62cdb40bdf41293b5c275c"
-      extraVolumes:
-        - name: custom-error-pages-404
-          configMap:
-            name: custom-error-pages-404
-        - name: custom-error-pages-503
-          configMap:
-            name: custom-error-pages-503
-      extraVolumeMounts:
-        - name: custom-error-pages-503
-          mountPath: /www/503.html
-          subPath: 503.html
-        - name: custom-error-pages-404
-          mountPath: /www/404.html
-          subPath: 404.html
+  values: {}
