@@ -150,6 +150,7 @@ variable "snapshot_schedule_config" {
     on_source_disk_delete = string
     days_in_cycle         = number
     start_time            = string
+    storage_locations     = list(string)  # e.g., ["eu"] for multi-region or ["europe-north1"] for regional
   })
 }
 
