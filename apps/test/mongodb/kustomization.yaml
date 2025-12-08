@@ -1,0 +1,14 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- ../../base/mongodb
+- persistent-volumes.yaml
+patches:
+- patch: |-
+    - op: replace
+      path: /metadata/name
+      value: mongodb
+  target:
+    kind: HelmRelease
+    name: mongodb
+- path: helm-release-mongodb.yaml

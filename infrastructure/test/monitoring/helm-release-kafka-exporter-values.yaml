@@ -1,0 +1,10 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus-kafka-exporter
+  namespace: flux-system
+spec:
+  values:
+    kafkaServer:
+      - kafka-1.test:9092

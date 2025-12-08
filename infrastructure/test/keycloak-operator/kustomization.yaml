@@ -1,0 +1,76 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/keycloak-operator
+  - rbac.yaml
+patches:
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: test
+    target:
+      kind: ServiceAccount
+      name: keycloak-operator
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: test
+    target:
+      kind: Role
+      name: keycloak-operator-role
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: test
+    target:
+      kind: RoleBinding
+      name: keycloak-operator-role-binding
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: test
+    target:
+      kind: RoleBinding
+      name: keycloak-operator-view
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: test
+    target:
+      kind: RoleBinding
+      name: keycloakcontroller-role-binding
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: test
+    target:
+      kind: RoleBinding
+      name: keycloakrealmimportcontroller-role-binding
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: test
+    target:
+      kind: Service
+      name: keycloak-operator
+  - patch: |-
+      - op: add
+        path: /metadata/namespace
+        value: test
+      - op: replace
+        path: /spec/template/spec/serviceAccountName
+        value: keycloak-operator
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: WATCH_NAMESPACE
+          value: test
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: OPERATOR_NAMESPACE
+          value: test
+    target:
+      kind: Deployment
+      name: keycloak-operator

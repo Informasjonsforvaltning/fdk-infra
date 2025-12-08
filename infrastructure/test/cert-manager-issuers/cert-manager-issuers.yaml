@@ -1,0 +1,43 @@
+---
+# Base selfsigned issuer for internal certificates
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: selfsigned-issuer
+spec:
+  selfSigned: {}
+---
+# ClusterIssuers for test environment
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-test
+  annotations:
+    # Ensure cert-manager is fully deployed before applying issuers
+    fluxcd.io/automation: "true"
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: admin@fellesdatakatalog.digdir.no
+    privateKeySecretRef:
+      name: letsencrypt-test
+    solvers:
+      - http01:
+          ingress:
+            class: nginx
+---
+# Test issuer - uses Let's Encrypt staging server (safe for testing)
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-test-testing
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: admin@fellesdatakatalog.digdir.no
+    privateKeySecretRef:
+      name: letsencrypt-test-testing
+    solvers:
+      - http01:
+          ingress:
+            class: nginx

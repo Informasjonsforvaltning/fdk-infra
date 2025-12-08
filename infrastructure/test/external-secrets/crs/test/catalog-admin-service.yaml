@@ -1,0 +1,16 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: catalog-admin-service
+  namespace: test
+spec:
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: catalog-admin-service
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: catalog-admin-service-test

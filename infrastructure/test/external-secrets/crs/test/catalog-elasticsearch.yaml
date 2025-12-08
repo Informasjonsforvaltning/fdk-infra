@@ -1,0 +1,16 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: catalog-elasticsearch
+  namespace: test
+spec:
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: catalog-elasticsearch
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: catalog-elasticsearch-test

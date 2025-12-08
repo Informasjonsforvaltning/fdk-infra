@@ -1,0 +1,18 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base/monitoring
+  - helm-release-elasticsearch-exporter.yaml
+patches:
+  - path: helm-release-kafka-exporter-values.yaml
+  - path: helm-release-prometheus-values.yaml
+  - path: helm-release-thanos-values.yaml
+  - patch: |-
+      - op: add
+        path: /spec/values/alertmanager/config/receivers/1/slack_configs/0/channel
+        value: fdk-test-alerts
+    target:
+      kind: HelmRelease
+      name: kube-prometheus-stack
+      namespace: flux-system

@@ -1,0 +1,89 @@
+apiVersion: k8s.keycloak.org/v2alpha1
+kind: Keycloak
+metadata:
+  name: keycloak
+  namespace: test
+spec:
+  hostname:
+    hostname: keycloak.test.svc.cluster.local
+    admin: keycloak.test.svc.cluster.local
+  instances: 3
+  update:
+    strategy: Explicit
+    revision: "1"
+  http:
+    httpEnabled: false
+    httpsPort: 8443
+    tlsSecret: keycloak-internal-tls
+  resources:
+    requests:
+      cpu: 1000m
+      memory: 2Gi
+    limits:
+      cpu: "4"
+      memory: 8Gi
+  ingress:
+    enabled: false
+  readinessProbe:
+    periodSeconds: 20
+    failureThreshold: 5
+  livenessProbe:
+    periodSeconds: 20
+    failureThreshold: 5
+  features:
+    enabled:
+      - admin-fine-grained-authz
+      - ciba
+      - client-auth-federated
+      - dynamic-scopes
+      - organization
+      - recovery-codes
+      - scripts
+  additionalOptions:
+    - name: db
+      value: postgres
+    - name: db-url-host
+      secret:
+        name: postgres
+        key: HOST
+    - name: db-url-port
+      secret:
+        name: postgres
+        key: PORT
+    - name: db-url-database
+      secret:
+        name: keycloak
+        key: POSTGRESQL_DB
+    - name: db-username
+      secret:
+        name: keycloak
+        key: POSTGRESQL_USER
+    - name: db-password
+      secret:
+        name: keycloak
+        key: POSTGRESQL_PASSWORD
+  env:
+    - name: USER_API_KEY
+      secret:
+        name: common
+        key: SSO_API_KEY
+    - name: FDK_CLIENT_SECRET
+      secret:
+        name: sso
+        key: FDK_CLIENT_SECRET
+    - name: FDK_PORTAL_BASE_URI
+      secret:
+        name: sso
+        key: FDK_PORTAL_BASE_URI
+    - name: FDK_COMMUNITY_BASE_URI
+      secret:
+        name: commonurl
+        key: FDK_COMMUNITY_BASE_URI
+    - name: ADMIN_GUI_BASE_URI
+      secret:
+        name: commonurl
+        key: ADMIN_GUI_BASE_URI
+    - name: FDK_REGISTRATION_BASE_URI
+      secret:
+        name: commonurl
+        key: FDK_REGISTRATION_BASE_URI

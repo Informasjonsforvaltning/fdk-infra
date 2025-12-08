@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - alerts.yaml
+  - cert-manager.yaml
+  - cert-manager-issuers.yaml
+  - elasticsearch-operator
+  - external-secrets.yaml
+  - keycloak-operator.yaml
+  - monitoring.yaml
+  - nginx.yaml
+  - trivy.yaml
