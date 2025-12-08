@@ -6,6 +6,9 @@ metadata:
   namespace: flux-system
 spec:
   values:
+    serviceAccount:
+      create: false
+      name: bucket-sa
     query:
       ingress:
         hostname: thanos-query.test.fellesdatakatalog.digdir.no
