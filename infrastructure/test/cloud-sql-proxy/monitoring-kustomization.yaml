@@ -1,0 +1,35 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cloud-sql-proxy-monitoring
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./infrastructure/base/cloud-sql-proxy
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  targetNamespace: monitoring
+  patches:
+    - patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: postgresql-sqlproxy
+          namespace: monitoring
+        spec:
+          template:
+            spec:
+              containers:
+                - name: cloud-sql-proxy
+                  command:
+                    - /cloud-sql-proxy
+                    - --structured-logs
+                    - --address=0.0.0.0
+                    - --port=5432
+                    - digdir-fdk-dev:europe-north1:digdir-fdk-test
+      target:
+        kind: Deployment
+        name: postgresql-sqlproxy

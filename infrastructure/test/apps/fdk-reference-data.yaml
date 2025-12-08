@@ -1,0 +1,30 @@
+---
+# GitRepository for fdk-reference-data
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: fdk-reference-data
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://github.com/Informasjonsforvaltning/fdk-reference-data
+  ref:
+    branch: main
+---
+# Kustomization for fdk-reference-data
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: fdk-reference-data
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./deploy/prod
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: fdk-reference-data
+  targetNamespace: test
+  postBuild:
+    substitute:
+      GIT_COMMIT_SHA: "latest"

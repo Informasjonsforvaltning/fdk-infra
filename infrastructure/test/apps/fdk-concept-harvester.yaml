@@ -1,0 +1,30 @@
+---
+# GitRepository for fdk-concept-harvester
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: fdk-concept-harvester
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://github.com/Informasjonsforvaltning/fdk-concept-harvester
+  ref:
+    branch: main
+---
+# Kustomization for fdk-concept-harvester
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: fdk-concept-harvester
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./deploy/prod
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: fdk-concept-harvester
+  targetNamespace: test
+  postBuild:
+    substitute:
+      GIT_COMMIT_SHA: "latest"

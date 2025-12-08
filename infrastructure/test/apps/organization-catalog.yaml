@@ -1,0 +1,30 @@
+---
+# GitRepository for organization-catalog
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: organization-catalog
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://github.com/Informasjonsforvaltning/organization-catalog
+  ref:
+    branch: main
+---
+# Kustomization for organization-catalog
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: organization-catalog
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./deploy/prod
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: organization-catalog
+  targetNamespace: test
+  postBuild:
+    substitute:
+      GIT_COMMIT_SHA: "latest"

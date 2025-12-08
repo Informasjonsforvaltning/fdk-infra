@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: fdk-helm-charts
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://informasjonsforvaltning.github.io/helm-chart/

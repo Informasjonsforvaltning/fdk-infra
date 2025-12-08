@@ -1,0 +1,30 @@
+---
+# GitRepository for catalog-admin-service
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: catalog-admin-service
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://github.com/Informasjonsforvaltning/catalog-admin-service
+  ref:
+    branch: main
+---
+# Kustomization for catalog-admin-service
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: catalog-admin-service
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./deploy/prod
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: catalog-admin-service
+  targetNamespace: test
+  postBuild:
+    substitute:
+      GIT_COMMIT_SHA: "latest"

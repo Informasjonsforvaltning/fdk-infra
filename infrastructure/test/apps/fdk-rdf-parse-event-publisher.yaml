@@ -1,0 +1,30 @@
+---
+# GitRepository for fdk-rdf-parse-event-publisher
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: fdk-rdf-parse-event-publisher
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://github.com/Informasjonsforvaltning/fdk-rdf-parse-event-publisher
+  ref:
+    branch: main
+---
+# Kustomization for fdk-rdf-parse-event-publisher
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: fdk-rdf-parse-event-publisher
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./deploy/prod
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: fdk-rdf-parse-event-publisher
+  targetNamespace: test
+  postBuild:
+    substitute:
+      GIT_COMMIT_SHA: "latest"
