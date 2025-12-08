@@ -8,10 +8,13 @@ spec:
   values:
     alertmanager:
       ingress:
-        enabled: false
+        hosts:
+          - alertmanager.test.fellesdatakatalog.digdir.no
     grafana:
       ingress:
-        enabled: false
+        hosts:
+          - grafana.test.fellesdatakatalog.digdir.no
     prometheus:
       ingress:
-        enabled: false
+        hosts:
+          - prometheus.test.fellesdatakatalog.digdir.no
