@@ -74,14 +74,14 @@ variable "service_accounts" {
   type        = map(string)
 }
 
-# # Storage Bucket Configuration
-# variable "storage_buckets" {
-#   description = "Storage bucket configuration"
-#   type = object({
-#     project_number     = string
-#     thanos_bucket_name = string
-#   })
-# }
+# Storage Bucket Configuration
+variable "storage_buckets" {
+  description = "Storage bucket configuration for test environment"
+  type = object({
+    project_number     = string
+    thanos_bucket_name = string
+  })
+}
 
 # GKE Test Cluster Configuration
 variable "gke_cluster_config" {
