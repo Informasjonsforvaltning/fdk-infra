@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: ai-project-service
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: ai-project-service
+      newName: ghcr.io/informasjonsforvaltning/ai-project-service
+      newTag: latest

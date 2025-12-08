@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-organization-bff
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-organization-bff
+      newName: ghcr.io/informasjonsforvaltning/fdk-organization-bff
+      newTag: latest

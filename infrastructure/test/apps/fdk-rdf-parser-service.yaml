@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-rdf-parser-service
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-rdf-parser-service
+      newName: ghcr.io/informasjonsforvaltning/fdk-rdf-parser-service
+      newTag: latest

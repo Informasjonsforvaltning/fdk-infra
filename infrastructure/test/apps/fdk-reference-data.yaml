@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-reference-data
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: reference-data
+      newName: ghcr.io/informasjonsforvaltning/fdk-reference-data
+      newTag: latest

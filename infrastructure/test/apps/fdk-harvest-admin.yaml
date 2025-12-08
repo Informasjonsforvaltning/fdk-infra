@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-harvest-admin
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-harvest-admin
+      newName: ghcr.io/informasjonsforvaltning/fdk-harvest-admin
+      newTag: latest

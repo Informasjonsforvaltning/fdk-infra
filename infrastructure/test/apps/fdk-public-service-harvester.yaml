@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-public-service-harvester
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-public-service-harvester
+      newName: ghcr.io/informasjonsforvaltning/fdk-public-service-harvester
+      newTag: latest

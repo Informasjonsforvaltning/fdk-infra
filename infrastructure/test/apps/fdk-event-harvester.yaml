@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-event-harvester
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-event-harvester
+      newName: ghcr.io/informasjonsforvaltning/fdk-event-harvester
+      newTag: latest

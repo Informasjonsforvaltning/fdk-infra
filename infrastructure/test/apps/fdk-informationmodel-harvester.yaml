@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-informationmodel-harvester
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-informationmodel-harvester
+      newName: ghcr.io/informasjonsforvaltning/fdk-informationmodel-harvester
+      newTag: latest

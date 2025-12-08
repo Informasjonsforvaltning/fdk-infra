@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-reasoning-service
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-reasoning-service
+      newName: ghcr.io/informasjonsforvaltning/fdk-reasoning-service
+      newTag: latest

@@ -25,7 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-dataservice-harvester
   targetNamespace: test
-  # Override GIT_COMMIT_SHA with "latest" tag
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-dataservice-harvester
+      newName: ghcr.io/informasjonsforvaltning/fdk-dataservice-harvester
+      newTag: latest

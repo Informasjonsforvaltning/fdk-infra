@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: catalog-admin-service
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: catalog-admin-service
+      newName: ghcr.io/informasjonsforvaltning/catalog-admin-service
+      newTag: latest

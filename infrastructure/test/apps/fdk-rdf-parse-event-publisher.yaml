@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-rdf-parse-event-publisher
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-rdf-parse-event-publisher
+      newName: ghcr.io/informasjonsforvaltning/fdk-rdf-parse-event-publisher
+      newTag: latest

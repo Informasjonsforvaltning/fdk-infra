@@ -17,6 +17,6 @@ spec:
   targetNamespace: test
   values:
     NAMESPACE: test
-    DOCKER_IMAGE_NAME: "ghcr.io/informasjonsforvaltning/fdk-nginx-enhetsregisteret-proxy-mock:latest"
+    DOCKER_IMAGE_NAME: "ghcr.io/informasjonsforvaltning/fdk-nginx-enhetsregisteret-proxy-mock:main"
     FDK_NGINX_ENHETSREGISTERET_PROXY_MOCK_MEMORY: "100Mi"
     FDK_NGINX_ENHETSREGISTERET_PROXY_MOCK_CPU: "1m"

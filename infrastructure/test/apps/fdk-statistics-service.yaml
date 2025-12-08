@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-statistics-service
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-statistics-service
+      newName: ghcr.io/informasjonsforvaltning/fdk-statistics-service
+      newTag: latest

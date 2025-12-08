@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-portal
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-portal
+      newName: ghcr.io/informasjonsforvaltning/fdk-portal
+      newTag: latest

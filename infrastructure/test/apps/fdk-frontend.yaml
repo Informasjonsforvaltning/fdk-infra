@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-frontend
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: data-norge-frontend
+      newName: ghcr.io/informasjonsforvaltning/fdk-frontend/data-norge-frontend
+      newTag: latest

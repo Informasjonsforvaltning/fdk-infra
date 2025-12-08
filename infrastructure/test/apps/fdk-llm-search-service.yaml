@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: fdk-llm-search-service
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: fdk-llm-search-service
+      newName: ghcr.io/informasjonsforvaltning/fdk-llm-search-service
+      newTag: latest

@@ -25,6 +25,7 @@ spec:
     kind: GitRepository
     name: organization-catalog
   targetNamespace: test
-  postBuild:
-    substitute:
-      GIT_COMMIT_SHA: "latest"
+  images:
+    - name: organization-catalog
+      newName: ghcr.io/informasjonsforvaltning/organization-catalog
+      newTag: latest
