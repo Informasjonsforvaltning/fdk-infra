@@ -8,13 +8,13 @@ spec:
   values:
     query:
       ingress:
-        enabled: false
+        hostname: thanos-query.test.fellesdatakatalog.digdir.no
     queryFrontend:
       ingress:
-        enabled: false
+        hostname: thanos.test.fellesdatakatalog.digdir.no
     storegateway:
       ingress:
-        enabled: false
+        hostname: thanos-store.test.fellesdatakatalog.digdir.no
     compactor:
       ingress:
-        enabled: false
+        hostname: thanos-compactor.test.fellesdatakatalog.digdir.no
