@@ -29,11 +29,14 @@ spec:
     substitute:
       GIT_COMMIT_SHA: "latest"
   patches:
-    # Patch Kafka StatefulSet images
+    # Patch Kafka StatefulSet images and advertised listeners
     - patch: |-
         - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-kafka:7.9.0
+        - op: replace
+          path: /spec/template/spec/containers/0/env/1/value
+          value: PLAINTEXT://kafka-1.test:9092
       target:
         kind: StatefulSet
         name: kafka-1
@@ -41,6 +44,9 @@ spec:
         - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-kafka:7.9.0
+        - op: replace
+          path: /spec/template/spec/containers/0/env/1/value
+          value: PLAINTEXT://kafka-2.test:9092
       target:
         kind: StatefulSet
         name: kafka-2
@@ -48,6 +54,9 @@ spec:
         - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-kafka:7.9.0
+        - op: replace
+          path: /spec/template/spec/containers/0/env/1/value
+          value: PLAINTEXT://kafka-3.test:9092
       target:
         kind: StatefulSet
         name: kafka-3
@@ -59,18 +68,6 @@ spec:
       target:
         kind: StatefulSet
         name: zookeeper-1
-    # Patch Kafka-1 PersistentVolume to use test name and disk
-    - patch: |-
-        apiVersion: v1
-        kind: PersistentVolume
-        metadata:
-          name: fdk-test-kafka-1
-        spec:
-          gcePersistentDisk:
-            pdName: fdk-test-kafka-1
-      target:
-        kind: PersistentVolume
-        name: fdk-prod-kafka-1
     # Patch Kafka-1 PersistentVolumeClaim to reference test volume
     - patch: |-
         apiVersion: v1
@@ -82,18 +79,6 @@ spec:
       target:
         kind: PersistentVolumeClaim
         name: kafka-1-claim0
-    # Patch Kafka-2 PersistentVolume to use test name and disk
-    - patch: |-
-        apiVersion: v1
-        kind: PersistentVolume
-        metadata:
-          name: fdk-test-kafka-2
-        spec:
-          gcePersistentDisk:
-            pdName: fdk-test-kafka-2
-      target:
-        kind: PersistentVolume
-        name: fdk-prod-kafka-2
     # Patch Kafka-2 PersistentVolumeClaim to reference test volume
     - patch: |-
         apiVersion: v1
@@ -105,18 +90,6 @@ spec:
       target:
         kind: PersistentVolumeClaim
         name: kafka-2-claim0
-    # Patch Kafka-3 PersistentVolume to use test name and disk
-    - patch: |-
-        apiVersion: v1
-        kind: PersistentVolume
-        metadata:
-          name: fdk-test-kafka-3
-        spec:
-          gcePersistentDisk:
-            pdName: fdk-test-kafka-3
-      target:
-        kind: PersistentVolume
-        name: fdk-prod-kafka-3
     # Patch Kafka-3 PersistentVolumeClaim to reference test volume
     - patch: |-
         apiVersion: v1
@@ -128,18 +101,6 @@ spec:
       target:
         kind: PersistentVolumeClaim
         name: kafka-3-claim0
-    # Patch Zookeeper-1 PersistentVolume to use test name and disk
-    - patch: |-
-        apiVersion: v1
-        kind: PersistentVolume
-        metadata:
-          name: fdk-test-zookeeper-1
-        spec:
-          gcePersistentDisk:
-            pdName: fdk-test-zookeeper-1
-      target:
-        kind: PersistentVolume
-        name: fdk-prod-zookeeper-1
     # Patch Zookeeper-1 PersistentVolumeClaim to reference test volume
     - patch: |-
         apiVersion: v1
