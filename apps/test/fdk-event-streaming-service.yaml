@@ -29,12 +29,12 @@ spec:
     substitute:
       GIT_COMMIT_SHA: "latest"
   patches:
-    # Patch Kafka-1 PersistentVolume to use test disk
+    # Patch Kafka-1 PersistentVolume to use test name and disk
     - patch: |-
         apiVersion: v1
         kind: PersistentVolume
         metadata:
-          name: fdk-prod-kafka-1
+          name: fdk-test-kafka-1
         spec:
           gcePersistentDisk:
             pdName: fdk-test-kafka-1
@@ -52,12 +52,12 @@ spec:
       target:
         kind: PersistentVolumeClaim
         name: kafka-1-claim0
-    # Patch Kafka-2 PersistentVolume to use test disk
+    # Patch Kafka-2 PersistentVolume to use test name and disk
     - patch: |-
         apiVersion: v1
         kind: PersistentVolume
         metadata:
-          name: fdk-prod-kafka-2
+          name: fdk-test-kafka-2
         spec:
           gcePersistentDisk:
             pdName: fdk-test-kafka-2
@@ -75,12 +75,12 @@ spec:
       target:
         kind: PersistentVolumeClaim
         name: kafka-2-claim0
-    # Patch Kafka-3 PersistentVolume to use test disk
+    # Patch Kafka-3 PersistentVolume to use test name and disk
     - patch: |-
         apiVersion: v1
         kind: PersistentVolume
         metadata:
-          name: fdk-prod-kafka-3
+          name: fdk-test-kafka-3
         spec:
           gcePersistentDisk:
             pdName: fdk-test-kafka-3
@@ -98,12 +98,12 @@ spec:
       target:
         kind: PersistentVolumeClaim
         name: kafka-3-claim0
-    # Patch Zookeeper-1 PersistentVolume to use test disk
+    # Patch Zookeeper-1 PersistentVolume to use test name and disk
     - patch: |-
         apiVersion: v1
         kind: PersistentVolume
         metadata:
-          name: fdk-prod-zookeeper-1
+          name: fdk-test-zookeeper-1
         spec:
           gcePersistentDisk:
             pdName: fdk-test-zookeeper-1

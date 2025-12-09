@@ -33,3 +33,26 @@ spec:
       target:
         kind: Deployment
         name: fdk-sparql-service
+    # Patch PersistentVolume to use test name and disk
+    - patch: |-
+        apiVersion: v1
+        kind: PersistentVolume
+        metadata:
+          name: fdk-test-sparql-pv
+        spec:
+          gcePersistentDisk:
+            pdName: fdk-test-sparql
+      target:
+        kind: PersistentVolume
+        name: fdk-prod-sparql-pv
+    # Patch PersistentVolumeClaim to reference test volume
+    - patch: |-
+        apiVersion: v1
+        kind: PersistentVolumeClaim
+        metadata:
+          name: fdk-sparql-service-pvc
+        spec:
+          volumeName: fdk-test-sparql-pv
+      target:
+        kind: PersistentVolumeClaim
+        name: fdk-sparql-service-pvc
