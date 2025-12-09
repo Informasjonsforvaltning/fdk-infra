@@ -2,8 +2,34 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - ai-project-service.yaml
+  - catalog-admin-service.yaml
   - elasticsearch.yaml
-  - mongodb.yaml
-  - nginx-harvester.yaml
-  - nginx-catalog.yaml
+  - fdk-concept-harvester.yaml
+  - fdk-dataservice-harvester.yaml
+  - fdk-dataset-harvester.yaml
+  - fdk-dataset-preview-service.yaml
+  - fdk-event-harvester.yaml
+  - fdk-event-streaming-service.yaml
+  - fdk-frontend.yaml
+  - fdk-harvest-admin.yaml
+  - fdk-informationmodel-harvester.yaml
+  - fdk-kafka-event-publisher.yaml
+  - fdk-llm-search-service.yaml
+  - fdk-organization-bff.yaml
+  - fdk-parser-service.yaml
+  - fdk-portal.yaml
+  - fdk-public-service-harvester.yaml
+  - fdk-rdf-parse-event-publisher.yaml
+  - fdk-rdf-parser-service.yaml
+  - fdk-reasoning-service.yaml
+  - fdk-reference-data.yaml
+  - fdk-resource-service.yaml
+  - fdk-search-service.yaml
+  - fdk-sparql-service.yaml
+  - fdk-statistics-service.yaml
   - keycloak.yaml
+  - mongodb.yaml
+  - nginx-catalog.yaml
+  - nginx-harvester.yaml
+  - organization-catalog.yaml

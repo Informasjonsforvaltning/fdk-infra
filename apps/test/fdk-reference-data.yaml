@@ -32,4 +32,4 @@ spec:
           value: ghcr.io/informasjonsforvaltning/fdk-reference-data:latest
       target:
         kind: Deployment
-        name: fdk-reference-data
+        name: reference-data
