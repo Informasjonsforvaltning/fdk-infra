@@ -31,21 +31,21 @@ spec:
   patches:
     # Patch Kafka StatefulSet images
     - patch: |-
-        - op: replace
+        - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-kafka:7.9.0
       target:
         kind: StatefulSet
         name: kafka-1
     - patch: |-
-        - op: replace
+        - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-kafka:7.9.0
       target:
         kind: StatefulSet
         name: kafka-2
     - patch: |-
-        - op: replace
+        - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-kafka:7.9.0
       target:
@@ -53,7 +53,7 @@ spec:
         name: kafka-3
     # Patch Zookeeper StatefulSet image
     - patch: |-
-        - op: replace
+        - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-zookeeper:7.9.0
       target:
