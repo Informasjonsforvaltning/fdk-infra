@@ -6,4 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m
+  install:
+    createNamespace: false
   targetNamespace: test
