@@ -8,7 +8,7 @@ spec:
   interval: 1m0s
   retryInterval: 10s
   path: ./infrastructure/test/nginx
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: flux-system

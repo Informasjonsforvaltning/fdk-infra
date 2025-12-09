@@ -20,7 +20,7 @@ metadata:
 spec:
   interval: 5m
   path: ./deploy/prod
-  prune: true
+  prune: false
   sourceRef:
     kind: GitRepository
     name: fdk-reference-data
