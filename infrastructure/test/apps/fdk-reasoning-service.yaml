@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: fdk-reasoning-service
   targetNamespace: test
-  images:
-    - name: fdk-reasoning-service
-      newName: ghcr.io/informasjonsforvaltning/fdk-reasoning-service
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-reasoning-service:latest
+      target:
+        kind: Deployment
+        name: fdk-reasoning-service

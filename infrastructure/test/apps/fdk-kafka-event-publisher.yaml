@@ -25,22 +25,46 @@ spec:
     kind: GitRepository
     name: fdk-kafka-event-publisher
   targetNamespace: test
-  images:
-    - name: fdk-dataset-event-publisher
-      newName: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-dataset-event-publisher
-      newTag: latest
-    - name: fdk-data-service-event-publisher
-      newName: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-data-service-event-publisher
-      newTag: latest
-    - name: fdk-concept-event-publisher
-      newName: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-concept-event-publisher
-      newTag: latest
-    - name: fdk-event-event-publisher
-      newName: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-event-event-publisher
-      newTag: latest
-    - name: fdk-information-model-event-publisher
-      newName: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-information-model-event-publisher
-      newTag: latest
-    - name: fdk-service-event-publisher
-      newName: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-service-event-publisher
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-dataset-event-publisher:latest
+      target:
+        kind: Deployment
+        name: fdk-dataset-event-publisher
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-data-service-event-publisher:latest
+      target:
+        kind: Deployment
+        name: fdk-data-service-event-publisher
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-concept-event-publisher:latest
+      target:
+        kind: Deployment
+        name: fdk-concept-event-publisher
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-event-event-publisher:latest
+      target:
+        kind: Deployment
+        name: fdk-event-event-publisher
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-information-model-event-publisher:latest
+      target:
+        kind: Deployment
+        name: fdk-information-model-event-publisher
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-kafka-event-publisher/fdk-service-event-publisher:latest
+      target:
+        kind: Deployment
+        name: fdk-service-event-publisher

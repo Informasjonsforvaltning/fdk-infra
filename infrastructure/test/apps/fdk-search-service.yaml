@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: fdk-search-service
   targetNamespace: test
-  images:
-    - name: fdk-search-service
-      newName: ghcr.io/informasjonsforvaltning/fdk-search-service
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-search-service:latest
+      target:
+        kind: Deployment
+        name: fdk-search-service

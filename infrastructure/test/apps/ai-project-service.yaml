@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: ai-project-service
   targetNamespace: test
-  images:
-    - name: ai-project-service
-      newName: ghcr.io/informasjonsforvaltning/ai-project-service
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/ai-project-service:latest
+      target:
+        kind: Deployment
+        name: ai-project-service

@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: fdk-frontend
   targetNamespace: test
-  images:
-    - name: data-norge-frontend
-      newName: ghcr.io/informasjonsforvaltning/fdk-frontend/data-norge-frontend
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-frontend/data-norge-frontend:latest
+      target:
+        kind: Deployment
+        name: data-norge-frontend

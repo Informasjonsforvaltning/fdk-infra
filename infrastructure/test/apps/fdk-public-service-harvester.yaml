@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: fdk-public-service-harvester
   targetNamespace: test
-  images:
-    - name: fdk-public-service-harvester
-      newName: ghcr.io/informasjonsforvaltning/fdk-public-service-harvester
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-public-service-harvester:latest
+      target:
+        kind: Deployment
+        name: fdk-public-service-harvester

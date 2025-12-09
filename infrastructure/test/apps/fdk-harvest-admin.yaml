@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: fdk-harvest-admin
   targetNamespace: test
-  images:
-    - name: fdk-harvest-admin
-      newName: ghcr.io/informasjonsforvaltning/fdk-harvest-admin
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-harvest-admin:latest
+      target:
+        kind: Deployment
+        name: fdk-harvest-admin

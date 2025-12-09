@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: fdk-resource-service
   targetNamespace: test
-  images:
-    - name: fdk-resource-service
-      newName: ghcr.io/informasjonsforvaltning/fdk-resource-service
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-resource-service:latest
+      target:
+        kind: Deployment
+        name: fdk-resource-service

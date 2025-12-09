@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: fdk-sparql-service
   targetNamespace: test
-  images:
-    - name: fdk-sparql-service
-      newName: ghcr.io/informasjonsforvaltning/fdk-sparql-service
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-sparql-service:latest
+      target:
+        kind: Deployment
+        name: fdk-sparql-service

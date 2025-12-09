@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: fdk-statistics-service
   targetNamespace: test
-  images:
-    - name: fdk-statistics-service
-      newName: ghcr.io/informasjonsforvaltning/fdk-statistics-service
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-statistics-service:latest
+      target:
+        kind: Deployment
+        name: fdk-statistics-service

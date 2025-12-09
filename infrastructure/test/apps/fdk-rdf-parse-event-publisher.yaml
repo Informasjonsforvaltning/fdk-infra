@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: fdk-rdf-parse-event-publisher
   targetNamespace: test
-  images:
-    - name: fdk-rdf-parse-event-publisher
-      newName: ghcr.io/informasjonsforvaltning/fdk-rdf-parse-event-publisher
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-rdf-parse-event-publisher:latest
+      target:
+        kind: Deployment
+        name: fdk-rdf-parse-event-publisher

@@ -25,7 +25,11 @@ spec:
     kind: GitRepository
     name: catalog-admin-service
   targetNamespace: test
-  images:
-    - name: catalog-admin-service
-      newName: ghcr.io/informasjonsforvaltning/catalog-admin-service
-      newTag: latest
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/catalog-admin-service:latest
+      target:
+        kind: Deployment
+        name: catalog-admin-service
