@@ -29,14 +29,11 @@ spec:
     substitute:
       GIT_COMMIT_SHA: "latest"
   patches:
-    # Patch Kafka StatefulSet images and advertised listeners
+    # Patch Kafka StatefulSet images
     - patch: |-
         - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-kafka:7.9.0
-        - op: replace
-          path: /spec/template/spec/containers/0/env/1/value
-          value: PLAINTEXT://kafka-1.test:9092
       target:
         kind: StatefulSet
         name: kafka-1
@@ -44,9 +41,6 @@ spec:
         - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-kafka:7.9.0
-        - op: replace
-          path: /spec/template/spec/containers/0/env/1/value
-          value: PLAINTEXT://kafka-2.test:9092
       target:
         kind: StatefulSet
         name: kafka-2
@@ -54,9 +48,55 @@ spec:
         - op: add
           path: /spec/template/spec/containers/0/image
           value: confluentinc/cp-kafka:7.9.0
-        - op: replace
-          path: /spec/template/spec/containers/0/env/1/value
-          value: PLAINTEXT://kafka-3.test:9092
+      target:
+        kind: StatefulSet
+        name: kafka-3
+    # Patch Kafka advertised listeners
+    - patch: |-
+        apiVersion: apps/v1
+        kind: StatefulSet
+        metadata:
+          name: kafka-1
+        spec:
+          template:
+            spec:
+              containers:
+              - name: kafka-1
+                env:
+                - name: KAFKA_ADVERTISED_LISTENERS
+                  value: PLAINTEXT://kafka-1.test:9092
+      target:
+        kind: StatefulSet
+        name: kafka-1
+    - patch: |-
+        apiVersion: apps/v1
+        kind: StatefulSet
+        metadata:
+          name: kafka-2
+        spec:
+          template:
+            spec:
+              containers:
+              - name: kafka-2
+                env:
+                - name: KAFKA_ADVERTISED_LISTENERS
+                  value: PLAINTEXT://kafka-2.test:9092
+      target:
+        kind: StatefulSet
+        name: kafka-2
+    - patch: |-
+        apiVersion: apps/v1
+        kind: StatefulSet
+        metadata:
+          name: kafka-3
+        spec:
+          template:
+            spec:
+              containers:
+              - name: kafka-3
+                env:
+                - name: KAFKA_ADVERTISED_LISTENERS
+                  value: PLAINTEXT://kafka-3.test:9092
       target:
         kind: StatefulSet
         name: kafka-3
