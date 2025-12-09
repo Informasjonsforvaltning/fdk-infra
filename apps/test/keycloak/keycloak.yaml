@@ -5,8 +5,8 @@ metadata:
   namespace: test
 spec:
   hostname:
-    hostname: auth.test.fellesdatakatalog.digdir.no
-    admin: auth.test.fellesdatakatalog.digdir.no
+    hostname: https://auth.test.fellesdatakatalog.digdir.no
+    admin: https://auth.test.fellesdatakatalog.digdir.no
   instances: 3
   update:
     strategy: Explicit
