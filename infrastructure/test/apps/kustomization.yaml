@@ -13,9 +13,6 @@ resources:
   - fdk-frontend.yaml
   - fdk-harvest-admin.yaml
   - fdk-informationmodel-harvester.yaml
-  - fdk-nginx-enhetsregisteret-proxy-mock.yaml
-  - fdk-nginx-organization-bff.yaml
-  - fdk-nginx-sparql.yaml
   - fdk-organization-bff.yaml
   - fdk-portal.yaml
   - fdk-kafka-event-publisher.yaml
