@@ -7,4 +7,4 @@ spec:
   issuerRef:
     name: selfsigned-issuer # Use self-signed issuer for test environment
   dnsNames:
-    - keycloak.test.svc.cluster.local
+    - auth.test.fellesdatakatalog.digdir.no
