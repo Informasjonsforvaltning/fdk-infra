@@ -33,3 +33,10 @@ spec:
       target:
         kind: Deployment
         name: fdk-statistics-service
+    - patch: |-
+        - op: replace
+          path: /spec/rules/0/host
+          value: statistics.api.test.fellesdatakatalog.digdir.no
+      target:
+        kind: Ingress
+        name: fdk-statistics-service

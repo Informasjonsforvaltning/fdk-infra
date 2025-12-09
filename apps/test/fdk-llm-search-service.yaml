@@ -33,3 +33,10 @@ spec:
       target:
         kind: Deployment
         name: fdk-llm-search-service
+    - patch: |-
+        - op: replace
+          path: /spec/rules/0/host
+          value: aisearch.api.test.fellesdatakatalog.digdir.no
+      target:
+        kind: Ingress
+        name: fdk-llm-search-service

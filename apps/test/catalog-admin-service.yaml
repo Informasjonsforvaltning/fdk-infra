@@ -33,3 +33,10 @@ spec:
       target:
         kind: Deployment
         name: catalog-admin-service
+    - patch: |-
+        - op: replace
+          path: /spec/rules/0/host
+          value: catalog-admin-service.test.fellesdatakatalog.digdir.no
+      target:
+        kind: Ingress
+        name: catalog-admin-service

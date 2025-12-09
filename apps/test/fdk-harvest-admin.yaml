@@ -33,3 +33,10 @@ spec:
       target:
         kind: Deployment
         name: fdk-harvest-admin
+    - patch: |-
+        - op: replace
+          path: /spec/rules/0/host
+          value: admin-api.test.fellesdatakatalog.digdir.no
+      target:
+        kind: Ingress
+        name: fdk-harvest-admin

@@ -33,3 +33,10 @@ spec:
       target:
         kind: Deployment
         name: fdk-resource-service
+    - patch: |-
+        - op: replace
+          path: /spec/rules/0/host
+          value: resource.api.test.fellesdatakatalog.digdir.no
+      target:
+        kind: Ingress
+        name: fdk-resource-service
