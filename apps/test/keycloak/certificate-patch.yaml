@@ -5,6 +5,7 @@ metadata:
   namespace: test
 spec:
   issuerRef:
-    name: selfsigned-issuer # Use self-signed issuer for test environment
+    name: letsencrypt-test
+    kind: ClusterIssuer
   dnsNames:
     - auth.test.fellesdatakatalog.digdir.no
