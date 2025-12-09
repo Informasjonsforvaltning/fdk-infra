@@ -108,6 +108,43 @@ spec:
       target:
         kind: StatefulSet
         name: zookeeper-1
+    # Exclude PVs from deployment (managing manually with correct names)
+    - patch: |-
+        $patch: delete
+        apiVersion: v1
+        kind: PersistentVolume
+        metadata:
+          name: fdk-prod-kafka-1
+      target:
+        kind: PersistentVolume
+        name: fdk-prod-kafka-1
+    - patch: |-
+        $patch: delete
+        apiVersion: v1
+        kind: PersistentVolume
+        metadata:
+          name: fdk-prod-kafka-2
+      target:
+        kind: PersistentVolume
+        name: fdk-prod-kafka-2
+    - patch: |-
+        $patch: delete
+        apiVersion: v1
+        kind: PersistentVolume
+        metadata:
+          name: fdk-prod-kafka-3
+      target:
+        kind: PersistentVolume
+        name: fdk-prod-kafka-3
+    - patch: |-
+        $patch: delete
+        apiVersion: v1
+        kind: PersistentVolume
+        metadata:
+          name: fdk-prod-zookeeper-1
+      target:
+        kind: PersistentVolume
+        name: fdk-prod-zookeeper-1
     # Patch Kafka-1 PersistentVolumeClaim to reference test volume
     - patch: |-
         apiVersion: v1
