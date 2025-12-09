@@ -31,4 +31,3 @@ resources:
   - fdk-sparql-service.yaml
   - fdk-statistics-service.yaml
   - organization-catalog.yaml
-  - rabbitmq.yaml
