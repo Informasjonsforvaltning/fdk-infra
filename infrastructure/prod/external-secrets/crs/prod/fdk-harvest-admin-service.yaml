@@ -2,15 +2,15 @@
 apiVersion: external-secrets.io/v1
 kind: ExternalSecret
 metadata:
-  name: fdk-harvest-admin
-  namespace: test
+  name: fdk-harvest-admin-service
+  namespace: prod
 spec:
   secretStoreRef:
     name: gcp-secret-store
     kind: ClusterSecretStore
   target:
-    name: fdk-harvest-admin
+    name: fdk-harvest-admin-service
     creationPolicy: Owner
   dataFrom:
     - extract:
-        key: fdk-harvest-admin-test
+        key: fdk-harvest-admin-prod
