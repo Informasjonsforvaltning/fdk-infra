@@ -9,7 +9,7 @@ spec:
   interval: 5m
   url: https://github.com/Informasjonsforvaltning/fdk-dataset-harvester
   ref:
-    branch: main
+    branch: refactor/not/rm-union
 ---
 # Kustomization for fdk-dataset-harvester
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -29,7 +29,7 @@ spec:
     - patch: |-
         - op: replace
           path: /spec/template/spec/containers/0/image
-          value: ghcr.io/informasjonsforvaltning/fdk-dataset-harvester:latest
+          value: ghcr.io/informasjonsforvaltning/fdk-dataset-harvester:test_latest
       target:
         kind: Deployment
         name: fdk-dataset-harvester
