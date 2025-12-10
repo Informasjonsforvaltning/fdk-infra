@@ -1,0 +1,35 @@
+---
+# GitRepository for fdk-harvest-admin-service
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: fdk-harvest-admin-service
+  namespace: flux-system
+spec:
+  interval: 5m
+  url: https://github.com/Informasjonsforvaltning/fdk-harvest-admin-service
+  ref:
+    branch: main
+---
+# Kustomization for fdk-harvest-admin-service
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: fdk-harvest-admin-service
+  namespace: flux-system
+spec:
+  interval: 5m
+  path: ./deploy/test
+  prune: false
+  sourceRef:
+    kind: GitRepository
+    name: fdk-harvest-admin-service
+  targetNamespace: test
+  patches:
+    - patch: |-
+        - op: replace
+          path: /spec/template/spec/containers/0/image
+          value: ghcr.io/informasjonsforvaltning/fdk-harvest-admin-service:test-latest
+      target:
+        kind: Deployment
+        name: fdk-harvest-admin-service

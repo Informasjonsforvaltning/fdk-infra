@@ -13,6 +13,7 @@ resources:
   - fdk-event-streaming-service.yaml
   - fdk-frontend.yaml
   - fdk-harvest-admin.yaml
+  - fdk-harvest-admin-service.yaml
   - fdk-informationmodel-harvester.yaml
   - fdk-kafka-event-publisher.yaml
   - fdk-llm-search-service.yaml
