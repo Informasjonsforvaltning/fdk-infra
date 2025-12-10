@@ -9,7 +9,7 @@ spec:
   interval: 5m
   url: https://github.com/Informasjonsforvaltning/fdk-llm-search-service
   ref:
-    branch: main
+    branch: feat/jr/harvest-run
 ---
 # Kustomization for fdk-llm-search-service
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -29,7 +29,7 @@ spec:
     - patch: |-
         - op: replace
           path: /spec/template/spec/containers/0/image
-          value: ghcr.io/informasjonsforvaltning/fdk-llm-search-service:latest
+          value: ghcr.io/informasjonsforvaltning/fdk-llm-search-service:test_latest
       target:
         kind: Deployment
         name: fdk-llm-search-service
