@@ -31,6 +31,5 @@ resources:
   - fdk-statistics-service.yaml
   - keycloak.yaml
   - mongodb.yaml
-  - nginx-catalog.yaml
   - nginx-harvester.yaml
   - organization-catalog.yaml
