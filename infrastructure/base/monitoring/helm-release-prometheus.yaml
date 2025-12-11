@@ -238,6 +238,11 @@ spec:
                 regex: ([^:]+)(?::\d+)?;(\d+)
                 replacement: $1:$2
                 target_label: __address__
+              # Drop targets that don't have a port (avoid duplicate discovery)
+              - source_labels:
+                  - __address__
+                action: drop
+                regex: '[^:]+'
               - action: labelmap
                 regex: __meta_kubernetes_pod_label_(.+)
               - source_labels:
