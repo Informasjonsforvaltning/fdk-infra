@@ -29,7 +29,7 @@ spec:
     - patch: |-
         - op: replace
           path: /spec/template/spec/containers/0/image
-          value: ghcr.io/informasjonsforvaltning/fdk-parser-service:latest
+          value: ghcr.io/informasjonsforvaltning/fdk-parser-service:test_latest
       target:
         kind: Deployment
         name: fdk-parser-service
