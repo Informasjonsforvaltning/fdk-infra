@@ -1,0 +1,80 @@
+---
+# PodMonitor for Flux source-controller (GitRepository sync metrics)
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: flux-source-controller
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/part-of: flux
+spec:
+  namespaceSelector:
+    matchNames:
+      - flux-system
+  selector:
+    matchLabels:
+      app: source-controller
+  podMetricsEndpoints:
+    - port: http-prom
+      interval: 30s
+      path: /metrics
+---
+# PodMonitor for Flux kustomize-controller (Kustomization reconciliation metrics)
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: flux-kustomize-controller
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/part-of: flux
+spec:
+  namespaceSelector:
+    matchNames:
+      - flux-system
+  selector:
+    matchLabels:
+      app: kustomize-controller
+  podMetricsEndpoints:
+    - port: http-prom
+      interval: 30s
+      path: /metrics
+---
+# PodMonitor for Flux helm-controller (HelmRelease metrics)
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: flux-helm-controller
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/part-of: flux
+spec:
+  namespaceSelector:
+    matchNames:
+      - flux-system
+  selector:
+    matchLabels:
+      app: helm-controller
+  podMetricsEndpoints:
+    - port: http-prom
+      interval: 30s
+      path: /metrics
+---
+# PodMonitor for Flux notification-controller (alert metrics)
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: flux-notification-controller
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/part-of: flux
+spec:
+  namespaceSelector:
+    matchNames:
+      - flux-system
+  selector:
+    matchLabels:
+      app: notification-controller
+  podMetricsEndpoints:
+    - port: http-prom
+      interval: 30s
+      path: /metrics

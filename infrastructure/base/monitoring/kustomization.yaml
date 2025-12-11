@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - bitnami-helm-repo.yaml
   - bitnami-helm-oci-repo.yaml
+  - flux-alerts.yaml
+  - flux-podmonitors.yaml
   - helm-release-blackbox-exporter.yaml
   - helm-release-kafka-exporter.yaml
   - helm-release-postgres-exporter.yaml
