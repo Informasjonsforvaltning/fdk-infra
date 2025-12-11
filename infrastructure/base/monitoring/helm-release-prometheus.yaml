@@ -41,6 +41,15 @@ spec:
         kubeControllerManager: false
         kubeProxy: false
         kubeScheduler: false
+    # Disable control plane component monitoring (not available in managed GKE)
+    kubeScheduler:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: false
     alertmanager:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
@@ -229,12 +238,17 @@ spec:
                 regex: ([^:]+)(?::\d+)?;(\d+)
                 replacement: $1:$2
                 target_label: __address__
+              # Drop targets that don't have a port (avoid duplicate discovery)
+              - source_labels:
+                  - __address__
+                action: drop
+                regex: '[^:]+'
               - action: labelmap
                 regex: __meta_kubernetes_pod_label_(.+)
               - source_labels:
                   - __meta_kubernetes_namespace
                 action: replace
-                target_label: kubernetes_namespace
+                target_label: namespace
               - source_labels:
                   - __meta_kubernetes_pod_name
                 action: replace

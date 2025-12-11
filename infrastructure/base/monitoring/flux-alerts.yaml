@@ -1,0 +1,124 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: flux-alerts
+  namespace: monitoring
+  labels:
+    app.kubernetes.io/part-of: flux
+spec:
+  groups:
+    - name: flux-reconciliation
+      interval: 1m
+      rules:
+        # Alert when Flux resources fail to reconcile for >10 minutes
+        - alert: FluxReconciliationFailure
+          expr: |
+            gotk_reconcile_condition{type="Ready",status="False"} == 1
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Flux {{ $labels.kind }}/{{ $labels.name }} reconciliation failing"
+            description: |
+              Flux {{ $labels.kind }}/{{ $labels.name }} in namespace {{ $labels.namespace }} has been failing to reconcile for more than 10 minutes.
+
+              Check the resource status: `kubectl describe {{ $labels.kind }} {{ $labels.name }} -n {{ $labels.namespace }}`
+
+        # Alert when Flux resources are suspended (not updating)
+        - alert: FluxResourceSuspended
+          expr: |
+            gotk_suspend_status == 1
+          for: 30m
+          labels:
+            severity: info
+          annotations:
+            summary: "Flux {{ $labels.kind }}/{{ $labels.name }} is suspended"
+            description: |
+              Flux {{ $labels.kind }}/{{ $labels.name }} in namespace {{ $labels.namespace }} has been suspended for more than 30 minutes.
+              This means it's not being reconciled and won't receive updates.
+
+              To resume: `flux resume {{ $labels.kind }} {{ $labels.name }} -n {{ $labels.namespace }}`
+
+        # Alert when GitRepository sync fails
+        - alert: FluxGitRepositoryFailure
+          expr: |
+            gotk_reconcile_condition{kind="GitRepository",type="Ready",status="False"} == 1
+          for: 5m
+          labels:
+            severity: error
+          annotations:
+            summary: "Flux GitRepository {{ $labels.name }} sync failing"
+            description: |
+              GitRepository {{ $labels.name }} in namespace {{ $labels.namespace }} cannot fetch from Git.
+              This will prevent all dependent Kustomizations and HelmReleases from updating.
+
+              Check the error: `kubectl describe gitrepository {{ $labels.name }} -n {{ $labels.namespace }}`
+              Common causes:
+              - Authentication failure (SSH key, token expired)
+              - Repository deleted or renamed
+              - Network connectivity issues
+
+        # Alert when HelmRelease fails
+        - alert: FluxHelmReleaseFailure
+          expr: |
+            gotk_reconcile_condition{kind="HelmRelease",type="Ready",status="False"} == 1
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Flux HelmRelease {{ $labels.name }} failing"
+            description: |
+              HelmRelease {{ $labels.name }} in namespace {{ $labels.namespace }} has been failing for more than 10 minutes.
+
+              Check the status: `kubectl describe helmrelease {{ $labels.name }} -n {{ $labels.namespace }}`
+              View Helm history: `flux logs --kind=HelmRelease --name={{ $labels.name }} -n {{ $labels.namespace }}`
+
+        # Alert when Kustomization fails
+        - alert: FluxKustomizationFailure
+          expr: |
+            gotk_reconcile_condition{kind="Kustomization",type="Ready",status="False"} == 1
+          for: 10m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Flux Kustomization {{ $labels.name }} failing"
+            description: |
+              Kustomization {{ $labels.name }} in namespace {{ $labels.namespace }} has been failing for more than 10 minutes.
+
+              Check the status: `kubectl describe kustomization {{ $labels.name }} -n {{ $labels.namespace }}`
+              View logs: `flux logs --kind=Kustomization --name={{ $labels.name }} -n {{ $labels.namespace }}`
+
+        # Alert when reconciliation takes too long (>5 minutes)
+        - alert: FluxReconciliationSlow
+          expr: |
+            histogram_quantile(0.99, sum(rate(gotk_reconcile_duration_seconds_bucket[5m])) by (le, kind, name, namespace)) > 300
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Flux {{ $labels.kind }}/{{ $labels.name }} reconciliation is slow"
+            description: |
+              {{ $labels.kind }}/{{ $labels.name }} in namespace {{ $labels.namespace }} is taking >5 minutes to reconcile (p99).
+              This may indicate:
+              - Large number of resources
+              - Network issues
+              - API server performance problems
+
+              Current reconciliation time: {{ $value | humanizeDuration }}
+
+        # Alert when Flux controllers are down
+        - alert: FluxControllerDown
+          expr: |
+            up{job=~"flux-.*-controller"} == 0
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Flux controller {{ $labels.job }} is down"
+            description: |
+              Flux controller {{ $labels.job }} has been down for more than 5 minutes.
+              This will prevent all GitOps operations from working.
+
+              Check pod status: `kubectl get pods -n flux-system -l app={{ $labels.job }}`
+              View logs: `kubectl logs -n flux-system -l app={{ $labels.job }} --tail=50`
