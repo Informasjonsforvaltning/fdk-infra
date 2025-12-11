@@ -243,7 +243,7 @@ spec:
               - source_labels:
                   - __meta_kubernetes_namespace
                 action: replace
-                target_label: kubernetes_namespace
+                target_label: namespace
               - source_labels:
                   - __meta_kubernetes_pod_name
                 action: replace
