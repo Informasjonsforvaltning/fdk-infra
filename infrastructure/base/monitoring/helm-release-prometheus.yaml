@@ -41,6 +41,15 @@ spec:
         kubeControllerManager: false
         kubeProxy: false
         kubeScheduler: false
+    # Disable control plane component monitoring (not available in managed GKE)
+    kubeScheduler:
+      enabled: false
+    kubeControllerManager:
+      enabled: false
+    kubeEtcd:
+      enabled: false
+    kubeProxy:
+      enabled: false
     alertmanager:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
