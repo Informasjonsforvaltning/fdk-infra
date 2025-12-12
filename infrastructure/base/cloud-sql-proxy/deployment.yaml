@@ -35,10 +35,10 @@ spec:
             failureThreshold: 3
           resources:
             requests:
-              memory: "200Mi"
-              cpu: "20m"
+              memory: "400Mi"
+              cpu: "200m"
             limits:
-              memory: "200Mi"
+              memory: "400Mi"
           volumeMounts:
             - name: ssl-certs
               mountPath: /etc/ssl/certs
