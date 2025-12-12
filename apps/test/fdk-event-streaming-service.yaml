@@ -108,6 +108,56 @@ spec:
       target:
         kind: StatefulSet
         name: zookeeper-1
+    # Patch Zookeeper memory requests
+    - patch: |-
+        apiVersion: apps/v1
+        kind: StatefulSet
+        metadata:
+          name: zookeeper-1
+        spec:
+          template:
+            spec:
+              containers:
+              - name: zookeeper-1
+                resources:
+                  requests:
+                    memory: 512Mi
+      target:
+        kind: StatefulSet
+        name: zookeeper-1
+    # Patch Schema Registry memory requests
+    - patch: |-
+        apiVersion: apps/v1
+        kind: StatefulSet
+        metadata:
+          name: schema-registry-1
+        spec:
+          template:
+            spec:
+              containers:
+              - name: schema-registry-1
+                resources:
+                  requests:
+                    memory: 384Mi
+      target:
+        kind: StatefulSet
+        name: schema-registry-1
+    - patch: |-
+        apiVersion: apps/v1
+        kind: StatefulSet
+        metadata:
+          name: schema-registry-2
+        spec:
+          template:
+            spec:
+              containers:
+              - name: schema-registry-2
+                resources:
+                  requests:
+                    memory: 384Mi
+      target:
+        kind: StatefulSet
+        name: schema-registry-2
     # Exclude PVs from deployment (managing manually with correct names)
     - patch: |-
         $patch: delete
