@@ -40,3 +40,20 @@ spec:
       target:
         kind: Ingress
         name: fdk-search-service
+    # Add CPU resource request
+    - patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: fdk-search-service
+        spec:
+          template:
+            spec:
+              containers:
+              - name: fdk-search-service
+                resources:
+                  requests:
+                    cpu: 200m
+      target:
+        kind: Deployment
+        name: fdk-search-service

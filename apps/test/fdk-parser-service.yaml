@@ -33,3 +33,20 @@ spec:
       target:
         kind: Deployment
         name: fdk-parser-service
+    # Add CPU resource request
+    - patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: fdk-parser-service
+        spec:
+          template:
+            spec:
+              containers:
+              - name: fdk-parser-service
+                resources:
+                  requests:
+                    cpu: 100m
+      target:
+        kind: Deployment
+        name: fdk-parser-service

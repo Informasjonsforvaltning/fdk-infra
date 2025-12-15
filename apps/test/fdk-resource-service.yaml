@@ -40,3 +40,21 @@ spec:
       target:
         kind: Ingress
         name: fdk-resource-service
+    # Add resource requests
+    - patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: fdk-resource-service
+        spec:
+          template:
+            spec:
+              containers:
+              - name: fdk-resource-service
+                resources:
+                  requests:
+                    cpu: 2
+                    memory: 9Gi
+      target:
+        kind: Deployment
+        name: fdk-resource-service

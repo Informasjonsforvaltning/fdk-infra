@@ -56,3 +56,20 @@ spec:
       target:
         kind: PersistentVolumeClaim
         name: fdk-sparql-service-pvc
+    # Add CPU resource request
+    - patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: fdk-sparql-service
+        spec:
+          template:
+            spec:
+              containers:
+              - name: fdk-sparql-service
+                resources:
+                  requests:
+                    cpu: 250m
+      target:
+        kind: Deployment
+        name: fdk-sparql-service

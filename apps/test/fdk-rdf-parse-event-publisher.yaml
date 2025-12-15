@@ -33,3 +33,20 @@ spec:
       target:
         kind: Deployment
         name: fdk-rdf-parse-event-publisher
+    # Add CPU resource request (currently using 559m CPU)
+    - patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: fdk-rdf-parse-event-publisher
+        spec:
+          template:
+            spec:
+              containers:
+              - name: fdk-rdf-parse-event-publisher
+                resources:
+                  requests:
+                    cpu: 600m
+      target:
+        kind: Deployment
+        name: fdk-rdf-parse-event-publisher

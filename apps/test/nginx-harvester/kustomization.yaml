@@ -25,3 +25,21 @@ patches:
     target:
       kind: Service
       name: nginx-harvester
+  # Add resource requests
+  - patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: nginx-harvester
+      spec:
+        template:
+          spec:
+            containers:
+            - name: nginx-harvester
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 16Mi
+    target:
+      kind: Deployment
+      name: nginx-harvester

@@ -40,3 +40,21 @@ spec:
       target:
         kind: Ingress
         name: fdk-harvest-admin
+    # Add resource requests
+    - patch: |-
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: fdk-harvest-admin
+        spec:
+          template:
+            spec:
+              containers:
+              - name: fdk-harvest-admin
+                resources:
+                  requests:
+                    cpu: 100m
+                    memory: 128Mi
+      target:
+        kind: Deployment
+        name: fdk-harvest-admin
