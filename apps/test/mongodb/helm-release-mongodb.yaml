@@ -8,3 +8,5 @@ spec:
   targetNamespace: test
   values:
     namespaceOverride: test
+    persistence:
+      size: 20Gi

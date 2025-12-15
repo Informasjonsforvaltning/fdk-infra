@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: test
 resources:
   - keycloak.yaml
+  - pdb.yaml
   - ../../base/keycloak
 patches:
   - target:
