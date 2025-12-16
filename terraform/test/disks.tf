@@ -109,7 +109,7 @@ resource "google_compute_disk" "test_sparql" {
   name                      = "${var.disk_prefix}-sparql"
   physical_block_size_bytes = 4096
   project                   = var.project_id
-  size                      = 200
+  size                      = 1000
   type                      = "pd-standard"
   zone                      = var.zone
 }
