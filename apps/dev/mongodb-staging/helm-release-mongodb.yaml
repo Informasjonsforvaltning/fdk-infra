@@ -11,4 +11,4 @@ spec:
     disableSystemLog: true
     persistence:
       resourcePolicy: keep
-      size: 10Gi
+      size: 15Gi
