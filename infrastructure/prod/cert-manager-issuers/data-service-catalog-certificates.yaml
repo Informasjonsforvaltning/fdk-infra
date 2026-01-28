@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: data-service-catalog-api-tls
+  namespace: prod
+spec:
+  secretName: data-service-catalog-api-tls
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - data-service-catalog.api.fellesdatakatalog.digdir.no
