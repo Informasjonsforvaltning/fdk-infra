@@ -8,7 +8,7 @@ metadata:
     app.quarkus.io/build-timestamp: 2025-09-30 - 11:54:50 +0000
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.4.2
+    app.kubernetes.io/version: 26.5.4
     app.kubernetes.io/managed-by: quarkus
   name: keycloak-operator
 ---
@@ -39,7 +39,7 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.4.2
+    app.kubernetes.io/version: 26.5.4
   name: keycloakrealmimportcontroller-cluster-role
 rules:
   - apiGroups:
@@ -85,7 +85,7 @@ kind: ClusterRole
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.4.2
+    app.kubernetes.io/version: 26.5.4
   name: keycloakcontroller-cluster-role
 rules:
   - apiGroups:
@@ -280,7 +280,7 @@ kind: RoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.4.2
+    app.kubernetes.io/version: 26.5.4
   name: keycloakrealmimportcontroller-role-binding
 roleRef:
   kind: ClusterRole
@@ -295,7 +295,7 @@ kind: RoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.4.2
+    app.kubernetes.io/version: 26.5.4
   name: keycloakcontroller-role-binding
 roleRef:
   kind: ClusterRole
@@ -310,7 +310,7 @@ kind: RoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.4.2
+    app.kubernetes.io/version: 26.5.4
   name: keycloak-operator-view
 roleRef:
   kind: ClusterRole
@@ -329,7 +329,7 @@ metadata:
     app.quarkus.io/build-timestamp: 2025-09-30 - 11:54:50 +0000
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.4.2
+    app.kubernetes.io/version: 26.5.4
     app.kubernetes.io/managed-by: quarkus
   name: keycloak-operator
 spec:
@@ -351,7 +351,7 @@ metadata:
     app.quarkus.io/build-timestamp: 2025-09-30 - 11:54:50 +0000
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.4.2
+    app.kubernetes.io/version: 26.5.4
     app.kubernetes.io/managed-by: quarkus
   name: keycloak-operator
 spec:
@@ -367,7 +367,7 @@ spec:
         app.quarkus.io/build-timestamp: 2025-09-30 - 11:54:50 +0000
       labels:
         app.kubernetes.io/managed-by: quarkus
-        app.kubernetes.io/version: 26.4.2
+        app.kubernetes.io/version: 26.5.4
         app.kubernetes.io/name: keycloak-operator
     spec:
       containers:
@@ -377,8 +377,8 @@ spec:
                 fieldRef:
                   fieldPath: metadata.namespace
             - name: RELATED_IMAGE_KEYCLOAK
-              value: ghcr.io/informasjonsforvaltning/sso:26.4.2 # Custom Keycloak image from GitHub Container Registry
-          image: quay.io/keycloak/keycloak-operator:26.4.2
+              value: ghcr.io/informasjonsforvaltning/sso:26.5.4 # Custom Keycloak image from GitHub Container Registry
+          image: quay.io/keycloak/keycloak-operator:26.5.4
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
