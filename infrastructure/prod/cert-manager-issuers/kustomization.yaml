@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - cert-manager-issuers.yaml
   - data-service-catalog-certificates.yaml
+  - fdk-harvest-admin-service-certificate.yaml
