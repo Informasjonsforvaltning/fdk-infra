@@ -20,7 +20,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.5.4
+    app.kubernetes.io/version: 26.5.5
   name: keycloakrealmimportcontroller-cluster-role-binding-staging
 roleRef:
   kind: ClusterRole
@@ -36,7 +36,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.5.4
+    app.kubernetes.io/version: 26.5.5
   name: keycloakcontroller-cluster-role-binding-staging
 roleRef:
   kind: ClusterRole
