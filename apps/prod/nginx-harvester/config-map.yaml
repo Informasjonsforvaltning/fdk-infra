@@ -11,13 +11,9 @@ data:
       server_name           datasets.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ /prometheus/?$ {
-        deny all;
-        return 404;
-      }
-    
       location / {
-        proxy_pass http://fdk-dataset-harvester:8080;
+        deny all;
+        return 410;
       }
     }
   server.data-service.conf: |
@@ -26,13 +22,9 @@ data:
       server_name           dataservices.fellesdatakatalog.digdir.no data-services.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ /prometheus/?$ {
-        deny all;
-        return 404;
-      }
-    
       location / {
-        proxy_pass http://fdk-dataservice-harvester:8080;
+        deny all;
+        return 410;
       }
     }
   server.concept.conf: |
@@ -41,13 +33,9 @@ data:
       server_name           concepts.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ /prometheus/?$ {
-        deny all;
-        return 404;
-      }
-    
       location / {
-        proxy_pass http://fdk-concept-harvester:8080;
+        deny all;
+        return 410;
       }
     }
   server.information-model.conf: |
@@ -56,13 +44,9 @@ data:
       server_name           informationmodels.fellesdatakatalog.digdir.no information-models.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ /prometheus/?$ {
-        deny all;
-        return 404;
-      }
-    
       location / {
-        proxy_pass http://fdk-informationmodel-harvester:8080;
+        deny all;
+        return 410;
       }
     }
   server.event.conf: |  
@@ -71,13 +55,9 @@ data:
       server_name           events.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ /prometheus/?$ {
-        deny all;
-        return 404;
-      }
-    
       location / {
-        proxy_pass http://fdk-event-harvester:8080;
+        deny all;
+        return 410;
       }
     }
   server.service.conf: |  
@@ -86,12 +66,8 @@ data:
       server_name           services.fellesdatakatalog.digdir.no;
       limit_req zone=harvester_limit burst=3 delay=1;
     
-      location ~ /prometheus/?$ {
-        deny all;
-        return 404;
-      }
-    
       location / {
-        proxy_pass http://fdk-public-service-harvester:8080;
+        deny all;
+        return 410;
       }
     }  
