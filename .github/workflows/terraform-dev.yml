@@ -34,17 +34,17 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
 
     - name: Authenticate to Google Cloud
       id: auth
-      uses: google-github-actions/auth@v2
+      uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed  # v2
       with:
         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_DEV }}
         service_account: ${{ secrets.TERRAFORM_SA_DEV }}
 
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v2
+      uses: google-github-actions/setup-gcloud@e427ad8a34f8676edf47cf7d7925499adf3eb74f  # v2
       with:
         version: 'latest'
 
@@ -65,7 +65,7 @@ jobs:
         echo "📊 Variables file size: $(wc -l < terraform.tfvars) lines"
 
     - name: 'Setup Terraform'
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd  # v3.1.2
       with:
         terraform_version: '~1.13.0'
 
@@ -118,7 +118,7 @@ jobs:
 
     - name: 'Comment PR with Plan Summary'
       if: github.event_name == 'pull_request'
-      uses: actions/github-script@v7
+      uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7
       with:
         script: |
           const addCount = '${{ steps.plan.outputs.plan-add-count }}';
@@ -213,22 +213,22 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v5
+      uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5.0.1
 
     - name: Authenticate to Google Cloud
       id: auth
-      uses: google-github-actions/auth@v2
+      uses: google-github-actions/auth@c200f3691d83b41bf9bbd8638997a462592937ed  # v2
       with:
         workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_DEV }}
         service_account: ${{ secrets.TERRAFORM_SA_DEV }}
 
     - name: Set up Cloud SDK
-      uses: google-github-actions/setup-gcloud@v2
+      uses: google-github-actions/setup-gcloud@e427ad8a34f8676edf47cf7d7925499adf3eb74f  # v2
       with:
         version: 'latest'
 
     - name: 'Setup Terraform'
-      uses: hashicorp/setup-terraform@v3
+      uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd  # v3.1.2
       with:
         terraform_version: '~1.13.0'
 
