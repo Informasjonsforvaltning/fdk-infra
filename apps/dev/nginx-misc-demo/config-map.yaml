@@ -1,0 +1,86 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-misc-server
+  namespace: demo
+data:
+  server.admin.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           admin.demo.fellesdatakatalog.digdir.no;
+    
+    
+      location ~ /prometheus/?$ {
+        limit_req zone=prometheus_limit burst=3 delay=1;
+        add_header X-RateLimit-Limit 1 always;
+        add_header X-RateLimit-Burst 3 always;
+        add_header X-RateLimit-Delay 1 always;
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        limit_req zone=admin_limit burst=30 delay=10;
+        add_header X-RateLimit-Limit 10 always;
+        add_header X-RateLimit-Burst 30 always;
+        add_header X-RateLimit-Delay 10 always;
+        proxy_pass http://fdk-admin-gui:8080;
+      }
+    }
+  server.cms.conf: |
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           cms.demo.fellesdatakatalog.digdir.no;
+    
+      location ~ /prometheus/?$ {
+        limit_req zone=prometheus_limit burst=3 delay=1;
+        add_header X-RateLimit-Limit 1 always;
+        add_header X-RateLimit-Burst 3 always;
+        add_header X-RateLimit-Delay 1 always;
+        deny all;
+        return 404;
+      }    
+    
+      location / {
+        limit_req zone=cms_limit burst=30 delay=10;
+        add_header X-RateLimit-Limit 25 always;
+        add_header X-RateLimit-Burst 50 always;
+        add_header X-RateLimit-Delay 25 always;
+        proxy_pass http://fdk-cms-service:8080;
+      }
+    }
+  server.sso.conf: |  
+    server {
+      # Use the mapped $client_ip
+      set_real_ip_from 10.0.0.0/8;
+      real_ip_header X-Forwarded-For;
+      real_ip_recursive on;
+      listen                8080;
+      server_name           sso.demo.fellesdatakatalog.digdir.no;
+    
+      location ~ /prometheus/?$ {
+        limit_req zone=community_limit burst=3 delay=1;
+        add_header X-RateLimit-Limit 1 always;
+        add_header X-RateLimit-Burst 3 always;
+        add_header X-RateLimit-Delay 1 always;
+        deny all;
+        return 404;
+      }
+    
+      location / {
+        limit_req zone=cms_limit burst=75 delay=15;
+        add_header X-RateLimit-Limit 15 always;
+        add_header X-RateLimit-Burst 75 always;
+        add_header X-RateLimit-Delay 15 always;
+        proxy_pass http://sso:8080;
+      }
+    }
