@@ -5,6 +5,7 @@ resources:
   - ../../base/monitoring
   - helm-release-elasticsearch-exporter.yaml
 patches:
+  - path: helm-release-blackbox-exporter.yaml
   - path: helm-release-kafka-exporter-values.yaml
   - path: helm-release-prometheus-values.yaml
   - path: helm-release-thanos-values.yaml
