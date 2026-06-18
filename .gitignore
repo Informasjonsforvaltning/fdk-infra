@@ -14,6 +14,9 @@ terraform/**/*.tfstate.backup
 terraform/**/.terraform.lock.hcl
 terraform/**/terraform.tfvars
 **/terraform.tfvars
+# Secret tfvars (values pulled from Secret Manager) - MUST NEVER be committed
+**/terraform.tfvars.secret-manager
+**/*.secret-manager
 **/backend.hcl
 **/*.tfplan
 **/.terraform/
