@@ -141,4 +141,12 @@ resource "google_container_cluster" "main" {
   workload_identity_config {
     workload_pool = "${var.project_id}.svc.id.goog"
   }
+
+  # Ignore changes to default node pool since we manage pools separately in gke-node-pools.tf
+  lifecycle {
+    ignore_changes = [
+      node_config,
+      initial_node_count
+    ]
+  }
 }
