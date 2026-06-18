@@ -61,6 +61,17 @@ resource "google_compute_disk" "staging_reports_store" {
   zone                      = var.zone
 }
 
+resource "google_compute_disk" "staging_resource_service" {
+  labels = local.staging_disk_labels
+
+  name                      = "${var.disk_prefix}-staging-resource-service"
+  physical_block_size_bytes = 4096
+  project                   = var.project_id
+  size                      = 20
+  type                      = "pd-standard"
+  zone                      = var.zone
+}
+
 resource "google_compute_disk" "staging_static_rdf_server" {
   labels = local.staging_disk_labels
 
