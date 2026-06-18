@@ -17,14 +17,22 @@ resource "google_sql_database_instance" "main" {
 
       enabled                        = true
       start_time                     = var.database_config.backup_start_time
-      transaction_log_retention_days = var.database_config.backup_retention_days
+      transaction_log_retention_days = coalesce(var.database_config.transaction_log_retention_days, var.database_config.backup_retention_days)
     }
 
     connector_enforcement = "NOT_REQUIRED"
     disk_autoresize       = true
     disk_autoresize_limit = 0
     disk_type             = "PD_SSD"
-    edition               = "ENTERPRISE"
+    edition               = var.database_config.edition
+
+    # Enterprise Plus SSD data cache (only emitted when enabled)
+    dynamic "data_cache_config" {
+      for_each = var.database_config.data_cache_enabled ? [1] : []
+      content {
+        data_cache_enabled = true
+      }
+    }
 
     insights_config {
       query_insights_enabled = var.database_config.insights_enabled
