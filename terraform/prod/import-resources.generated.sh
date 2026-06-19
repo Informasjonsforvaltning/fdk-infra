@@ -64,7 +64,7 @@ safe_import 'google_service_account.bucket_sa' 'projects/digdir-fdk-prod/service
 safe_import 'google_service_account.autodeploy_sa' 'projects/digdir-fdk-prod/serviceAccounts/digdir-fdk-prod-autodeploy@digdir-fdk-prod.iam.gserviceaccount.com'
 safe_import 'google_service_account.cloudsql_sa' 'projects/digdir-fdk-prod/serviceAccounts/digdir-fdk-prod-cloudsql@digdir-fdk-prod.iam.gserviceaccount.com'
 safe_import 'google_service_account.eso_reader_sa' 'projects/digdir-fdk-prod/serviceAccounts/digdir-fdk-prod-eso-reader-sa@digdir-fdk-prod.iam.gserviceaccount.com'
-# NOT live (create-on-apply, do not import): terraform_sa, k8s_deploy_sa, flux_sa, cf_invoker_sa (whichever are absent above)
+# NOT live (create-on-apply, do not import): terraform_sa, k8s_deploy_sa, cf_invoker_sa (whichever are absent above)
 
 echo "--- google_project_iam_member ---"
 # WARN: terraform_sa email not found live — cannot emit terraform_sa IAM bindings

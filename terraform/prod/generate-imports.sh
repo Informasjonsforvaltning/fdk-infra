@@ -83,8 +83,8 @@ echo
 # -----------------------------------------------------------------------------
 echo 'echo "--- google_service_account ---"'
 # Match by EMAIL LOCAL-PART (stable); display names were changed out-of-band.
-# Config declares 11 SAs but only 7 exist live; terraform_sa / k8s_deploy_sa /
-# flux_sa / cf_invoker_sa are NOT provisioned in prod (create-on-apply).
+# Config declares 10 SAs but only 7 exist live; terraform_sa / k8s_deploy_sa /
+# cf_invoker_sa are NOT provisioned in prod (create-on-apply).
 TF_SA_EMAIL=""; K8S_DEPLOY_SA_EMAIL=""
 while IFS= read -r email; do
   [ -z "$email" ] && continue
@@ -100,7 +100,6 @@ while IFS= read -r email; do
     *-eso-reader-sa)  addr="eso_reader_sa" ;;
     *-kubernetes-sa)  addr="kubernetes" ;;
     *-vertex-sa)      addr="vertex_sa" ;;
-    *-flux-sa)        addr="flux_sa" ;;
     *-cf-invoker)     addr="cf_invoker_sa" ;;
     *-terraform|terraform-sa) addr="terraform_sa"; TF_SA_EMAIL="$email" ;;
     *k8s-deploy*)     addr="k8s_deploy_sa"; K8S_DEPLOY_SA_EMAIL="$email" ;;
@@ -108,7 +107,7 @@ while IFS= read -r email; do
   esac
   echo "safe_import 'google_service_account.${addr}' 'projects/${PROJECT_ID}/serviceAccounts/${email}'"
 done < <(gc iam service-accounts list --format='value(email)' 2>/dev/null)
-echo "# NOT live (create-on-apply, do not import): terraform_sa, k8s_deploy_sa, flux_sa, cf_invoker_sa (whichever are absent above)"
+echo "# NOT live (create-on-apply, do not import): terraform_sa, k8s_deploy_sa, cf_invoker_sa (whichever are absent above)"
 echo
 
 # -----------------------------------------------------------------------------
