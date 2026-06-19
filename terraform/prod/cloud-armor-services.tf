@@ -22,6 +22,19 @@ resource "google_compute_security_policy" "services" {
 
     match {
       expr {
+        expression = var.cloud_armor_waf_expressions.services_additional
+      }
+    }
+
+    preview  = var.cloud_armor_policies.services.preview
+    priority = 1001
+  }
+
+  rule {
+    action = "deny(403)"
+
+    match {
+      expr {
         expression = var.cloud_armor_waf_expressions.services
       }
     }

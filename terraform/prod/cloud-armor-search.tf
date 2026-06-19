@@ -18,6 +18,32 @@ resource "google_compute_security_policy" "search" {
   }
 
   rule {
+    action      = "allow"
+    description = "Allow / form http to redirect"
+
+    match {
+      expr {
+        expression = "request.headers['host'] == 'www.fellesdatakatalog.digdir.no' || request.headers['host'] == 'fellesdatakatalog.digdir.no' || request.headers['host'] == 'data.transportportal.no'"
+      }
+    }
+
+    priority = 1999
+  }
+
+  rule {
+    action = "deny(403)"
+
+    match {
+      expr {
+        expression = var.cloud_armor_waf_expressions.search_additional
+      }
+    }
+
+    preview  = var.cloud_armor_policies.search.preview
+    priority = 1001
+  }
+
+  rule {
     action = "deny(403)"
 
     match {

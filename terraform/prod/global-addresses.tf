@@ -1,10 +1,13 @@
 locals {
+  # Keys map to the live address names via "${project_id}-${key}"
+  # (e.g. "v4" -> digdir-fdk-prod-v4). Do NOT prefix with "prod-": that would
+  # produce digdir-fdk-prod-prod-v4 and force-replace the live LB IPs.
   global_addresses = {
-    "prod-v4" = {
+    "v4" = {
       address    = var.global_ip_addresses.prod_v4
       ip_version = "IPV4"
     }
-    "prod-v6" = {
+    "v6" = {
       address    = var.global_ip_addresses.prod_v6
       ip_version = "IPV6"
     }
