@@ -15,18 +15,6 @@ resource "google_compute_disk" "demo_kafka_1" {
   zone                      = var.zone
 }
 
-resource "google_compute_disk" "demo_mongodb_db" {
-  labels = local.demo_disk_labels
-
-  name                      = "${var.disk_prefix}-demo-mongodb-db"
-  physical_block_size_bytes = 4096
-  project                   = var.project_id
-  size                      = 10
-  snapshot                  = "https://www.googleapis.com/compute/v1/projects/${var.project_id}/global/snapshots/${var.snapshots.demo_mongodb}"
-  type                      = "pd-standard"
-  zone                      = var.zone
-}
-
 resource "google_compute_disk" "demo_rabbitmq" {
   labels = local.demo_disk_labels
 
