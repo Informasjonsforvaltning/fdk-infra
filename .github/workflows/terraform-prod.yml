@@ -1,27 +1,27 @@
-name: 'Terraform Dev Environment'
+name: 'Terraform Prod Environment'
 
 on:
   push:
     branches:
       - main
     paths:
-      - 'terraform/dev/**'
+      - 'terraform/prod/**'
   pull_request:
     branches:
       - main
     paths:
-      - 'terraform/dev/**'
+      - 'terraform/prod/**'
 
 # Use concurrency to prevent parallel runs on the same environment
 concurrency:
-  group: terraform-dev-${{ github.ref }}
+  group: terraform-prod-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   terraform-plan:
     name: 'Terraform Plan'
     runs-on: ubuntu-latest
-    
+
     # Security: Use minimal permissions for plan
     permissions:
       contents: read
@@ -30,7 +30,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: terraform/dev
+        working-directory: terraform/prod
 
     steps:
     - name: Checkout
@@ -40,8 +40,8 @@ jobs:
       id: auth
       uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093  # v3
       with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_DEV }}
-        service_account: ${{ secrets.TERRAFORM_SA_DEV }}
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_PROD }}
+        service_account: ${{ secrets.TERRAFORM_SA_PROD }}
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db  # v3.0.1
@@ -53,14 +53,14 @@ jobs:
       run: |
         echo "Fetching sensitive terraform variables from Secret Manager..."
         # Fetch the actual tfvars content from Secret Manager
-        gcloud secrets versions access latest --secret="terraform-dev-sensitive-vars" > terraform.tfvars
-        
+        gcloud secrets versions access latest --secret="terraform-prod-sensitive-vars" > terraform.tfvars
+
         # Verify the file was created (but don't show contents)
         if [ ! -f terraform.tfvars ]; then
           echo "❌ Failed to fetch terraform.tfvars from Secret Manager"
           exit 1
         fi
-        
+
         echo "✅ Successfully fetched sensitive variables"
         echo "📊 Variables file size: $(wc -l < terraform.tfvars) lines"
 
@@ -74,9 +74,9 @@ jobs:
       run: |
         # Create backend configuration from GitHub secret
         cat > backend.hcl <<EOF
-        bucket = "${{ secrets.TERRAFORM_BACKEND_BUCKET_DEV }}"
+        bucket = "${{ secrets.TERRAFORM_BACKEND_BUCKET_PROD }}"
         EOF
-        
+
         terraform init -backend-config=backend.hcl
         echo "✅ Terraform initialized successfully with dynamic backend"
 
@@ -98,11 +98,11 @@ jobs:
       run: |
         # Run terraform plan with sensitive vars
         terraform plan -var-file="terraform.tfvars" -out=tfplan -no-color
-        
+
         # Show plan output in logs
         echo "📋 Terraform Plan Results:"
         terraform show -no-color tfplan
-        
+
         # Count planned changes from machine-readable JSON (robust vs grep)
         terraform show -json tfplan > plan.json
         ADD_COUNT=$(jq '[.resource_changes[] | select(.change.actions == ["create"])] | length' plan.json)
@@ -133,27 +133,27 @@ jobs:
           if (changeCount > 0) planSummary += `**${changeCount}** to change, `;
           if (destroyCount > 0) planSummary += `**${destroyCount}** to destroy, `;
           if (replaceCount > 0) planSummary += `**${replaceCount}** to replace`;
-          
+
           // Clean up trailing comma
           planSummary = planSummary.replace(/, $/, '');
-          
+
           if (!planSummary) {
             planSummary = 'No changes detected';
           }
-            
+
           const output = `
-          ## Terraform Dev Environment Status
-          
+          ## Terraform Prod Environment Status
+
           #### Terraform Format and Style 🖌 \`${{ steps.fmt.outcome }}\`
           #### Terraform Initialization ⚙️ \`${{ steps.init.outcome }}\`
           #### Terraform Validation 🤖 \`${{ steps.validate.outcome }}\`
           #### Terraform Plan 📖 \`${{ steps.plan.outcome }}\`
-          
+
           **Plan Summary:** ${planSummary}
-          
+
           > 📋 Detailed plan output is available in the [workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for security reasons.
-          
-          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`terraform/dev\`*`;
+
+          *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`terraform/prod\`*`;
 
           // Find existing comment
           const comments = await github.rest.issues.listComments({
@@ -162,8 +162,8 @@ jobs:
             repo: context.repo.repo,
           });
 
-          const botComment = comments.data.find(comment => 
-            comment.user.type === 'Bot' && comment.body.includes('Terraform Dev Environment Status')
+          const botComment = comments.data.find(comment =>
+            comment.user.type === 'Bot' && comment.body.includes('Terraform Prod Environment Status')
           );
 
           if (botComment) {
@@ -195,7 +195,7 @@ jobs:
       if: always()
       run: |
         echo "## Terraform Plan Summary" >> $GITHUB_STEP_SUMMARY
-        echo "- **Format Check**: ${{ steps.fmt.outcome }}" >> $GITHUB_STEP_SUMMARY  
+        echo "- **Format Check**: ${{ steps.fmt.outcome }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Init**: ${{ steps.init.outcome }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Validate**: ${{ steps.validate.outcome }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Plan**: ${{ steps.plan.outcome }}" >> $GITHUB_STEP_SUMMARY
@@ -205,7 +205,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: terraform-plan
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    
+
     # Security: Use minimal permissions for apply
     permissions:
       contents: read
@@ -213,7 +213,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: terraform/dev
+        working-directory: terraform/prod
 
     steps:
     - name: Checkout
@@ -223,8 +223,8 @@ jobs:
       id: auth
       uses: google-github-actions/auth@7c6bc770dae815cd3e89ee6cdf493a5fab2cc093  # v3
       with:
-        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_DEV }}
-        service_account: ${{ secrets.TERRAFORM_SA_DEV }}
+        workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER_PROD }}
+        service_account: ${{ secrets.TERRAFORM_SA_PROD }}
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@aa5489c8933f4cc7a4f7d45035b3b1440c9c10db  # v3.0.1
@@ -239,7 +239,7 @@ jobs:
     - name: 'Fetch sensitive variables from Secret Manager'
       run: |
         echo "Fetching sensitive terraform variables from Secret Manager..."
-        gcloud secrets versions access latest --secret="terraform-dev-sensitive-vars" > terraform.tfvars
+        gcloud secrets versions access latest --secret="terraform-prod-sensitive-vars" > terraform.tfvars
 
         if [ ! -f terraform.tfvars ]; then
           echo "❌ Failed to fetch terraform.tfvars from Secret Manager"
@@ -251,7 +251,7 @@ jobs:
     - name: 'Terraform Init'
       run: |
         cat > backend.hcl <<EOF
-        bucket = "${{ secrets.TERRAFORM_BACKEND_BUCKET_DEV }}"
+        bucket = "${{ secrets.TERRAFORM_BACKEND_BUCKET_PROD }}"
         EOF
 
         terraform init -backend-config=backend.hcl
@@ -259,7 +259,8 @@ jobs:
 
     - name: 'Terraform Apply'
       run: |
-        echo "🚀 Applying Terraform changes to environment..."
+        echo "🚀 Applying Terraform changes to prod..."
+        # Atomic plan+apply in one operation (no persisted plan; public repo).
         terraform apply -var-file="terraform.tfvars" -auto-approve
         echo "✅ Terraform apply completed successfully"
 
