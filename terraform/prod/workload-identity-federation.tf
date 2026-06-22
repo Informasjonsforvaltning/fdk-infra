@@ -40,9 +40,15 @@ resource "google_service_account" "terraform_sa" {
 }
 
 # Grant necessary permissions to Terraform CI service account
-resource "google_project_iam_member" "terraform_sa_editor" {
+resource "google_project_iam_member" "terraform_sa_managed_roles" {
+  for_each = toset([
+    "roles/serviceusage.serviceUsageAdmin", # google_project_service (enable APIs)
+    "roles/iam.serviceAccountAdmin",        # google_service_account + SA IAM bindings
+    "roles/compute.admin",                  # security policies, disks, global addresses, resource policies
+    "roles/cloudsql.admin",                 # google_sql_database_instance
+  ])
   project = var.project_id
-  role    = "roles/editor"
+  role    = each.value
   member  = "serviceAccount:${google_service_account.terraform_sa.email}"
 }
 
@@ -53,10 +59,10 @@ resource "google_project_iam_member" "terraform_sa_secret_accessor" {
   member  = "serviceAccount:${google_service_account.terraform_sa.email}"
 }
 
-# Grant Storage access for Terraform state bucket
+# Grant Storage admin for managed buckets + Terraform state objects
 resource "google_project_iam_member" "terraform_sa_storage_admin" {
   project = var.project_id
-  role    = "roles/storage.objectAdmin"
+  role    = "roles/storage.admin"
   member  = "serviceAccount:${google_service_account.terraform_sa.email}"
 }
 
