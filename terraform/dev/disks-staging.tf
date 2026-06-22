@@ -105,3 +105,20 @@ resource "google_compute_disk" "staging_zookeeper_1" {
   type                      = "pd-standard"
   zone                      = var.zone
 }
+
+# Primary data disk for the decommissioned staging MongoDB cluster.
+# GKE-provisioned and retained; tracked in Terraform so it is protected from
+# deletion. Labels/snapshot are managed outside Terraform.
+resource "google_compute_disk" "staging_mongodb_primary" {
+  name                      = "mongodb-staging-primary"
+  physical_block_size_bytes = 4096
+  project                   = var.project_id
+  size                      = 50
+  type                      = "pd-standard"
+  zone                      = var.zone
+
+  lifecycle {
+    ignore_changes  = [labels, snapshot]
+    prevent_destroy = true
+  }
+}
