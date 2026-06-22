@@ -98,7 +98,16 @@ jobs:
       run: |
         # Run terraform plan with sensitive vars
         # -lock=false: the read-only plan SA cannot write the GCS state lock object
-        terraform plan -var-file="terraform.tfvars" -out=tfplan -no-color -lock=false
+        # Redirect stdout to a file (cleaned up later) so nothing is echoed; on failure show only the tail.
+        set +e
+        terraform plan -var-file="terraform.tfvars" -out=tfplan -no-color -lock=false > plan_output.txt 2>&1
+        PLAN_EXIT=$?
+        set -e
+        if [ "$PLAN_EXIT" -ne 0 ]; then
+          echo "❌ Terraform plan failed - showing last 20 lines of output:"
+          tail -20 plan_output.txt
+          exit "$PLAN_EXIT"
+        fi
 
         # Full plan not echoed to logs (public repo); see PR summary + counts below
         # Count planned changes from machine-readable JSON (robust vs grep)
@@ -186,7 +195,7 @@ jobs:
       if: always()
       run: |
         # Always cleanup sensitive files, even if job fails
-        rm -f terraform.tfvars tfplan plan.json backend.hcl
+        rm -f terraform.tfvars tfplan plan.json plan_output.txt backend.hcl
         echo "🧹 Cleaned up sensitive files"
 
     - name: 'Job Summary'
@@ -263,13 +272,25 @@ jobs:
       run: |
         echo "🚀 Applying Terraform changes to prod..."
         # Atomic plan+apply in one operation (no persisted plan; public repo).
-        terraform apply -var-file="terraform.tfvars" -auto-approve
+        # Redirect stdout to a file so the resource diff is not echoed to the public
+        # log; surface only the final summary line (or errors on failure).
+        set +e
+        terraform apply -var-file="terraform.tfvars" -auto-approve -no-color > apply_output.txt 2>&1
+        APPLY_EXIT=$?
+        set -e
+        if [ "$APPLY_EXIT" -ne 0 ]; then
+          echo "❌ Terraform apply failed - showing last 30 lines of output:"
+          tail -30 apply_output.txt
+          exit "$APPLY_EXIT"
+        fi
+        # Only the summary line ("Apply complete! Resources: ..."), not the diff
+        grep -E "^Apply complete" apply_output.txt || true
         echo "✅ Terraform apply completed successfully"
 
     - name: 'Cleanup sensitive files'
       if: always()
       run: |
-        rm -f terraform.tfvars tfplan plan.json backend.hcl
+        rm -f terraform.tfvars tfplan plan.json apply_output.txt backend.hcl
         echo "🧹 Cleaned up sensitive files"
 
     - name: 'Job Summary'
