@@ -50,8 +50,8 @@ variable "gke_security_group" {
 variable "global_ip_addresses" {
   description = "Global IP addresses for load balancers - kept in Secret Manager"
   type = object({
-    prod_v4           = string
-    prod_v6           = string
+    prod_v4 = string
+    prod_v6 = string
   })
 }
 
@@ -150,7 +150,7 @@ variable "snapshot_schedule_config" {
     on_source_disk_delete = string
     days_in_cycle         = number
     start_time            = string
-    storage_locations     = list(string)  # e.g., ["eu"] for multi-region or [var.region] for regional
+    storage_locations     = list(string) # e.g., ["eu"] for multi-region or [var.region] for regional
   })
 }
 

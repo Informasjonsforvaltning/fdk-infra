@@ -1,5 +1,3 @@
-# TODO: Update project_number in terraform.tfvars.secret-manager for production
-
 resource "google_storage_bucket" "gcf_v2_artifacts" {
   force_destroy = false
 

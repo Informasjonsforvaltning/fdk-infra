@@ -6,13 +6,6 @@ resource "google_service_account" "kubernetes" {
   project      = var.project_id
 }
 
-resource "google_service_account" "flux_sa" {
-  account_id   = var.service_accounts.flux
-  description  = "Service account for Flux"
-  display_name = "${var.project_id}-flux-sa"
-  project      = var.project_id
-}
-
 resource "google_service_account" "autodeploy_sa" {
   account_id   = var.service_accounts.autodeploy
   description  = "Service account for deploying to dev environments"

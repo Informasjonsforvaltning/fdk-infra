@@ -106,6 +106,7 @@ variable "storage_buckets" {
 # Network Configuration
 variable "network_config" {
   description = "Network CIDR configuration - kept in Secret Manager"
+  sensitive   = true
   type = object({
     master_ipv4_cidr_block = string
     pod_ipv4_cidr_block    = string
@@ -132,6 +133,7 @@ variable "recaptcha_site_key" {
 # Cloud Armor WAF Expressions
 variable "cloud_armor_waf_expressions" {
   description = "Pre-built WAF expressions for Cloud Armor policies - kept in Secret Manager"
+  sensitive   = true
   type        = map(string)
 }
 
@@ -150,7 +152,7 @@ variable "snapshot_schedule_config" {
     on_source_disk_delete = string
     days_in_cycle         = number
     start_time            = string
-    storage_locations     = list(string)  # e.g., ["eu"] for multi-region or ["europe-north1"] for regional
+    storage_locations     = list(string) # e.g., ["eu"] for multi-region or ["europe-north1"] for regional
   })
 }
 
