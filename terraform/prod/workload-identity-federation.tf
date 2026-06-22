@@ -1,8 +1,6 @@
 # Workload Identity Federation for GitHub Actions
 # This allows GitHub Actions to authenticate to Google Cloud without service account keys
 
-# TODO: Verify GitHub organization and repository names in terraform.tfvars.secret-manager
-
 # Create Workload Identity Pool for GitHub Actions
 resource "google_iam_workload_identity_pool" "github_actions" {
   workload_identity_pool_id = "github-actions"
