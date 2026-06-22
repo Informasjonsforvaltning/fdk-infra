@@ -203,6 +203,10 @@ jobs:
     needs: terraform-plan
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
 
+    # Require manual approval via the protected 'production' environment
+    # before the WIF token is minted or any apply step runs.
+    environment: production
+
     # Security: Use minimal permissions for apply
     permissions:
       contents: read
