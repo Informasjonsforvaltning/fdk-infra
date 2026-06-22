@@ -106,6 +106,7 @@ variable "storage_buckets" {
 # Network Configuration
 variable "network_config" {
   description = "Network CIDR configuration - kept in Secret Manager"
+  sensitive   = true
   type = object({
     master_ipv4_cidr_block = string
     pod_ipv4_cidr_block    = string
@@ -130,6 +131,7 @@ variable "recaptcha_site_key" {
 # Cloud Armor WAF Expressions
 variable "cloud_armor_waf_expressions" {
   description = "Pre-built WAF expressions for Cloud Armor policies - kept in Secret Manager"
+  sensitive   = true
   type        = map(string)
 }
 

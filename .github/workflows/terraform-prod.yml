@@ -99,10 +99,7 @@ jobs:
         # Run terraform plan with sensitive vars
         terraform plan -var-file="terraform.tfvars" -out=tfplan -no-color
 
-        # Show plan output in logs
-        echo "📋 Terraform Plan Results:"
-        terraform show -no-color tfplan
-
+        # Full plan not echoed to logs (public repo); see PR summary + counts below
         # Count planned changes from machine-readable JSON (robust vs grep)
         terraform show -json tfplan > plan.json
         ADD_COUNT=$(jq '[.resource_changes[] | select(.change.actions == ["create"])] | length' plan.json)
@@ -151,7 +148,7 @@ jobs:
 
           **Plan Summary:** ${planSummary}
 
-          > 📋 Detailed plan output is available in the [workflow logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for security reasons.
+          > 📋 The full plan is not published to the public logs. Review it by running \`terraform plan\` locally against this branch.
 
           *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`, Working Directory: \`terraform/prod\`*`;
 
