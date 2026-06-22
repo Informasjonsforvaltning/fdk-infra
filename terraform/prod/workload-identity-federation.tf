@@ -89,6 +89,32 @@ resource "google_service_account_iam_member" "github_actions_terraform_sa" {
   member             = "principalSet://iam.googleapis.com/projects/${data.google_project.current.number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions.workload_identity_pool_id}/attribute.repository/${var.github_repository}"
 }
 
+# Read-only Service Account for Terraform plan (PR jobs)
+resource "google_service_account" "terraform_plan_sa" {
+  account_id   = "${var.project_id}-tf-plan"
+  display_name = "terraform-plan-sa"
+  description  = "Read-only service account for Terraform plan in PR CI"
+}
+
+resource "google_project_iam_member" "terraform_plan_sa_viewer" {
+  project = var.project_id
+  role    = "roles/viewer"
+  member  = "serviceAccount:${google_service_account.terraform_plan_sa.email}"
+}
+
+resource "google_project_iam_member" "terraform_plan_sa_secret_accessor" {
+  project = var.project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${google_service_account.terraform_plan_sa.email}"
+}
+
+# Allow GitHub Actions from this repository to impersonate the read-only plan SA
+resource "google_service_account_iam_member" "github_actions_terraform_plan_sa" {
+  service_account_id = google_service_account.terraform_plan_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "principalSet://iam.googleapis.com/projects/${data.google_project.current.number}/locations/global/workloadIdentityPools/${google_iam_workload_identity_pool.github_actions.workload_identity_pool_id}/attribute.repository/${var.github_repository}"
+}
+
 # Optional: Additional service account for Kubernetes deployments
 resource "google_service_account" "k8s_deploy_sa" {
   account_id   = var.service_accounts.k8s_deploy
@@ -121,6 +147,11 @@ output "workload_identity_provider" {
 output "terraform_sa_service_account" {
   description = "The Terraform CI service account email"
   value       = google_service_account.terraform_sa.email
+}
+
+output "terraform_plan_sa_service_account" {
+  description = "The read-only Terraform plan CI service account email"
+  value       = google_service_account.terraform_plan_sa.email
 }
 
 output "k8s_deploy_sa_service_account" {
