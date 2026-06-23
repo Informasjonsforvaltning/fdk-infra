@@ -76,9 +76,13 @@ variable "database_config" {
     instance_name         = string
     database_version      = string
     tier                  = string
+    edition               = optional(string, "ENTERPRISE")
+    data_cache_enabled    = optional(bool, false)
     backup_start_time     = string
     backup_retention_days = number
-    insights_enabled      = bool
+    # Defaults to backup_retention_days when unset
+    transaction_log_retention_days = optional(number)
+    insights_enabled               = bool
     maintenance_window = object({
       day  = number
       hour = number
