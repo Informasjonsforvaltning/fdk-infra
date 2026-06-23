@@ -46,6 +46,8 @@ resource "google_project_iam_member" "terraform_sa_managed_roles" {
     "roles/iam.serviceAccountAdmin",        # google_service_account + SA IAM bindings
     "roles/compute.admin",                  # security policies, disks, global addresses, resource policies
     "roles/cloudsql.admin",                 # google_sql_database_instance
+    "roles/container.developer",            # in-cluster k8s object refresh (container.serviceAccounts.get)
+    "roles/artifactregistry.admin",         # google_artifact_registry_repository
   ])
   project = var.project_id
   role    = each.value
