@@ -9,7 +9,6 @@ The infrastructure leverages GitOps principles to manage Kubernetes deployments.
 - **Prometheus & Grafana**: For monitoring and alerting.
 - **Thanos**: For long-term storage of Prometheus metrics.
 - **NGINX Ingress Controller**: For managing external access to services.
-- **MongoDB Replica Set**: For data storage.
 - **Elasticsearch (ECK)**: For search capabilities.
 - **Trivy Operator**: For vulnerability scanning.
 - **External Secrets Operator**: For managing secrets from external sources.
