@@ -1,23 +1,16 @@
 # Production Environment
 
-This directory contains Terraform configurations for the production environment.
+Terraform configuration for the production environment.
 
-## Usage
+- **State**: GCS backend, bucket from the `TERRAFORM_BACKEND_BUCKET_PROD` secret
+  (prefix `terraform/prod`).
+- **Secrets**: `terraform-prod-sensitive-vars` in Secret Manager.
+- **Apply**: on merge to `main`, gated by the protected `production` GitHub
+  environment — a manual approval from the required reviewer team is needed
+  before any cloud credentials are minted.
 
-```bash
-# Initialize Terraform
-terraform init
+For the change workflow, the PR documentation convention, and local-plan
+instructions, see [`../README.md`](../README.md).
 
-# Plan deployment
-terraform plan
-
-# Apply changes
-terraform apply
-```
-
-## TODO
-
-- Configure production project ID in variables.tf
-- Add production-specific resources
-- Configure remote state backend
-- Set up proper RBAC and security policies
+> Production applies are irreversible against live infrastructure. Always
+> confirm the CI plan summary matches the PR's expected plan before approving.
