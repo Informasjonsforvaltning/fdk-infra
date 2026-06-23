@@ -33,7 +33,7 @@ fdk-infra/
 │
 └── terraform/                     # Infrastructure as Code for cloud resources
     ├── dev/                       # Development environment Terraform configs
-    └── prod/                      # Production environment Terraform configs (future)
+    └── prod/                      # Production environment Terraform configs
 ```
 
 ## Prerequisites
@@ -60,12 +60,12 @@ flux bootstrap github \
   --path=./clusters/<cluster_name>
 ```
 ### 2. Infrastructure Management:
-The `terraform/` directory contains Infrastructure as Code configurations for managing GCP resources:
-- **Secure by design**: All sensitive values stored in Secret Manager
-- **CI/CD ready**: GitHub Actions with Workload Identity Federation
-- **Environment-agnostic**: Completely abstracted and reusable configurations
+The `terraform/` directory contains Infrastructure as Code for the GCP resources (GKE, Cloud SQL, networking, etc.) behind the clusters. Changes are applied through CI, not from a laptop:
+- **GitOps via CI**: pull requests run `terraform plan` (sanitized summary only); merges to `main` apply — dev automatically, prod behind a manual approval.
+- **Secure by design**: all sensitive values stored in Secret Manager; Workload Identity Federation, no static keys.
+- **Public-repo safe**: the full plan/apply diff is never printed to the logs.
 
-See [terraform/dev/README.md](terraform/dev/README.md) for detailed setup instructions.
+See [terraform/README.md](terraform/README.md) for the change workflow and PR documentation convention, and [terraform/dev/README.md](terraform/dev/README.md) for environment specifics.
 
 ### 3. Deploy applications:<br>
 Flux will automatically synchronize the manifests defined in the repository to the specified cluster.
