@@ -98,14 +98,15 @@ jobs:
       run: |
         # Run terraform plan with sensitive vars
         # -lock=false: the read-only plan SA cannot write the GCS state lock object
-        # Redirect stdout to a file (cleaned up later) so nothing is echoed; on failure show only the tail.
+        # Split stdout/stderr: the plan diff (carries variable values) goes to stdout and is never echoed;
+        # only stderr (Terraform diagnostics) is surfaced on failure, so no resource values leak to the public log.
         set +e
-        terraform plan -var-file="terraform.tfvars" -out=tfplan -no-color -lock=false > plan_output.txt 2>&1
+        terraform plan -var-file="terraform.tfvars" -out=tfplan -no-color -lock=false > plan_stdout.txt 2> plan_stderr.txt
         PLAN_EXIT=$?
         set -e
         if [ "$PLAN_EXIT" -ne 0 ]; then
-          echo "❌ Terraform plan failed - showing last 20 lines of output:"
-          tail -20 plan_output.txt
+          echo "❌ Terraform plan failed - showing error diagnostics (stderr only; plan diff withheld):"
+          tail -20 plan_stderr.txt
           exit "$PLAN_EXIT"
         fi
 
@@ -195,7 +196,7 @@ jobs:
       if: always()
       run: |
         # Always cleanup sensitive files, even if job fails
-        rm -f terraform.tfvars tfplan plan.json plan_output.txt backend.hcl
+        rm -f terraform.tfvars tfplan plan.json plan_stdout.txt plan_stderr.txt backend.hcl
         echo "🧹 Cleaned up sensitive files"
 
     - name: 'Job Summary'
@@ -272,25 +273,25 @@ jobs:
       run: |
         echo "🚀 Applying Terraform changes to prod..."
         # Atomic plan+apply in one operation (no persisted plan; public repo).
-        # Redirect stdout to a file so the resource diff is not echoed to the public
-        # log; surface only the final summary line (or errors on failure).
+        # Split stdout/stderr: the resource diff (carries variable values) goes to stdout and is never echoed;
+        # only stderr (Terraform diagnostics) is surfaced on failure. The summary line is grepped from stdout.
         set +e
-        terraform apply -var-file="terraform.tfvars" -auto-approve -no-color > apply_output.txt 2>&1
+        terraform apply -var-file="terraform.tfvars" -auto-approve -no-color > apply_stdout.txt 2> apply_stderr.txt
         APPLY_EXIT=$?
         set -e
         if [ "$APPLY_EXIT" -ne 0 ]; then
-          echo "❌ Terraform apply failed - showing last 30 lines of output:"
-          tail -30 apply_output.txt
+          echo "❌ Terraform apply failed - showing error diagnostics (stderr only; resource diff withheld):"
+          tail -30 apply_stderr.txt
           exit "$APPLY_EXIT"
         fi
         # Only the summary line ("Apply complete! Resources: ..."), not the diff
-        grep -E "^Apply complete" apply_output.txt || true
+        grep -E "^Apply complete" apply_stdout.txt || true
         echo "✅ Terraform apply completed successfully"
 
     - name: 'Cleanup sensitive files'
       if: always()
       run: |
-        rm -f terraform.tfvars tfplan plan.json apply_output.txt backend.hcl
+        rm -f terraform.tfvars tfplan plan.json apply_stdout.txt apply_stderr.txt backend.hcl
         echo "🧹 Cleaned up sensitive files"
 
     - name: 'Job Summary'
