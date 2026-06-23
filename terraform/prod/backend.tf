@@ -4,8 +4,8 @@
 terraform {
   backend "gcs" {
     # Backend configuration injected by GitHub Actions
-    # See .github/workflows/terraform-dev.yml for dynamic configuration
-    prefix = "terraform/dev"
+    # See .github/workflows/terraform-prod.yml for dynamic configuration
+    prefix = "terraform/prod"
 
     # Optional: Enable state locking (requires Cloud Storage API)
     # State locking prevents concurrent modifications

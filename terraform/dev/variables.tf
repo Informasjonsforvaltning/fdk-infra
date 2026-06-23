@@ -76,9 +76,13 @@ variable "database_config" {
     instance_name         = string
     database_version      = string
     tier                  = string
+    edition               = optional(string, "ENTERPRISE")
+    data_cache_enabled    = optional(bool, false)
     backup_start_time     = string
     backup_retention_days = number
-    insights_enabled      = bool
+    # Defaults to backup_retention_days when unset
+    transaction_log_retention_days = optional(number)
+    insights_enabled               = bool
     maintenance_window = object({
       day  = number
       hour = number
@@ -106,6 +110,7 @@ variable "storage_buckets" {
 # Network Configuration
 variable "network_config" {
   description = "Network CIDR configuration - kept in Secret Manager"
+  sensitive   = true
   type = object({
     master_ipv4_cidr_block = string
     pod_ipv4_cidr_block    = string
@@ -132,6 +137,7 @@ variable "recaptcha_site_key" {
 # Cloud Armor WAF Expressions
 variable "cloud_armor_waf_expressions" {
   description = "Pre-built WAF expressions for Cloud Armor policies - kept in Secret Manager"
+  sensitive   = true
   type        = map(string)
 }
 
@@ -150,6 +156,7 @@ variable "snapshot_schedule_config" {
     on_source_disk_delete = string
     days_in_cycle         = number
     start_time            = string
+    storage_locations     = list(string) # e.g., ["eu"] for multi-region or ["europe-north1"] for regional
   })
 }
 

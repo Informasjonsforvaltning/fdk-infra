@@ -8,7 +8,7 @@ resource "google_service_account" "kubernetes" {
 
 resource "google_service_account" "autodeploy_sa" {
   account_id   = var.service_accounts.autodeploy
-  description  = "Service account for deploying to dev environments"
+  description  = "Service account for deploying to prod environment"
   display_name = "${var.project_id}-autodeploy"
   project      = var.project_id
 }

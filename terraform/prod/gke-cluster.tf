@@ -114,9 +114,6 @@ resource "google_container_cluster" "main" {
     }
   }
 
-
-  # pod_security_policy_config removed - deprecated
-
   private_cluster_config {
     enable_private_nodes = var.gke_cluster_config.private_cluster_config.enable_private_nodes
 

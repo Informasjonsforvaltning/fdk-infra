@@ -62,7 +62,7 @@ All sensitive values are stored in `terraform.tfvars.secret-manager` including:
 - **No secrets in repository**: All sensitive configs in Secret Manager
 - **Workload Identity**: No service account keys in GitHub
 - **Dynamic backend**: State bucket configured via GitHub secrets
-- **Sanitized PR comments**: Plan details only in secure workflow logs
+- **Sanitized output**: the plan diff is kept out of the public logs entirely; PR comments show only summary counts
 - **State locking**: Prevents concurrent modifications
 - **Minimal permissions**: Service accounts follow principle of least privilege
 
@@ -99,7 +99,7 @@ rm terraform.tfvars backend.hcl
 ### Workflow Features
 - Dynamic backend configuration from GitHub secrets
 - Sensitive variables fetched from Secret Manager
-- Plan output sanitized in PR comments (details in workflow logs)
+- Plan diff kept out of the logs entirely; PR comment shows summary counts only
 - Automatic cleanup of sensitive files
 - Concurrency control to prevent parallel runs
 
