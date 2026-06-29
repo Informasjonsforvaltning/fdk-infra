@@ -50,6 +50,112 @@ spec:
       enabled: false
     kubeProxy:
       enabled: false
+    kube-state-metrics:
+      rbac:
+        extraRules:
+          - apiGroups:
+              - kustomize.toolkit.fluxcd.io
+              - helm.toolkit.fluxcd.io
+              - source.toolkit.fluxcd.io
+            resources:
+              - "*"
+            verbs:
+              - list
+              - watch
+      customResourceState:
+        enabled: true
+        config:
+          kind: CustomResourceStateMetrics
+          spec:
+            resources:
+              - groupVersionKind:
+                  group: kustomize.toolkit.fluxcd.io
+                  kind: Kustomization
+                  version: v1
+                metricNamePrefix: gotk
+                labelsFromPath:
+                  name: [metadata, name]
+                commonLabels:
+                  kind: Kustomization
+                metrics: &gotkMetrics
+                  - name: reconcile_condition
+                    help: "The current reconciliation condition status of a Flux resource."
+                    each:
+                      type: StateSet
+                      stateSet:
+                        labelName: status
+                        labelsFromPath:
+                          type: [type]
+                        path: [status, conditions]
+                        valueFrom: [status]
+                        list: ["True", "False", "Unknown"]
+                  - name: suspend_status
+                    help: "The suspend status of a Flux resource."
+                    each:
+                      type: Gauge
+                      gauge:
+                        path: [spec, suspend]
+                        nilIsZero: true
+              - groupVersionKind:
+                  group: helm.toolkit.fluxcd.io
+                  kind: HelmRelease
+                  version: v2
+                metricNamePrefix: gotk
+                labelsFromPath:
+                  name: [metadata, name]
+                commonLabels:
+                  kind: HelmRelease
+                metrics: *gotkMetrics
+              - groupVersionKind:
+                  group: source.toolkit.fluxcd.io
+                  kind: GitRepository
+                  version: v1
+                metricNamePrefix: gotk
+                labelsFromPath:
+                  name: [metadata, name]
+                commonLabels:
+                  kind: GitRepository
+                metrics: *gotkMetrics
+              - groupVersionKind:
+                  group: source.toolkit.fluxcd.io
+                  kind: HelmRepository
+                  version: v1
+                metricNamePrefix: gotk
+                labelsFromPath:
+                  name: [metadata, name]
+                commonLabels:
+                  kind: HelmRepository
+                metrics: *gotkMetrics
+              - groupVersionKind:
+                  group: source.toolkit.fluxcd.io
+                  kind: HelmChart
+                  version: v1
+                metricNamePrefix: gotk
+                labelsFromPath:
+                  name: [metadata, name]
+                commonLabels:
+                  kind: HelmChart
+                metrics: *gotkMetrics
+              - groupVersionKind:
+                  group: source.toolkit.fluxcd.io
+                  kind: Bucket
+                  version: v1
+                metricNamePrefix: gotk
+                labelsFromPath:
+                  name: [metadata, name]
+                commonLabels:
+                  kind: Bucket
+                metrics: *gotkMetrics
+              - groupVersionKind:
+                  group: source.toolkit.fluxcd.io
+                  kind: OCIRepository
+                  version: v1
+                metricNamePrefix: gotk
+                labelsFromPath:
+                  name: [metadata, name]
+                commonLabels:
+                  kind: OCIRepository
+                metrics: *gotkMetrics
     alertmanager:
       annotations:
         cluster-autoscaler.kubernetes.io/safe-to-evict: "true"
