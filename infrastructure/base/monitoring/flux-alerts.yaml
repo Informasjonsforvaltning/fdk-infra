@@ -6,6 +6,10 @@ metadata:
   namespace: monitoring
   labels:
     app.kubernetes.io/part-of: flux
+    # Required for Prometheus to load these rules: the kube-prometheus-stack
+    # Prometheus ruleSelector matches on this label. Without it the whole
+    # PrometheusRule is silently ignored.
+    release: monitoring-kube-prometheus-stack
 spec:
   groups:
     - name: flux-reconciliation

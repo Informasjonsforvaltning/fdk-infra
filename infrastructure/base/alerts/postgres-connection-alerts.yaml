@@ -7,6 +7,10 @@ metadata:
   labels:
     prometheus: kube-prometheus
     role: alert-rules
+    # Required for Prometheus to load these rules: the kube-prometheus-stack
+    # Prometheus ruleSelector matches on this label. Without it the whole
+    # PrometheusRule is silently ignored.
+    release: monitoring-kube-prometheus-stack
 spec:
   groups:
     - name: postgresql.connection.rules
