@@ -73,21 +73,26 @@ spec:
                   kind: Kustomization
                   version: v1
                 metricNamePrefix: gotk
-                labelsFromPath:
+                labelsFromPath: &gotkLabels
                   name: [metadata, name]
+                  namespace: [metadata, namespace]
                 commonLabels:
                   kind: Kustomization
+                  type: Ready
                 metrics: &gotkMetrics
+                  # StateSet over the Ready condition: one series per state with
+                  # value 1 for the current state, so flux-alerts.yaml can match
+                  # gotk_reconcile_condition{type="Ready",status="False"} == 1.
+                  # StateSet path must resolve to the status string itself, and
+                  # the constant "type" label comes from commonLabels (KSM cannot
+                  # derive it once the path ends at a scalar).
                   - name: reconcile_condition
-                    help: "The current reconciliation condition status of a Flux resource."
+                    help: "The Ready condition status of a Flux resource."
                     each:
                       type: StateSet
                       stateSet:
                         labelName: status
-                        labelsFromPath:
-                          type: [type]
-                        path: [status, conditions]
-                        valueFrom: [status]
+                        path: [status, conditions, "[type=Ready]", status]
                         list: ["True", "False", "Unknown"]
                   - name: suspend_status
                     help: "The suspend status of a Flux resource."
@@ -101,60 +106,60 @@ spec:
                   kind: HelmRelease
                   version: v2
                 metricNamePrefix: gotk
-                labelsFromPath:
-                  name: [metadata, name]
+                labelsFromPath: *gotkLabels
                 commonLabels:
                   kind: HelmRelease
+                  type: Ready
                 metrics: *gotkMetrics
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   kind: GitRepository
                   version: v1
                 metricNamePrefix: gotk
-                labelsFromPath:
-                  name: [metadata, name]
+                labelsFromPath: *gotkLabels
                 commonLabels:
                   kind: GitRepository
+                  type: Ready
                 metrics: *gotkMetrics
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   kind: HelmRepository
                   version: v1
                 metricNamePrefix: gotk
-                labelsFromPath:
-                  name: [metadata, name]
+                labelsFromPath: *gotkLabels
                 commonLabels:
                   kind: HelmRepository
+                  type: Ready
                 metrics: *gotkMetrics
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   kind: HelmChart
                   version: v1
                 metricNamePrefix: gotk
-                labelsFromPath:
-                  name: [metadata, name]
+                labelsFromPath: *gotkLabels
                 commonLabels:
                   kind: HelmChart
+                  type: Ready
                 metrics: *gotkMetrics
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   kind: Bucket
                   version: v1
                 metricNamePrefix: gotk
-                labelsFromPath:
-                  name: [metadata, name]
+                labelsFromPath: *gotkLabels
                 commonLabels:
                   kind: Bucket
+                  type: Ready
                 metrics: *gotkMetrics
               - groupVersionKind:
                   group: source.toolkit.fluxcd.io
                   kind: OCIRepository
                   version: v1
                 metricNamePrefix: gotk
-                labelsFromPath:
-                  name: [metadata, name]
+                labelsFromPath: *gotkLabels
                 commonLabels:
                   kind: OCIRepository
+                  type: Ready
                 metrics: *gotkMetrics
     alertmanager:
       annotations:
