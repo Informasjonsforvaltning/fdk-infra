@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: main
+    branch: chore/not/keycloak-26-6-3
   secretRef:
     name: flux-system
   url: ssh://git@github.com/Informasjonsforvaltning/fdk-infra
