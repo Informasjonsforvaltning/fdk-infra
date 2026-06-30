@@ -83,11 +83,11 @@ data:
           add_header 'Content-Length' 0;
           return 204;
         }
-        proxy_pass http://dataservice-catalog:8080;
+        proxy_pass http://data-service-catalog:8080;
       }
     
       location / {
-        proxy_pass http://dataservice-catalog-gui:8080;
+        proxy_pass http://data-service-catalog-frontend:8080;
       }
     }
   server.concept.conf: |
