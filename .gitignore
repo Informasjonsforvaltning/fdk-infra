@@ -35,3 +35,6 @@ Thumbs.db
 # Claude Code instructions (contains local paths and sensitive info)
 CLAUDE.md
 .claude/
+
+# Local scripts
+scripts/

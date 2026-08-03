@@ -1,0 +1,87 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clamav
+  namespace: clamav
+  labels:
+    app: clamav
+spec:
+  replicas: 1
+  # Recreate avoids briefly running two ~2Gi pods (each loads the full signature
+  # DB into memory) during a rollout.
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: clamav
+  template:
+    metadata:
+      labels:
+        app: clamav
+    spec:
+      containers:
+        - name: clamav
+          # Official ClamAV image; runs both clamd and freshclam. Pinned to the
+          # 1.4 minor tag (tracks latest patch). Includes a signature DB snapshot
+          # so the pod becomes ready without waiting for a full freshclam download.
+          image: clamav/clamav:1.4
+          ports:
+            - name: clamd
+              containerPort: 3310
+              protocol: TCP
+          # clamd must finish loading the signature DB before it accepts scans;
+          # the startup probe allows up to ~5 min for that on a cold start.
+          startupProbe:
+            exec:
+              command: ["clamdcheck.sh"]
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 30
+          readinessProbe:
+            exec:
+              command: ["clamdcheck.sh"]
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            exec:
+              command: ["clamdcheck.sh"]
+            periodSeconds: 30
+            timeoutSeconds: 5
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "2500Mi"
+            limits:
+              memory: "2500Mi"
+          volumeMounts:
+            - name: config
+              mountPath: /etc/clamav/clamd.conf
+              subPath: clamd.conf
+              readOnly: true
+            - name: signatures
+              mountPath: /var/lib/clamav
+            - name: tmp
+              mountPath: /tmp
+          securityContext:
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+      volumes:
+        - name: config
+          configMap:
+            name: clamav-config
+        - name: signatures
+          emptyDir:
+            sizeLimit: 3Gi
+        - name: tmp
+          emptyDir:
+            sizeLimit: 1Gi
+      restartPolicy: Always
+      dnsPolicy: ClusterFirst
+      terminationGracePeriodSeconds: 30

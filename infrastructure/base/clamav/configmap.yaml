@@ -1,0 +1,43 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clamav-config
+  namespace: clamav
+data:
+  # clamd configuration. Mounted read-only at /etc/clamav/clamd.conf (subPath),
+  # replacing the image default. freshclam.conf is left as the image default so
+  # the in-container freshclam keeps the signature DB fresh automatically.
+  clamd.conf: |
+    LogTime yes
+    LogClean no
+    LogVerbose no
+    Foreground yes
+    DatabaseDirectory /var/lib/clamav
+    TemporaryDirectory /tmp
+
+    # INSTREAM scanning over TCP — clients stream file bytes to clamd and get a
+    # CLEAN/INFECTED verdict synchronously.
+    TCPSocket 3310
+    TCPAddr 0.0.0.0
+
+    # Unix socket used by the image's clamdcheck.sh health script (probes).
+    LocalSocket /tmp/clamd.sock
+    LocalSocketMode 660
+
+    MaxThreads 12
+
+    # Upstream ingress caps request bodies (client_max_body_size), so a file can
+    # never exceed that byte ceiling regardless of how many objects it contains.
+    # These limits must stay >= the largest ingress upload cap; if a stream
+    # exceeds StreamMaxLength, clamd aborts with an error instead of returning a
+    # verdict, so keep clear headroom above the ingress cap.
+    StreamMaxLength 100M
+    MaxFileSize 100M
+    MaxScanSize 200M
+    MaxRecursion 16
+    MaxFiles 10000
+
+    # Never scan the container's own virtual filesystems.
+    ExcludePath ^/proc/
+    ExcludePath ^/sys/
