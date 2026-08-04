@@ -358,36 +358,6 @@ metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
     app.kubernetes.io/version: 26.7.0
-  name: keycloakoidcclientcontroller-role-binding
-roleRef:
-  kind: ClusterRole
-  apiGroup: rbac.authorization.k8s.io
-  name: keycloakoidcclientcontroller-cluster-role
-subjects:
-  - kind: ServiceAccount
-    name: keycloak-operator
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.7.0
-  name: keycloaksamlclientcontroller-role-binding
-roleRef:
-  kind: ClusterRole
-  apiGroup: rbac.authorization.k8s.io
-  name: keycloaksamlclientcontroller-cluster-role
-subjects:
-  - kind: ServiceAccount
-    name: keycloak-operator
----
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  labels:
-    app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.7.0
   name: keycloak-operator-view
 roleRef:
   kind: ClusterRole
