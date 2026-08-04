@@ -8,10 +8,14 @@ metadata:
     app: clamav
 spec:
   replicas: 1
-  # Recreate avoids briefly running two ~2Gi pods (each loads the full signature
-  # DB into memory) during a rollout.
+  # RollingUpdate keeps the existing pod serving while the new one loads its
+  # signature DB (a multi-minute cold start), avoiding downtime on every rollout.
+  # The cost is briefly running two ~2.5Gi pods, which is acceptable.
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
   selector:
     matchLabels:
       app: clamav
