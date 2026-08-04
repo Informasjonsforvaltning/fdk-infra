@@ -4,4 +4,6 @@ kind: Kustomization
 resources:
   - keycloak-crd.yaml
   - keycloakrealmimport-crd.yaml
+  - keycloakoidcclient-crd.yaml
+  - keycloaksamlclient-crd.yaml
   - operator-resources.yaml
