@@ -24,11 +24,20 @@ spec:
       labels:
         app: clamav
     spec:
+      # The official image starts as root to fix up permissions, then clamd/
+      # freshclam run as the built-in clamav user (uid 100). Pinning the pod to
+      # that user keeps it non-root from the start; fsGroup makes the emptyDir
+      # volumes group-writable so freshclam can populate the signature DB.
+      securityContext:
+        runAsUser: 100
+        runAsGroup: 100
+        fsGroup: 100
       containers:
         - name: clamav
           # Official ClamAV image; runs both clamd and freshclam. Pinned to the
-          # 1.4 minor tag (tracks latest patch). Includes a signature DB snapshot
-          # so the pod becomes ready without waiting for a full freshclam download.
+          # 1.4 minor tag (tracks latest patch). The signatures emptyDir masks the
+          # image's baked-in DB, so freshclam downloads a fresh copy on each cold
+          # start; the startup probe below allows time for that before readiness.
           image: clamav/clamav:1.4
           ports:
             - name: clamd
