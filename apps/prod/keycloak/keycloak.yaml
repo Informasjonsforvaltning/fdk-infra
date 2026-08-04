@@ -54,8 +54,8 @@ spec:
       - admin-fine-grained-authz
       - ciba
       - client-auth-federated
-      - dynamic-scopes
       - organization
+      - parameterized-scopes
       - recovery-codes
       - scripts
   additionalOptions:
