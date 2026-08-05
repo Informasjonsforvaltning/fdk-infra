@@ -9,7 +9,7 @@ spec:
   targetNamespace: monitoring
   chart:
     spec:
-      version: 4.x
+      version: 7.x
       chart: prometheus-elasticsearch-exporter
       sourceRef:
         kind: HelmRepository
