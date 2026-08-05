@@ -9,7 +9,7 @@ spec:
   targetNamespace: monitoring
   chart:
     spec:
-      version: 2.x
+      version: 3.x
       chart: prometheus-kafka-exporter
       sourceRef:
         kind: HelmRepository
