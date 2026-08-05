@@ -24,14 +24,6 @@ spec:
       labels:
         app: clamav
     spec:
-      # The official image starts as root to fix up permissions, then clamd/
-      # freshclam run as the built-in clamav user (uid 100). Pinning the pod to
-      # that user keeps it non-root from the start; fsGroup makes the emptyDir
-      # volumes group-writable so freshclam can populate the signature DB.
-      securityContext:
-        runAsUser: 100
-        runAsGroup: 100
-        fsGroup: 100
       containers:
         - name: clamav
           # Official ClamAV image; runs both clamd and freshclam. Pinned to the
@@ -77,12 +69,23 @@ spec:
               mountPath: /var/lib/clamav
             - name: tmp
               mountPath: /tmp
+          # The image's entrypoint must start as root to create and chown
+          # /run/clamav and the signature DB dir; clamd then drops to the
+          # unprivileged clamav user (uid 100) via the "User clamav" directive in
+          # clamd.conf, so the long-running scanner is non-root. Only the caps
+          # startup needs are kept: CHOWN/FOWNER/DAC_OVERRIDE to fix ownership,
+          # SETUID/SETGID to drop privileges.
           securityContext:
-            runAsNonRoot: true
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
+              add:
+                - CHOWN
+                - DAC_OVERRIDE
+                - FOWNER
+                - SETUID
+                - SETGID
             seccompProfile:
               type: RuntimeDefault
       volumes:
