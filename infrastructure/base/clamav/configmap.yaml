@@ -13,6 +13,9 @@ data:
     LogClean no
     LogVerbose no
     Foreground yes
+    # clamd starts as root (the entrypoint needs it to fix up permissions) and
+    # drops to this unprivileged user once running.
+    User clamav
     DatabaseDirectory /var/lib/clamav
     TemporaryDirectory /tmp
 
