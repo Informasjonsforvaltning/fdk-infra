@@ -30,6 +30,8 @@ spec:
       configFile:
         cache:
           backend: memory
+      dbRepository: "aquasec/trivy-db:2,ghcr.io/aquasecurity/trivy-db:2"
+      javaDbRepository: "aquasec/trivy-java-db:1,ghcr.io/aquasecurity/trivy-java-db:1"
       resources:
         limits:
           cpu: 100m
