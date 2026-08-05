@@ -13,5 +13,8 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: elasticsearch-operator
-      version: 2.x
+      # Pinned exactly, not `3.x`: ECK 3.4.0 changed the Elasticsearch pod spec,
+      # so the operator upgrade forces a full rolling restart of every ES node.
+      # That should happen on a deliberate merge, not whenever a range moves.
+      version: 3.5.0
   interval: 5m0s
