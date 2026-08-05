@@ -26,6 +26,10 @@ spec:
       interval: 60s
     trivy:
       ignoreUnfixed: true
+      # Use in-memory cache instead of the default BoltDB filesystem cache.
+      configFile:
+        cache:
+          backend: memory
       resources:
         limits:
           cpu: 100m
