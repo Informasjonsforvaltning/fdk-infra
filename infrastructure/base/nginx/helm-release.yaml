@@ -9,7 +9,10 @@ spec:
   targetNamespace: nginx
   chart:
     spec:
-      version: 4.14.x
+      # ingress-nginx was retired upstream (repo archived 2026-03-24); 4.15.1
+      # is the final release and the only one supporting k8s 1.35. Pinned
+      # exactly because the range can never advance again.
+      version: 4.15.1
       chart: ingress-nginx
       sourceRef:
         kind: HelmRepository
