@@ -30,13 +30,17 @@ spec:
       configFile:
         cache:
           backend: memory
+      # Each scan job downloads the ~104 MiB vulnerability DB and, because the
+      # cache backend is in-memory, holds it decompressed in RAM alongside the
+      # scan working set. 256Mi was not enough for larger images and they were
+      # being OOMKilled.
       resources:
         limits:
           cpu: 100m
-          memory: 256Mi
+          memory: 1Gi
         requests:
           cpu: 50m
-          memory: 128Mi
+          memory: 256Mi
     operator:
       vulnerabilityScannerScanOnlyCurrentRevisions: true
       configAuditScannerScanOnlyCurrentRevisions: true
