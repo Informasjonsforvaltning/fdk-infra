@@ -1,0 +1,54 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: thanos-compactor-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: thanos-compactor
+      rules:
+        # A halted compactor stops compaction AND retention, so blocks
+        # accumulate indefinitely until object storage and the storegateway
+        # disk fill up. It halts on the first bad block group and stays halted
+        # until a human intervenes, so this needs to be noisy.
+        - alert: ThanosCompactorHalted
+          annotations:
+            summary: Thanos compactor is halted
+            description: >-
+              The Thanos compactor has halted and is no longer compacting or
+              applying retention. Blocks will accumulate until storage fills up.
+              Check the compactor logs for the critical error that caused the
+              halt.
+          expr: thanos_compact_halted == 1
+          for: 15m
+          labels:
+            severity: critical
+
+        # Backstop in case the compactor stops making progress without setting
+        # the halted flag (crashloop, stuck sync, wedged on object storage).
+        - alert: ThanosCompactorNotRunning
+          annotations:
+            summary: Thanos compactor has not completed an iteration
+            description: >-
+              The Thanos compactor has not completed a compaction iteration in
+              the last 6 hours. Retention is not being applied.
+          expr: increase(thanos_compact_iterations_total[6h]) == 0
+          for: 30m
+          labels:
+            severity: warning
+
+        # Early warning that retention is falling behind, before the disk
+        # pressure shows up somewhere less obvious.
+        - alert: ThanosCompactorDeletionBacklog
+          annotations:
+            summary: Thanos has a large backlog of blocks pending deletion
+            description: >-
+              {{ $value }} blocks are marked for deletion but have not been
+              removed. This usually means retention is not running.
+          expr: thanos_compact_todo_deletion_blocks > 500
+          for: 1h
+          labels:
+            severity: warning
