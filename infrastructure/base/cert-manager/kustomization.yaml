@@ -7,4 +7,3 @@ resources:
   - helm-repo-jetstack.yaml
   - cert-manager.yaml
   - network-policy.yaml
-  - post-install-job.yaml
