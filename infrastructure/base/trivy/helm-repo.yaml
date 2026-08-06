@@ -5,6 +5,9 @@ metadata:
   name: aquasecurity
   namespace: flux-system
 spec:
-  type: "oci"
+  # NOTE: Aqua stopped publishing to the ghcr.io OCI registry after chart
+  # 0.32.1 (2026-03-13). Releases continue on the traditional Helm repo only,
+  # so the OCI source silently froze the `version:` range in the HelmRelease.
+  type: "default"
   interval: 120m
-  url: oci://ghcr.io/aquasecurity/helm-charts
+  url: https://aquasecurity.github.io/helm-charts/
