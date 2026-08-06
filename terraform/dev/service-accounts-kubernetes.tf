@@ -47,3 +47,20 @@ resource "kubernetes_service_account" "monitoring_cloud_sql_sa" {
     }
   }
 }
+
+# Kubernetes service account for External Secrets Operator
+resource "kubernetes_service_account" "external_secrets_sa" {
+  metadata {
+    name      = var.eso_k8s_sa_name
+    namespace = var.eso_namespace
+    annotations = {
+      "iam.gke.io/gcp-service-account" = google_service_account.eso_reader_sa.email
+    }
+  }
+}
+
+resource "google_service_account_iam_member" "eso_reader_workload_identity" {
+  service_account_id = google_service_account.eso_reader_sa.name
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[${var.eso_namespace}/${var.eso_k8s_sa_name}]"
+}

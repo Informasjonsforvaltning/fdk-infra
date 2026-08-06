@@ -315,3 +315,13 @@ variable "monitoring_cloud_sql_gcp_sa" {
   type        = string
 }
 
+variable "eso_namespace" {
+  description = "External Secrets Operator namespace - kept in Secret Manager"
+  type        = string
+}
+
+variable "eso_k8s_sa_name" {
+  description = "Kubernetes service account name for External Secrets Operator - kept in Secret Manager"
+  type        = string
+}
+
