@@ -7,6 +7,10 @@ metadata:
 spec:
   interval: 5m
   targetNamespace: monitoring
+  # A cold storegateway resync legitimately takes longer than helm-controller's
+  # 5m default, which made `helm upgrade --wait` time out and leave the release
+  # Stalled with no retry (remediation defaults to 0 retries).
+  timeout: 20m
   chart:
     spec:
       version: 15.x
@@ -19,6 +23,8 @@ spec:
     crds: Create
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 2
   values:
     global:
       security:
@@ -26,6 +32,12 @@ spec:
     image:
       repository: bitnamilegacy/thanos
     existingObjstoreSecret: thanos-objstore
+    # Without these, compaction failures are invisible: no component exposed
+    # metrics and nothing alerted on thanos_compact_halted.
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
     query:
       extraFlags:
         - --query.auto-downsampling
@@ -78,7 +90,10 @@ spec:
     compactor:
       enabled: true
       persistence:
-        size: 24Gi
+        # Compaction needs roughly 2-3x the size of the largest block group as
+        # scratch space. 24Gi was enough at rest but ran out mid-compaction
+        # ("preallocate: no space left on device"), halting the compactor.
+        size: 64Gi
       ingress:
         enabled: false
         ingressClassName: nginx
