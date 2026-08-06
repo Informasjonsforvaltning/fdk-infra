@@ -64,3 +64,26 @@ resource "google_service_account_iam_member" "eso_reader_workload_identity" {
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[${var.eso_namespace}/${var.eso_k8s_sa_name}]"
 }
+
+resource "google_project_iam_member" "eso_reader_secret_accessor" {
+  project = var.project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${google_service_account.eso_reader_sa.email}"
+}
+
+# Workload Identity bindings for the service accounts created above
+resource "google_service_account_iam_member" "workload_identity_bindings" {
+  for_each = toset([
+    for combination in setproduct(var.k8s_namespaces, var.k8s_service_accounts) : "${combination[0]}/${combination[1]}"
+  ])
+
+  service_account_id = "projects/${var.project_id}/serviceAccounts/${var.k8s_to_gcp_service_account_mapping[split("/", each.key)[1]]}@${var.project_id}.iam.gserviceaccount.com"
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[${each.key}]"
+}
+
+resource "google_service_account_iam_member" "monitoring_cloud_sql_workload_identity" {
+  service_account_id = "projects/${var.project_id}/serviceAccounts/${var.monitoring_cloud_sql_gcp_sa}@${var.project_id}.iam.gserviceaccount.com"
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[${var.monitoring_namespace}/${var.monitoring_cloud_sql_k8s_sa_name}]"
+}
