@@ -50,6 +50,8 @@ resource "kubernetes_service_account" "monitoring_cloud_sql_sa" {
 
 # Kubernetes service account for External Secrets Operator
 resource "kubernetes_service_account" "external_secrets_sa" {
+  automount_service_account_token = false
+
   metadata {
     name      = var.eso_k8s_sa_name
     namespace = var.eso_namespace
