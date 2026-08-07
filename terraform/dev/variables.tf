@@ -102,8 +102,9 @@ variable "service_accounts" {
 variable "storage_buckets" {
   description = "Storage bucket configuration - kept in Secret Manager"
   type = object({
-    project_number     = string
-    thanos_bucket_name = string
+    project_number          = string
+    thanos_bucket_name      = string
+    es_snapshot_bucket_name = string
   })
 }
 

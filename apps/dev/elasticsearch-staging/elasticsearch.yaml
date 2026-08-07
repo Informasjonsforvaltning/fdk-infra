@@ -22,6 +22,8 @@ spec:
         node.roles: ["master"]
       podTemplate:
         spec:
+          serviceAccountName: elasticsearch-snapshot-sa
+          automountServiceAccountToken: true
           initContainers:
             - name: increase-the-vm-max-map-count
               securityContext:
@@ -58,6 +60,8 @@ spec:
             storageClassName: standard
       podTemplate:
         spec:
+          serviceAccountName: elasticsearch-snapshot-sa
+          automountServiceAccountToken: true
           initContainers:
             - name: increase-the-vm-max-map-count
               securityContext:
