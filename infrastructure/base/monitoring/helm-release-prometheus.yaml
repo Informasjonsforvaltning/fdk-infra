@@ -380,10 +380,16 @@ spec:
             kubernetes_sd_configs:
               - role: ingress
             relabel_configs:
-              # Example relabel to probe only some ingresses that have "example.io/should_be_probed = true" annotation
-              #  - source_labels: [__meta_kubernetes_ingress_annotation_example_io_should_be_probed]
-              #    action: keep
-              #    regex: true
+              # Keep only ingresses a probe target can be built from. A hostless
+              # ingress leaves __param_target unset, and blackbox answers /probe
+              # without a target with 400 Bad Request. Same regex as the rule
+              # below so the two cannot drift apart.
+              - source_labels:
+                  - __meta_kubernetes_ingress_scheme
+                  - __address__
+                  - __meta_kubernetes_ingress_path
+                regex: (.+);(.+);(.+?)\*?$
+                action: keep
               - source_labels:
                   - __meta_kubernetes_ingress_scheme
                   - __address__
