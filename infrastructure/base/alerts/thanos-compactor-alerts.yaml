@@ -31,11 +31,21 @@ spec:
         # the halted flag (crashloop, stuck sync, wedged on object storage).
         - alert: ThanosCompactorNotRunning
           annotations:
-            summary: Thanos compactor has not completed an iteration
+            summary: Thanos compactor is not making progress
             description: >-
-              The Thanos compactor has not completed a compaction iteration in
-              the last 6 hours. Retention is not being applied.
-          expr: increase(thanos_compact_iterations_total[6h]) == 0
+              There are blocks waiting to be compacted, but the Thanos compactor
+              has not compacted anything in the last 6 hours. Check the compactor
+              logs.
+          # Deliberately not based on thanos_compact_iterations_total: that only
+          # increments on a fully completed pass, which can take days while a
+          # large backlog is being worked through, so it reads as "not running"
+          # precisely when the compactor is busiest. Progress plus pending work
+          # is the honest signal. Both sides are aggregated so the label sets
+          # match - group_compactions_total carries a resolution label that
+          # todo_compactions does not, and `and` matches on labels.
+          expr: >-
+            sum(increase(thanos_compact_group_compactions_total[6h])) == 0
+            and sum(thanos_compact_todo_compactions) > 0
           for: 30m
           labels:
             severity: warning
