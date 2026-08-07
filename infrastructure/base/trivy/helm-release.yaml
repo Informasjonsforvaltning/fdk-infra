@@ -30,6 +30,10 @@ spec:
       configFile:
         cache:
           backend: memory
+      # Must be >= operator.scanJobTimeout, otherwise trivy gives up before the
+      # job deadline and the failure is reported as a scan error rather than a
+      # timeout.
+      timeout: 10m0s
       # Each scan job downloads the ~104 MiB vulnerability DB and, because the
       # cache backend is in-memory, holds it decompressed in RAM alongside the
       # scan working set. 256Mi was not enough for larger images and they were
@@ -42,6 +46,12 @@ spec:
           cpu: 50m
           memory: 256Mi
     operator:
+      # Raised from the 5m default: because the cache backend is in-memory, every
+      # scan job re-downloads the ~104 MiB vulnerability DB, so scans were running
+      # at 138-235s against a 300s deadline and larger images tipped over it.
+      # backoffLimit is 0, so a job that exceeds the deadline is never retried and
+      # the workload silently ends up with no VulnerabilityReport.
+      scanJobTimeout: 10m
       vulnerabilityScannerScanOnlyCurrentRevisions: true
       configAuditScannerScanOnlyCurrentRevisions: true
       scanJobTTL: 10m
