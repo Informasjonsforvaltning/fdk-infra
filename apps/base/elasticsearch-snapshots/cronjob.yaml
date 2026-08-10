@@ -7,6 +7,9 @@
 #
 # base_path is the namespace: demo, staging and prod share a bucket per project,
 # and a shared repository root would corrupt each cluster's repository metadata.
+#
+# It then asserts that SLM is actually healthy and fails the Job if it is not, so
+# a backup that stops working surfaces as KubeJobFailed instead of going unnoticed.
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -79,6 +82,35 @@ spec:
                     -H 'Content-Type: application/json' \
                     -d '{"schedule":"0 0 2 * * ?","name":"<daily-{now/d}>","repository":"gcs","config":{"indices":"*","include_global_state":true},"retention":{"expire_after":"7d","min_count":5,"max_count":14}}'
                   echo
+
+                  # Exiting non-zero here fails the Job, which trips KubeJobFailed.
+                  # There is no Elasticsearch exporter collecting SLM metrics, so this
+                  # is what makes a silently broken backup visible.
+                  echo "checking SLM health"
+                  SLM_TIME() {
+                    curl -fsS --cacert "$CA" -u "elastic:${ELASTIC_PASSWORD}" \
+                      "${ES}/_slm/policy/daily-snapshots?filter_path=*.${1}.time" \
+                      | sed -n 's/.*"time":\([0-9]*\).*/\1/p'
+                  }
+                  LAST_SUCCESS=$(SLM_TIME last_success)
+                  LAST_FAILURE=$(SLM_TIME last_failure)
+                  NOW=$(( $(date +%s) * 1000 ))
+                  STALE_AFTER=129600000
+
+                  if [ -z "$LAST_SUCCESS" ] && [ -z "$LAST_FAILURE" ]; then
+                    echo "policy has not run yet, nothing to assert"
+                  elif [ -z "$LAST_SUCCESS" ]; then
+                    echo "FAIL: SLM has run and never completed successfully"
+                    exit 1
+                  elif [ -n "$LAST_FAILURE" ] && [ "$LAST_FAILURE" -gt "$LAST_SUCCESS" ]; then
+                    echo "FAIL: the most recent SLM run failed"
+                    exit 1
+                  elif [ $(( NOW - LAST_SUCCESS )) -gt "$STALE_AFTER" ]; then
+                    echo "FAIL: no successful snapshot in the last 36h"
+                    exit 1
+                  else
+                    echo "SLM healthy"
+                  fi
                   echo "done"
               volumeMounts:
                 - name: es-ca
