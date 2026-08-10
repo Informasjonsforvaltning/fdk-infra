@@ -299,13 +299,16 @@ spec:
           nginx.ingress.kubernetes.io/auth-type: basic
           nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
           nginx.ingress.kubernetes.io/auth-realm: Authentication Required
-      resources:
-        requests:
-          cpu: 250m
-          memory: 1250Mi
       thanosService:
         enabled: true
       prometheusSpec:
+        # Sized from 7 days of measured usage; dev peaked at 2547Mi / 780m.
+        resources:
+          requests:
+            cpu: 300m
+            memory: 4Gi
+          limits:
+            memory: 4Gi
         thanos:
           objectStorageConfig:
             existingSecret:
