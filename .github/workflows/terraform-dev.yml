@@ -131,6 +131,7 @@ jobs:
       uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
       with:
         script: |
+          const planOutcome = '${{ steps.plan.outcome }}';
           const addCount = '${{ steps.plan.outputs.plan-add-count }}';
           const changeCount = '${{ steps.plan.outputs.plan-change-count }}';
           const destroyCount = '${{ steps.plan.outputs.plan-destroy-count }}';
@@ -145,7 +146,9 @@ jobs:
           // Clean up trailing comma
           planSummary = planSummary.replace(/, $/, '');
           
-          if (!planSummary) {
+          if (planOutcome === 'failure') {
+            planSummary = '⚠️ plan FAILED - see job log';
+          } else if (!planSummary) {
             planSummary = 'No changes detected';
           }
             
@@ -207,6 +210,12 @@ jobs:
         echo "- **Init**: ${{ steps.init.outcome }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Validate**: ${{ steps.validate.outcome }}" >> $GITHUB_STEP_SUMMARY
         echo "- **Plan**: ${{ steps.plan.outcome }}" >> $GITHUB_STEP_SUMMARY
+
+    # The plan step is continue-on-error so the PR comment and cleanup still run.
+    # Without this gate a failed plan leaves the job, and the check, green.
+    - name: 'Fail job if plan failed'
+      if: steps.plan.outcome == 'failure'
+      run: exit 1
 
   terraform-apply:
     name: 'Terraform Apply'
