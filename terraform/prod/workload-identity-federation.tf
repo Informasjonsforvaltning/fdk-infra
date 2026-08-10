@@ -108,6 +108,14 @@ resource "google_project_iam_member" "terraform_plan_sa_viewer" {
   member  = "serviceAccount:${google_service_account.terraform_plan_sa.email}"
 }
 
+# roles/viewer does not include *.getIamPolicy, so plan cannot refresh IAM
+# resources (e.g. google_storage_bucket_iam_member) without this. Read-only.
+resource "google_project_iam_member" "terraform_plan_sa_security_reviewer" {
+  project = var.project_id
+  role    = "roles/iam.securityReviewer"
+  member  = "serviceAccount:${google_service_account.terraform_plan_sa.email}"
+}
+
 resource "google_project_iam_member" "terraform_plan_sa_secret_accessor" {
   project = var.project_id
   role    = "roles/secretmanager.secretAccessor"
