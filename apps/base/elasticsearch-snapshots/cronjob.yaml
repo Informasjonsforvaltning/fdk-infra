@@ -1,0 +1,99 @@
+---
+# Registers the GCS snapshot repository and the SLM policy against Elasticsearch.
+# ECK can only declare these through StackConfigPolicy, which needs an Enterprise
+# licence, so they are asserted through the API instead. Both calls are PUTs and
+# therefore idempotent - this runs on a schedule so the config is re-established
+# after a cluster rebuild rather than living only in cluster state.
+#
+# base_path is the namespace: demo, staging and prod share a bucket per project,
+# and a shared repository root would corrupt each cluster's repository metadata.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: elasticsearch-snapshot-config
+spec:
+  schedule: "0 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        spec:
+          restartPolicy: OnFailure
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: configure
+              image: curlimages/curl:8.11.1
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              env:
+                - name: NAMESPACE
+                  valueFrom:
+                    fieldRef:
+                      fieldPath: metadata.namespace
+                - name: BUCKET
+                  valueFrom:
+                    configMapKeyRef:
+                      name: elasticsearch-snapshots
+                      key: bucket
+                - name: ELASTIC_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: elasticsearch-es-elastic-user
+                      key: elastic
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -eu
+                  ES="https://elasticsearch-es-http:9200"
+                  CA="/certs/ca.crt"
+
+                  echo "registering snapshot repository (bucket=${BUCKET} base_path=${NAMESPACE})"
+                  curl -fsS --cacert "$CA" -u "elastic:${ELASTIC_PASSWORD}" \
+                    -X PUT "${ES}/_snapshot/gcs" \
+                    -H 'Content-Type: application/json' \
+                    -d "{\"type\":\"gcs\",\"settings\":{\"bucket\":\"${BUCKET}\",\"base_path\":\"${NAMESPACE}\"}}"
+                  echo
+
+                  echo "verifying repository"
+                  curl -fsS --cacert "$CA" -u "elastic:${ELASTIC_PASSWORD}" \
+                    -X POST "${ES}/_snapshot/gcs/_verify" > /dev/null
+                  echo "repository verified"
+
+                  echo "applying SLM policy"
+                  curl -fsS --cacert "$CA" -u "elastic:${ELASTIC_PASSWORD}" \
+                    -X PUT "${ES}/_slm/policy/daily-snapshots" \
+                    -H 'Content-Type: application/json' \
+                    -d '{"schedule":"0 0 2 * * ?","name":"<daily-{now/d}>","repository":"gcs","config":{"indices":"*","include_global_state":true},"retention":{"expire_after":"7d","min_count":5,"max_count":14}}'
+                  echo
+                  echo "done"
+              volumeMounts:
+                - name: es-ca
+                  mountPath: /certs
+                  readOnly: true
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  memory: 32Mi
+          volumes:
+            - name: es-ca
+              secret:
+                secretName: elasticsearch-es-http-certs-public
+                items:
+                  - key: ca.crt
+                    path: ca.crt
