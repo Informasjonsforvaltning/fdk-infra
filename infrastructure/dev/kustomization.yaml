@@ -11,7 +11,6 @@ resources:
   - external-secrets.yaml
   - keycloak-operator-demo.yaml
   - keycloak-operator-staging.yaml
-  #  - logging.yaml
   - monitoring.yaml
   - nginx.yaml
   - trivy.yaml
