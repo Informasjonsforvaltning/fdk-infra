@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: karma
-          image: ghcr.io/prymitive/karma:latest
+          image: ghcr.io/prymitive/karma:v0.132
           ports:
             - containerPort: 8080
           volumeMounts:
