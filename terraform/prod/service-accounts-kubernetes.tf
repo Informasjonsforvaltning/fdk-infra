@@ -82,6 +82,10 @@ resource "google_service_account_iam_member" "workload_identity_bindings" {
   service_account_id = "projects/${var.project_id}/serviceAccounts/${var.k8s_to_gcp_service_account_mapping[split("/", each.key)[1]]}@${var.project_id}.iam.gserviceaccount.com"
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[${each.key}]"
+
+  # service_account_id is built from a variable, so Terraform sees no edge to the
+  # accounts it creates itself and the binding can race ahead into a 404.
+  depends_on = [google_service_account.es_snapshot_sa]
 }
 
 resource "google_service_account_iam_member" "monitoring_cloud_sql_workload_identity" {
