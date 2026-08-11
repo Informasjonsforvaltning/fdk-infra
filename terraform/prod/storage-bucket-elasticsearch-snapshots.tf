@@ -27,3 +27,21 @@ resource "google_storage_bucket_iam_member" "es_snapshot_object_admin" {
   role   = "roles/storage.objectAdmin"
   member = "serviceAccount:${google_service_account.es_snapshot_sa.email}"
 }
+
+# The bucket name is injected into the ES namespaces rather than committed to the
+# repo, which is public. Sourced from the same tfvars value Terraform uses to
+# create the bucket, so there is a single source of truth.
+resource "kubernetes_secret" "elasticsearch_snapshots" {
+  for_each = toset(var.k8s_namespaces)
+
+  metadata {
+    name      = "elasticsearch-snapshots"
+    namespace = each.value
+  }
+
+  data = {
+    bucket = var.storage_buckets.es_snapshot_bucket_name
+  }
+
+  type = "Opaque"
+}
