@@ -3,5 +3,4 @@ kind: Kustomization
 namespace: prod
 resources:
   - elasticsearch.yaml
-  - config-map-snapshots.yaml
   - ../../base/elasticsearch-snapshots
