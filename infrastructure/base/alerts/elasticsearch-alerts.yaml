@@ -1,0 +1,101 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: elasticsearch-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: elasticsearch
+      rules:
+        # The exporter reports up as long as Prometheus can scrape it, even when
+        # it cannot reach Elasticsearch at all. That is how a broken exporter
+        # went unnoticed for years, so alert on the connection, not the target.
+        - alert: ElasticsearchExporterNotConnected
+          annotations:
+            summary: Elasticsearch exporter cannot reach its cluster
+            description: >-
+              The exporter in {{ $labels.namespace }} is running but cannot
+              reach Elasticsearch, so no cluster metrics are being collected.
+              Check the exporter logs and es.uri.
+          expr: elasticsearch_clusterinfo_up == 0
+          for: 15m
+          labels:
+            severity: warning
+
+        # Every other rule here compares a metric to a value, so all of them go
+        # silent if the metric stops being produced. This is the backstop.
+        - alert: ElasticsearchExporterMissing
+          annotations:
+            summary: No Elasticsearch exporter metrics at all
+            description: >-
+              elasticsearch_clusterinfo_up is absent, so no exporter is
+              reporting. Every other Elasticsearch alert is blind while this
+              is firing.
+          expr: absent(elasticsearch_clusterinfo_up)
+          for: 30m
+          labels:
+            severity: critical
+
+        - alert: ElasticsearchClusterRed
+          annotations:
+            summary: Elasticsearch cluster is red
+            description: >-
+              At least one primary shard is unassigned in
+              {{ $labels.namespace }}. Some data is unavailable.
+          expr: elasticsearch_cluster_health_status{color="red"} == 1
+          for: 5m
+          labels:
+            severity: critical
+
+        - alert: ElasticsearchClusterYellow
+          annotations:
+            summary: Elasticsearch cluster is yellow
+            description: >-
+              Replica shards are unassigned in {{ $labels.namespace }}. Brief
+              yellow during a rolling restart is normal, so this waits an hour.
+          expr: elasticsearch_cluster_health_status{color="yellow"} == 1
+          for: 1h
+          labels:
+            severity: warning
+
+        # SLM is the only thing standing between us and no backups. These three
+        # cover the ways it fails: it stops, a run errors, or it quietly stalls.
+        - alert: ElasticsearchSLMNotRunning
+          annotations:
+            summary: Elasticsearch SLM is not running
+            description: >-
+              Snapshot lifecycle management is not in RUNNING state in
+              {{ $labels.namespace }}. Scheduled snapshots will not be taken.
+          expr: elasticsearch_slm_stats_operation_mode{operation_mode="RUNNING"} == 0
+          for: 30m
+          labels:
+            severity: critical
+
+        - alert: ElasticsearchSLMSnapshotFailed
+          annotations:
+            summary: Elasticsearch SLM snapshot failed
+            description: >-
+              SLM policy {{ $labels.policy }} in {{ $labels.namespace }} has
+              recorded a failed snapshot in the last 24h.
+          expr: increase(elasticsearch_slm_stats_snapshots_failed_total[24h]) > 0
+          for: 30m
+          labels:
+            severity: critical
+
+        # Catches the silent case the two above miss: SLM claims to be running
+        # and reports no failures, but nothing has actually landed.
+        - alert: ElasticsearchSnapshotStale
+          annotations:
+            summary: No recent Elasticsearch snapshot
+            description: >-
+              The newest snapshot in {{ $labels.namespace }} is over 36h old.
+              The policy runs daily, so a backup has been missed.
+          expr: >-
+            (time() - max by (namespace) (elasticsearch_snapshot_stats_latest_snapshot_timestamp_seconds))
+            > 129600
+          for: 1h
+          labels:
+            severity: critical

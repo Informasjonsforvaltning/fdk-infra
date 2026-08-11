@@ -1,0 +1,43 @@
+---
+# One exporter per Elasticsearch cluster: the credentials and CA are
+# ECK-managed secrets that live in the cluster's own namespace, and secrets
+# cannot be read across namespaces.
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: elasticsearch-exporter-staging
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: staging
+  chart:
+    spec:
+      version: 7.x
+      chart: prometheus-elasticsearch-exporter
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+      interval: 60m
+  values:
+    es:
+      # Kubernetes expands $(VAR) in container args, so the password reaches
+      # the exporter without being written into the manifest.
+      uri: https://elastic:$(ES_PASSWORD)@elasticsearch-es-http:9200
+      all: true
+      indices: true
+      slm: true
+      ssl:
+        enabled: true
+        useExistingSecrets: true
+        ca:
+          path: /ssl/ca.crt
+    extraEnvSecrets:
+      ES_PASSWORD:
+        secret: elasticsearch-es-elastic-user
+        key: elastic
+    secretMounts:
+      - name: es-ca
+        secretName: elasticsearch-es-http-certs-public
+        path: /ssl
+    serviceMonitor:
+      enabled: true
