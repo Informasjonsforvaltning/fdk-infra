@@ -31,6 +31,10 @@ spec:
         useExistingSecrets: true
         ca:
           path: /ssl/ca.crt
+        # Defaults to true, which makes the chart pass --es.client-cert for a
+        # file we do not mount. ECK authenticates with the elastic user.
+        client:
+          enabled: false
     extraEnvSecrets:
       ES_PASSWORD:
         secret: elasticsearch-es-elastic-user
