@@ -3,7 +3,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ../../base/monitoring
-  - helm-release-elasticsearch-exporter.yaml
+  - helm-release-elasticsearch-exporter-demo.yaml
+  - helm-release-elasticsearch-exporter-staging.yaml
 patches:
   - path: helm-release-kafka-exporter-values.yaml
   - path: helm-release-prometheus-values.yaml
