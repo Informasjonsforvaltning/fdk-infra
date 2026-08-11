@@ -47,7 +47,7 @@ spec:
                       fieldPath: metadata.namespace
                 - name: BUCKET
                   valueFrom:
-                    configMapKeyRef:
+                    secretKeyRef:
                       name: elasticsearch-snapshots
                       key: bucket
                 - name: ELASTIC_PASSWORD
