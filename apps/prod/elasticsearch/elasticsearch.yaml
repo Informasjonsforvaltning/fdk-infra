@@ -5,7 +5,7 @@ metadata:
   name: elasticsearch
   namespace: prod
 spec:
-  version: 8.17.2
+  version: 8.19.19
   auth:
     roles:
     - secretName: es-roles
