@@ -54,11 +54,18 @@ spec:
         # pressure shows up somewhere less obvious.
         - alert: ThanosCompactorDeletionBacklog
           annotations:
-            summary: Thanos has a large backlog of blocks pending deletion
+            summary: Thanos deletion backlog is not draining
             description: >-
-              {{ $value }} blocks are marked for deletion but have not been
-              removed. This usually means retention is not running.
-          expr: thanos_compact_todo_deletion_blocks > 500
+              {{ $value }} blocks are marked for deletion and the backlog has
+              not shrunk over the last 6h, so retention is not keeping up.
+              Check whether the compactor is halted or wedged.
+          # Deliberately not a plain threshold. Working through a large one-off
+          # backlog is normal and can take days - it fired for a week straight
+          # while retention was in fact draining thousands of blocks. A backlog
+          # that is shrinking is healthy; only a flat or growing one is not.
+          expr: >-
+            thanos_compact_todo_deletion_blocks > 500
+            and deriv(thanos_compact_todo_deletion_blocks[6h]) >= 0
           for: 1h
           labels:
             severity: warning
