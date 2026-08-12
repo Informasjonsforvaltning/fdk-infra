@@ -38,9 +38,13 @@ spec:
       # cache backend is in-memory, holds it decompressed in RAM alongside the
       # scan working set. 256Mi was not enough for larger images and they were
       # being OOMKilled.
+      # No CPU limit: scan containers sat pinned at the 100m limit and throttled
+      # 100% of the time, which is what made scans run 138-235s against the job
+      # deadline. Memory request stays below the limit deliberately - these are
+      # short-lived and up to 10 run concurrently, so reserving 1Gi each would
+      # hold 10Gi cluster-wide for jobs that usually use well under 100Mi.
       resources:
         limits:
-          cpu: 100m
           memory: 1Gi
         requests:
           cpu: 50m
