@@ -1,0 +1,51 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-misc
+  labels:
+    app: nginx-misc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-misc
+  template:
+    metadata:
+      labels:
+        app: nginx-misc
+    spec:
+      containers:
+        - name: nginx-misc
+          image: nginx:alpine
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+            - mountPath: /etc/nginx/conf.d/server.admin.conf
+              name: config-server
+              subPath: server.admin.conf
+            - mountPath: /etc/nginx/conf.d/server.cms.conf
+              name: config-server
+              subPath: server.cms.conf
+            - mountPath: /etc/nginx/conf.d/server.community.conf
+              name: config-server
+              subPath: server.community.conf
+            - mountPath: /etc/nginx/conf.d/server.sso.conf
+              name: config-server
+              subPath: server.sso.conf
+            - mountPath: /var/www/http-error
+              name: error-pages
+              readOnly: true
+      volumes:
+        - name: "config"
+          configMap:
+            name: "nginx-misc"
+        - name: "config-server"
+          configMap:
+            name: "nginx-misc-server"
+        - name: "error-pages"
+          configMap:
+            name: "nginx-misc-error-pages"
