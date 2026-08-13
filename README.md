@@ -69,13 +69,51 @@ See [terraform/README.md](terraform/README.md) for the change workflow and PR do
 ### 3. Deploy applications:<br>
 Flux will automatically synchronize the manifests defined in the repository to the specified cluster.
 
+## Elasticsearch snapshots
+
+The ECK clusters snapshot to GCS daily. There is nothing to create by hand:
+
+- Terraform provisions the bucket, a GCP service account and a Kubernetes service
+  account bound through Workload Identity, plus a Secret holding the bucket name.
+- A CronJob in `apps/base/elasticsearch-snapshots` registers the `gcs` repository
+  and the `daily-snapshots` SLM policy every 6h. Both calls are idempotent, so the
+  config is re-established after a cluster rebuild.
+- Authentication uses Workload Identity via the pod's service account. No keystore
+  entry and no service account key are involved.
+- There is one bucket per GCP project: demo and staging share the dev bucket, prod
+  has its own in the prod project.
+- `base_path` is the namespace, which keeps demo and staging in separate roots inside
+  the bucket they share. Two clusters writing to the same root would corrupt each
+  other's repository metadata.
+
+The same CronJob fails if SLM has stopped or the newest snapshot is older than 36h,
+which surfaces as `KubeJobFailed`. Metric-based alerts cover the same ground from
+the Elasticsearch exporter.
+
+Snapshots taken by hand are **not** cleaned up by SLM retention and must be deleted
+manually.
+
+## Resource conventions
+
+For workloads under `infrastructure/`:
+
+- **No CPU limits.** The request guarantees the scheduling share; a limit only adds
+  CFS throttling. Bursty low-CPU workloads were being throttled 27-100% of their
+  runnable periods while using a fraction of their limit.
+- **Memory request == memory limit**, so pods land in the Guaranteed QoS class.
+- Exception: short-lived, highly concurrent jobs may keep request < limit. Trivy
+  scan jobs do, because up to 10 run at once and reserving the peak for each would
+  hold several GiB cluster-wide for jobs that usually need far less.
+
+Note that some Helm charts default a CPU limit when the value is omitted. Setting it
+to `null` explicitly is sometimes required to actually remove it.
+
 ## Managing secrets
 Certain secrets must be manually created in the Kubernetes cluster:
 ### Basic Authentication for Ingresses
 For securing endpoints with basic auth:
 ```
 htpasswd -c /dev/stdout <username> | xargs -i kubectl create secret -n monitoring generic ingress-basic-auth --from-literal=auth={}
-htpasswd -c /dev/stdout <username> | xargs -i kubectl create secret -n logging generic ingress-basic-auth --from-literal=auth={}
 ```
 ### Slack API Key for Alertmanager
 To enable Slack notifications:
@@ -100,50 +138,6 @@ config:
     }
 ```
 Then create the Kubernetes secret:
-```
-kubectl create secret -n monitoring generic thanos-objstore --from-file=objstore.yml=objstore.yml
-```
-
-## Secrets
-
-Secrets must be created manually.
-
-### Basic auth for ingresses
-
-```
-htpasswd -c /dev/stdout <user> | xargs -i kubectl create secret -n monitoring generic ingress-basic-auth --from-literal=auth={}
-```
-
-```
-htpasswd -c /dev/stdout <user> | xargs -i kubectl create secret -n logging generic ingress-basic-auth --from-literal=auth={}
-```
-
-### Slack api key for alertmanager
-
-```
-kubectl create secret -n flux-system generic kube-prometheus-stack-alertmanager --from-literal=slack-apiurl=<slack_api_url>
-```
-
-### Grafana password
-
-```
-kubectl create secret -n flux-system generic kube-prometheus-stack-grafana --from-literal=password=<password>
-```
-
-### Storage bucket for thanos
-You need to create a `objstore.yml` file, which contains the bucket name and a service account key for the GCS bucket. The file should look like this:
-
-```
-type: GCS
-config:
-  bucket: "<bucket name>"
-  service_account: |-
-    {
-    "type": "service_account",
-    ...
-    }
-```
-Then create the secret in the `monitoring` namespace:
 ```
 kubectl create secret -n monitoring generic thanos-objstore --from-file=objstore.yml=objstore.yml
 ```

@@ -70,22 +70,18 @@ spec:
 ```
 
 ## Deployment
-## Installation Process
 
-### Phase 1: Initial Installation
-- Cert-manager is installed with webhook validation disabled
-- This prevents the chicken-and-egg problem during bootstrap
-- The `cert-manager.io/disable-validation: "true"` label is applied
+CRDs are vendored in `crds.yaml` and must be re-fetched at the matching version
+whenever the chart version changes:
 
-### Phase 2: Post-Installation
-- After cert-manager is running, validation is re-enabled
-- The post-install script waits for readiness and removes the label
-- Webhook validation becomes active for all cert-manager resources
+```
+curl -fsSL -o infrastructure/base/cert-manager/crds.yaml \
+  https://github.com/cert-manager/cert-manager/releases/download/<version>/cert-manager.crds.yaml
+```
 
-### Why This is Necessary
-- **Bootstrap Problem**: cert-manager needs to run to validate its own resources
-- **Webhook Dependency**: The validation webhook requires cert-manager to be ready
-- **Installation Order**: CRDs → cert-manager → webhook → validation
+Upgrade one minor version at a time, as upstream requires. After each step, check
+that all Certificates stay `Ready` and that `notAfter`/`renewalTime` are unchanged,
+so nothing is re-issued needlessly against Let's Encrypt rate limits.
 
 Cert-manager is deployed via Flux CD:
 
