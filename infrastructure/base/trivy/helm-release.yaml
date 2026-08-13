@@ -45,6 +45,10 @@ spec:
       # hold 10Gi cluster-wide for jobs that usually use well under 100Mi.
       resources:
         limits:
+          # Explicit null, not omission: the chart defaults this to 500m, so
+          # leaving it out still sets a limit. `with dig ... ""` skips the key
+          # when it is null, which is the only way to have no CPU limit.
+          cpu: null
           memory: 1Gi
         requests:
           cpu: 50m
