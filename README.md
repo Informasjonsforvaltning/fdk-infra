@@ -126,7 +126,7 @@ Set the Grafana admin password:
 kubectl create secret -n flux-system generic kube-prometheus-stack-grafana --from-literal=password=<your_password>
 ```
 ### Thanos Object Storage Configuration
-Create a `objstore.yml` file with your GCS bucket configuration:
+Create an `objstore.yml` file containing the bucket name and a service account key for the GCS bucket:
 ```yaml
 type: GCS
 config:
