@@ -34,8 +34,8 @@ spec:
             summary: Thanos compactor is not making progress
             description: >-
               There are blocks waiting to be compacted, but the Thanos compactor
-              has not compacted anything in the last 6 hours. Check the compactor
-              logs.
+              has not compacted, downsampled or cleaned anything in the last 6
+              hours. Check the compactor logs.
           # Deliberately not based on thanos_compact_iterations_total: that only
           # increments on a fully completed pass, which can take days while a
           # large backlog is being worked through, so it reads as "not running"
@@ -43,8 +43,23 @@ spec:
           # is the honest signal. Both sides are aggregated so the label sets
           # match - group_compactions_total carries a resolution label that
           # todo_compactions does not, and `and` matches on labels.
+          #
+          # All three phases count as progress. The compactor runs compaction,
+          # downsampling and retention cleanup in sequence, so while it works
+          # through a downsample backlog no compaction completes for hours even
+          # though todo_compactions is non-zero. Counting only compactions fired
+          # a false positive in dev on 2026-08-14: 0 compactions in 6h, but 22
+          # downsamples, 73 blocks cleaned and zero failures.
+          #
+          # `or vector(0)` on each term is load-bearing, not defensive padding.
+          # sum() over a metric with no series returns an empty vector, and
+          # adding anything to an empty vector yields empty - so one missing
+          # counter would silently disable this alert instead of firing it.
           expr: >-
-            sum(increase(thanos_compact_group_compactions_total[6h])) == 0
+            (sum(increase(thanos_compact_group_compactions_total[6h])) or vector(0))
+            + (sum(increase(thanos_compact_downsample_total[6h])) or vector(0))
+            + (sum(increase(thanos_compact_blocks_cleaned_total[6h])) or vector(0))
+            == 0
             and sum(thanos_compact_todo_compactions) > 0
           for: 30m
           labels:
