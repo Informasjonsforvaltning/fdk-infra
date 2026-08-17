@@ -1,0 +1,16 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: kube-prometheus-stack-grafana
+  namespace: flux-system
+spec:
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: kube-prometheus-stack-grafana
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: kube-prometheus-stack-grafana
