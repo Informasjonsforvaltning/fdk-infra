@@ -54,3 +54,23 @@ resource "google_service_account_iam_member" "thanos_workload_identity" {
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[${var.monitoring_namespace}/${each.value}]"
 }
+
+# The Helm charts own these service accounts, so only the annotation is managed
+# here rather than the objects. Set from Terraform so the account address is not
+# committed to this repo, which is public.
+resource "kubernetes_annotations" "thanos_workload_identity" {
+  for_each = toset(local.thanos_bucket_k8s_service_accounts)
+
+  api_version = "v1"
+  kind        = "ServiceAccount"
+  force       = true
+
+  metadata {
+    name      = each.value
+    namespace = var.monitoring_namespace
+  }
+
+  annotations = {
+    "iam.gke.io/gcp-service-account" = google_service_account.thanos_sa.email
+  }
+}
