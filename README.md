@@ -109,35 +109,12 @@ Note that some Helm charts default a CPU limit when the value is omitted. Settin
 to `null` explicitly is sometimes required to actually remove it.
 
 ## Managing secrets
-Certain secrets must be manually created in the Kubernetes cluster:
-### Basic Authentication for Ingresses
-For securing endpoints with basic auth:
-```
-htpasswd -c /dev/stdout <username> | xargs -i kubectl create secret -n monitoring generic ingress-basic-auth --from-literal=auth={}
-```
-### Slack API Key for Alertmanager
-To enable Slack notifications:
-```
-kubectl create secret -n flux-system generic kube-prometheus-stack-alertmanager --from-literal=slack-apiurl=<slack_api_url>
-```
-### Grafana Admin Password
-Set the Grafana admin password:
-```
-kubectl create secret -n flux-system generic kube-prometheus-stack-grafana --from-literal=password=<your_password>
-```
-### Thanos Object Storage Configuration
-Create an `objstore.yml` file containing the bucket name and a service account key for the GCS bucket:
-```yaml
-type: GCS
-config:
-  bucket: "<bucket_name>"
-  service_account: |-
-    {
-      "type": "service_account",
-      ...
-    }
-```
-Then create the Kubernetes secret:
-```
-kubectl create secret -n monitoring generic thanos-objstore --from-file=objstore.yml=objstore.yml
-```
+Secrets are stored in GCP Secret Manager and delivered to the clusters by the External
+Secrets Operator.
+
+To add one:
+
+1. Create the secret in Secret Manager. The payload is a JSON object whose keys become the
+   keys of the Kubernetes Secret, for example `{"auth": "<htpasswd line>"}`.
+2. Add an `ExternalSecret` under `infrastructure/<env>/external-secrets/crs/<namespace>/`,
+   using `dataFrom.extract` to pull every key, or `data` to pick individual ones.
