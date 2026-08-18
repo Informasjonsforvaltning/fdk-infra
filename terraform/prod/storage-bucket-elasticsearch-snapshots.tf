@@ -44,4 +44,56 @@ resource "kubernetes_secret" "elasticsearch_snapshots" {
   }
 
   type = "Opaque"
+
+  # Create the plan service account's read grant first. Terraform sees no
+  # dependency between the two, so without this an apply could create the Secret
+  # and then fail before the RoleBinding exists - which leaves every subsequent
+  # plan unable to refresh the Secret, and unable to create the grant that would
+  # fix it, because apply is gated on plan.
+  depends_on = [kubernetes_role_binding.terraform_plan_snapshot_secret_reader]
+}
+
+# roles/viewer, which the plan service account holds, grants container.configMaps.get
+# but no container.secrets.* at all, so `terraform plan` cannot refresh the Secret
+# above and every plan fails once it exists. GKE evaluates IAM and Kubernetes RBAC
+# in parallel, so RBAC can grant this without widening the IAM role.
+#
+# Deliberately scoped with resourceNames to the single Secret Terraform manages:
+# get on that one name, in these namespaces only. No list, no other secret. Refresh
+# reads the object by name, so get is all it needs.
+resource "kubernetes_role" "terraform_plan_snapshot_secret_reader" {
+  for_each = toset(var.k8s_namespaces)
+
+  metadata {
+    name      = "terraform-plan-snapshot-secret-reader"
+    namespace = each.value
+  }
+
+  rule {
+    api_groups     = [""]
+    resources      = ["secrets"]
+    resource_names = ["elasticsearch-snapshots"]
+    verbs          = ["get"]
+  }
+}
+
+resource "kubernetes_role_binding" "terraform_plan_snapshot_secret_reader" {
+  for_each = toset(var.k8s_namespaces)
+
+  metadata {
+    name      = "terraform-plan-snapshot-secret-reader"
+    namespace = each.value
+  }
+
+  role_ref {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "Role"
+    name      = kubernetes_role.terraform_plan_snapshot_secret_reader[each.key].metadata[0].name
+  }
+
+  subject {
+    api_group = "rbac.authorization.k8s.io"
+    kind      = "User"
+    name      = google_service_account.terraform_plan_sa.email
+  }
 }
