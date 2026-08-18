@@ -55,6 +55,34 @@ resource "google_service_account_iam_member" "thanos_workload_identity" {
   member             = "serviceAccount:${var.project_id}.svc.id.goog[${var.monitoring_namespace}/${each.value}]"
 }
 
+# No service_account key: Thanos falls back to ADC via Workload Identity.
+# External Secrets delivers this into the namespace.
+resource "google_secret_manager_secret" "thanos_objstore" {
+  secret_id = "thanos-objstore"
+  project   = var.project_id
+
+  labels = {
+    namespace = var.monitoring_namespace
+  }
+
+  replication {
+    auto {}
+  }
+}
+
+resource "google_secret_manager_secret_version" "thanos_objstore" {
+  secret = google_secret_manager_secret.thanos_objstore.id
+
+  secret_data = jsonencode({
+    "objstore.yml" = yamlencode({
+      type = "GCS"
+      config = {
+        bucket = var.storage_buckets.thanos_bucket_name
+      }
+    })
+  })
+}
+
 # The Helm charts own these service accounts, so only the annotation is managed
 # here rather than the objects. Set from Terraform so the account address is not
 # committed to this repo, which is public.
