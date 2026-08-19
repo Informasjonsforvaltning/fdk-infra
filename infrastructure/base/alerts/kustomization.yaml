@@ -8,4 +8,5 @@ resources:
   - mail-processing-failure.yaml
   - message-processing-failure.yaml
   - postgres-connection-alerts.yaml
+  - target-down-alerts.yaml
   - thanos-compactor-alerts.yaml

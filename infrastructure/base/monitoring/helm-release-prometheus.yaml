@@ -41,6 +41,10 @@ spec:
         kubeControllerManager: false
         kubeProxy: false
         kubeScheduler: false
+      # Replaced by target-down-alerts.yaml, which names the affected targets.
+      # Per-rule, so Watchdog and InfoInhibitor in the same group are unaffected.
+      disabled:
+        TargetDown: true
     # Disable control plane component monitoring (not available in managed GKE)
     kubeScheduler:
       enabled: false
@@ -195,9 +199,14 @@ spec:
                 - alertname = "ImageCriticalVulnerabilities"
             - receiver: slack
               continue: true
-              group_by: ["..."]
-              group_wait: 1s
-              group_interval: 1s
+              # Grouped by alert and namespace, so several targets going down produce one
+              # message listing them rather than one message each, and demo alerts stay
+              # separate from staging. `...` meant group by every label, which is the same
+              # as no grouping at all. group_wait is the window in which simultaneous
+              # alerts collect into that one message.
+              group_by: ["alertname", "namespace"]
+              group_wait: 30s
+              group_interval: 5m
               repeat_interval: 8h
         receivers:
           - name: noop
@@ -227,15 +236,27 @@ spec:
                     ❕
                   {{- end }}
                 pretext: ""
+                # A grouped alert lists one line per member; a single alert keeps the full
+                # label detail. Repeating every label for each member of a large group is
+                # what made these unreadable.
                 text: |
-                  {{ range .Alerts }}
-                    {{- if .Annotations.description -}}
-                      > _{{ .Annotations.description }}_
+                  {{- if gt (len .Alerts) 1 -}}
+                    {{- range .Alerts -}}
+                      {{- if .Annotations.description -}}
+                        • {{ .Annotations.description }}
+                      {{- else -}}
+                        •{{ range .Labels.SortedPairs }}{{ if not (or (eq .Name "alertname") (eq .Name "namespace") (eq .Name "dashboard_url") (eq .Name "severity") (eq .Name "prometheus") (eq .Name "integration")) }} {{ .Name }}=`{{ .Value }}`{{ end }}{{ end }}
+                      {{- end -}}
                       {{- "\n" -}}
                     {{- end -}}
-                    • alertname: `{{ .Labels.alertname }}`
-                    {{- "\n" -}}
-                    {{- if .Labels -}}
+                  {{- else -}}
+                    {{- range .Alerts -}}
+                      {{- if .Annotations.description -}}
+                        > _{{ .Annotations.description }}_
+                        {{- "\n" -}}
+                      {{- end -}}
+                      • alertname: `{{ .Labels.alertname }}`
+                      {{- "\n" -}}
                       {{- range .Labels.SortedPairs -}}
                         {{- if not (or (eq .Name "alertname") (eq .Name "dashboard_url") (eq .Name "severity") (eq .Name "prometheus") (eq .Name "integration")) -}}
                           • {{ .Name }}: `{{ .Value }}`
@@ -243,7 +264,7 @@ spec:
                         {{- end -}}
                       {{- end -}}
                     {{- end -}}
-                  {{ end }}
+                  {{- end -}}
                 icon_url: https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Prometheus_software_logo.svg/256px-Prometheus_software_logo.svg.png
                 actions:
                   - type: button
