@@ -1,0 +1,30 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: target-down-alerts
+  namespace: monitoring
+  labels:
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: target-down
+      rules:
+        # Replaces the chart's built-in TargetDown, disabled in the HelmRelease.
+        # That one aggregates the targets away and can only report a percentage.
+        # Alerting per target keeps the identity: `app` on pod targets,
+        # `service`/`pod` on ServiceMonitor targets, `instance` on ingress probes
+        # where the URL is the only identifier. Alertmanager groups by alertname
+        # and namespace, so several targets arrive as one message listing each.
+        - alert: TargetDown
+          annotations:
+            summary: Scrape target is down
+            description: >-
+              {{ if $labels.app }}{{ $labels.app }}{{ else if $labels.service }}{{
+              $labels.service }}{{ else if $labels.pod }}{{ $labels.pod }}{{ else
+              }}{{ $labels.instance }}{{ end }}{{ if $labels.namespace }} in {{
+              $labels.namespace }}{{ end }} is unreachable.
+          expr: up == 0
+          for: 15m
+          labels:
+            severity: warning

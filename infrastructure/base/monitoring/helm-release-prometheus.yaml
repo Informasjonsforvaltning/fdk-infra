@@ -41,6 +41,10 @@ spec:
         kubeControllerManager: false
         kubeProxy: false
         kubeScheduler: false
+      # Replaced by target-down-alerts.yaml, which names the affected targets.
+      # Per-rule, so Watchdog and InfoInhibitor in the same group are unaffected.
+      disabled:
+        TargetDown: true
     # Disable control plane component monitoring (not available in managed GKE)
     kubeScheduler:
       enabled: false
