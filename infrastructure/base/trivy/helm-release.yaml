@@ -63,3 +63,20 @@ spec:
       vulnerabilityScannerScanOnlyCurrentRevisions: true
       configAuditScannerScanOnlyCurrentRevisions: true
       scanJobTTL: 10m
+      # Scan jobs unpack image layers onto the node filesystem, so several on one
+      # node saturate its boot disk.
+      scanJobsConcurrentLimit: 6
+    trivyOperator:
+      # The limit above is cluster-wide and does not bound how many share a node,
+      # so spread them too. Preferred rather than required: a hard rule would leave
+      # jobs Pending when nodes are full, which the deadline above turns into a
+      # lost scan.
+      scanJobAffinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                topologyKey: kubernetes.io/hostname
+                labelSelector:
+                  matchLabels:
+                    app.kubernetes.io/managed-by: trivy-operator
