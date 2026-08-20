@@ -34,15 +34,13 @@ spec:
       # job deadline and the failure is reported as a scan error rather than a
       # timeout.
       timeout: 10m0s
-      # Each scan job downloads the ~104 MiB vulnerability DB and, because the
-      # cache backend is in-memory, holds it decompressed in RAM alongside the
-      # scan working set. 256Mi was not enough for larger images and they were
-      # being OOMKilled.
-      # No CPU limit: scan containers sat pinned at the 100m limit and throttled
-      # 100% of the time, which is what made scans run 138-235s against the job
-      # deadline. Memory request stays below the limit deliberately - these are
-      # short-lived and up to 10 run concurrently, so reserving 1Gi each would
-      # hold 10Gi cluster-wide for jobs that usually use well under 100Mi.
+      # Each scan job downloads the vulnerability DB and, because the cache
+      # backend is in-memory, holds it decompressed in RAM alongside the scan
+      # working set, so the limit is sized for that rather than for idle use.
+      # No CPU limit: a low limit throttled the scan containers and pushed them
+      # towards the job deadline. The memory request stays below the limit
+      # deliberately - these are short-lived and several run at once, so
+      # reserving the full limit for each would tie up far more than they use.
       resources:
         limits:
           # Explicit null, not omission: the chart defaults this to 500m, so
@@ -54,23 +52,21 @@ spec:
           cpu: 50m
           memory: 256Mi
     operator:
-      # Raised from the 5m default: because the cache backend is in-memory, every
-      # scan job re-downloads the ~104 MiB vulnerability DB, so scans were running
-      # at 138-235s against a 300s deadline and larger images tipped over it.
-      # backoffLimit is 0, so a job that exceeds the deadline is never retried and
-      # the workload silently ends up with no VulnerabilityReport.
+      # Raised from the 5m default: with an in-memory cache every scan job
+      # re-downloads the vulnerability DB, and larger images did not finish in
+      # time. backoffLimit is 0, so the deadline needs headroom - do not lower
+      # it without checking scan durations first.
       scanJobTimeout: 10m
       vulnerabilityScannerScanOnlyCurrentRevisions: true
       configAuditScannerScanOnlyCurrentRevisions: true
       scanJobTTL: 10m
-      # Scan jobs unpack image layers onto the node filesystem, so several on one
-      # node saturate its boot disk.
+      # Scan jobs are I/O heavy on the node filesystem, so they are capped and
+      # spread rather than left to pile up.
       scanJobsConcurrentLimit: 6
     trivyOperator:
       # The limit above is cluster-wide and does not bound how many share a node,
-      # so spread them too. Preferred rather than required: a hard rule would leave
-      # jobs Pending when nodes are full, which the deadline above turns into a
-      # lost scan.
+      # so spread them too. Preferred rather than required: a hard rule can leave
+      # jobs Pending, which the deadline above does not tolerate.
       scanJobAffinity:
         podAntiAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

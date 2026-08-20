@@ -323,7 +323,7 @@ spec:
       thanosService:
         enabled: true
       prometheusSpec:
-        # Sized from 7 days of measured usage; dev peaked at 2547Mi / 780m.
+        # Sized from a week of measured usage, with headroom above the peak.
         resources:
           requests:
             cpu: 300m
