@@ -38,10 +38,9 @@ spec:
       requests:
         cpu: 50m
         memory: 64Mi
-      # No CPU limit on purpose. The exporter idles at ~3m and bursts briefly on
-      # each scrape, so a quota it never approaches on average still throttled it
-      # for ~27% of its runnable CFS periods. The request keeps its scheduling
-      # share; the limit only added latency.
+      # No CPU limit on purpose. The exporter idles and bursts briefly on each
+      # scrape, so a quota it never approaches on average still throttled it.
+      # The request keeps its scheduling share; the limit only added latency.
       limits:
         memory: 64Mi
 
