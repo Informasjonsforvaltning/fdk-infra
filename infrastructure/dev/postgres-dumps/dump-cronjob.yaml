@@ -1,0 +1,188 @@
+---
+# Per-database pg_dump backups to GCS.
+#
+# Cloud SQL backups and PITR restore at instance granularity, so recovering one
+# database means cloning the whole instance. These dumps restore a single database
+# directly, and two consecutive dumps diff to answer "what changed".
+#
+# pg_dump and the upload are split so both images stay pinned and neither needs
+# to install anything at runtime or write to its root filesystem.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-dump
+  namespace: postgres-backup
+spec:
+  schedule: "0 * * * *"
+  concurrencyPolicy: Forbid
+  startingDeadlineSeconds: 600
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      template:
+        spec:
+          restartPolicy: OnFailure
+          serviceAccountName: postgres-dump
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            fsGroup: 65534
+            seccompProfile:
+              type: RuntimeDefault
+          initContainers:
+            - name: dump
+              image: postgres:16.13-alpine
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              env:
+                - name: PGHOST
+                  value: postgresql-sqlproxy
+                - name: PGPORT
+                  value: "5432"
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-dump
+                      key: username
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-dump
+                      key: password
+                - name: DUMP_SPEC
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-dump
+                      key: dump_spec
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -eu
+                  STAMP=$(date -u +%Y%m%dT%H%M%SZ)
+
+                  # restartPolicy: OnFailure restarts this container in the same
+                  # pod, and the emptyDir survives. Without this, a retry after a
+                  # partial run leaves the earlier dumps behind under a different
+                  # STAMP and the count assertion below can never match again.
+                  rm -f /dumps/*.dump /dumps/.log
+
+                  # A spec line is `db` or `db:schema.table,schema.table`. Skip
+                  # blank and whitespace-only lines - EXPECTED below counts the
+                  # same way, so the two must agree.
+                  printf '%s\n' "$DUMP_SPEC" | while IFS= read -r entry; do
+                    case "$entry" in *[![:space:]]*) ;; *) continue ;; esac
+                    db=${entry%%:*}
+                    tables=""
+                    case "$entry" in
+                      *:*)
+                        list=${entry#*:}
+                        OLDIFS=$IFS; IFS=','
+                        for t in $list; do tables="$tables --table=$t"; done
+                        IFS=$OLDIFS
+                        ;;
+                    esac
+
+                    echo "dumping ${db}"
+                    # shellcheck disable=SC2086
+                    if ! pg_dump --format=custom --compress=9 --no-owner --no-privileges \
+                         $tables --dbname="$db" --file="/dumps/${db}-${STAMP}.dump"; then
+                      echo "FAIL: pg_dump ${db}"
+                    fi
+                  done > /dumps/.log 2>&1 || true
+                  cat /dumps/.log
+                  rm -f /dumps/.log
+
+                  # The while loop runs in a subshell, so a failure flag set inside
+                  # it cannot be read here. Assert on what actually landed instead:
+                  # every non-blank spec line must have produced a file.
+                  EXPECTED=$(printf '%s\n' "$DUMP_SPEC" | grep -c '[^[:space:]]' || true)
+                  if [ "$EXPECTED" -eq 0 ]; then
+                    echo "FAIL: dump spec is empty"
+                    exit 1
+                  fi
+                  PRODUCED=$(find /dumps -name '*.dump' -type f | wc -l)
+                  echo "expected ${EXPECTED} dumps, produced ${PRODUCED}"
+                  if [ "$PRODUCED" -ne "$EXPECTED" ]; then
+                    echo "FAIL: dump count mismatch"
+                    exit 1
+                  fi
+
+                  # A pg_dump that "succeeds" but writes a truncated archive is the
+                  # failure mode that matters here, so verify each one is readable.
+                  for f in /dumps/*.dump; do
+                    if ! pg_restore --list "$f" > /dev/null; then
+                      echo "FAIL: unreadable archive $f"
+                      exit 1
+                    fi
+                  done
+                  echo "all dumps verified"
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                limits:
+                  memory: 512Mi
+              volumeMounts:
+                - name: dumps
+                  mountPath: /dumps
+          containers:
+            - name: upload
+              image: google/cloud-sdk:529.0.0-alpine
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              env:
+                # Set explicitly rather than relying on $HOME, which resolves to /
+                # for uid 65534 and is not writable under a read-only root.
+                - name: CLOUDSDK_CONFIG
+                  value: /gcloud-config
+                - name: BUCKET
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-dump
+                      key: bucket
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -eu
+                  PREFIX=$(date -u +%Y/%m/%d)
+                  for f in /dumps/*.dump; do
+                    name=$(basename "$f")
+                    db=${name%-*}
+                    echo "uploading ${name}"
+                    gcloud storage cp "$f" "gs://${BUCKET}/${db}/${PREFIX}/${name}" --quiet
+                  done
+                  echo "all uploads complete"
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 256Mi
+                limits:
+                  memory: 512Mi
+              volumeMounts:
+                - name: dumps
+                  mountPath: /dumps
+                  readOnly: true
+                - name: gcloud-config
+                  mountPath: /gcloud-config
+          volumes:
+            - name: dumps
+              emptyDir:
+                sizeLimit: 2Gi
+            - name: gcloud-config
+              emptyDir:
+                sizeLimit: 16Mi

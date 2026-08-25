@@ -1,0 +1,80 @@
+---
+# Asserts the dump login's read grant.
+#
+# pg_read_all_data is a predefined role giving SELECT on every table in whichever
+# database the session connects to. It is what pg_dump needs and nothing more, and
+# it avoids naming each application's owner role - those differ per environment and
+# a new application would otherwise be missed silently.
+#
+# GRANT is idempotent, so this runs on a schedule to re-establish the grant after a
+# restore or rebuild rather than living only as one-off cluster state.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-dump-role-config
+  namespace: postgres-backup
+spec:
+  schedule: "40 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        spec:
+          restartPolicy: OnFailure
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: grant
+              image: postgres:16.13-alpine
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              env:
+                - name: PGHOST
+                  value: postgresql-sqlproxy
+                - name: PGPORT
+                  value: "5432"
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres
+                      key: USER
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres
+                      key: PASSWORD
+                - name: DUMP_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-dump
+                      key: username
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -eu
+
+                  # :"dump_user" interpolates as a quoted identifier, so the role
+                  # name is never concatenated into SQL text.
+                  psql --dbname=postgres --set=ON_ERROR_STOP=1 \
+                       --set=dump_user="$DUMP_USER" \
+                       -c 'GRANT pg_read_all_data TO :"dump_user";'
+                  echo "granted pg_read_all_data to ${DUMP_USER}"
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  memory: 64Mi

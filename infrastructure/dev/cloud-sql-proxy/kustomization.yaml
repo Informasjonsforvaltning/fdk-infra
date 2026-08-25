@@ -5,3 +5,4 @@ resources:
   - staging-kustomization.yaml
   - demo-kustomization.yaml
   - monitoring-kustomization.yaml
+  - postgres-backup-kustomization.yaml
