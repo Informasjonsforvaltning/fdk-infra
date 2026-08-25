@@ -81,6 +81,26 @@ resource "google_service_account_iam_member" "postgres_dump_workload_identity" {
   member             = "serviceAccount:${var.project_id}.svc.id.goog[${var.postgres_dump_namespace}/${var.postgres_dump_k8s_sa_name}]"
 }
 
+# infrastructure/base/cloud-sql-proxy hardcodes serviceAccountName: cloud-sql-sa,
+# so the proxy cannot schedule in this namespace without it. Declared here rather
+# than via k8s_namespaces: that resource derives the namespace with
+# split("-", ...)[0], which mangles a hyphenated name.
+resource "kubernetes_service_account" "postgres_backup_cloud_sql_sa" {
+  metadata {
+    name      = "cloud-sql-sa"
+    namespace = kubernetes_namespace.postgres_backup.metadata[0].name
+    annotations = {
+      "iam.gke.io/gcp-service-account" = "${var.k8s_to_gcp_service_account_mapping["cloud-sql-sa"]}@${var.project_id}.iam.gserviceaccount.com"
+    }
+  }
+}
+
+resource "google_service_account_iam_member" "postgres_backup_cloud_sql_workload_identity" {
+  service_account_id = "projects/${var.project_id}/serviceAccounts/${var.k8s_to_gcp_service_account_mapping["cloud-sql-sa"]}@${var.project_id}.iam.gserviceaccount.com"
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[${kubernetes_namespace.postgres_backup.metadata[0].name}/cloud-sql-sa]"
+}
+
 # A dedicated least-privilege login for the dump job
 resource "random_password" "postgres_dump_user" {
   length  = 32

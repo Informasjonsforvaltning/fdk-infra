@@ -73,14 +73,11 @@ spec:
                   # pod, and the emptyDir survives. Without this, a retry after a
                   # partial run leaves the earlier dumps behind under a different
                   # STAMP and the count assertion below can never match again.
-                  rm -f /dumps/*.dump /dumps/.log
+                  rm -f /dumps/*.dump /dumps/*.tmp /dumps/.log
 
-                  # A spec line is `db` or `db:schema.table,schema.table`. Skip
-                  # blank and whitespace-only lines - EXPECTED below counts the
-                  # same way, so the two must agree.
                   printf '%s\n' "$DUMP_SPEC" | while IFS= read -r entry; do
                     case "$entry" in *[![:space:]]*) ;; *) continue ;; esac
-                    db=${entry%%:*}
+                    db=$(printf '%s' "${entry%%:*}" | tr -d '[:space:]')
                     tables=""
                     case "$entry" in
                       *:*)
@@ -92,10 +89,16 @@ spec:
                     esac
 
                     echo "dumping ${db}"
+                    # pg_dump creates --file before it connects, so a failed dump
+                    # still leaves a file behind. Write to .tmp and promote only on
+                    # success, so a failure cannot be counted as a produced dump.
                     # shellcheck disable=SC2086
-                    if ! pg_dump --format=custom --compress=9 --no-owner --no-privileges \
-                         $tables --dbname="$db" --file="/dumps/${db}-${STAMP}.dump"; then
+                    if pg_dump --format=custom --compress=9 --no-owner --no-privileges \
+                         $tables --dbname="$db" --file="/dumps/${db}-${STAMP}.tmp"; then
+                      mv "/dumps/${db}-${STAMP}.tmp" "/dumps/${db}-${STAMP}.dump"
+                    else
                       echo "FAIL: pg_dump ${db}"
+                      rm -f "/dumps/${db}-${STAMP}.tmp"
                     fi
                   done > /dumps/.log 2>&1 || true
                   cat /dumps/.log
@@ -116,10 +119,11 @@ spec:
                     exit 1
                   fi
 
-                  # A pg_dump that "succeeds" but writes a truncated archive is the
-                  # failure mode that matters here, so verify each one is readable.
+                  # --list only reads the TOC, which is written before the data, so
+                  # it passes on a truncated archive. Restore to /dev/null instead:
+                  # that reads and decompresses every chunk.
                   for f in /dumps/*.dump; do
-                    if ! pg_restore --list "$f" > /dev/null; then
+                    if ! pg_restore --file=/dev/null "$f"; then
                       echo "FAIL: unreadable archive $f"
                       exit 1
                     fi
@@ -179,6 +183,8 @@ spec:
                   readOnly: true
                 - name: gcloud-config
                   mountPath: /gcloud-config
+                - name: tmp
+                  mountPath: /tmp
           volumes:
             - name: dumps
               emptyDir:
@@ -186,3 +192,6 @@ spec:
             - name: gcloud-config
               emptyDir:
                 sizeLimit: 16Mi
+            - name: tmp
+              emptyDir:
+                sizeLimit: 128Mi
