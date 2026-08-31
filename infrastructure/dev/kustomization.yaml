@@ -9,6 +9,7 @@ resources:
   - cloud-sql-proxy
   - elasticsearch-operator
   - external-secrets.yaml
+  - ingress.yaml
   - keycloak-operator-demo.yaml
   - keycloak-operator-staging.yaml
   - monitoring.yaml
