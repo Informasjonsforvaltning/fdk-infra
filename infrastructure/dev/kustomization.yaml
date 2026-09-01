@@ -13,4 +13,5 @@ resources:
   - keycloak-operator-staging.yaml
   - monitoring.yaml
   - nginx.yaml
+  - postgres-dumps
   - trivy.yaml

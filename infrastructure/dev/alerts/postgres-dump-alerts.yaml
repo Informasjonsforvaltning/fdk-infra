@@ -1,0 +1,88 @@
+---
+# Dev-only while the dump CronJobs exist only here. base/alerts is applied to
+# both clusters, so PostgresDumpMissing would fire continuously in prod. Move
+# this file to base/alerts when prod gets the CronJobs.
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: postgres-dump-alerts
+  namespace: monitoring
+  labels:
+    # The Prometheus ruleSelector matches on this label alone. Without it the
+    # whole object is silently ignored and every rule below is a no-op.
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: postgres-dump
+      rules:
+        # A failing Job exits non-zero and trips KubeJobFailed. This covers the
+        # quieter death: the CronJob stops being scheduled at all, so nothing
+        # fails and nothing alerts.
+        - alert: PostgresDumpStale
+          annotations:
+            summary: No successful database dump for 3 hours
+            description: >-
+              The {{ $labels.cronjob }} CronJob in {{ $labels.namespace }} runs
+              hourly but has not completed successfully in over 3 hours. Check
+              the Job history and the cloud-sql-proxy in that namespace.
+          expr: >-
+            time() - kube_cronjob_status_last_successful_time{namespace="postgres-backup", cronjob="postgres-dump"} > 10800
+          for: 15m
+          labels:
+            severity: warning
+
+        - alert: PostgresDumpVeryStale
+          annotations:
+            summary: No successful database dump for 12 hours
+            description: >-
+              The {{ $labels.cronjob }} CronJob in {{ $labels.namespace }} has
+              not completed successfully in over 12 hours. Recovery of an
+              individual database is degraded to the daily Cloud SQL backup.
+          expr: >-
+            time() - kube_cronjob_status_last_successful_time{namespace="postgres-backup", cronjob="postgres-dump"} > 43200
+          for: 15m
+          labels:
+            severity: critical
+
+        # Every rule above compares a metric to a value, so all of them go quiet
+        # if the CronJob is deleted or never runs. This is the backstop.
+        - alert: PostgresDumpMissing
+          annotations:
+            summary: No dump CronJob metrics at all
+            description: >-
+              kube_cronjob_status_last_successful_time is absent for the
+              postgres-dump CronJob, so it has either never succeeded or no
+              longer exists. Every other dump alert is blind while this fires.
+          expr: >-
+            absent(kube_cronjob_status_last_successful_time{namespace="postgres-backup", cronjob="postgres-dump"})
+          for: 2h
+          labels:
+            severity: critical
+
+        - alert: PostgresDumpSuspended
+          annotations:
+            summary: Database dump CronJob is suspended
+            description: >-
+              {{ $labels.cronjob }} in {{ $labels.namespace }} is suspended, so
+              no dumps are being taken. Suspending is a deliberate act; this
+              exists so it is not forgotten.
+          expr: >-
+            kube_cronjob_spec_suspend{namespace="postgres-backup"} == 1
+          for: 1h
+          labels:
+            severity: warning
+
+        # If this stops running the dump login's privileges are no longer being
+        # asserted, which surfaces later as dumps failing on new databases.
+        - alert: PostgresDumpRoleConfigStale
+          annotations:
+            summary: Dump role config has not run for 24 hours
+            description: >-
+              The {{ $labels.cronjob }} CronJob in {{ $labels.namespace }} runs
+              every 6 hours but has not succeeded in over 24 hours, so the dump
+              login's read grant is no longer being re-asserted.
+          expr: >-
+            time() - kube_cronjob_status_last_successful_time{namespace="postgres-backup", cronjob="postgres-dump-role-config"} > 86400
+          for: 30m
+          labels:
+            severity: warning

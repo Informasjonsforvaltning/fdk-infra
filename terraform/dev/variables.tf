@@ -102,9 +102,10 @@ variable "service_accounts" {
 variable "storage_buckets" {
   description = "Storage bucket configuration - kept in Secret Manager"
   type = object({
-    project_number          = string
-    thanos_bucket_name      = string
-    es_snapshot_bucket_name = string
+    project_number            = string
+    thanos_bucket_name        = string
+    es_snapshot_bucket_name   = string
+    postgres_dump_bucket_name = string
   })
 }
 
@@ -324,5 +325,41 @@ variable "eso_namespace" {
 variable "eso_k8s_sa_name" {
   description = "Kubernetes service account name for External Secrets Operator - kept in Secret Manager"
   type        = string
+}
+
+variable "postgres_dump_namespace" {
+  description = "Namespace running the pg_dump CronJobs - kept in Secret Manager"
+  type        = string
+}
+
+variable "postgres_dump_k8s_sa_name" {
+  description = "Kubernetes service account name for the pg_dump CronJobs - kept in Secret Manager"
+  type        = string
+}
+
+variable "postgres_dump_gcp_sa" {
+  description = "GCP service account for the pg_dump CronJobs - kept in Secret Manager"
+  type        = string
+}
+
+variable "postgres_dump_db_user" {
+  description = "PostgreSQL login used by the pg_dump CronJobs - kept in Secret Manager"
+  type        = string
+}
+
+variable "postgres_dump_secret_id" {
+  description = "Secret Manager secret id holding the pg_dump credentials - kept in Secret Manager"
+  type        = string
+}
+
+variable "postgres_dump_spec" {
+  description = "Databases to dump, one entry per line as `db` or `db:schema.table,schema.table` - kept in Secret Manager"
+  type        = list(string)
+}
+
+variable "postgres_dump_retention_days" {
+  description = "Days to keep pg_dump objects in the dump bucket before lifecycle deletion"
+  type        = number
+  default     = 30
 }
 
