@@ -20,7 +20,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.7.0
+    app.kubernetes.io/version: 26.7.2
   name: keycloakrealmimportcontroller-cluster-role-binding-prod
 roleRef:
   kind: ClusterRole
@@ -36,7 +36,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.7.0
+    app.kubernetes.io/version: 26.7.2
   name: keycloakcontroller-cluster-role-binding-prod
 roleRef:
   kind: ClusterRole
@@ -52,7 +52,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.7.0
+    app.kubernetes.io/version: 26.7.2
   name: keycloakoidcclientcontroller-cluster-role-binding-prod
 roleRef:
   kind: ClusterRole
@@ -68,7 +68,7 @@ kind: ClusterRoleBinding
 metadata:
   labels:
     app.kubernetes.io/name: keycloak-operator
-    app.kubernetes.io/version: 26.7.0
+    app.kubernetes.io/version: 26.7.2
   name: keycloaksamlclientcontroller-cluster-role-binding-prod
 roleRef:
   kind: ClusterRole

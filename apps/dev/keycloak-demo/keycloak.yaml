@@ -10,7 +10,7 @@ spec:
   instances: 3
   update:
     strategy: Explicit
-    revision: "8"
+    revision: "9"
   http:
     httpEnabled: false
     httpsPort: 8443
