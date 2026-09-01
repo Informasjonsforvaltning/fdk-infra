@@ -76,6 +76,7 @@ variable "database_config" {
     data_cache_enabled    = optional(bool, false)
     backup_start_time     = string
     backup_retention_days = number
+    backup_location       = optional(string)
     # Defaults to backup_retention_days when unset
     transaction_log_retention_days = optional(number)
     insights_enabled               = bool
