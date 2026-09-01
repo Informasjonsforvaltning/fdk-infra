@@ -56,6 +56,20 @@ a substitute for the plan.
 5. CI posts the plan summary. Confirm it matches your expectation, get a review,
    then merge — dev applies on merge, prod waits for approval.
 
+## Secrets
+
+**Terraform does not create secrets.** Secret Manager entries are created out of
+band and delivered to the cluster by External Secrets Operator. Do not add
+`google_secret_manager_secret`, `google_secret_manager_secret_version`,
+`random_password` or `kubernetes_secret` — the CI service account cannot create
+secrets, so the apply will fail.
+
+If Terraform needs a secret *value*, create the entry by hand and read it with a
+`data "google_secret_manager_secret_version"` block. That read needs
+`roles/secretmanager.viewer` in addition to `secretAccessor`, and because data
+sources are read during plan, a missing permission blocks the very apply that
+would grant it — fix it with `gcloud` first, then declare it.
+
 ## PR description convention
 
 Every Terraform PR should make it possible to review intent **without** the full
