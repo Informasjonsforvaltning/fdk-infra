@@ -352,11 +352,6 @@ variable "postgres_dump_secret_id" {
   type        = string
 }
 
-variable "postgres_dump_spec" {
-  description = "Databases to dump, one entry per line as `db` or `db:schema.table,schema.table` - kept in Secret Manager"
-  type        = list(string)
-}
-
 variable "postgres_dump_retention_days" {
   description = "Days to keep pg_dump objects in the dump bucket before lifecycle deletion"
   type        = number

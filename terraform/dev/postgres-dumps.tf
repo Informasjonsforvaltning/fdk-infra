@@ -101,38 +101,18 @@ resource "google_service_account_iam_member" "postgres_backup_cloud_sql_workload
   member             = "serviceAccount:${var.project_id}.svc.id.goog[${kubernetes_namespace.postgres_backup.metadata[0].name}/cloud-sql-sa]"
 }
 
-# A dedicated least-privilege login for the dump job
-resource "random_password" "postgres_dump_user" {
-  length  = 32
-  special = false
+# The secret itself is created out of band and read here, the same as every other
+# secret in this project. External Secrets delivers it to the cluster; Terraform
+# only needs the password so the SQL login matches what the dump job will use.
+data "google_secret_manager_secret_version" "postgres_dump_user" {
+  project = var.project_id
+  secret  = var.postgres_dump_secret_id
 }
 
+# A dedicated least-privilege login for the dump job
 resource "google_sql_user" "postgres_dump" {
   instance = google_sql_database_instance.main.name
   name     = var.postgres_dump_db_user
-  password = random_password.postgres_dump_user.result
+  password = jsondecode(data.google_secret_manager_secret_version.postgres_dump_user.secret_data)["password"]
   project  = var.project_id
-}
-
-# Delivered into the cluster by External Secrets rather than a kubernetes_secret,
-# so the credential follows the same path as every other secret here and never
-# sits in Terraform-managed cluster state.
-resource "google_secret_manager_secret" "postgres_dump_user" {
-  project   = var.project_id
-  secret_id = var.postgres_dump_secret_id
-
-  replication {
-    auto {}
-  }
-}
-
-resource "google_secret_manager_secret_version" "postgres_dump_user" {
-  secret = google_secret_manager_secret.postgres_dump_user.id
-
-  secret_data = jsonencode({
-    username  = var.postgres_dump_db_user
-    password  = random_password.postgres_dump_user.result
-    bucket    = google_storage_bucket.postgres_dumps.name
-    dump_spec = join("\n", var.postgres_dump_spec)
-  })
 }
