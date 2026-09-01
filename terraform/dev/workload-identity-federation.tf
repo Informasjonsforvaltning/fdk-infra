@@ -48,6 +48,9 @@ resource "google_project_iam_member" "terraform_sa_managed_roles" {
     "roles/cloudsql.admin",                 # google_sql_database_instance
     "roles/container.developer",            # in-cluster k8s object refresh (container.serviceAccounts.get)
     "roles/artifactregistry.admin",         # google_artifact_registry_repository
+    # secretAccessor grants versions.access but not versions.get, and the
+    # google_secret_manager_secret_version data source needs both.
+    "roles/secretmanager.viewer",
   ])
   project = var.project_id
   role    = each.value
