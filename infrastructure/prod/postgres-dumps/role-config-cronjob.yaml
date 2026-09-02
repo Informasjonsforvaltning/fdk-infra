@@ -1,0 +1,104 @@
+---
+# Asserts the dump login's read grant.
+#
+# pg_read_all_data is a predefined role giving SELECT on every table in whichever
+# database the session connects to. It is what pg_dump needs and nothing more, and
+# it avoids naming each application's owner role - those differ per environment and
+# a new application would otherwise be missed silently.
+#
+# GRANT is idempotent, so this runs on a schedule to re-establish the grant after a
+# restore or rebuild rather than living only as one-off cluster state.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: postgres-dump-role-config
+  namespace: postgres-backup
+spec:
+  schedule: "40 */6 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      template:
+        spec:
+          restartPolicy: OnFailure
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 65534
+            runAsGroup: 65534
+            seccompProfile:
+              type: RuntimeDefault
+          containers:
+            - name: grant
+              image: postgres:16.13-alpine
+              securityContext:
+                allowPrivilegeEscalation: false
+                readOnlyRootFilesystem: true
+                capabilities:
+                  drop:
+                    - ALL
+              env:
+                - name: PGHOST
+                  value: postgresql-sqlproxy
+                - name: PGPORT
+                  value: "5432"
+                - name: PGUSER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres
+                      key: USER
+                - name: PGPASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres
+                      key: PASSWORD
+                - name: DUMP_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-dump
+                      key: username
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -eu
+
+                  # Cloud SQL grants every Admin API user cloudsqlsuperuser plus
+                  # CREATEROLE and CREATEDB, so the login has to be stripped back
+                  # to read-only here. All three statements are idempotent.
+                  #
+                  # :"dump_user" interpolates as a quoted identifier, so the role
+                  # name is never concatenated into SQL text.
+                  psql --dbname=postgres --set=ON_ERROR_STOP=1 \
+                       --set=dump_user="$DUMP_USER" <<'SQL'
+                  ALTER ROLE :"dump_user" NOCREATEDB NOCREATEROLE;
+                  REVOKE cloudsqlsuperuser FROM :"dump_user";
+                  GRANT pg_read_all_data TO :"dump_user";
+                  SQL
+
+                  EXTRA=$(psql --dbname=postgres --set=ON_ERROR_STOP=1 -At \
+                       --set=dump_user="$DUMP_USER" <<'SQL'
+                  SELECT r.rolname FROM pg_auth_members m
+                  JOIN pg_roles r ON r.oid = m.roleid
+                  JOIN pg_roles u ON u.oid = m.member
+                  WHERE u.rolname = :'dump_user' AND r.rolname <> 'pg_read_all_data'
+                  UNION ALL
+                  SELECT 'attribute:createrole/createdb' FROM pg_roles
+                  WHERE rolname = :'dump_user' AND (rolsuper OR rolcreaterole OR rolcreatedb);
+                  SQL
+                  )
+                  if [ -n "$EXTRA" ]; then
+                    echo "FAIL: ${DUMP_USER} holds more than read access:"
+                    echo "$EXTRA"
+                    exit 1
+                  fi
+                  echo "role config verified for ${DUMP_USER}"
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  memory: 64Mi
