@@ -16,6 +16,7 @@ resource "google_sql_database_instance" "main" {
       }
 
       enabled                        = true
+      point_in_time_recovery_enabled = true
       location                       = var.database_config.backup_location
       start_time                     = var.database_config.backup_start_time
       transaction_log_retention_days = coalesce(var.database_config.transaction_log_retention_days, var.database_config.backup_retention_days)
