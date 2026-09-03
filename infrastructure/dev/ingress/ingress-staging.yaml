@@ -1,0 +1,367 @@
+# prune: disabled — Flux must never delete the loadbalancer frontend.
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-staging-v4
+  namespace: staging
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    networking.gke.io/v1beta1.FrontendConfig: staging-frontend-config
+    ingress.gcp.kubernetes.io/pre-shared-cert: staging-fdk-digdir-no-ssl-2
+    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-v4
+spec:
+  rules:
+    - host: registrering.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-registration
+                port:
+                  number: 8080
+    - host: www.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-search
+                port:
+                  number: 8080
+    - host: nap.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-search
+                port:
+                  number: 8080
+    - host: concept-catalog.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: concept-catalog
+                port:
+                  number: 8080
+    - host: sso.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: sso
+                port:
+                  number: 8080
+    - host: admin.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-admin-gui
+                port:
+                  number: 8080
+    - host: staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-search
+                port:
+                  number: 8080
+    - host: organization-catalogue.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: organization-catalog
+                port:
+                  number: 8080
+    - host: organization-catalog.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: organization-catalog
+                port:
+                  number: 8080
+    - host: dataservice-catalog.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-dataservices
+                port:
+                  number: 8080
+    - host: terms.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: terms-and-conditions
+                port:
+                  number: 8080
+    - host: organization-bff.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-organization-bff
+                port:
+                  number: 8080
+    - host: mqa-scoring-api.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-mqa-scoring-api
+                port:
+                  number: 8082
+    - host: dataset-catalog.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: dataset-catalog
+                port:
+                  number: 8080
+    - host: community.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-community
+                port:
+                  number: 8080
+    - host: sparql.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-sparql
+                port:
+                  number: 8080
+    - host: catalog-comments.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: catalog-comments-service
+                port:
+                  number: 8080
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-staging-v6
+  namespace: staging
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+    networking.gke.io/v1beta1.FrontendConfig: staging-frontend-config
+    ingress.gcp.kubernetes.io/pre-shared-cert: staging-fdk-digdir-no-ssl-2
+    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-v6
+spec:
+  rules:
+    - host: registrering.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-registration
+                port:
+                  number: 8080
+    - host: www.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-search
+                port:
+                  number: 8080
+    - host: nap.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-search
+                port:
+                  number: 8080
+    - host: concept-catalog.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: concept-catalog
+                port:
+                  number: 8080
+    - host: sso.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: sso
+                port:
+                  number: 8080
+    - host: admin.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-admin-gui
+                port:
+                  number: 8080
+    - host: staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-search
+                port:
+                  number: 8080
+    - host: organization-catalogue.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: organization-catalog
+                port:
+                  number: 8080
+    - host: organization-catalog.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: organization-catalog
+                port:
+                  number: 8080
+    - host: dataservice-catalog.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-dataservices
+                port:
+                  number: 8080
+    - host: terms.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: terms-and-conditions
+                port:
+                  number: 8080
+    - host: organization-bff.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-organization-bff
+                port:
+                  number: 8080
+    - host: mqa-scoring-api.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-mqa-scoring-api
+                port:
+                  number: 8082
+    - host: dataset-catalog.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: dataset-catalog
+                port:
+                  number: 8080
+    - host: community.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-community
+                port:
+                  number: 8080
+    - host: sparql.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: fdk-nginx-sparql
+                port:
+                  number: 8080
+    - host: catalog-comments.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: catalog-comments-service
+                port:
+                  number: 8080

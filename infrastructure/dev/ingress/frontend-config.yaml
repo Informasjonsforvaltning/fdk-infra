@@ -1,0 +1,25 @@
+# prune: disabled — Flux must never delete the loadbalancer frontend.
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: staging-frontend-config
+  namespace: staging
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  # TLS terminates at the GKE loadbalancer; backends are reached over http.
+  redirectToHttps:
+    enabled: true
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: demo-frontend-config
+  namespace: demo
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled
+spec:
+  # TLS terminates at the GKE loadbalancer; backends are reached over http.
+  redirectToHttps:
+    enabled: true

@@ -5,6 +5,7 @@ resources:
   - alerts.yaml
   - cloud-sql-proxy
   - external-secrets.yaml
+  - ingress.yaml
   - keycloak-operator.yaml
   - cert-manager.yaml
   - cert-manager-issuers.yaml
