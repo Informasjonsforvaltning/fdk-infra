@@ -8,7 +8,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: api-fdk-digdir-no-ssl-3,auth-fdk-digdir-no-ssl-4,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-4,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
+    ingress.gcp.kubernetes.io/pre-shared-cert: api-fdk-digdir-no-ssl-3,auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-4,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v4
 spec:
   rules:
@@ -481,7 +481,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: api-fdk-digdir-no-ssl-3,auth-fdk-digdir-no-ssl-4,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-4,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
+    ingress.gcp.kubernetes.io/pre-shared-cert: api-fdk-digdir-no-ssl-3,auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-4,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v6
 spec:
   rules:
