@@ -1,7 +1,4 @@
 ---
-# Dev-only while the dump CronJobs exist only here. base/alerts is applied to
-# both clusters, so PostgresDumpMissing would fire continuously in prod. Move
-# this file to base/alerts when prod gets the CronJobs.
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:

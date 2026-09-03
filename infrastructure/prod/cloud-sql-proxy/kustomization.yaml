@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - prod-kustomization.yaml
   - monitoring-kustomization.yaml
+  - postgres-backup-kustomization.yaml
