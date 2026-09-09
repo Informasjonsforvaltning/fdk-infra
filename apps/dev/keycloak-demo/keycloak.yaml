@@ -10,7 +10,7 @@ spec:
   instances: 3
   update:
     strategy: Explicit
-    revision: "9"
+    revision: "10"
   http:
     httpEnabled: false
     httpsPort: 8443
@@ -88,11 +88,11 @@ spec:
         key: SSO_API_KEY
     - name: FDK_CLIENT_SECRET
       secret:
-        name: sso
+        name: keycloak
         key: FDK_CLIENT_SECRET
     - name: FDK_PORTAL_BASE_URI
       secret:
-        name: sso
+        name: keycloak
         key: FDK_PORTAL_BASE_URI
     - name: FDK_COMMUNITY_BASE_URI
       secret:
