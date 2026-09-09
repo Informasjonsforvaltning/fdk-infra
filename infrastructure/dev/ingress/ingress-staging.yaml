@@ -52,16 +52,6 @@ spec:
                 name: concept-catalog
                 port:
                   number: 8080
-    - host: sso.staging.fellesdatakatalog.digdir.no
-      http:
-        paths:
-          - path: /*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: sso
-                port:
-                  number: 8080
     - host: admin.staging.fellesdatakatalog.digdir.no
       http:
         paths:
@@ -233,16 +223,6 @@ spec:
             backend:
               service:
                 name: concept-catalog
-                port:
-                  number: 8080
-    - host: sso.staging.fellesdatakatalog.digdir.no
-      http:
-        paths:
-          - path: /*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: sso
                 port:
                   number: 8080
     - host: admin.staging.fellesdatakatalog.digdir.no
