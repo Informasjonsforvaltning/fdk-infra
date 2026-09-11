@@ -11,6 +11,20 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: api-fdk-digdir-no-ssl-3,auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-5,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v4
 spec:
+  tls:
+    # Certificates sourced from cert-manager Secrets instead of pre-shared
+    # compute ssl-certificates. GKE derives the loadbalancer certificate from
+    # the Secret, so cert-manager renewals propagate automatically.
+    # Both sources coexist on the target proxy; SNI selects per hostname.
+    - secretName: keycloak-internal-tls
+      hosts:
+        - auth.fellesdatakatalog.digdir.no
+    - secretName: fdk-harvest-admin-service-tls
+      hosts:
+        - harvest-admin.api.fellesdatakatalog.digdir.no
+    - secretName: data-service-catalog-api-tls
+      hosts:
+        - data-service-catalog.api.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
@@ -474,6 +488,20 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: api-fdk-digdir-no-ssl-3,auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-5,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v6
 spec:
+  tls:
+    # Certificates sourced from cert-manager Secrets instead of pre-shared
+    # compute ssl-certificates. GKE derives the loadbalancer certificate from
+    # the Secret, so cert-manager renewals propagate automatically.
+    # Both sources coexist on the target proxy; SNI selects per hostname.
+    - secretName: keycloak-internal-tls
+      hosts:
+        - auth.fellesdatakatalog.digdir.no
+    - secretName: fdk-harvest-admin-service-tls
+      hosts:
+        - harvest-admin.api.fellesdatakatalog.digdir.no
+    - secretName: data-service-catalog-api-tls
+      hosts:
+        - data-service-catalog.api.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
