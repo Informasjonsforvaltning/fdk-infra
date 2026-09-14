@@ -78,6 +78,7 @@ variable "database_config" {
     tier                  = string
     edition               = optional(string, "ENTERPRISE")
     data_cache_enabled    = optional(bool, false)
+    availability_type     = optional(string, "ZONAL")
     backup_start_time     = string
     backup_retention_days = number
     # Defaults to backup_retention_days when unset
