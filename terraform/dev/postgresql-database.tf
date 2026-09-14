@@ -7,7 +7,7 @@ resource "google_sql_database_instance" "main" {
 
   settings {
     activation_policy = "ALWAYS"
-    availability_type = "ZONAL"
+    availability_type = var.database_config.availability_type
 
     backup_configuration {
       backup_retention_settings {
@@ -22,6 +22,9 @@ resource "google_sql_database_instance" "main" {
     }
 
     connector_enforcement = "NOT_REQUIRED"
+
+    deletion_protection_enabled = true
+
     disk_autoresize       = true
     disk_autoresize_limit = 0
     disk_type             = "PD_SSD"
