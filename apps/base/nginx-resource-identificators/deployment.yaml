@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-resource-identificators
+  labels:
+    app: nginx-resource-identificators
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-resource-identificators
+  template:
+    metadata:
+      labels:
+        app: nginx-resource-identificators
+    spec:
+      containers:
+        - name: nginx-resource-identificators
+          image: nginx:alpine
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+            - mountPath: /etc/nginx/conf.d/server.information-models.conf
+              name: config-server
+              subPath: server.information-models.conf
+            - mountPath: /etc/nginx/conf.d/server.catalogs.conf
+              name: config-server
+              subPath: server.catalogs.conf
+      volumes:
+        - name: "config"
+          configMap:
+            name: "nginx-resource-identificators"
+        - name: "config-server"
+          configMap:
+            name: "nginx-resource-identificators-server"
