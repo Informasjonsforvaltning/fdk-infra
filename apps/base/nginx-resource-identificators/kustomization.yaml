@@ -1,0 +1,12 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - service.yaml
+# Generated ConfigMaps get a content-hash suffix, and the Deployment's
+# reference is rewritten to match, so every config change rolls the pods.
+configMapGenerator:
+  - name: nginx-resource-identificators
+    files:
+      - nginx.conf

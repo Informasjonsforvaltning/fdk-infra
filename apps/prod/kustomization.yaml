@@ -5,4 +5,5 @@ resources:
   - elasticsearch.yaml
   - nginx-harvester.yaml
   - nginx-catalog.yaml
+  - nginx-resource-identificators.yaml
   - keycloak.yaml

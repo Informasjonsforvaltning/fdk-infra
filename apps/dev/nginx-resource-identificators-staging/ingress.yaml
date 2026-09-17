@@ -1,0 +1,29 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nginx-resource-identificators
+  namespace: staging
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: information-models.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-resource-identificators
+                port:
+                  number: 8080
+    - host: catalogs.staging.fellesdatakatalog.digdir.no
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-resource-identificators
+                port:
+                  number: 8080
