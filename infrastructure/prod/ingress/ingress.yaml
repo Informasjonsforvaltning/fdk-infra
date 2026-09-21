@@ -61,6 +61,20 @@ spec:
         - registrering.fellesdatakatalog.digdir.no
         - service-catalog.fellesdatakatalog.digdir.no
         - terms.fellesdatakatalog.digdir.no
+    - secretName: organization-catalog-fdk-digdir-no-tls
+      hosts:
+        - alertmanager.fellesdatakatalog.digdir.no
+        - grafana.fellesdatakatalog.digdir.no
+        - karma.fellesdatakatalog.digdir.no
+        - mqa-scoring-api.fellesdatakatalog.digdir.no
+        - organization-catalog.fellesdatakatalog.digdir.no
+        - organization-catalogue.fellesdatakatalog.digdir.no
+        - prometheus.fellesdatakatalog.digdir.no
+        - thanos-store.fellesdatakatalog.digdir.no
+        - thanos.fellesdatakatalog.digdir.no
+    - secretName: admin-fdk-digdir-no-tls
+      hosts:
+        - admin.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
@@ -574,6 +588,20 @@ spec:
         - registrering.fellesdatakatalog.digdir.no
         - service-catalog.fellesdatakatalog.digdir.no
         - terms.fellesdatakatalog.digdir.no
+    - secretName: organization-catalog-fdk-digdir-no-tls
+      hosts:
+        - alertmanager.fellesdatakatalog.digdir.no
+        - grafana.fellesdatakatalog.digdir.no
+        - karma.fellesdatakatalog.digdir.no
+        - mqa-scoring-api.fellesdatakatalog.digdir.no
+        - organization-catalog.fellesdatakatalog.digdir.no
+        - organization-catalogue.fellesdatakatalog.digdir.no
+        - prometheus.fellesdatakatalog.digdir.no
+        - thanos-store.fellesdatakatalog.digdir.no
+        - thanos.fellesdatakatalog.digdir.no
+    - secretName: admin-fdk-digdir-no-tls
+      hosts:
+        - admin.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
