@@ -8,7 +8,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: data-norge-no-ssl-6,transportportal-no-ssl-3
+    ingress.gcp.kubernetes.io/pre-shared-cert: transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v4
 spec:
   tls:
@@ -87,6 +87,11 @@ spec:
         - information-models.fellesdatakatalog.digdir.no
         - informationmodels.fellesdatakatalog.digdir.no
         - services.fellesdatakatalog.digdir.no
+    - secretName: data-norge-no-tls
+      hosts:
+        - data.norge.no
+        - datalandsbyen.norge.no
+        - www.data.norge.no
   rules:
     - host: data.norge.no
       http:
@@ -547,7 +552,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: data-norge-no-ssl-6,transportportal-no-ssl-3
+    ingress.gcp.kubernetes.io/pre-shared-cert: transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v6
 spec:
   tls:
@@ -626,6 +631,11 @@ spec:
         - information-models.fellesdatakatalog.digdir.no
         - informationmodels.fellesdatakatalog.digdir.no
         - services.fellesdatakatalog.digdir.no
+    - secretName: data-norge-no-tls
+      hosts:
+        - data.norge.no
+        - datalandsbyen.norge.no
+        - www.data.norge.no
   rules:
     - host: data.norge.no
       http:
