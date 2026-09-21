@@ -36,6 +36,31 @@ spec:
         - search.api.fellesdatakatalog.digdir.no
         - service-catalog.api.fellesdatakatalog.digdir.no
         - statistics.api.fellesdatakatalog.digdir.no
+    - secretName: fdk-digdir-no-tls
+      hosts:
+        - ai-project.fellesdatakatalog.digdir.no
+        - cms.fellesdatakatalog.digdir.no
+        - fellesdatakatalog.digdir.no
+        - nap.fellesdatakatalog.digdir.no
+        - organization-bff.fellesdatakatalog.digdir.no
+        - sparql.fellesdatakatalog.digdir.no
+        - www.fellesdatakatalog.digdir.no
+    - secretName: registrering-fdk-digdir-no-tls
+      hosts:
+        - begrepskatalog.fellesdatakatalog.digdir.no
+        - catalog-admin-service.fellesdatakatalog.digdir.no
+        - catalog-admin.fellesdatakatalog.digdir.no
+        - catalog-comments.fellesdatakatalog.digdir.no
+        - catalog-history.fellesdatakatalog.digdir.no
+        - catalog-portal.fellesdatakatalog.digdir.no
+        - concept-catalog.fellesdatakatalog.digdir.no
+        - dataservice-catalog.fellesdatakatalog.digdir.no
+        - dataset-catalog.fellesdatakatalog.digdir.no
+        - datasettkatalog.fellesdatakatalog.digdir.no
+        - datatjenestekatalog.fellesdatakatalog.digdir.no
+        - registrering.fellesdatakatalog.digdir.no
+        - service-catalog.fellesdatakatalog.digdir.no
+        - terms.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
@@ -524,6 +549,31 @@ spec:
         - search.api.fellesdatakatalog.digdir.no
         - service-catalog.api.fellesdatakatalog.digdir.no
         - statistics.api.fellesdatakatalog.digdir.no
+    - secretName: fdk-digdir-no-tls
+      hosts:
+        - ai-project.fellesdatakatalog.digdir.no
+        - cms.fellesdatakatalog.digdir.no
+        - fellesdatakatalog.digdir.no
+        - nap.fellesdatakatalog.digdir.no
+        - organization-bff.fellesdatakatalog.digdir.no
+        - sparql.fellesdatakatalog.digdir.no
+        - www.fellesdatakatalog.digdir.no
+    - secretName: registrering-fdk-digdir-no-tls
+      hosts:
+        - begrepskatalog.fellesdatakatalog.digdir.no
+        - catalog-admin-service.fellesdatakatalog.digdir.no
+        - catalog-admin.fellesdatakatalog.digdir.no
+        - catalog-comments.fellesdatakatalog.digdir.no
+        - catalog-history.fellesdatakatalog.digdir.no
+        - catalog-portal.fellesdatakatalog.digdir.no
+        - concept-catalog.fellesdatakatalog.digdir.no
+        - dataservice-catalog.fellesdatakatalog.digdir.no
+        - dataset-catalog.fellesdatakatalog.digdir.no
+        - datasettkatalog.fellesdatakatalog.digdir.no
+        - datatjenestekatalog.fellesdatakatalog.digdir.no
+        - registrering.fellesdatakatalog.digdir.no
+        - service-catalog.fellesdatakatalog.digdir.no
+        - terms.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
