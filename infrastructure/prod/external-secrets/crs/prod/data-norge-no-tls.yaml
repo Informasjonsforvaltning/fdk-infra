@@ -1,0 +1,32 @@
+---
+# TLS material for the data.norge.no hosts.
+# Delivered from Secret Manager as a kubernetes.io/tls Secret. Once referenced
+# from spec.tls on ingress-prod-v4/-v6, a renewal is a new Secret Manager
+# version — no compute ssl-certificate and no annotation change.
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: data-norge-no-tls
+  namespace: prod
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: data-norge-no-tls
+    creationPolicy: Owner
+    template:
+      type: kubernetes.io/tls
+      data:
+        tls.crt: "{{ .certificate }}"
+        tls.key: "{{ .privatekey }}"
+  data:
+    - secretKey: certificate
+      remoteRef:
+        key: data-norge-no-tls-prod
+        property: certificate
+    - secretKey: privatekey
+      remoteRef:
+        key: data-norge-no-tls-prod
+        property: private-key
