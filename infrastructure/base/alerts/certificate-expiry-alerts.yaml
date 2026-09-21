@@ -13,35 +13,41 @@ spec:
   groups:
     - name: certificate.expiry.rules
       rules:
-        # Source metric is the kubernetes-ingresses blackbox job. GCE ingresses
-        # have no spec.tls, so probes are http:// and blackbox reads the cert off
-        # the loadbalancer's redirect to https — which is what puts the
-        # pre-shared certificates in scope here.
-        #
-        # min by (instance) collapses the v4/v6/nginx duplicates of a hostname
-        # into one alert. `> 0` drops probes that saw no certificate.
+        # Source metric is the kubernetes-ingresses blackbox job. A hostname is
+        # probed once per scheme and once per ingress, so `instance` — the full
+        # probe URL — holds several entries for the same certificate. Grouping
+        # on the hostname pulled out of it collapses those into one alert.
+        # `> 0` drops probes that saw no certificate.
         - alert: CertificateExpiringSoon
           expr: |
-            min by (instance) (probe_ssl_earliest_cert_expiry > 0) - time()
-              < 30 * 24 * 3600
+            min by (host) (
+              label_replace(
+                probe_ssl_earliest_cert_expiry > 0,
+                "host", "$1", "instance", "https?://([^/]+).*"
+              )
+            ) - time() < 30 * 24 * 3600
           for: 1h
           labels:
             severity: warning
           annotations:
             summary: TLS certificate expires in less than 30 days
             description: >-
-              The certificate served for {{ $labels.instance }} expires in {{
+              The certificate served for {{ $labels.host }} expires in {{
               $value | humanizeDuration }}.
         - alert: CertificateExpiringCritical
           expr: |
-            min by (instance) (probe_ssl_earliest_cert_expiry > 0) - time()
-              < 10 * 24 * 3600
+            min by (host) (
+              label_replace(
+                probe_ssl_earliest_cert_expiry > 0,
+                "host", "$1", "instance", "https?://([^/]+).*"
+              )
+            ) - time() < 10 * 24 * 3600
           for: 1h
           labels:
             severity: critical
           annotations:
             summary: TLS certificate expires in less than 10 days
             description: >-
-              The certificate served for {{ $labels.instance }} expires in {{
+              The certificate served for {{ $labels.host }} expires in {{
               $value | humanizeDuration }}. Clients will fail TLS verification
               when it does.
