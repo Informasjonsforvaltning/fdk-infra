@@ -1,0 +1,32 @@
+---
+# TLS material for the staging hosts.
+# Delivered from Secret Manager as a kubernetes.io/tls Secret. Once referenced
+# from spec.tls, a renewal is a new Secret Manager version — no compute
+# ssl-certificate and no annotation change.
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: stjerne-staging-fdk-digdir-no-tls
+  namespace: nginx
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: stjerne-staging-fdk-digdir-no-tls
+    creationPolicy: Owner
+    template:
+      type: kubernetes.io/tls
+      data:
+        tls.crt: "{{ .certificate }}"
+        tls.key: "{{ .privatekey }}"
+  data:
+    - secretKey: certificate
+      remoteRef:
+        key: stjerne-staging-fdk-digdir-no-tls-staging
+        property: certificate
+    - secretKey: privatekey
+      remoteRef:
+        key: stjerne-staging-fdk-digdir-no-tls-staging
+        property: private-key
