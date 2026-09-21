@@ -8,7 +8,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,harvest-admin-fdk-digdir-no-ssl-5,harvesting-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
+    ingress.gcp.kubernetes.io/pre-shared-cert: auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,harvest-admin-fdk-digdir-no-ssl-5,transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v4
 spec:
   tls:
@@ -75,6 +75,18 @@ spec:
     - secretName: admin-fdk-digdir-no-tls
       hosts:
         - admin.fellesdatakatalog.digdir.no
+    # Attaches the catalogs certificate to these hostnames.
+    - secretName: catalogs-fdk-digdir-no-tls
+      hosts:
+        - catalogs.fellesdatakatalog.digdir.no
+        - concepts.fellesdatakatalog.digdir.no
+        - data-services.fellesdatakatalog.digdir.no
+        - dataservices.fellesdatakatalog.digdir.no
+        - datasets.fellesdatakatalog.digdir.no
+        - events.fellesdatakatalog.digdir.no
+        - information-models.fellesdatakatalog.digdir.no
+        - informationmodels.fellesdatakatalog.digdir.no
+        - services.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
@@ -535,7 +547,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,harvest-admin-fdk-digdir-no-ssl-5,harvesting-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
+    ingress.gcp.kubernetes.io/pre-shared-cert: auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,harvest-admin-fdk-digdir-no-ssl-5,transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v6
 spec:
   tls:
@@ -602,6 +614,18 @@ spec:
     - secretName: admin-fdk-digdir-no-tls
       hosts:
         - admin.fellesdatakatalog.digdir.no
+    # Attaches the catalogs certificate to these hostnames.
+    - secretName: catalogs-fdk-digdir-no-tls
+      hosts:
+        - catalogs.fellesdatakatalog.digdir.no
+        - concepts.fellesdatakatalog.digdir.no
+        - data-services.fellesdatakatalog.digdir.no
+        - dataservices.fellesdatakatalog.digdir.no
+        - datasets.fellesdatakatalog.digdir.no
+        - events.fellesdatakatalog.digdir.no
+        - information-models.fellesdatakatalog.digdir.no
+        - informationmodels.fellesdatakatalog.digdir.no
+        - services.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
