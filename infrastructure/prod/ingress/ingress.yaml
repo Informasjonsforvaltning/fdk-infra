@@ -25,6 +25,13 @@ spec:
     - secretName: data-service-catalog-api-tls
       hosts:
         - data-service-catalog.api.fellesdatakatalog.digdir.no
+    # Pilot: TLS material delivered from Secret Manager via ExternalSecret
+    # rather than uploaded as a compute ssl-certificate. Same certificate as
+    # api-fdk-digdir-no-ssl-4, which stays attached — this proves the delivery
+    # path, not a new certificate.
+    - secretName: api-fdk-digdir-no-tls
+      hosts:
+        - statistics.api.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
@@ -502,6 +509,13 @@ spec:
     - secretName: data-service-catalog-api-tls
       hosts:
         - data-service-catalog.api.fellesdatakatalog.digdir.no
+    # Pilot: TLS material delivered from Secret Manager via ExternalSecret
+    # rather than uploaded as a compute ssl-certificate. Same certificate as
+    # api-fdk-digdir-no-ssl-4, which stays attached — this proves the delivery
+    # path, not a new certificate.
+    - secretName: api-fdk-digdir-no-tls
+      hosts:
+        - statistics.api.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
       http:
