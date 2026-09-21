@@ -8,7 +8,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: api-fdk-digdir-no-ssl-4,auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-5,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
+    ingress.gcp.kubernetes.io/pre-shared-cert: auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-5,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v4
 spec:
   tls:
@@ -25,12 +25,16 @@ spec:
     - secretName: data-service-catalog-api-tls
       hosts:
         - data-service-catalog.api.fellesdatakatalog.digdir.no
-    # Pilot: TLS material delivered from Secret Manager via ExternalSecret
-    # rather than uploaded as a compute ssl-certificate. Same certificate as
-    # api-fdk-digdir-no-ssl-4, which stays attached — this proves the delivery
-    # path, not a new certificate.
+    # Delivered from Secret Manager via ExternalSecret. A renewal is a new
+    # Secret Manager version — no compute ssl-certificate, no annotation change.
     - secretName: api-fdk-digdir-no-tls
       hosts:
+        - access-request.api.fellesdatakatalog.digdir.no
+        - aisearch.api.fellesdatakatalog.digdir.no
+        - catalog-view.api.fellesdatakatalog.digdir.no
+        - resource.api.fellesdatakatalog.digdir.no
+        - search.api.fellesdatakatalog.digdir.no
+        - service-catalog.api.fellesdatakatalog.digdir.no
         - statistics.api.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
@@ -492,7 +496,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: api-fdk-digdir-no-ssl-4,auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-5,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
+    ingress.gcp.kubernetes.io/pre-shared-cert: auth-fdk-digdir-no-ssl-5,data-norge-no-ssl-6,data-service-catalog-fdk-digdir-no-ssl-4,fdk-digdir-no-ssl-2,harvest-admin-fdk-digdir-no-ssl-5,harvesting-fdk-digdir-no-ssl-2,registrering-fdk-digdir-no-ssl-2,sso-div-fdk-digdir-no-ssl-2,transportportal-no-ssl-3
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v6
 spec:
   tls:
@@ -509,12 +513,16 @@ spec:
     - secretName: data-service-catalog-api-tls
       hosts:
         - data-service-catalog.api.fellesdatakatalog.digdir.no
-    # Pilot: TLS material delivered from Secret Manager via ExternalSecret
-    # rather than uploaded as a compute ssl-certificate. Same certificate as
-    # api-fdk-digdir-no-ssl-4, which stays attached — this proves the delivery
-    # path, not a new certificate.
+    # Delivered from Secret Manager via ExternalSecret. A renewal is a new
+    # Secret Manager version — no compute ssl-certificate, no annotation change.
     - secretName: api-fdk-digdir-no-tls
       hosts:
+        - access-request.api.fellesdatakatalog.digdir.no
+        - aisearch.api.fellesdatakatalog.digdir.no
+        - catalog-view.api.fellesdatakatalog.digdir.no
+        - resource.api.fellesdatakatalog.digdir.no
+        - search.api.fellesdatakatalog.digdir.no
+        - service-catalog.api.fellesdatakatalog.digdir.no
         - statistics.api.fellesdatakatalog.digdir.no
   rules:
     - host: data.norge.no
