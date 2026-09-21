@@ -35,3 +35,20 @@ spec:
     nodeSelector: {}
     tolerations: []
     affinity: {}
+    # The admission webhook sits in the write path for Certificate and Issuer
+    # resources, so it needs more than one ready endpoint to survive ordinary
+    # pod rescheduling. Two replicas plus a PDB keep one available.
+    webhook:
+      replicaCount: 2
+      podDisruptionBudget:
+        enabled: true
+        minAvailable: 1
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: webhook
+              app.kubernetes.io/instance: cert-manager
+              app.kubernetes.io/component: webhook
