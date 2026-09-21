@@ -8,7 +8,6 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: demo-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: demo-fdk-digdir-no-ssl-2
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-demo-v4
 spec:
   tls:
@@ -176,7 +175,6 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: demo-frontend-config
-    ingress.gcp.kubernetes.io/pre-shared-cert: demo-fdk-digdir-no-ssl-2
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-demo-v6
 spec:
   tls:
