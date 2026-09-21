@@ -7,7 +7,6 @@ metadata:
   annotations:
     # See frontend-config.yaml.
     networking.gke.io/v1beta1.FrontendConfig: nginx-controller
-    ingress.gcp.kubernetes.io/pre-shared-cert: staging-fdk-digdir-no-ssl-2, demo-fdk-digdir-no-ssl-2, stjerne-dev-fdk-digdir-no-ssl-4, stjerne-api-staging-fdk-digdir-no-ssl-4, stjerne-api-demo-fdk-digdir-no-ssl-4
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v4
 spec:
   tls:
@@ -47,7 +46,6 @@ metadata:
   annotations:
     # See frontend-config.yaml.
     networking.gke.io/v1beta1.FrontendConfig: nginx-controller
-    ingress.gcp.kubernetes.io/pre-shared-cert: staging-fdk-digdir-no-ssl-2, demo-fdk-digdir-no-ssl-2, stjerne-dev-fdk-digdir-no-ssl-4, stjerne-api-staging-fdk-digdir-no-ssl-4, stjerne-api-demo-fdk-digdir-no-ssl-4
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v6
 spec:
   tls:
