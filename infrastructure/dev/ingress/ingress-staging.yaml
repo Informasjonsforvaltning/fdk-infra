@@ -11,6 +11,11 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: staging-fdk-digdir-no-ssl-2
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-v4
 spec:
+  tls:
+    - secretName: stjerne-staging-fdk-digdir-no-tls
+      hosts:
+        - "*.staging.fellesdatakatalog.digdir.no"
+        - staging.fellesdatakatalog.digdir.no
   rules:
     - host: registrering.staging.fellesdatakatalog.digdir.no
       http:
@@ -184,6 +189,11 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: staging-fdk-digdir-no-ssl-2
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-v6
 spec:
+  tls:
+    - secretName: stjerne-staging-fdk-digdir-no-tls
+      hosts:
+        - "*.staging.fellesdatakatalog.digdir.no"
+        - staging.fellesdatakatalog.digdir.no
   rules:
     - host: registrering.staging.fellesdatakatalog.digdir.no
       http:
