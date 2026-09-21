@@ -10,6 +10,24 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: staging-fdk-digdir-no-ssl-2, demo-fdk-digdir-no-ssl-2, stjerne-dev-fdk-digdir-no-ssl-4, stjerne-api-staging-fdk-digdir-no-ssl-4, stjerne-api-demo-fdk-digdir-no-ssl-4
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v4
 spec:
+  tls:
+    - secretName: stjerne-staging-fdk-digdir-no-tls
+      hosts:
+        - "*.staging.fellesdatakatalog.digdir.no"
+        - staging.fellesdatakatalog.digdir.no
+    - secretName: stjerne-demo-fdk-digdir-no-tls
+      hosts:
+        - "*.demo.fellesdatakatalog.digdir.no"
+        - demo.fellesdatakatalog.digdir.no
+    - secretName: stjerne-dev-fdk-digdir-no-tls
+      hosts:
+        - "*.dev.fellesdatakatalog.digdir.no"
+    - secretName: stjerne-api-staging-fdk-digdir-no-tls
+      hosts:
+        - "*.api.staging.fellesdatakatalog.digdir.no"
+    - secretName: stjerne-api-demo-fdk-digdir-no-tls
+      hosts:
+        - "*.api.demo.fellesdatakatalog.digdir.no"
   rules:
     - http:
         paths:
@@ -32,6 +50,24 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: staging-fdk-digdir-no-ssl-2, demo-fdk-digdir-no-ssl-2, stjerne-dev-fdk-digdir-no-ssl-4, stjerne-api-staging-fdk-digdir-no-ssl-4, stjerne-api-demo-fdk-digdir-no-ssl-4
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v6
 spec:
+  tls:
+    - secretName: stjerne-staging-fdk-digdir-no-tls
+      hosts:
+        - "*.staging.fellesdatakatalog.digdir.no"
+        - staging.fellesdatakatalog.digdir.no
+    - secretName: stjerne-demo-fdk-digdir-no-tls
+      hosts:
+        - "*.demo.fellesdatakatalog.digdir.no"
+        - demo.fellesdatakatalog.digdir.no
+    - secretName: stjerne-dev-fdk-digdir-no-tls
+      hosts:
+        - "*.dev.fellesdatakatalog.digdir.no"
+    - secretName: stjerne-api-staging-fdk-digdir-no-tls
+      hosts:
+        - "*.api.staging.fellesdatakatalog.digdir.no"
+    - secretName: stjerne-api-demo-fdk-digdir-no-tls
+      hosts:
+        - "*.api.demo.fellesdatakatalog.digdir.no"
   rules:
     - http:
         paths:

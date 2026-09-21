@@ -11,6 +11,11 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: demo-fdk-digdir-no-ssl-2
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-demo-v4
 spec:
+  tls:
+    - secretName: stjerne-demo-fdk-digdir-no-tls
+      hosts:
+        - "*.demo.fellesdatakatalog.digdir.no"
+        - demo.fellesdatakatalog.digdir.no
   rules:
     - host: registrering.demo.fellesdatakatalog.digdir.no
       http:
@@ -174,6 +179,11 @@ metadata:
     ingress.gcp.kubernetes.io/pre-shared-cert: demo-fdk-digdir-no-ssl-2
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-demo-v6
 spec:
+  tls:
+    - secretName: stjerne-demo-fdk-digdir-no-tls
+      hosts:
+        - "*.demo.fellesdatakatalog.digdir.no"
+        - demo.fellesdatakatalog.digdir.no
   rules:
     - host: registrering.demo.fellesdatakatalog.digdir.no
       http:
