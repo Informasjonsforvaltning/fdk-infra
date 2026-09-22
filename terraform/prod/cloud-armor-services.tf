@@ -43,5 +43,21 @@ resource "google_compute_security_policy" "services" {
     priority = 1000
   }
 
+  # Expression lives in Secret Manager, as with the rules above. Unlike the
+  # rules above, this one does not follow the policy-level preview toggle:
+  # it stays enforcing even when the policy is put into preview for a dry run.
+  rule {
+    action = "deny(403)"
+
+    match {
+      expr {
+        expression = var.cloud_armor_waf_expressions.services_block
+      }
+    }
+
+    preview  = false
+    priority = 1100
+  }
+
   type = "CLOUD_ARMOR"
 }
