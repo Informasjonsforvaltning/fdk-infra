@@ -139,6 +139,20 @@ variable "cloud_armor_waf_expressions" {
   type        = map(string)
 }
 
+# Cloud Armor Rate Limiting
+variable "cloud_armor_rate_limits" {
+  description = "Rate limit thresholds for Cloud Armor rate-based-ban rules - kept in Secret Manager"
+  sensitive   = true
+  type = map(object({
+    threshold_count            = number
+    threshold_interval_sec     = number
+    ban_threshold_count        = number
+    ban_threshold_interval_sec = number
+    ban_duration_sec           = number
+    preview                    = optional(bool, true)
+  }))
+}
+
 # Disk Configuration
 variable "disk_labels" {
   description = "Common labels for all compute disks - kept in Secret Manager"
