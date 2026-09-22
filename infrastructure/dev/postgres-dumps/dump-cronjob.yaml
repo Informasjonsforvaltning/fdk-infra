@@ -21,6 +21,12 @@ spec:
   jobTemplate:
     spec:
       backoffLimit: 2
+      # The retry caps in the upload container bound the number of
+      # attempts, not the time each one takes: a metadata server that
+      # accepts connections and then hangs stretches every attempt out to
+      # gcloud's own timeouts. This keeps a run from straddling the next
+      # hourly schedule, which concurrencyPolicy: Forbid would then skip.
+      activeDeadlineSeconds: 1800
       template:
         spec:
           restartPolicy: OnFailure
@@ -164,11 +170,57 @@ spec:
                 - |
                   set -eu
                   PREFIX=$(date -u +%Y/%m/%d)
+
+                  # While the control plane is being upgraded, gke-metadata-server cannot
+                  # verify this pod's service account, so every Workload Identity token
+                  # request returns 504 and gcloud crashes outright. The dumps are taken and
+                  # verified by the time this container starts, so failing here throws away
+                  # completed work over an outage that clears on its own in a few minutes.
+                  #
+                  # A command in an until condition is exempt from set -e, so these retries do
+                  # not abort the script. A successful probe prints an access token, so stdout
+                  # is always discarded; stderr is kept only on the last attempt, so that a
+                  # permanent misconfiguration gives a reason instead of silence.
+                  wait_for_credentials() {
+                    cred_tries=0
+                    until gcloud auth print-access-token >/dev/null 2>&1; do
+                      cred_tries=$((cred_tries + 1))
+                      if [ "$cred_tries" -ge 10 ]; then
+                        echo "no credentials after ${cred_tries} attempts:"
+                        gcloud auth print-access-token >/dev/null || true
+                        return 1
+                      fi
+                      echo "waiting for credentials (attempt ${cred_tries})"
+                      sleep 30
+                    done
+                  }
+
+                  if ! wait_for_credentials; then
+                    echo "FAIL: no credentials"
+                    exit 1
+                  fi
+
                   for f in /dumps/*.dump; do
                     name=$(basename "$f")
                     db=${name%-*}
                     echo "uploading ${name}"
-                    gcloud storage cp "$f" "gs://${BUCKET}/${db}/${PREFIX}/${name}" --quiet
+                    # An outage that begins mid-run deserves the same patience as one already
+                    # under way at startup, so a failed object waits for credentials again
+                    # before retrying. Exiting once a file is out of attempts keeps a permanent
+                    # failure fast, instead of working through every remaining file to fail the
+                    # same way. Uploads are idempotent: STAMP is fixed by the init container, so
+                    # a retry overwrites the same object rather than adding one.
+                    tries=0
+                    until gcloud storage cp "$f" "gs://${BUCKET}/${db}/${PREFIX}/${name}" --quiet; do
+                      tries=$((tries + 1))
+                      if [ "$tries" -ge 3 ]; then
+                        echo "FAIL: upload ${name}"
+                        exit 1
+                      fi
+                      echo "retrying ${name} (attempt $((tries + 1)))"
+                      sleep 10
+                      wait_for_credentials || true
+                    done
                   done
                   echo "all uploads complete"
               resources:
