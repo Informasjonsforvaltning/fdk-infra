@@ -1,4 +1,15 @@
 resource "google_compute_security_policy" "services" {
+  # Layer 7 DDoS defence, opted in per policy via enable_ddos.
+  dynamic "adaptive_protection_config" {
+    for_each = var.cloud_armor_policies.services.enable_ddos ? [1] : []
+    content {
+      layer_7_ddos_defense_config {
+        enable          = true
+        rule_visibility = "STANDARD"
+      }
+    }
+  }
+
   name    = var.cloud_armor_policies.services.name
   project = var.project_id
 
