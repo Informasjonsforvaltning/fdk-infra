@@ -56,11 +56,9 @@ resource "google_compute_security_policy" "search" {
     priority = 1000
   }
 
-  # Expression lives in Secret Manager, as with the rules above. What matters
-  # about the priority is that it stays below the allow at 1999: that rule
-  # allows the very hosts this one has to cover, so anything above it would
-  # match there first and let the traffic through. It also does not follow the
-  # policy-level preview toggle, and stays enforcing during a dry run.
+  # Expression lives in Secret Manager. This deny must be evaluated before the
+  # allow rules in this file, so keep its priority lower than theirs. The pinned
+  # preview is deliberate too.
   rule {
     action = "deny(403)"
 
