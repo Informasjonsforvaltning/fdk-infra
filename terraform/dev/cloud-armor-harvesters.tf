@@ -1,5 +1,16 @@
 
 resource "google_compute_security_policy" "harvesters" {
+  # Layer 7 DDoS defence, opted in per policy via enable_ddos.
+  dynamic "adaptive_protection_config" {
+    for_each = var.cloud_armor_policies.harvesters.enable_ddos ? [1] : []
+    content {
+      layer_7_ddos_defense_config {
+        enable          = true
+        rule_visibility = "STANDARD"
+      }
+    }
+  }
+
   name    = var.cloud_armor_policies.harvesters.name
   project = var.project_id
 
