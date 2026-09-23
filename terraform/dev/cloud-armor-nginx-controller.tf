@@ -4,7 +4,8 @@ resource "google_compute_security_policy" "nginx_controller" {
     for_each = var.cloud_armor_policies.nginx_controller.enable_ddos ? [1] : []
     content {
       layer_7_ddos_defense_config {
-        enable = true
+        enable          = true
+        rule_visibility = "STANDARD"
       }
     }
   }
