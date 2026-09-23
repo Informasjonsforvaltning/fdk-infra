@@ -1,13 +1,10 @@
 
 resource "google_compute_security_policy" "search" {
   # Layer 7 DDoS defence, opted in per policy via enable_ddos.
-  dynamic "adaptive_protection_config" {
-    for_each = var.cloud_armor_policies.search.enable_ddos ? [1] : []
-    content {
-      layer_7_ddos_defense_config {
-        enable          = true
-        rule_visibility = "STANDARD"
-      }
+  adaptive_protection_config {
+    layer_7_ddos_defense_config {
+      enable          = var.cloud_armor_policies.search.enable_ddos
+      rule_visibility = "STANDARD"
     }
   }
 
