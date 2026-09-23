@@ -1,7 +1,9 @@
 resource "google_compute_security_policy" "datalandsbyen" {
+  # Layer 7 DDoS defence, opted in per policy via enable_ddos.
   adaptive_protection_config {
     layer_7_ddos_defense_config {
-      enable = var.cloud_armor_policies.datalandsbyen.enable_ddos
+      enable          = var.cloud_armor_policies.datalandsbyen.enable_ddos
+      rule_visibility = "STANDARD"
     }
   }
 
