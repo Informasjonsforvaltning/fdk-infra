@@ -37,7 +37,6 @@ spec:
         - statistics.api.fellesdatakatalog.digdir.no
     - secretName: fdk-digdir-no-tls
       hosts:
-        - ai-project.fellesdatakatalog.digdir.no
         - cms.fellesdatakatalog.digdir.no
         - fellesdatakatalog.digdir.no
         - nap.fellesdatakatalog.digdir.no
@@ -356,16 +355,6 @@ spec:
                 port:
                   number: 80
     - host: thanos-store.fellesdatakatalog.digdir.no
-      http:
-        paths:
-          - path: /*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: prod-nginx-ingress-nginx-controller
-                port:
-                  number: 80
-    - host: ai-project.fellesdatakatalog.digdir.no
       http:
         paths:
           - path: /*
@@ -583,7 +572,6 @@ spec:
         - statistics.api.fellesdatakatalog.digdir.no
     - secretName: fdk-digdir-no-tls
       hosts:
-        - ai-project.fellesdatakatalog.digdir.no
         - cms.fellesdatakatalog.digdir.no
         - fellesdatakatalog.digdir.no
         - nap.fellesdatakatalog.digdir.no
@@ -902,16 +890,6 @@ spec:
                 port:
                   number: 80
     - host: thanos-store.fellesdatakatalog.digdir.no
-      http:
-        paths:
-          - path: /*
-            pathType: ImplementationSpecific
-            backend:
-              service:
-                name: prod-nginx-ingress-nginx-controller
-                port:
-                  number: 80
-    - host: ai-project.fellesdatakatalog.digdir.no
       http:
         paths:
           - path: /*
