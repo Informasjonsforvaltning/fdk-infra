@@ -70,6 +70,17 @@ resource "google_compute_disk" "demo_zookeeper_1" {
   zone                      = var.zone
 }
 
+resource "google_compute_disk" "demo_kafka_controller_1" {
+  labels = local.demo_disk_labels
+
+  name                      = "${var.disk_prefix}-demo-kafka-controller-1"
+  physical_block_size_bytes = 4096
+  project                   = var.project_id
+  size                      = 10
+  type                      = "pd-standard"
+  zone                      = var.zone
+}
+
 # Primary data disk for the decommissioned demo MongoDB cluster.
 # GKE-provisioned and retained; tracked in Terraform so it is protected from
 # deletion. Labels/snapshot are managed outside Terraform.
