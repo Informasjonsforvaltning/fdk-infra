@@ -134,3 +134,14 @@ resource "google_compute_disk" "prod_zookeeper_1" {
   type                      = "pd-ssd"
   zone                      = var.zone
 }
+
+resource "google_compute_disk" "prod_kafka_controller_1" {
+  labels = local.prod_disk_labels
+
+  name                      = "${var.disk_prefix}-kafka-controller-1"
+  physical_block_size_bytes = 4096
+  project                   = var.project_id
+  size                      = 10
+  type                      = "pd-ssd"
+  zone                      = var.zone
+}
