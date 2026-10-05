@@ -126,7 +126,7 @@ terraform import <resource_type>.<resource_name> <resource_id>
 ## 📊 Managed Resources
 
 This configuration manages:
-- **15 Compute Disks** for Kafka, MongoDB, RabbitMQ, Zookeeper services
+- **16 Compute Disks** for Kafka, MongoDB, RabbitMQ and other stateful services
 - **11 Cloud Armor Policies** with dynamic WAF rules and opt-outs
 - **9 Service Accounts** for various services and CI/CD
 - **6 Global IP Addresses** for load balancers

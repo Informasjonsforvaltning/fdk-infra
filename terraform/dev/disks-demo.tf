@@ -59,17 +59,6 @@ resource "google_compute_disk" "demo_sparql" {
   zone                      = var.zone
 }
 
-resource "google_compute_disk" "demo_zookeeper_1" {
-  labels = local.demo_disk_labels
-
-  name                      = "${var.disk_prefix}-demo-zookeeper-1"
-  physical_block_size_bytes = 4096
-  project                   = var.project_id
-  size                      = 200
-  type                      = "pd-standard"
-  zone                      = var.zone
-}
-
 resource "google_compute_disk" "demo_kafka_controller_1" {
   labels = local.demo_disk_labels
 
