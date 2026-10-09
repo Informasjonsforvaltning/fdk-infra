@@ -1,0 +1,16 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: cloud-armor-backend-config
+  namespace: flux-system
+spec:
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: cloud-armor-backend-config
+    creationPolicy: Owner
+  dataFrom:
+    - extract:
+        key: cloud-armor-backend-config-prod

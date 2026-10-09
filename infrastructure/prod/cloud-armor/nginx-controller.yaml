@@ -1,0 +1,16 @@
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: cloud-armor-nginx-controller
+  namespace: prod
+spec:
+  healthCheck:
+    requestPath: /healthz
+  customRequestHeaders:
+    # GKE adds the header 'X-Forwarded-Port: 443'. Nginx then forwards the
+    # header instead of itself adding the header with value 80.
+    headers:
+      - X-Forwarded-Port:443
+  securityPolicy:
+    name: ${CLOUD_ARMOR_POLICY_NGINX_CONTROLLER}

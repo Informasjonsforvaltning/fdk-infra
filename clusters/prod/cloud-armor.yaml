@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cloud-armor
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: external-secrets-crs
+  interval: 1m0s
+  retryInterval: 10s
+  path: ./infrastructure/prod/cloud-armor
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  # Separate Kustomization so that variable substitution only touches these
+  # manifests; the rest of the repo has shell-style ${...} that must not be expanded.
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cloud-armor-backend-config
