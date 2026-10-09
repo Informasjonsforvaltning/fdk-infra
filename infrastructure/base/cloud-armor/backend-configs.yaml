@@ -1,0 +1,63 @@
+# One BackendConfig per Cloud Armor policy. A Service opts in with
+#   cloud.google.com/backend-config: '{"default": "cloud-armor-<policy>"}'
+# and the GCE ingress controller attaches the policy to that Service's backend.
+#
+# Policy names are not kept in Git (same as the Terraform variables); Flux
+# substitutes ${CLOUD_ARMOR_POLICY_*} from the cloud-armor-backend-config Secret
+# at build time.
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: cloud-armor-admin
+spec:
+  securityPolicy:
+    name: ${CLOUD_ARMOR_POLICY_ADMIN}
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: cloud-armor-bff
+spec:
+  securityPolicy:
+    name: ${CLOUD_ARMOR_POLICY_BFF}
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: cloud-armor-datalandsbyen
+spec:
+  securityPolicy:
+    name: ${CLOUD_ARMOR_POLICY_DATALANDSBYEN}
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: cloud-armor-registration
+spec:
+  securityPolicy:
+    name: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: cloud-armor-search
+spec:
+  securityPolicy:
+    name: ${CLOUD_ARMOR_POLICY_SEARCH}
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: cloud-armor-services
+spec:
+  securityPolicy:
+    name: ${CLOUD_ARMOR_POLICY_SERVICES}
+---
+apiVersion: cloud.google.com/v1
+kind: BackendConfig
+metadata:
+  name: cloud-armor-sparql
+spec:
+  securityPolicy:
+    name: ${CLOUD_ARMOR_POLICY_SPARQL}

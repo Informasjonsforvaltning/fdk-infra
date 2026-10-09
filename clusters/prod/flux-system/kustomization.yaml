@@ -3,3 +3,13 @@ kind: Kustomization
 resources:
 - gotk-components.yaml
 - gotk-sync.yaml
+patches:
+  # Fail a Kustomization build on undefined ${...} variables instead of
+  # substituting an empty string. Only Kustomizations with postBuild are affected.
+  - patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --feature-gates=StrictPostBuildSubstitutions=true
+    target:
+      kind: Deployment
+      name: kustomize-controller
