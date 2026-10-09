@@ -5,6 +5,8 @@ metadata:
   name: nginx
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cloud-armor
   interval: 1m0s
   retryInterval: 10s
   path: ./infrastructure/prod/nginx

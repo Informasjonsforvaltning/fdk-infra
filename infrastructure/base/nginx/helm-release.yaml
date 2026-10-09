@@ -47,8 +47,8 @@ spec:
       service:
         type: NodePort
         annotations:
-          # See backend-config.yaml.
-          cloud.google.com/backend-config: '{"default": "nginx-controller"}'
+          # BackendConfig is delivered by the cloud-armor Kustomization.
+          cloud.google.com/backend-config: '{"default": "cloud-armor-nginx-controller"}'
     # Disable default backend to prevent exposure of debug endpoints.
     defaultBackend:
       enabled: false
