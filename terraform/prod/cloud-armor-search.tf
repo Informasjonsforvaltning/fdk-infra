@@ -64,8 +64,25 @@ resource "google_compute_security_policy" "search" {
     priority = 1000
   }
 
+  # Priority sits after the WAF rules and ahead of the deny below.
+  # robots.txt only has effect if it can be fetched.
+  rule {
+    action      = "allow"
+    description = "Allow /robots.txt"
+
+    match {
+      expr {
+        expression = "request.path == '/robots.txt'"
+      }
+    }
+
+    preview  = false
+    priority = 1090
+  }
+
   # Expression lives in Secret Manager. This deny must be evaluated before the
-  # allow rules in this file, so keep its priority lower than theirs. The pinned
+  # host allow in this file, so keep its priority lower than that rule's. The
+  # /robots.txt allow above is the one deliberate exception. The pinned
   # preview is deliberate too.
   rule {
     action = "deny(403)"
