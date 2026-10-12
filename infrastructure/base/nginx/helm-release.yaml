@@ -44,6 +44,11 @@ spec:
         # Allow Critical-level annotations (configuration-snippet, server-snippet).
         # Required for compatibility with ingress-nginx 1.12+ (chart version 4.12+).
         annotations-risk-level: "Critical"
+        # Compress proxied responses; the controller ships with gzip off.
+        use-gzip: "true"
+        # The controller default of 1 leaves roughly 15% more bytes on the wire
+        # than level 5 for the JSON these backends serve.
+        gzip-level: "5"
       service:
         type: NodePort
         annotations:
