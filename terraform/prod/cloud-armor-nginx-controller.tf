@@ -38,6 +38,21 @@ resource "google_compute_security_policy" "nginx_controller" {
     priority = 1000
   }
 
+  # Expression lives in Secret Manager. The pinned preview is deliberate.
+  # Priority sits ahead of the rule below, so a match here is terminal.
+  rule {
+    action = "deny(403)"
+
+    match {
+      expr {
+        expression = var.cloud_armor_waf_expressions.nginx_controller_block
+      }
+    }
+
+    preview  = false
+    priority = 1090
+  }
+
   # Parameters live in Secret Manager, as with the rules above.
   rule {
     action = "rate_based_ban"
