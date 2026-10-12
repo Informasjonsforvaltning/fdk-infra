@@ -38,6 +38,22 @@ resource "google_compute_security_policy" "nginx_controller" {
     priority = 1000
   }
 
+  # Priority sits after the WAF rule and ahead of the deny below.
+  # robots.txt only has effect if it can be fetched.
+  rule {
+    action      = "allow"
+    description = "Allow /robots.txt"
+
+    match {
+      expr {
+        expression = "request.path == '/robots.txt'"
+      }
+    }
+
+    preview  = false
+    priority = 1085
+  }
+
   # Expression lives in Secret Manager. The pinned preview is deliberate.
   # Priority sits ahead of the rule below, so a match here is terminal.
   rule {

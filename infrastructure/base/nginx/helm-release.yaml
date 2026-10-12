@@ -49,6 +49,16 @@ spec:
         # The controller default of 1 leaves roughly 15% more bytes on the wire
         # than level 5 for the JSON these backends serve.
         gzip-level: "5"
+        # Every host routed through this controller is an API, an admin tool or
+        # a login-gated UI, so none of them belong in a search index. Without a
+        # fetchable robots.txt a crawler may fetch everything (RFC 9309 2.3.1.3),
+        # and most of these hosts answer 404 or 401 today. The portal hosts
+        # reach their own backends, not this controller, so they are unaffected.
+        server-snippet: |
+          location = /robots.txt {
+            default_type text/plain;
+            return 200 "User-agent: *\nDisallow: /\n";
+          }
       service:
         type: NodePort
         annotations:
