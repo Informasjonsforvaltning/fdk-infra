@@ -55,7 +55,7 @@ resource "google_compute_security_policy" "nginx_controller" {
   }
 
   # Expression lives in Secret Manager. The pinned preview is deliberate.
-  # Priority sits ahead of the rule below, so a match here is terminal.
+  # It is the last rule before the default allow.
   rule {
     action = "deny(403)"
 
@@ -67,37 +67,6 @@ resource "google_compute_security_policy" "nginx_controller" {
 
     preview  = false
     priority = 1090
-  }
-
-  # Parameters live in Secret Manager, as with the rules above.
-  rule {
-    action = "rate_based_ban"
-
-    match {
-      expr {
-        expression = var.cloud_armor_waf_expressions.nginx_controller_throttle
-      }
-    }
-
-    rate_limit_options {
-      ban_duration_sec = var.cloud_armor_rate_limits.nginx_controller.ban_duration_sec
-      conform_action   = "allow"
-      enforce_on_key   = "ALL"
-      exceed_action    = "deny(429)"
-
-      ban_threshold {
-        count        = var.cloud_armor_rate_limits.nginx_controller.ban_threshold_count
-        interval_sec = var.cloud_armor_rate_limits.nginx_controller.ban_threshold_interval_sec
-      }
-
-      rate_limit_threshold {
-        count        = var.cloud_armor_rate_limits.nginx_controller.threshold_count
-        interval_sec = var.cloud_armor_rate_limits.nginx_controller.threshold_interval_sec
-      }
-    }
-
-    preview  = var.cloud_armor_rate_limits.nginx_controller.preview
-    priority = 1100
   }
 
   type = "CLOUD_ARMOR"
