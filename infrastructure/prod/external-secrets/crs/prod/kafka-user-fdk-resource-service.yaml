@@ -1,0 +1,25 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: kafka-user-fdk-resource-service
+  namespace: prod
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: kafka-user-fdk-resource-service
+    creationPolicy: Owner
+    template:
+      data:
+        BROKERS: kafka-1:9094,kafka-2:9094,kafka-3:9094
+        USERNAME: fdk-resource-service
+        PASSWORD: "{{ .password }}"
+        SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="fdk-resource-service" password="{{ .password }}";'
+  data:
+    - secretKey: password
+      remoteRef:
+        key: kafka-scram-users-prod
+        property: fdk-resource-service
