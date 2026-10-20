@@ -1,0 +1,27 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: kafka-user-fdk-harvester
+  namespace: demo
+spec:
+  refreshInterval: 1h
+  secretStoreRef:
+    name: gcp-secret-store
+    kind: ClusterSecretStore
+  target:
+    name: kafka-user-fdk-harvester
+    creationPolicy: Owner
+    template:
+      data:
+        BROKERS: kafka-1:9094
+        SECURITY_PROTOCOL: SASL_PLAINTEXT
+        SASL_MECHANISM: SCRAM-SHA-512
+        USERNAME: fdk-harvester
+        PASSWORD: "{{ .password }}"
+        SASL_JAAS_CONFIG: 'org.apache.kafka.common.security.scram.ScramLoginModule required username="fdk-harvester" password="{{ .password }}";'
+  data:
+    - secretKey: password
+      remoteRef:
+        key: kafka-scram-users-demo
+        property: fdk-harvester
