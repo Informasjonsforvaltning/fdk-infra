@@ -7,4 +7,6 @@ metadata:
 spec:
   values:
     kafkaServer:
-      - kafka-1.prod:9092
+      - kafka-1.prod:9094
+      - kafka-2.prod:9094
+      - kafka-3.prod:9094

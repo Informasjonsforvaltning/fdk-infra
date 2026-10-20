@@ -20,6 +20,14 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    # Credentials come from the kafka-user-kafka-exporter Secret delivered by
+    # External Secrets; the chart reads its username and password keys.
+    sasl:
+      enabled: true
+      scram:
+        enabled: true
+        mechanism: scram-sha512
+        secretName: kafka-user-kafka-exporter
     prometheus:
       serviceMonitor:
         enabled: true
