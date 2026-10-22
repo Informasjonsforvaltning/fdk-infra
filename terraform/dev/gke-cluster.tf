@@ -32,6 +32,10 @@ resource "google_container_cluster" "main" {
   default_max_pods_per_node = var.gke_cluster_config.default_max_pods_per_node
   enable_shielded_nodes     = var.gke_cluster_config.enable_shielded_nodes
 
+  gateway_api_config {
+    channel = "CHANNEL_STANDARD"
+  }
+
   ip_allocation_policy {
     cluster_secondary_range_name  = "${var.disk_prefix}-k8s-pods"
     services_secondary_range_name = "${var.disk_prefix}-k8s-services"
