@@ -13,53 +13,69 @@ spec:
   timeout: 20m
   chart:
     spec:
-      version: 15.x
+      # Fast-moving 0.x with one primary maintainer: pin exactly and read the
+      # release notes on every bump.
+      version: 0.48.0
       chart: thanos
       sourceRef:
         kind: HelmRepository
-        name: bitnami-oci
+        name: thanos-community
       interval: 60m
-  install:
-    crds: Create
+  # No install/upgrade.crds: the chart carries kube-prometheus-stack as a
+  # disabled subchart, and Helm would still apply that copy's CRDs over the
+  # ones owned by our own kube-prometheus-stack release.
   upgrade:
-    crds: CreateReplace
     remediation:
       retries: 2
   values:
+    # The release name is monitoring-thanos (targetNamespace + name), and the
+    # chart derives every resource name from it, so names, selectors and the
+    # storegateway PVC are the same as under the Bitnami chart. The objstore
+    # secret is delivered by External Secrets Operator and matches the chart
+    # defaults (thanos-objstore / objstore.yml), so it needs no values here.
     global:
-      security:
-        allowInsecureImages: true
-    image:
-      repository: bitnamilegacy/thanos
-    existingObjstoreSecret: thanos-objstore
-    # Without these, compaction failures are invisible: no component exposed
-    # metrics and nothing alerted on thanos_compact_halted.
-    metrics:
-      enabled: true
+      serviceAccount:
+        # One ServiceAccount per component rather than the chart's shared one:
+        # monitoring-thanos-compactor and -storegateway carry the Workload
+        # Identity annotation, which Terraform manages by name.
+        perComponent: true
+        create: false
+      # Without these, compaction failures are invisible: nothing scraped the
+      # components and nothing alerted on thanos_compact_halted.
       serviceMonitor:
         enabled: true
-    query:
-      extraFlags:
-        - --query.auto-downsampling
-      dnsDiscovery:
-        enabled: true
-        sidecarsService: monitoring-kube-prometheus-thanos-discovery
-        sidecarsNamespace: monitoring
-      ingress:
+      # The chart bundles the upstream Thanos mixin alerts. Ours live in
+      # infrastructure/base/alerts and were tuned against false positives from
+      # this very installation, so the bundle stays off to keep the alert
+      # surface unchanged.
+      thanosRules:
         enabled: false
-        ingressClassName: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/auth-type: basic
-          nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
-          nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+    # Remote-write ingestion is on by default in this chart. Prometheus ships
+    # blocks through the sidecar here, so Receive would only be three extra
+    # pods with PVCs ingesting nothing, wired into Query as endpoints.
+    receive:
+      enabled: false
+    query:
+      replicaCount: 1
+      # Components in this chart (the storegateway) are discovered
+      # automatically. The Prometheus sidecar belongs to kube-prometheus-stack,
+      # so it has to be listed as a static endpoint. A mistake here does not
+      # fail loudly: Query just returns partial data.
+      endpoints:
+        static:
+          - dnssrv+_grpc._tcp.monitoring-kube-prometheus-thanos-discovery.monitoring.svc.cluster.local
+      extraArgs:
+        - --query.auto-downsampling
       resources:
         requests:
           memory: 300Mi
           cpu: 100m
     queryFrontend:
+      enabled: true
+      replicaCount: 1
       ingress:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/auth-type: basic
           nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
@@ -71,39 +87,44 @@ spec:
         limits:
           memory: 150Mi
     storegateway:
-      enabled: true
+      replicaCount: 1
       persistence:
         size: 24Gi
+      # /-/ready only turns green after the initial bucket sync, and a cold
+      # sync here takes longer than the chart's 5 minute startup budget
+      # (60 x 5s). Past that the kubelet kills the container and the sync
+      # starts over, so the pod would never become Ready. 240 x 5s matches
+      # the 20m release timeout above.
+      probes:
+        startup:
+          failureThreshold: 240
+      ingress:
+        http:
+          enabled: true
+          className: nginx
+          annotations:
+            nginx.ingress.kubernetes.io/auth-type: basic
+            nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
+            nginx.ingress.kubernetes.io/auth-realm: Authentication Required
       resources:
         requests:
           memory: 2500Mi
           cpu: 150m
-      networkPolicy:
-        enabled: false
-      ingress:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/auth-type: basic
-          nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
-          nginx.ingress.kubernetes.io/auth-realm: Authentication Required
     compactor:
-      enabled: true
+      # The chart enables a VerticalPodAutoscaler (updateMode Auto) by default.
+      # It is skipped while the VPA CRD is absent, but the day the CRD shows
+      # up it would start overriding the deliberate fixed requests below.
+      vpa:
+        enabled: false
       persistence:
         # Compaction needs roughly 2-3x the size of the largest block group as
         # scratch space. 24Gi was enough at rest but ran out mid-compaction
         # ("preallocate: no space left on device"), halting the compactor.
         size: 64Gi
-      ingress:
-        enabled: false
-        ingressClassName: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/auth-type: basic
-          nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
-          nginx.ingress.kubernetes.io/auth-realm: Authentication Required
-      retentionResolutionRaw: 14d
-      retentionResolution5m: 30d
-      retentionResolution1h: 10y
+      retention:
+        resolutionRaw: 14d
+        resolution5m: 30d
+        resolution1h: 10y
       resources:
         requests:
           memory: 3Gi
