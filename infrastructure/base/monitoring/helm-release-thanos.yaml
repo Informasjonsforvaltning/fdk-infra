@@ -13,53 +13,47 @@ spec:
   timeout: 20m
   chart:
     spec:
-      version: 15.x
+      version: 0.48.0
       chart: thanos
       sourceRef:
         kind: HelmRepository
-        name: bitnami-oci
+        name: thanos-community
       interval: 60m
-  install:
-    crds: Create
+  # No crds handling: Helm would apply the bundled kube-prometheus-stack
+  # subchart's CRDs over the ones owned by our own release.
   upgrade:
-    crds: CreateReplace
     remediation:
       retries: 2
   values:
     global:
-      security:
-        allowInsecureImages: true
-    image:
-      repository: bitnamilegacy/thanos
-    existingObjstoreSecret: thanos-objstore
-    # Without these, compaction failures are invisible: no component exposed
-    # metrics and nothing alerted on thanos_compact_halted.
-    metrics:
-      enabled: true
+      serviceAccount:
+        # Terraform annotates the per-component ServiceAccounts by name.
+        perComponent: true
+        create: false
       serviceMonitor:
         enabled: true
-    query:
-      extraFlags:
-        - --query.auto-downsampling
-      dnsDiscovery:
-        enabled: true
-        sidecarsService: monitoring-kube-prometheus-thanos-discovery
-        sidecarsNamespace: monitoring
-      ingress:
+      # Our rules live in infrastructure/base/alerts.
+      thanosRules:
         enabled: false
-        ingressClassName: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/auth-type: basic
-          nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
-          nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+    receive:
+      enabled: false
+    query:
+      replicaCount: 1
+      endpoints:
+        static:
+          - dnssrv+_grpc._tcp.monitoring-kube-prometheus-thanos-discovery.monitoring.svc.cluster.local
+      extraArgs:
+        - --query.auto-downsampling
       resources:
         requests:
           memory: 300Mi
           cpu: 100m
     queryFrontend:
+      enabled: true
+      replicaCount: 1
       ingress:
         enabled: true
-        ingressClassName: nginx
+        className: nginx
         annotations:
           nginx.ingress.kubernetes.io/auth-type: basic
           nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
@@ -71,39 +65,38 @@ spec:
         limits:
           memory: 150Mi
     storegateway:
-      enabled: true
+      replicaCount: 1
       persistence:
         size: 24Gi
+      # A cold bucket sync takes longer than the chart's 5m startup budget.
+      probes:
+        startup:
+          failureThreshold: 240
+      ingress:
+        http:
+          enabled: true
+          className: nginx
+          annotations:
+            nginx.ingress.kubernetes.io/auth-type: basic
+            nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
+            nginx.ingress.kubernetes.io/auth-realm: Authentication Required
       resources:
         requests:
           memory: 2500Mi
           cpu: 150m
-      networkPolicy:
-        enabled: false
-      ingress:
-        enabled: true
-        ingressClassName: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/auth-type: basic
-          nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
-          nginx.ingress.kubernetes.io/auth-realm: Authentication Required
     compactor:
-      enabled: true
+      # Would override the fixed requests below once the VPA CRD exists.
+      vpa:
+        enabled: false
       persistence:
         # Compaction needs roughly 2-3x the size of the largest block group as
         # scratch space. 24Gi was enough at rest but ran out mid-compaction
         # ("preallocate: no space left on device"), halting the compactor.
         size: 64Gi
-      ingress:
-        enabled: false
-        ingressClassName: nginx
-        annotations:
-          nginx.ingress.kubernetes.io/auth-type: basic
-          nginx.ingress.kubernetes.io/auth-secret: ingress-basic-auth
-          nginx.ingress.kubernetes.io/auth-realm: Authentication Required
-      retentionResolutionRaw: 14d
-      retentionResolution5m: 30d
-      retentionResolution1h: 10y
+      retention:
+        resolutionRaw: 14d
+        resolution5m: 30d
+        resolution1h: 10y
       resources:
         requests:
           memory: 3Gi

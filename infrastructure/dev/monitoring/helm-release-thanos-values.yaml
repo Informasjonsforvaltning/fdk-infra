@@ -6,16 +6,18 @@ metadata:
   namespace: flux-system
 spec:
   values:
-    query:
-      ingress:
-        hostname: thanos-query.dev.fellesdatakatalog.digdir.no
     queryFrontend:
       ingress:
-        hostname: thanos.dev.fellesdatakatalog.digdir.no
+        hosts:
+          - host: thanos.dev.fellesdatakatalog.digdir.no
+            paths:
+              - path: /
+                pathType: Prefix
     storegateway:
       ingress:
-        hostname: thanos-store.dev.fellesdatakatalog.digdir.no
-    compactor:
-      ingress:
-        # enabled: true
-        hostname: thanos-compactor.dev.fellesdatakatalog.digdir.no
+        http:
+          hosts:
+            - host: thanos-store.dev.fellesdatakatalog.digdir.no
+              paths:
+                - path: /
+                  pathType: Prefix
