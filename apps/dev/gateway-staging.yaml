@@ -1,0 +1,20 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: gateway-staging
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  retryInterval: 10s
+  path: ./apps/dev/gateway-staging
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  # Cloud Armor policy names are substituted from the same Secret as the
+  # BackendConfigs. The Kustomization fails while the Secret is missing.
+  postBuild:
+    substituteFrom:
+      - kind: Secret
+        name: cloud-armor-backend-config

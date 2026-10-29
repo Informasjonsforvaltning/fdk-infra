@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - namespace.yaml
+  - certificates.yaml
+  - gateways.yaml
+  - redirect.yaml
+  - services.yaml
+  - routes-staging.yaml
+  - routes-edge.yaml
+  - catch-all.yaml
+  - backend-tls.yaml
+  - policies-gateway.yaml
+  - policies-nginx.yaml
+  - policies-staging.yaml

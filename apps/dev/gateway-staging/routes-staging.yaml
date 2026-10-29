@@ -1,0 +1,303 @@
+# Hosts on the staging Ingress today (direct to the backends).
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-nginx-registration
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - registrering.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: fdk-nginx-registration-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-nginx-search
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - www.staging.fellesdatakatalog.digdir.no
+    - nap.staging.fellesdatakatalog.digdir.no
+    - staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: fdk-nginx-search-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: concept-catalog
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - concept-catalog.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: concept-catalog-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-admin-gui
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - admin.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: fdk-admin-gui-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: organization-catalog
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - organization-catalogue.staging.fellesdatakatalog.digdir.no
+    - organization-catalog.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: organization-catalog-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-nginx-dataservices
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - dataservice-catalog.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: fdk-nginx-dataservices-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: terms-and-conditions
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - terms.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: terms-and-conditions-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-nginx-organization-bff
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - organization-bff.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: fdk-nginx-organization-bff-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-mqa-scoring-api
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - mqa-scoring-api.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: fdk-mqa-scoring-api-gateway
+          port: 8082
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: dataset-catalog
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - dataset-catalog.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: dataset-catalog-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-nginx-community
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - community.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: fdk-nginx-community-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-nginx-sparql
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - sparql.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: fdk-nginx-sparql-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-comments-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging
+      namespace: gateway-staging
+      sectionName: https
+  hostnames:
+    - catalog-comments.staging.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: catalog-comments-service-gateway
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
