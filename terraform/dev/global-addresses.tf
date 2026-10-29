@@ -44,3 +44,20 @@ resource "google_compute_global_address" "addresses" {
   name    = "${var.project_id}-${each.key}"
   project = var.project_id
 }
+
+# Temporary addresses for the Gateway API migration (#310). The staging Gateways
+# are built and verified on these, then swap addresses with the Ingresses at
+# cutover. Remove once the old Ingresses are deleted.
+resource "google_compute_global_address" "gateway_temporary" {
+  for_each = {
+    "gateway-staging-v4"        = "IPV4"
+    "gateway-staging-v6"        = "IPV6"
+    "gateway-staging-subnet-v4" = "IPV4"
+    "gateway-staging-subnet-v6" = "IPV6"
+  }
+
+  address_type = "EXTERNAL"
+  ip_version   = each.value
+  name         = "${var.project_id}-${each.key}"
+  project      = var.project_id
+}
