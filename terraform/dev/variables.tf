@@ -74,6 +74,16 @@ variable "cloud_armor_trusted_ranges" {
   description = "Source ranges exempt from Cloud Armor throttling - kept in Secret Manager"
   sensitive   = true
   type        = list(string)
+
+  # Cloud Armor takes at most 10 ranges per rule.
+  validation {
+    condition = (
+      length(var.cloud_armor_trusted_ranges) >= 1 &&
+      length(var.cloud_armor_trusted_ranges) <= 10 &&
+      alltrue([for r in var.cloud_armor_trusted_ranges : can(cidrhost(r, 0)) && !can(regex("/0+$", r))])
+    )
+    error_message = "cloud_armor_trusted_ranges must hold 1-10 CIDR ranges, none of them /0."
+  }
 }
 
 # PostgreSQL Database Configuration

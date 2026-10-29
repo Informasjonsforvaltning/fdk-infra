@@ -95,7 +95,6 @@ resource "google_compute_security_policy" "services" {
     }
   }
 
-  # Known clients of catalog-view-api need at most a few requests per hour.
   rule {
     action      = "rate_based_ban"
     description = "Request limit for catalog-view.api.staging.fellesdatakatalog.digdir.no"
