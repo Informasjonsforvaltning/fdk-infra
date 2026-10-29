@@ -1,0 +1,27 @@
+# Minimum TLS version for the Gateways (terraform/dev/ssl-policy.tf).
+---
+apiVersion: networking.gke.io/v1
+kind: GCPGatewayPolicy
+metadata:
+  name: staging
+  namespace: gateway-staging
+spec:
+  default:
+    sslPolicy: digdir-fdk-dev-tls
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: staging
+---
+apiVersion: networking.gke.io/v1
+kind: GCPGatewayPolicy
+metadata:
+  name: staging-edge
+  namespace: gateway-staging
+spec:
+  default:
+    sslPolicy: digdir-fdk-dev-tls
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: staging-edge

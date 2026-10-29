@@ -1,0 +1,19 @@
+# Second Service for the controller: the edge Ingress uses the chart's Service,
+# and a Service cannot back both an Ingress and a Gateway (#310).
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-gateway
+  namespace: nginx
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: nginx-nginx
+    app.kubernetes.io/name: ingress-nginx

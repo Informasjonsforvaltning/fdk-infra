@@ -1,0 +1,17 @@
+# Keycloak only serves HTTPS. Its Service is created by the operator, so the
+# protocol is set here instead of with appProtocol on the port.
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: BackendTLSPolicy
+metadata:
+  name: keycloak-service
+  namespace: staging
+spec:
+  targetRefs:
+    - group: ""
+      kind: Service
+      name: keycloak-service
+      sectionName: https
+  validation:
+    hostname: auth.staging.fellesdatakatalog.digdir.no
+    wellKnownCACertificates: System
