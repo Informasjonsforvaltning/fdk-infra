@@ -69,6 +69,13 @@ variable "cloud_armor_policies" {
   }))
 }
 
+# Sources exempt from the per-host request limits
+variable "cloud_armor_trusted_ranges" {
+  description = "Source ranges exempt from Cloud Armor throttling - kept in Secret Manager"
+  sensitive   = true
+  type        = list(string)
+}
+
 # PostgreSQL Database Configuration
 variable "database_config" {
   description = "PostgreSQL database configuration - kept in Secret Manager"

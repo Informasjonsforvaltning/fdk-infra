@@ -39,5 +39,18 @@ resource "google_compute_security_policy" "sparql" {
     priority = 1000
   }
 
+  rule {
+    action      = "deny(404)"
+    description = "Health and metrics endpoints are internal"
+
+    match {
+      expr {
+        expression = local.cloud_armor_internal_paths
+      }
+    }
+
+    priority = 1200
+  }
+
   type = "CLOUD_ARMOR"
 }
