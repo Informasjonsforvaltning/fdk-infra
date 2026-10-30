@@ -46,7 +46,7 @@ resource "google_compute_security_policy" "auth" {
 
     match {
       expr {
-        expression = "request.path.urlDecode().lower().matches('^/+metrics|/+realms/+master/+protocol/+openid-connect/+userinfo|/[.][.]?(/|$)|;')"
+        expression = "request.path.urlDecode().lower().matches('^/+metrics|/+realms/+master/+protocol/+openid-connect/+userinfo|/[.][.]?(?:/|$)|;')"
       }
     }
 

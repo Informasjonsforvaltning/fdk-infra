@@ -1,9 +1,9 @@
 locals {
   # Health and metrics endpoints are for the cluster only.
-  cloud_armor_internal_paths = "request.path.urlDecode().lower().matches('^/+(ping|ready|prometheus|actuator|metrics)|/(ping|ready|prometheus|actuator|metrics)([/;.]|$)')"
+  cloud_armor_internal_paths = "request.path.urlDecode().lower().matches('^/+(?:ping|ready|prometheus|actuator|metrics)|/(?:ping|ready|prometheus|actuator|metrics)(?:[/;.]|$)')"
 
   # Forum paths carry user-chosen slugs that can contain these words.
-  cloud_armor_internal_path_prefixes = "request.path.urlDecode().lower().matches('^/+(ping|ready|prometheus|actuator|metrics)|/[.][.]?(/|$)|;')"
+  cloud_armor_internal_path_prefixes = "request.path.urlDecode().lower().matches('^/+(?:ping|ready|prometheus|actuator|metrics)|/[.][.]?(?:/|$)|;')"
 
   # Per-host request limits carried over from the ingress-nginx annotations,
   # counted per client IP: limit-rps becomes count per 10 s, limit-rpm count
