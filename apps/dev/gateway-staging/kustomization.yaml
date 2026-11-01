@@ -14,3 +14,4 @@ resources:
   - policies-gateway.yaml
   - policies-nginx.yaml
   - policies-staging.yaml
+  - probes.yaml
