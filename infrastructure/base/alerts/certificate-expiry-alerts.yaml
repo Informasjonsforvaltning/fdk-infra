@@ -13,7 +13,8 @@ spec:
   groups:
     - name: certificate.expiry.rules
       rules:
-        # Source metric is the kubernetes-ingresses blackbox job. A hostname is
+        # Source metric is the kubernetes-ingresses blackbox job, plus the
+        # Probe for hosts served by a Gateway. A hostname is
         # probed once per scheme and once per ingress, so `instance` — the full
         # probe URL — holds several entries for the same certificate. Grouping
         # on the hostname pulled out of it collapses those into one alert.

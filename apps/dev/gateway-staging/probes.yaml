@@ -1,0 +1,62 @@
+# Blackbox probes for the staging hosts. Prometheus discovers probe targets
+# from Ingresses but not from HTTPRoutes, so each hostname in the routes gets
+# an https://<host>/ target here. The certificate expiry alerts read these probes.
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: staging-hosts
+  namespace: staging
+  labels:
+    # Required by the Prometheus probeSelector.
+    release: monitoring-kube-prometheus-stack
+spec:
+  interval: 1m
+  module: http_2xx
+  prober:
+    url: monitoring-blackbox-exporter-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - https://access-request.api.staging.fellesdatakatalog.digdir.no/
+        - https://admin.staging.fellesdatakatalog.digdir.no/
+        - https://aisearch.api.staging.fellesdatakatalog.digdir.no/
+        - https://auth.staging.fellesdatakatalog.digdir.no/
+        - https://begrepskatalog.staging.fellesdatakatalog.digdir.no/
+        - https://catalog-admin-service.staging.fellesdatakatalog.digdir.no/
+        - https://catalog-admin.staging.fellesdatakatalog.digdir.no/
+        - https://catalog-comments.staging.fellesdatakatalog.digdir.no/
+        - https://catalog-history.staging.fellesdatakatalog.digdir.no/
+        - https://catalog-portal.staging.fellesdatakatalog.digdir.no/
+        - https://catalog-view.api.staging.fellesdatakatalog.digdir.no/
+        - https://catalog.api.staging.fellesdatakatalog.digdir.no/
+        - https://catalogs.staging.fellesdatakatalog.digdir.no/
+        - https://cms.staging.fellesdatakatalog.digdir.no/
+        - https://community.staging.fellesdatakatalog.digdir.no/
+        - https://concept-catalog.staging.fellesdatakatalog.digdir.no/
+        - https://data-service-catalog.api.staging.fellesdatakatalog.digdir.no/
+        - https://dataservice-catalog.staging.fellesdatakatalog.digdir.no/
+        - https://dataset-catalog.staging.fellesdatakatalog.digdir.no/
+        - https://datasettkatalog.staging.fellesdatakatalog.digdir.no/
+        - https://datatjenestekatalog.staging.fellesdatakatalog.digdir.no/
+        - https://events.staging.fellesdatakatalog.digdir.no/
+        - https://harvest-admin.api.staging.fellesdatakatalog.digdir.no/
+        - https://informasjonsmodellkatalog.staging.fellesdatakatalog.digdir.no/
+        - https://information-models.staging.fellesdatakatalog.digdir.no/
+        - https://mqa-scoring-api.staging.fellesdatakatalog.digdir.no/
+        - https://nap.staging.fellesdatakatalog.digdir.no/
+        - https://organization-bff.staging.fellesdatakatalog.digdir.no/
+        - https://organization-catalog.staging.fellesdatakatalog.digdir.no/
+        - https://organization-catalogue.staging.fellesdatakatalog.digdir.no/
+        - https://registrering.staging.fellesdatakatalog.digdir.no/
+        - https://resource.api.staging.fellesdatakatalog.digdir.no/
+        - https://search.api.staging.fellesdatakatalog.digdir.no/
+        - https://service-catalog.api.staging.fellesdatakatalog.digdir.no/
+        - https://service-catalog.staging.fellesdatakatalog.digdir.no/
+        - https://services.staging.fellesdatakatalog.digdir.no/
+        - https://skosmos.staging.fellesdatakatalog.digdir.no/
+        - https://sparql.staging.fellesdatakatalog.digdir.no/
+        - https://staging.fellesdatakatalog.digdir.no/
+        - https://statistics.api.staging.fellesdatakatalog.digdir.no/
+        - https://terms.staging.fellesdatakatalog.digdir.no/
+        - https://www.staging.fellesdatakatalog.digdir.no/
