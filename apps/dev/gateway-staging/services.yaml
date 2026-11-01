@@ -1,5 +1,6 @@
 # A Service that a GKE Ingress uses cannot also back a Gateway, so the hosts
 # on the staging Ingress get a copy with the same selector and ports (#310).
+# So does fdk-cms-service, because a Gateway rejects its BackendConfig annotation.
 ---
 apiVersion: v1
 kind: Service
@@ -60,6 +61,21 @@ spec:
       targetPort: 8080
   selector:
     fdk.service: fdk-admin-gui
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-cms-service-gateway
+  namespace: staging
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 1337
+  selector:
+    fdk.service: fdk-cms-service
 ---
 apiVersion: v1
 kind: Service
