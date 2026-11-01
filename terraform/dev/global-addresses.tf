@@ -43,6 +43,11 @@ resource "google_compute_global_address" "addresses" {
 
   name    = "${var.project_id}-${each.key}"
   project = var.project_id
+
+  lifecycle {
+    # DNS points at these addresses, and a released IP may not be available again.
+    prevent_destroy = true
+  }
 }
 
 # Temporary addresses for the Gateway API migration (#310). The staging Gateways
