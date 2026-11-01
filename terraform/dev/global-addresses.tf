@@ -51,14 +51,20 @@ resource "google_compute_global_address" "addresses" {
 }
 
 # Temporary addresses for the Gateway API migration (#310). The staging Gateways
-# are built and verified on these, then swap addresses with the Ingresses at
-# cutover. Remove once the old Ingresses are deleted.
+# are built and verified on the gateway-* addresses. At cutover the Ingresses
+# are moved to the ingress-* addresses, which frees the `addresses` entries for
+# the Gateways (removing the static-ip annotation does not release an address).
+# Remove once the old Ingresses are deleted.
 resource "google_compute_global_address" "gateway_temporary" {
   for_each = {
     "gateway-staging-v4"        = "IPV4"
     "gateway-staging-v6"        = "IPV6"
     "gateway-staging-subnet-v4" = "IPV4"
     "gateway-staging-subnet-v6" = "IPV6"
+    "ingress-staging-v4"        = "IPV4"
+    "ingress-staging-v6"        = "IPV6"
+    "ingress-staging-subnet-v4" = "IPV4"
+    "ingress-staging-subnet-v6" = "IPV6"
   }
 
   address_type = "EXTERNAL"
