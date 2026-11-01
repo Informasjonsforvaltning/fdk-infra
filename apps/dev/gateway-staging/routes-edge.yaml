@@ -1,0 +1,779 @@
+# Staging hosts behind the nginx edge today, now routed directly.
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: access-request-api
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - access-request.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: access-request-api
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-admin-frontend
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - catalog-admin.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-admin-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-admin-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - catalog-admin-service.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-admin-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-backend
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - catalog.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-backend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-history-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - catalog-history.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-history-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-portal-frontend
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - catalog-portal.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-portal-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-view-api
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - catalog-view.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-view-api
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: concept-catalog-frontend
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - begrepskatalog.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: concept-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: data-service-catalog
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - data-service-catalog.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet) and
+    # the HTTP-01 challenges for the cert-manager certificate.
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+        - path:
+            type: PathPrefix
+            value: /.well-known/acme-challenge/
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: data-service-catalog
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: data-service-catalog-frontend
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - datatjenestekatalog.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: data-service-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: dataset-catalog-frontend
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - datasettkatalog.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: dataset-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-cms-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - cms.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-cms-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: nginx-harvester
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - events.staging.fellesdatakatalog.digdir.no
+    - services.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: nginx-harvester
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-harvest-admin-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - harvest-admin.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-harvest-admin-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-llm-search-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - aisearch.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-llm-search-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-resource-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - resource.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-resource-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-search-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - search.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-search-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-statistics-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - statistics.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-statistics-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: information-model-catalog-frontend
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - informasjonsmodellkatalog.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: information-model-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: keycloak-service
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - auth.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet) and
+    # the HTTP-01 challenges for the cert-manager certificate.
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+        - path:
+            type: PathPrefix
+            value: /.well-known/acme-challenge/
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: keycloak-service
+          port: 8443
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: nginx-resource-identificators
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - information-models.staging.fellesdatakatalog.digdir.no
+    - catalogs.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: nginx-resource-identificators
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: service-catalog
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - service-catalog.api.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: service-catalog
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: service-catalog-frontend
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - service-catalog.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: service-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: skosmos
+  namespace: staging
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-staging
+  hostnames:
+    - skosmos.staging.fellesdatakatalog.digdir.no
+  rules:
+    # ingress-nginx answers robots.txt for these hosts (server-snippet).
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: skosmos
+          port: 80
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"

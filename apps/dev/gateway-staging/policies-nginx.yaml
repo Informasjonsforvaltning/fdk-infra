@@ -1,0 +1,33 @@
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: nginx-gateway
+  namespace: nginx
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_NGINX_CONTROLLER}
+  targetRef:
+    group: ""
+    kind: Service
+    name: nginx-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: nginx-gateway
+  namespace: nginx
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /healthz
+  targetRef:
+    group: ""
+    kind: Service
+    name: nginx-gateway

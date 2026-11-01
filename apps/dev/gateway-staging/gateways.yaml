@@ -1,0 +1,94 @@
+# Staging Gateways for the Gateway API migration (#310). They are built on the
+# temporary addresses and swap with the Ingresses at cutover.
+---
+# Replaces the staging Ingress (ingress-staging-v4/v6).
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: staging
+  namespace: gateway-staging
+spec:
+  gatewayClassName: gke-l7-global-external-managed
+  addresses:
+    - type: NamedAddress
+      value: digdir-fdk-dev-gateway-staging-v4
+    - type: NamedAddress
+      value: digdir-fdk-dev-gateway-staging-v6
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: stjerne-staging-fdk-digdir-no-tls
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: staging
+---
+# Replaces the nginx edge Ingress (nginx/nginx-controller). Staging hosts are
+# routed directly; everything else (demo, dev monitoring) goes on to
+# ingress-nginx until demo moves.
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: staging-edge
+  namespace: gateway-staging
+spec:
+  gatewayClassName: gke-l7-global-external-managed
+  addresses:
+    - type: NamedAddress
+      value: digdir-fdk-dev-gateway-staging-subnet-v4
+    - type: NamedAddress
+      value: digdir-fdk-dev-gateway-staging-subnet-v6
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
+    # Staging routes can only claim staging hosts.
+    - name: https-staging
+      port: 443
+      protocol: HTTPS
+      hostname: "*.staging.fellesdatakatalog.digdir.no"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: stjerne-staging-fdk-digdir-no-tls
+          - name: stjerne-api-staging-fdk-digdir-no-tls
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: staging
+    # Everything else goes on to ingress-nginx.
+    - name: https
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        # The first certificate is served to clients that send no SNI.
+        certificateRefs:
+          - name: stjerne-staging-fdk-digdir-no-tls
+          - name: stjerne-api-staging-fdk-digdir-no-tls
+          - name: stjerne-demo-fdk-digdir-no-tls
+          - name: stjerne-api-demo-fdk-digdir-no-tls
+          - name: stjerne-dev-fdk-digdir-no-tls
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: nginx
