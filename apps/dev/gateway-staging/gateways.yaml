@@ -1,5 +1,5 @@
-# Staging Gateways for the Gateway API migration (#310). They hold the addresses
-# DNS points at; the Ingresses they replace are parked on temporary ones.
+# Staging Gateways for the Gateway API migration (#310). They are built on the
+# temporary addresses and swap with the Ingresses at cutover.
 ---
 # Replaces the staging Ingress (ingress-staging-v4/v6).
 apiVersion: gateway.networking.k8s.io/v1
@@ -11,9 +11,9 @@ spec:
   gatewayClassName: gke-l7-global-external-managed
   addresses:
     - type: NamedAddress
-      value: digdir-fdk-dev-staging-v4
+      value: digdir-fdk-dev-gateway-staging-v4
     - type: NamedAddress
-      value: digdir-fdk-dev-staging-v6
+      value: digdir-fdk-dev-gateway-staging-v6
   listeners:
     - name: http
       port: 80
@@ -47,9 +47,9 @@ spec:
   gatewayClassName: gke-l7-global-external-managed
   addresses:
     - type: NamedAddress
-      value: digdir-fdk-dev-staging-subnet-v4
+      value: digdir-fdk-dev-gateway-staging-subnet-v4
     - type: NamedAddress
-      value: digdir-fdk-dev-staging-subnet-v6
+      value: digdir-fdk-dev-gateway-staging-subnet-v6
   listeners:
     - name: http
       port: 80
