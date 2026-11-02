@@ -1,4 +1,5 @@
-# Staging hosts on the edge Gateway, routed directly to their backends.
+# Staging hosts on the edge Gateway. ingress-nginx answers robots.txt, and the
+# HTTP-01 challenges for auth and data-service-catalog.
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
@@ -13,7 +14,6 @@ spec:
   hostnames:
     - access-request.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -45,7 +45,6 @@ spec:
   hostnames:
     - catalog-admin.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -77,7 +76,6 @@ spec:
   hostnames:
     - catalog-admin-service.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -109,7 +107,6 @@ spec:
   hostnames:
     - catalog.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -141,7 +138,6 @@ spec:
   hostnames:
     - catalog-history.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -173,7 +169,6 @@ spec:
   hostnames:
     - catalog-portal.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -205,7 +200,6 @@ spec:
   hostnames:
     - catalog-view.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -237,7 +231,6 @@ spec:
   hostnames:
     - begrepskatalog.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -269,8 +262,6 @@ spec:
   hostnames:
     - data-service-catalog.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet) and
-    # the HTTP-01 challenges for the cert-manager certificate.
     - matches:
         - path:
             type: Exact
@@ -305,7 +296,6 @@ spec:
   hostnames:
     - datatjenestekatalog.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -337,7 +327,6 @@ spec:
   hostnames:
     - datasettkatalog.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -369,7 +358,6 @@ spec:
   hostnames:
     - cms.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -402,7 +390,6 @@ spec:
     - events.staging.fellesdatakatalog.digdir.no
     - services.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -434,7 +421,6 @@ spec:
   hostnames:
     - harvest-admin.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -466,7 +452,6 @@ spec:
   hostnames:
     - aisearch.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -498,7 +483,6 @@ spec:
   hostnames:
     - resource.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -530,7 +514,6 @@ spec:
   hostnames:
     - search.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -562,7 +545,6 @@ spec:
   hostnames:
     - statistics.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -594,7 +576,6 @@ spec:
   hostnames:
     - informasjonsmodellkatalog.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -626,8 +607,6 @@ spec:
   hostnames:
     - auth.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet) and
-    # the HTTP-01 challenges for the cert-manager certificate.
     - matches:
         - path:
             type: Exact
@@ -663,7 +642,6 @@ spec:
     - information-models.staging.fellesdatakatalog.digdir.no
     - catalogs.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -695,7 +673,6 @@ spec:
   hostnames:
     - service-catalog.api.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -727,7 +704,6 @@ spec:
   hostnames:
     - service-catalog.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
@@ -759,7 +735,6 @@ spec:
   hostnames:
     - skosmos.staging.fellesdatakatalog.digdir.no
   rules:
-    # ingress-nginx answers robots.txt for these hosts (server-snippet).
     - matches:
         - path:
             type: Exact
