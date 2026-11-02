@@ -1,0 +1,763 @@
+# Cloud Armor, logging and health check per backend Service. Gateway does not
+# take the health check from the readiness probe.
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: access-request-api
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: access-request-api
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: access-request-api
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: access-request-api
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: catalog-admin-frontend
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_ADMIN}
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-admin-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: catalog-admin-frontend
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /api/ping
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-admin-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: catalog-admin-service
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_ADMIN}
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-admin-service
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: catalog-admin-service
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-admin-service
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: catalog-backend
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-backend
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: catalog-backend
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-backend
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: catalog-history-service
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_ADMIN}
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-history-service
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: catalog-history-service
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-history-service
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: catalog-portal-frontend
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-portal-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: catalog-portal-frontend
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /api/ping
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-portal-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: catalog-view-api
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+    timeoutSec: 60
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-view-api
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: catalog-view-api
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-view-api
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: concept-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: concept-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: concept-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /api/ping
+  targetRef:
+    group: ""
+    kind: Service
+    name: concept-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: data-service-catalog
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: data-service-catalog
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: data-service-catalog
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: data-service-catalog
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: data-service-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: data-service-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: data-service-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /api/ping
+  targetRef:
+    group: ""
+    kind: Service
+    name: data-service-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: dataset-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: dataset-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: dataset-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /api/ping
+  targetRef:
+    group: ""
+    kind: Service
+    name: dataset-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-harvest-admin-service
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_HARVESTERS}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-harvest-admin-service
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-harvest-admin-service
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /actuator/health/readiness
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-harvest-admin-service
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-llm-search-service
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-llm-search-service
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-llm-search-service
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-llm-search-service
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-resource-service
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-resource-service
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-resource-service
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /actuator/health/readiness
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-resource-service
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-search-service
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SEARCH}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-search-service
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-search-service
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-search-service
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-statistics-service
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-statistics-service
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-statistics-service
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-statistics-service
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: information-model-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: information-model-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: information-model-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /api/ping
+  targetRef:
+    group: ""
+    kind: Service
+    name: information-model-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: keycloak-service
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_AUTH}
+    sessionAffinity:
+      type: GENERATED_COOKIE
+  targetRef:
+    group: ""
+    kind: Service
+    name: keycloak-service
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: keycloak-service
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTPS
+      httpsHealthCheck:
+        port: 9000
+        portSpecification: USE_FIXED_PORT
+        requestPath: /health/ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: keycloak-service
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: nginx-harvester
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_HARVESTERS}
+  targetRef:
+    group: ""
+    kind: Service
+    name: nginx-harvester
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: nginx-harvester
+  namespace: demo
+spec:
+  default:
+    config:
+      type: TCP
+      tcpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+  targetRef:
+    group: ""
+    kind: Service
+    name: nginx-harvester
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: nginx-resource-identificators
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: nginx-resource-identificators
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: nginx-resource-identificators
+  namespace: demo
+spec:
+  default:
+    config:
+      type: TCP
+      tcpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+  targetRef:
+    group: ""
+    kind: Service
+    name: nginx-resource-identificators
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: service-catalog
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: service-catalog
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: service-catalog
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /actuator/health/readiness
+  targetRef:
+    group: ""
+    kind: Service
+    name: service-catalog
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: service-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: service-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: service-catalog-frontend
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /api/ping
+  targetRef:
+    group: ""
+    kind: Service
+    name: service-catalog-frontend
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: skosmos
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: skosmos
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: skosmos
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /nb/
+  targetRef:
+    group: ""
+    kind: Service
+    name: skosmos

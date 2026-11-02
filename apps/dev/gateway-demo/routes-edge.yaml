@@ -1,0 +1,723 @@
+# Demo hosts on the edge Gateway. ingress-nginx answers robots.txt, and the
+# HTTP-01 challenges for auth and data-service-catalog.
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: access-request-api
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-access-request.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: access-request-api
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-admin-frontend
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-catalog-admin.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-admin-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-admin-service
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-catalog-admin-service.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-admin-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-backend
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-catalog.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-backend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-history-service
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-catalog-history.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-history-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-portal-frontend
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-catalog-portal.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-portal-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: catalog-view-api
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-catalog-view.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: catalog-view-api
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: concept-catalog-frontend
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-begrepskatalog.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: concept-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: data-service-catalog
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-data-service-catalog.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+        - path:
+            type: PathPrefix
+            value: /.well-known/acme-challenge/
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: data-service-catalog
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: data-service-catalog-frontend
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-datatjenestekatalog.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: data-service-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: dataset-catalog-frontend
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-datasettkatalog.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: dataset-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: nginx-harvester
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-events.demo.fellesdatakatalog.digdir.no
+    - gw-services.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: nginx-harvester
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-harvest-admin-service
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-harvest-admin.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-harvest-admin-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-llm-search-service
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-aisearch.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-llm-search-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-resource-service
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-resource.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-resource-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-search-service
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-search.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-search-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: fdk-statistics-service
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-statistics.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: fdk-statistics-service
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: information-model-catalog-frontend
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-informasjonsmodellkatalog.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: information-model-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: keycloak-service
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-auth.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+        - path:
+            type: PathPrefix
+            value: /.well-known/acme-challenge/
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: keycloak-service
+          port: 8443
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: nginx-resource-identificators
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-information-models.demo.fellesdatakatalog.digdir.no
+    - gw-catalogs.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: nginx-resource-identificators
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: service-catalog
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-service-catalog.api.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: service-catalog
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: service-catalog-frontend
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-service-catalog.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: service-catalog-frontend
+          port: 8080
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: skosmos
+  namespace: demo
+spec:
+  parentRefs:
+    - name: staging-edge
+      namespace: gateway-staging
+      sectionName: https-demo
+  hostnames:
+    - gw-skosmos.demo.fellesdatakatalog.digdir.no
+  rules:
+    - matches:
+        - path:
+            type: Exact
+            value: /robots.txt
+      backendRefs:
+        - name: nginx-gateway
+          namespace: nginx
+          port: 80
+    - backendRefs:
+        - name: skosmos
+          port: 80
+      filters:
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            set:
+              - name: Strict-Transport-Security
+                value: "max-age=31536000; includeSubDomains"

@@ -1,0 +1,44 @@
+# Prometheus discovers probe targets from Ingresses, not HTTPRoutes, so the
+# demo hosts on the edge Gateway are listed here for the certificate alerts.
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: demo-hosts
+  namespace: demo
+  labels:
+    # Required by the Prometheus probeSelector.
+    release: monitoring-kube-prometheus-stack
+spec:
+  interval: 1m
+  module: http_2xx
+  prober:
+    url: monitoring-blackbox-exporter-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - https://access-request.api.demo.fellesdatakatalog.digdir.no/
+        - https://aisearch.api.demo.fellesdatakatalog.digdir.no/
+        - https://auth.demo.fellesdatakatalog.digdir.no/
+        - https://begrepskatalog.demo.fellesdatakatalog.digdir.no/
+        - https://catalog-admin-service.demo.fellesdatakatalog.digdir.no/
+        - https://catalog-admin.demo.fellesdatakatalog.digdir.no/
+        - https://catalog-history.demo.fellesdatakatalog.digdir.no/
+        - https://catalog-portal.demo.fellesdatakatalog.digdir.no/
+        - https://catalog-view.api.demo.fellesdatakatalog.digdir.no/
+        - https://catalog.api.demo.fellesdatakatalog.digdir.no/
+        - https://catalogs.demo.fellesdatakatalog.digdir.no/
+        - https://data-service-catalog.api.demo.fellesdatakatalog.digdir.no/
+        - https://datasettkatalog.demo.fellesdatakatalog.digdir.no/
+        - https://datatjenestekatalog.demo.fellesdatakatalog.digdir.no/
+        - https://events.demo.fellesdatakatalog.digdir.no/
+        - https://harvest-admin.api.demo.fellesdatakatalog.digdir.no/
+        - https://informasjonsmodellkatalog.demo.fellesdatakatalog.digdir.no/
+        - https://information-models.demo.fellesdatakatalog.digdir.no/
+        - https://resource.api.demo.fellesdatakatalog.digdir.no/
+        - https://search.api.demo.fellesdatakatalog.digdir.no/
+        - https://service-catalog.api.demo.fellesdatakatalog.digdir.no/
+        - https://service-catalog.demo.fellesdatakatalog.digdir.no/
+        - https://services.demo.fellesdatakatalog.digdir.no/
+        - https://skosmos.demo.fellesdatakatalog.digdir.no/
+        - https://statistics.api.demo.fellesdatakatalog.digdir.no/

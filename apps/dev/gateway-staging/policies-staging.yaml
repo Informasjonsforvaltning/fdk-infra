@@ -1,6 +1,5 @@
-# Cloud Armor, timeout, logging and health check per backend Service.
-# Unlike Ingress, Gateway does not take the health check from the readiness
-# probe. Policy names are substituted by Flux, as for the BackendConfigs.
+# Cloud Armor, logging and health check per backend Service. Gateway does not
+# take the health check from the readiness probe.
 ---
 apiVersion: networking.gke.io/v1
 kind: GCPBackendPolicy

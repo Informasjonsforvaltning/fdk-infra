@@ -35,8 +35,8 @@ spec:
             matchLabels:
               kubernetes.io/metadata.name: staging
 ---
-# Replaces the nginx edge Ingress (nginx/nginx-controller). Staging hosts are
-# routed directly; everything else (demo, dev monitoring) goes on to
+# Replaces the nginx edge Ingress (nginx/nginx-controller). Staging and demo
+# hosts are routed directly; everything else (dev monitoring) goes on to
 # ingress-nginx.
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
@@ -73,6 +73,22 @@ spec:
           selector:
             matchLabels:
               kubernetes.io/metadata.name: staging
+    # Demo routes can only claim demo hosts.
+    - name: https-demo
+      port: 443
+      protocol: HTTPS
+      hostname: "*.demo.fellesdatakatalog.digdir.no"
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: stjerne-demo-fdk-digdir-no-tls
+          - name: stjerne-api-demo-fdk-digdir-no-tls
+      allowedRoutes:
+        namespaces:
+          from: Selector
+          selector:
+            matchLabels:
+              kubernetes.io/metadata.name: demo
     # Everything else goes on to ingress-nginx.
     - name: https
       port: 443
