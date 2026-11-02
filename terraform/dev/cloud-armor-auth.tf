@@ -25,7 +25,8 @@ resource "google_compute_security_policy" "auth" {
     priority = 2147483647
   }
 
-  # Keycloak sits behind the nginx edge today and keeps the same WAF rules.
+  # Reuses the nginx-controller WAF expression, so Keycloak gets the same rules
+  # as on ingress-nginx.
   rule {
     action = "deny(403)"
 
@@ -39,7 +40,7 @@ resource "google_compute_security_policy" "auth" {
     priority = 1000
   }
 
-  # Same paths the Keycloak Ingress server-snippet blocks today.
+  # The paths the Keycloak Ingress server-snippet blocks, plus traversal and ';'.
   rule {
     action      = "deny(404)"
     description = "Keycloak metrics and master realm userinfo are internal"

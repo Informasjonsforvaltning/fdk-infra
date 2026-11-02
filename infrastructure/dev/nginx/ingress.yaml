@@ -1,5 +1,4 @@
-# Parked on temporary addresses: the staging-edge Gateway holds the fixed ones
-# after the cutover (#310).
+# Parked on temporary addresses; the staging-edge Gateway holds the fixed ones.
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress

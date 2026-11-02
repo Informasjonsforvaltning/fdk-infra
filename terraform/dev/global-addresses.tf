@@ -50,11 +50,10 @@ resource "google_compute_global_address" "addresses" {
   }
 }
 
-# Temporary addresses for the Gateway API migration (#310). The staging Gateways
-# are built and verified on the gateway-* addresses. At cutover the Ingresses
-# are moved to the ingress-* addresses, which frees the `addresses` entries for
-# the Gateways (removing the static-ip annotation does not release an address).
-# Remove once the old Ingresses are deleted.
+# Temporary addresses. The GKE Ingresses are parked on the ingress-* entries so
+# that the fixed `addresses` are free for the Gateways; removing the static-ip
+# annotation does not release an address. The gateway-* entries are unused.
+# Remove the whole set once the GKE Ingresses are deleted.
 resource "google_compute_global_address" "gateway_temporary" {
   for_each = {
     "gateway-staging-v4"        = "IPV4"

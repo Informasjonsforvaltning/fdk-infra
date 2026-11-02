@@ -5,9 +5,9 @@ locals {
   # Forum paths carry user-chosen slugs that can contain these words.
   cloud_armor_internal_path_prefixes = "request.path.urlDecode().lower().matches('^/+(?:ping|ready|prometheus|actuator|metrics)|/[.][.]?(?:/|$)|;')"
 
-  # Per-host request limits carried over from the ingress-nginx annotations,
-  # counted per client IP: limit-rps becomes count per 10 s, limit-rpm count
-  # per 60 s. Staging only for now; demo follows when it moves to Gateway.
+  # Per-host request limits matching the ingress-nginx annotations, counted per
+  # client IP: limit-rps becomes count per 10 s, limit-rpm count per 60 s.
+  # Staging hosts only; demo hosts are limited by ingress-nginx.
   cloud_armor_throttles = {
     admin = {
       "catalog-admin-service.staging.fellesdatakatalog.digdir.no" = { priority = 1400, count = 60, interval_sec = 10 }

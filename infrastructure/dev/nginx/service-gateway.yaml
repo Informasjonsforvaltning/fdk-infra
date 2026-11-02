@@ -1,5 +1,5 @@
 # Second Service for the controller: the edge Ingress uses the chart's Service,
-# and a Service cannot back both an Ingress and a Gateway (#310).
+# and a Service cannot back both an Ingress and a Gateway.
 ---
 apiVersion: v1
 kind: Service
