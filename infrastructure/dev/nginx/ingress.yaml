@@ -1,3 +1,5 @@
+# Parked on temporary addresses: the staging-edge Gateway holds the fixed ones
+# after the cutover (#310).
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -7,7 +9,7 @@ metadata:
   annotations:
     # See frontend-config.yaml.
     networking.gke.io/v1beta1.FrontendConfig: nginx-controller
-    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v4
+    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-ingress-staging-subnet-v4
 spec:
   tls:
     - secretName: stjerne-staging-fdk-digdir-no-tls
@@ -46,7 +48,7 @@ metadata:
   annotations:
     # See frontend-config.yaml.
     networking.gke.io/v1beta1.FrontendConfig: nginx-controller
-    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-staging-subnet-v6
+    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-ingress-staging-subnet-v6
 spec:
   tls:
     - secretName: stjerne-staging-fdk-digdir-no-tls
