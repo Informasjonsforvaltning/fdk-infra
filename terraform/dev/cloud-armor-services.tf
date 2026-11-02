@@ -95,32 +95,39 @@ resource "google_compute_security_policy" "services" {
     }
   }
 
-  rule {
-    action      = "rate_based_ban"
-    description = "Request limit for catalog-view.api.staging.fellesdatakatalog.digdir.no"
-
-    match {
-      expr {
-        expression = "request.headers['host'].lower().startsWith('catalog-view.api.staging.fellesdatakatalog.digdir.no')"
-      }
+  dynamic "rule" {
+    for_each = {
+      "catalog-view.api.staging.fellesdatakatalog.digdir.no" = 1500
+      "catalog-view.api.demo.fellesdatakatalog.digdir.no"    = 1501
     }
 
-    priority = 1500
+    content {
+      action      = "rate_based_ban"
+      description = "Request limit for ${rule.key}"
 
-    rate_limit_options {
-      ban_duration_sec = 3600
-      conform_action   = "allow"
-      enforce_on_key   = "IP"
-      exceed_action    = "deny(429)"
-
-      ban_threshold {
-        count        = 20
-        interval_sec = 3600
+      match {
+        expr {
+          expression = "request.headers['host'].lower().startsWith('${rule.key}')"
+        }
       }
 
-      rate_limit_threshold {
-        count        = 10
-        interval_sec = 60
+      priority = rule.value
+
+      rate_limit_options {
+        ban_duration_sec = 3600
+        conform_action   = "allow"
+        enforce_on_key   = "IP"
+        exceed_action    = "deny(429)"
+
+        ban_threshold {
+          count        = 20
+          interval_sec = 3600
+        }
+
+        rate_limit_threshold {
+          count        = 10
+          interval_sec = 60
+        }
       }
     }
   }
