@@ -1,4 +1,4 @@
-# Staging hosts behind the nginx edge today, now routed directly.
+# Staging hosts on the edge Gateway, routed directly to their backends.
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute

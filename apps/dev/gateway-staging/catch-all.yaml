@@ -1,5 +1,5 @@
 # Hosts with no route of their own on the edge Gateway (demo, dev monitoring)
-# go on to ingress-nginx, as they do from the edge Ingress today.
+# go on to ingress-nginx.
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute

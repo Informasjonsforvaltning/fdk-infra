@@ -23,20 +23,3 @@ spec:
     serviceMonitor:
       enabled: true
       targets:
-#
-# TODO: TEST Probe
-#
-# kind: Probe
-# apiVersion: monitoring.coreos.com/v1
-# metadata:
-#   name: probes
-#   namespace: monitoring
-# spec:
-#   interval: 60s
-#   module: http_2xx
-#   prober:
-#     url: monitoring-blackbox-exporter-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
-#   targets:
-#     staticConfig:
-#       static:
-#       - https://google.com/

@@ -1,4 +1,4 @@
-# Hosts on the staging Ingress today (direct to the backends).
+# Staging hosts on the staging Gateway, routed directly to their backends.
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
