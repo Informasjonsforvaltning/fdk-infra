@@ -52,3 +52,26 @@ spec:
               The certificate served for {{ $labels.host }} expires in {{
               $value | humanizeDuration }}. Clients will fail TLS verification
               when it does.
+        # An expired or hostname-mismatched certificate fails the handshake, so
+        # no certificate is reported and the expiry alerts above stay silent.
+        # The probe cannot tell that from no answer (status code 0). The load
+        # balancer answers even with the backend down, so 0 on every HTTPS probe
+        # of a host means TLS failure, a missing load balancer frontend, DNS
+        # failure or a response slower than the probe timeout.
+        - alert: HTTPSNoResponse
+          expr: |
+            max by (host) (
+              label_replace(
+                probe_http_status_code{instance=~"https://.*"},
+                "host", "$1", "instance", "https?://([^/]+).*"
+              )
+            ) == 0
+          for: 15m
+          labels:
+            severity: critical
+          annotations:
+            summary: HTTPS host gives no response
+            description: >-
+              No HTTPS probe of {{ $labels.host }} has received a response for
+              15 minutes. The certificate may be expired or not match the
+              hostname, or the host does not answer.
