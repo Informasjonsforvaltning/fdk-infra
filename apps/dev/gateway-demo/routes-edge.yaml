@@ -12,7 +12,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-access-request.api.demo.fellesdatakatalog.digdir.no
+    - access-request.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -43,7 +43,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-catalog-admin.demo.fellesdatakatalog.digdir.no
+    - catalog-admin.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -74,7 +74,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-catalog-admin-service.demo.fellesdatakatalog.digdir.no
+    - catalog-admin-service.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -105,7 +105,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-catalog.api.demo.fellesdatakatalog.digdir.no
+    - catalog.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -136,7 +136,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-catalog-history.demo.fellesdatakatalog.digdir.no
+    - catalog-history.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -167,7 +167,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-catalog-portal.demo.fellesdatakatalog.digdir.no
+    - catalog-portal.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -198,7 +198,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-catalog-view.api.demo.fellesdatakatalog.digdir.no
+    - catalog-view.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -229,7 +229,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-begrepskatalog.demo.fellesdatakatalog.digdir.no
+    - begrepskatalog.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -260,7 +260,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-data-service-catalog.api.demo.fellesdatakatalog.digdir.no
+    - data-service-catalog.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -294,7 +294,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-datatjenestekatalog.demo.fellesdatakatalog.digdir.no
+    - datatjenestekatalog.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -325,7 +325,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-datasettkatalog.demo.fellesdatakatalog.digdir.no
+    - datasettkatalog.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -356,8 +356,8 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-events.demo.fellesdatakatalog.digdir.no
-    - gw-services.demo.fellesdatakatalog.digdir.no
+    - events.demo.fellesdatakatalog.digdir.no
+    - services.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -388,7 +388,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-harvest-admin.api.demo.fellesdatakatalog.digdir.no
+    - harvest-admin.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -419,7 +419,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-aisearch.api.demo.fellesdatakatalog.digdir.no
+    - aisearch.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -450,7 +450,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-resource.api.demo.fellesdatakatalog.digdir.no
+    - resource.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -481,7 +481,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-search.api.demo.fellesdatakatalog.digdir.no
+    - search.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -512,7 +512,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-statistics.api.demo.fellesdatakatalog.digdir.no
+    - statistics.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -543,7 +543,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-informasjonsmodellkatalog.demo.fellesdatakatalog.digdir.no
+    - informasjonsmodellkatalog.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -574,7 +574,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-auth.demo.fellesdatakatalog.digdir.no
+    - auth.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -608,8 +608,8 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-information-models.demo.fellesdatakatalog.digdir.no
-    - gw-catalogs.demo.fellesdatakatalog.digdir.no
+    - information-models.demo.fellesdatakatalog.digdir.no
+    - catalogs.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -640,7 +640,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-service-catalog.api.demo.fellesdatakatalog.digdir.no
+    - service-catalog.api.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -671,7 +671,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-service-catalog.demo.fellesdatakatalog.digdir.no
+    - service-catalog.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
@@ -702,7 +702,7 @@ spec:
       namespace: gateway-staging
       sectionName: https-demo
   hostnames:
-    - gw-skosmos.demo.fellesdatakatalog.digdir.no
+    - skosmos.demo.fellesdatakatalog.digdir.no
   rules:
     - matches:
         - path:
