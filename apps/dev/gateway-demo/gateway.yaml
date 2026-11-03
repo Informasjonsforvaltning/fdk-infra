@@ -9,9 +9,9 @@ spec:
   gatewayClassName: gke-l7-global-external-managed
   addresses:
     - type: NamedAddress
-      value: digdir-fdk-dev-gateway-demo-v4
+      value: digdir-fdk-dev-demo-v4
     - type: NamedAddress
-      value: digdir-fdk-dev-gateway-demo-v6
+      value: digdir-fdk-dev-demo-v6
   listeners:
     - name: http
       port: 80
