@@ -1,0 +1,398 @@
+# Cloud Armor, logging and health check per backend Service. Gateway does not
+# take the health check from the readiness probe.
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: catalog-comments-service-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-comments-service-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: catalog-comments-service-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: catalog-comments-service-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: concept-catalog-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: concept-catalog-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: concept-catalog-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /actuator/health
+  targetRef:
+    group: ""
+    kind: Service
+    name: concept-catalog-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: dataset-catalog-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: dataset-catalog-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: dataset-catalog-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: dataset-catalog-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-admin-gui-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_ADMIN}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-admin-gui-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-admin-gui-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-admin-gui-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-mqa-scoring-api-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-mqa-scoring-api-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-mqa-scoring-api-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-mqa-scoring-api-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-nginx-dataservices-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-dataservices-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-nginx-dataservices-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /health
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-dataservices-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-nginx-organization-bff-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_BFF}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-organization-bff-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-nginx-organization-bff-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-organization-bff-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-nginx-registration-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_REGISTRATION}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-registration-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-nginx-registration-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /health
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-registration-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-nginx-search-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SEARCH}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-search-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-nginx-search-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-search-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: fdk-nginx-sparql-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SPARQL}
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-sparql-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: fdk-nginx-sparql-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: fdk-nginx-sparql-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: organization-catalog-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: organization-catalog-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: organization-catalog-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: organization-catalog-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: GCPBackendPolicy
+metadata:
+  name: terms-and-conditions-gateway
+  namespace: demo
+spec:
+  default:
+    logging:
+      enabled: true
+      sampleRate: 1000000
+    securityPolicy: ${CLOUD_ARMOR_POLICY_SERVICES}
+  targetRef:
+    group: ""
+    kind: Service
+    name: terms-and-conditions-gateway
+---
+apiVersion: networking.gke.io/v1
+kind: HealthCheckPolicy
+metadata:
+  name: terms-and-conditions-gateway
+  namespace: demo
+spec:
+  default:
+    config:
+      type: HTTP
+      httpHealthCheck:
+        portSpecification: USE_SERVING_PORT
+        requestPath: /ready
+  targetRef:
+    group: ""
+    kind: Service
+    name: terms-and-conditions-gateway
