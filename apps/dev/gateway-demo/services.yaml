@@ -1,0 +1,182 @@
+# A Service that a GKE Ingress uses cannot also back a Gateway, so the hosts
+# on the demo Ingress get a copy with the same selector and ports.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-comments-service-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: catalog-comments-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: concept-catalog-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: concept-catalog
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dataset-catalog-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: dataset-catalog
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-admin-gui-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-admin-gui
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-mqa-scoring-api-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8082
+      protocol: TCP
+      targetPort: 8082
+  selector:
+    fdk.service: fdk-mqa-scoring-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-dataservices-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-dataservices
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-organization-bff-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-organization-bff
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-registration-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-registration
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-search-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-search
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-sparql-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-sparql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: organization-catalog-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: organization-catalog
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: terms-and-conditions-gateway
+  namespace: demo
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: terms-and-conditions
