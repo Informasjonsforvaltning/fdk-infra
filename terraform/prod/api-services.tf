@@ -163,6 +163,14 @@ resource "google_project_service" "networkconnectivity" {
   disable_on_destroy = false
 }
 
+# Gateway backend TLS validation is set up as a server TLS policy.
+resource "google_project_service" "networksecurity" {
+  project = var.project_id
+  service = "networksecurity.googleapis.com"
+
+  disable_on_destroy = false
+}
+
 # Service Management
 resource "google_project_service" "servicemanagement" {
   project = var.project_id
