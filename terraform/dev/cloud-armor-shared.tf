@@ -15,9 +15,11 @@ locals {
       "catalog-admin-service.demo.fellesdatakatalog.digdir.no"    = { priority = 1410, count = 60, interval_sec = 10 }
       "catalog-history.demo.fellesdatakatalog.digdir.no"          = { priority = 1411, count = 10, interval_sec = 10 }
     }
+    # The admin GUI requests the status of every datasource at once when its
+    # list loads, so harvest-admin.api allows more than its annotation.
     harvesters = {
-      "harvest-admin.api.staging.fellesdatakatalog.digdir.no" = { priority = 1400, count = 100, interval_sec = 10 }
-      "harvest-admin.api.demo.fellesdatakatalog.digdir.no"    = { priority = 1410, count = 100, interval_sec = 10 }
+      "harvest-admin.api.staging.fellesdatakatalog.digdir.no" = { priority = 1400, count = 500, interval_sec = 10 }
+      "harvest-admin.api.demo.fellesdatakatalog.digdir.no"    = { priority = 1410, count = 500, interval_sec = 10 }
     }
     registration = {
       "begrepskatalog.staging.fellesdatakatalog.digdir.no" = { priority = 1400, count = 500, interval_sec = 10 }
