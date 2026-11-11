@@ -4,10 +4,10 @@ This directory contains the Keycloak HA cluster configuration for different envi
 
 ## Overview
 
-This directory contains the base configuration for Keycloak HA clusters deployed across different environments:
+This directory contains the Certificate shared by the Keycloak HA clusters in each environment:
 
-- **Staging** (`apps/dev/keycloak-staging/`): 1 instance, minimal resources
-- **Demo** (`apps/dev/keycloak-demo/`): 2 instances, moderate resources
+- **Staging** (`apps/dev/keycloak-staging/`): 3 instances, minimal resources
+- **Demo** (`apps/dev/keycloak-demo/`): 3 instances, minimal resources
 
 ### Production Environment
 
@@ -19,7 +19,7 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 
 - **Domain**: `auth.staging.fellesdatakatalog.digdir.no`
 - **Admin Domain**: `auth.staging.fellesdatakatalog.digdir.no`
-- **Instances**: 1
+- **Instances**: 3
 - **Resources**: 200m-500m CPU, 256Mi-1Gi memory
 - **Database**: External PostgreSQL via secrets
 - **TLS**: Internal CA between the Gateway and Keycloak
@@ -28,8 +28,8 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 
 - **Domain**: `auth.demo.fellesdatakatalog.digdir.no`
 - **Admin Domain**: `auth.demo.fellesdatakatalog.digdir.no`
-- **Instances**: 2
-- **Resources**: 250m-1 CPU, 512Mi-2Gi memory
+- **Instances**: 3
+- **Resources**: 200m-500m CPU, 256Mi-1Gi memory
 - **Database**: External PostgreSQL via secrets
 - **TLS**: Internal CA between the Gateway and Keycloak
 
@@ -40,7 +40,7 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 - **Instances**: 3
 - **Resources**: 1000m-4 CPU, 2Gi-8Gi memory
 - **Database**: External PostgreSQL via secrets
-- **TLS**: Let's Encrypt (production server)
+- **TLS**: Let's Encrypt between ingress-nginx and Keycloak
 
 ## Configuration Structure
 
@@ -49,7 +49,7 @@ Each environment follows this structure:
 ```
 environment/
 ├── kustomization.yaml      # Kustomize configuration
-├── keycloak-patch.yaml     # Environment-specific Keycloak configuration
+├── keycloak.yaml           # Keycloak custom resource for the environment
 └── certificate-patch.yaml  # Environment-specific certificate configuration
 ```
 
@@ -57,8 +57,8 @@ environment/
 
 #### Keycloak Instances
 
-- **Staging**: 1 instance, 200m-500m CPU, 256Mi-1Gi memory
-- **Demo**: 2 instances, 250m-1 CPU, 512Mi-2Gi memory
+- **Staging**: 3 instances, 200m-500m CPU, 256Mi-1Gi memory
+- **Demo**: 3 instances, 200m-500m CPU, 256Mi-1Gi memory
 - **Production**: 3 instances, 1000m-4 CPU, 2Gi-8Gi memory
 
 #### Database
@@ -73,52 +73,40 @@ environment/
 - Non-root container execution
 - Resource limits and requests
 - Health checks and probes
-- **Metrics enabled** (`KC_METRICS_ENABLED: true) but cluster-internal only
-- **Monitoring endpoints cluster-internal only** (not exposed via ingress)
+- **Monitoring endpoints cluster-internal only** (not exposed publicly)
 
 ## TLS Configuration
 
-Keycloak is configured with **dual TLS layers** using cert-manager for both:
+Keycloak is configured with **two TLS layers**:
 
-### **1. External TLS (Ingress Level)**
+### **1. External TLS (Load Balancer Level)**
 
-- **Port 443**: HTTPS access from internet
-- **Certificate**: Managed by cert-manager via ClusterIssuers
-- **Issuers per environment**:
-  - **Staging**: `letsencrypt-dev` (Let's Encrypt production server - internet-facing)
-  - **Demo**: `letsencrypt-dev` (Let's Encrypt production server - internet-facing)
-  - **Production**: `letsencrypt-prod` (Let's Encrypt production server)
+- **Port 443**: HTTPS access from internet, terminated at the Google load balancer
+- **Staging** and **Demo**: the certificates on the `staging-edge` Gateway (`apps/dev/gateway-staging/`)
+- **Production**: the certificate on the production Ingress (`infrastructure/prod/ingress/`)
 
 ### **2. Internal TLS (Pod Level)**
 
-- **Port 8443**: HTTPS communication between ingress and Keycloak pods
+- **Port 8443**: HTTPS from the Gateway (Staging and Demo) or ingress-nginx (Production) to the Keycloak pods
 - **Certificate**: `keycloak-internal-tls` managed by cert-manager
 - **Issuers per environment**:
   - **Staging** and **Demo**: `internal-ca`, which the Gateway trusts through its BackendTLSPolicy
   - **Production**: `letsencrypt-prod`
-- **Benefits**: End-to-end encryption, no plain HTTP in cluster
 
 ## Prerequisites
 
 1. **Keycloak Operator**: Must be deployed in infrastructure first
 2. **External Database**: PostgreSQL database must be accessible
-3. **TLS Certificates**: Valid certificates for ingress
+3. **TLS Certificates**: cert-manager with the issuers listed above
 4. **External Secrets**: Database credentials managed via external secret management
 
 ## Deployment
 
-The Keycloak clusters are deployed via Flux CD:
+Flux deploys each environment through its Kustomization, which depends on the Keycloak operator for that environment:
 
-```bash
-# Staging
-flux create kustomization keycloak-staging --source=flux-system --path=./apps/dev/keycloak-staging
-
-# Demo
-flux create kustomization keycloak-demo --source=flux-system --path=./apps/dev/keycloak-demo
-
-# Production
-flux create kustomization keycloak --source=flux-system --path=./apps/prod/keycloak
-```
+- **Staging**: `apps/dev/keycloak-staging.yaml`
+- **Demo**: `apps/dev/keycloak-demo.yaml`
+- **Production**: `apps/prod/keycloak.yaml`
 
 ## Access URLs
 
@@ -129,14 +117,13 @@ flux create kustomization keycloak --source=flux-system --path=./apps/prod/keycl
 ## Monitoring
 
 - Health checks: `/health/ready`
-- Metrics: `/metrics` (enabled, cluster-internal only)
 - Logs: Available via kubectl logs (cluster-internal access only)
-- **Security Note**: Sensitive endpoints (/metrics, /admin, /realms/master/protocol/openid-connect/userinfo) are explicitly blocked at the ingress level with NGINX server-snippet
+- **Security Note**: `/metrics` and the master realm's userinfo endpoint are blocked before they reach Keycloak
 
 ## Troubleshooting
 
 1. Check operator status: `kubectl get keycloaks -A`
 2. Check database connectivity: Verify external database connectivity from Keycloak logs
-3. Check Keycloak logs: `kubectl logs -l app=keycloak`
+3. Check Keycloak logs: `kubectl logs -l app=keycloak -n <namespace>`
 4. Verify TLS certificates: `kubectl get secret keycloak-internal-tls -n <namespace>`
-5. Check ingress certificates: `kubectl get certificate -A`
+5. Check certificates: `kubectl get certificate -n <namespace>`
