@@ -1,4 +1,4 @@
-# Replaces the demo Ingress (ingress-demo-v4/v6).
+# Demo Gateway for the direct hosts, on the addresses DNS points at.
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway

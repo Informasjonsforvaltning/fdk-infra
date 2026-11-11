@@ -1,5 +1,5 @@
-# Second Service for the controller: the edge Ingress uses the chart's Service,
-# and a Service cannot back both an Ingress and a Gateway.
+# Second Service for the controller. The chart's Service carries a BackendConfig
+# annotation from the shared base, which a Gateway rejects.
 ---
 apiVersion: v1
 kind: Service
