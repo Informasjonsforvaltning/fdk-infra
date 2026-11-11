@@ -22,7 +22,7 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 - **Instances**: 1
 - **Resources**: 200m-500m CPU, 256Mi-1Gi memory
 - **Database**: External PostgreSQL via secrets
-- **TLS**: Let's Encrypt (production server)
+- **TLS**: Internal CA between the Gateway and Keycloak
 
 ### **Demo Environment** (`apps/dev/keycloak-demo/`)
 
@@ -31,7 +31,7 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 - **Instances**: 2
 - **Resources**: 250m-1 CPU, 512Mi-2Gi memory
 - **Database**: External PostgreSQL via secrets
-- **TLS**: Let's Encrypt (production server)
+- **TLS**: Internal CA between the Gateway and Keycloak
 
 ### **Production Environment** (`apps/prod/keycloak/`)
 
@@ -93,7 +93,9 @@ Keycloak is configured with **dual TLS layers** using cert-manager for both:
 
 - **Port 8443**: HTTPS communication between ingress and Keycloak pods
 - **Certificate**: `keycloak-internal-tls` managed by cert-manager
-- **Same issuers** as external TLS for consistency
+- **Issuers per environment**:
+  - **Staging** and **Demo**: `internal-ca`, which the Gateway trusts through its BackendTLSPolicy
+  - **Production**: `letsencrypt-prod`
 - **Benefits**: End-to-end encryption, no plain HTTP in cluster
 
 ## Prerequisites

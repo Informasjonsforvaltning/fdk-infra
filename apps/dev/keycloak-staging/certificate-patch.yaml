@@ -4,7 +4,14 @@ metadata:
   name: keycloak-internal-tls
   namespace: staging
 spec:
+  # Only the Gateway connects to this certificate, and it trusts the internal
+  # CA, so no public issuer is needed.
   issuerRef:
-    name: letsencrypt-dev # Use dev environment issuer
+    name: internal-ca
+    kind: ClusterIssuer
+  usages:
+    - server auth
+    - digital signature
+    - key encipherment
   dnsNames:
     - auth.staging.fellesdatakatalog.digdir.no
