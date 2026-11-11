@@ -1,4 +1,3 @@
-# prune: disabled — Flux must never delete the loadbalancer frontend.
 # Parked on temporary addresses; the staging Gateway holds the fixed ones.
 ---
 apiVersion: networking.k8s.io/v1
@@ -7,7 +6,6 @@ metadata:
   name: ingress-staging-v4
   namespace: staging
   annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: staging-frontend-config
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-ingress-staging-v4
 spec:
@@ -184,7 +182,6 @@ metadata:
   name: ingress-staging-v6
   namespace: staging
   annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: staging-frontend-config
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-ingress-staging-v6
 spec:
