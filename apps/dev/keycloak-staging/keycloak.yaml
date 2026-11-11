@@ -41,7 +41,6 @@ spec:
           deny all;
           return 404;
         }
-      cert-manager.io/cluster-issuer: letsencrypt-dev
     className: nginx
   readinessProbe:
     periodSeconds: 20
