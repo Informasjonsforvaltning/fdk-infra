@@ -1,4 +1,3 @@
-# prune: disabled — Flux must never delete the loadbalancer frontend.
 # Parked on temporary addresses; the demo Gateway holds the fixed ones.
 ---
 apiVersion: networking.k8s.io/v1
@@ -7,7 +6,6 @@ metadata:
   name: ingress-demo-v4
   namespace: demo
   annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: demo-frontend-config
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-ingress-demo-v4
 spec:
@@ -174,7 +172,6 @@ metadata:
   name: ingress-demo-v6
   namespace: demo
   annotations:
-    kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: demo-frontend-config
     kubernetes.io/ingress.global-static-ip-name: digdir-fdk-dev-ingress-demo-v6
 spec:
