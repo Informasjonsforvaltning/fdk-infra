@@ -4,7 +4,7 @@ This directory contains the Keycloak HA cluster configuration for different envi
 
 ## Overview
 
-This directory contains the Certificate shared by the Keycloak HA clusters in each environment:
+This directory contains the base configuration for Keycloak HA clusters deployed across different environments:
 
 - **Staging** (`apps/dev/keycloak-staging/`): 3 instances, minimal resources
 - **Demo** (`apps/dev/keycloak-demo/`): 3 instances, minimal resources
