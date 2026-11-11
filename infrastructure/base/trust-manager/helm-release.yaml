@@ -1,0 +1,39 @@
+---
+# trust-manager copies CA certificates from the cert-manager namespace into
+# ConfigMaps in other namespaces (Bundle resources). It uses the jetstack
+# HelmRepository that cert-manager installs.
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: trust-manager
+  namespace: cert-manager
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: trust-manager
+      version: v0.26.0
+      sourceRef:
+        kind: HelmRepository
+        name: jetstack
+        namespace: cert-manager
+  values:
+    crds:
+      enabled: true
+      keep: true
+    # Bundles here only carry our own CAs, so the bundled public CA package is
+    # not needed.
+    defaultPackage:
+      enabled: false
+    replicaCount: 1
+    app:
+      webhook:
+        # The control-plane firewall of a private GKE cluster only reaches the
+        # nodes on 10250, 443 and 8443, so the webhook listens on 10250.
+        port: 10250
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
+      limits:
+        memory: 128Mi
