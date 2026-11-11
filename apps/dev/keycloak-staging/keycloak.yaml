@@ -14,7 +14,8 @@ spec:
   http:
     httpEnabled: false
     httpsPort: 8443
-    tlsSecret: keycloak-internal-tls
+    # The wildcard certificate the Gateway also serves to clients.
+    tlsSecret: stjerne-staging-fdk-digdir-no-tls
   resources:
     requests:
       cpu: 200m

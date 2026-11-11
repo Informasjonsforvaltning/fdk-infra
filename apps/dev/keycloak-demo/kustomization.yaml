@@ -3,9 +3,3 @@ kind: Kustomization
 namespace: demo
 resources:
   - keycloak.yaml
-  - ../../base/keycloak
-patches:
-  - target:
-      kind: Certificate
-      name: keycloak-internal-tls
-    path: certificate-patch.yaml

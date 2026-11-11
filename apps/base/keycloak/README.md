@@ -22,7 +22,7 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 - **Instances**: 1
 - **Resources**: 200m-500m CPU, 256Mi-1Gi memory
 - **Database**: External PostgreSQL via secrets
-- **TLS**: Let's Encrypt (production server)
+- **TLS**: DigiCert wildcard (`stjerne-staging-fdk-digdir-no-tls`), the same certificate the Gateway serves
 
 ### **Demo Environment** (`apps/dev/keycloak-demo/`)
 
@@ -31,7 +31,7 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 - **Instances**: 2
 - **Resources**: 250m-1 CPU, 512Mi-2Gi memory
 - **Database**: External PostgreSQL via secrets
-- **TLS**: Let's Encrypt (production server)
+- **TLS**: DigiCert wildcard (`stjerne-demo-fdk-digdir-no-tls`), the same certificate the Gateway serves
 
 ### **Production Environment** (`apps/prod/keycloak/`)
 
@@ -49,8 +49,8 @@ Each environment follows this structure:
 ```
 environment/
 ├── kustomization.yaml      # Kustomize configuration
-├── keycloak-patch.yaml     # Environment-specific Keycloak configuration
-└── certificate-patch.yaml  # Environment-specific certificate configuration
+├── keycloak.yaml           # Environment-specific Keycloak configuration
+└── certificate-patch.yaml  # Certificate configuration (production only)
 ```
 
 ### Configuration Details
@@ -78,22 +78,22 @@ environment/
 
 ## TLS Configuration
 
-Keycloak is configured with **dual TLS layers** using cert-manager for both:
+Keycloak is configured with **dual TLS layers**:
 
 ### **1. External TLS (Ingress Level)**
 
 - **Port 443**: HTTPS access from internet
-- **Certificate**: Managed by cert-manager via ClusterIssuers
-- **Issuers per environment**:
-  - **Staging**: `letsencrypt-dev` (Let's Encrypt production server - internet-facing)
-  - **Demo**: `letsencrypt-dev` (Let's Encrypt production server - internet-facing)
+- **Certificate per environment**:
+  - **Staging** and **Demo**: terminated at the Gateway with the DigiCert wildcard
   - **Production**: `letsencrypt-prod` (Let's Encrypt production server)
 
 ### **2. Internal TLS (Pod Level)**
 
-- **Port 8443**: HTTPS communication between ingress and Keycloak pods
-- **Certificate**: `keycloak-internal-tls` managed by cert-manager
-- **Same issuers** as external TLS for consistency
+- **Port 8443**: HTTPS between the Gateway (staging, demo) or ingress (production) and the Keycloak pods
+- **Staging** and **Demo**: the DigiCert wildcard secret. The Gateway validates it
+  with a BackendTLSPolicy against the DigiCert root
+- **Production**: `keycloak-internal-tls` from cert-manager, with the same issuer as
+  external TLS
 - **Benefits**: End-to-end encryption, no plain HTTP in cluster
 
 ## Prerequisites
@@ -136,5 +136,5 @@ flux create kustomization keycloak --source=flux-system --path=./apps/prod/keycl
 1. Check operator status: `kubectl get keycloaks -A`
 2. Check database connectivity: Verify external database connectivity from Keycloak logs
 3. Check Keycloak logs: `kubectl logs -l app=keycloak`
-4. Verify TLS certificates: `kubectl get secret keycloak-internal-tls -n <namespace>`
+4. Verify TLS certificates: `kubectl get keycloak keycloak -n <namespace> -o jsonpath='{.spec.http.tlsSecret}'`, then the secret it names
 5. Check ingress certificates: `kubectl get certificate -A`
