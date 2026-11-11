@@ -1,7 +1,6 @@
-# Staging Gateways. They hold the addresses DNS points at; the Ingresses they
-# replace are parked on temporary ones.
+# Staging Gateways, on the addresses DNS points at.
 ---
-# Replaces the staging Ingress (ingress-staging-v4/v6).
+# Direct staging hosts.
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
@@ -35,9 +34,8 @@ spec:
             matchLabels:
               kubernetes.io/metadata.name: staging
 ---
-# Replaces the nginx edge Ingress (nginx/nginx-controller). Staging and demo
-# hosts are routed directly; everything else (dev monitoring) goes on to
-# ingress-nginx.
+# Edge hosts. Staging and demo hosts are routed directly; everything else
+# (dev monitoring) goes on to ingress-nginx.
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:

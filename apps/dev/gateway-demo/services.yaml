@@ -1,5 +1,7 @@
-# A Service that a GKE Ingress uses cannot also back a Gateway, so the hosts
-# on the demo Ingress get a copy with the same selector and ports.
+# Copies of app Services, with the same selector and ports, for routes whose
+# original Service a Gateway rejects: most originals carry a BackendConfig
+# annotation from the app repos. The fdk-nginx-* originals have none and are
+# copied only to keep one pattern.
 ---
 apiVersion: v1
 kind: Service
