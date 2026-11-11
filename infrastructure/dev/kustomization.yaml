@@ -9,9 +9,11 @@ resources:
   - cloud-sql-proxy
   - elasticsearch-operator
   - external-secrets.yaml
+  - internal-ca.yaml
   - keycloak-operator-demo.yaml
   - keycloak-operator-staging.yaml
   - monitoring.yaml
   - nginx.yaml
   - postgres-dumps
   - trivy.yaml
+  - trust-manager.yaml

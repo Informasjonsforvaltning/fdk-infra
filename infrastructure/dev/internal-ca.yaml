@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: internal-ca
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  retryInterval: 1m0s
+  path: ./infrastructure/dev/internal-ca
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  dependsOn:
+    - name: cert-manager-issuers
+    - name: trust-manager
