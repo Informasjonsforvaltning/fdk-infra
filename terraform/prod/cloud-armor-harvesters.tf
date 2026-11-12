@@ -38,6 +38,20 @@ resource "google_compute_security_policy" "harvesters" {
     priority = 1000
   }
 
+  # Same block as the nginx-controller policy. The pinned preview is deliberate.
+  rule {
+    action = "deny(403)"
+
+    match {
+      expr {
+        expression = var.cloud_armor_waf_expressions.nginx_controller_block
+      }
+    }
+
+    preview  = false
+    priority = 1090
+  }
+
   rule {
     action      = "deny(404)"
     description = "Health and metrics endpoints are internal"
