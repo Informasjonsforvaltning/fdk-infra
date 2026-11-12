@@ -1,0 +1,31 @@
+---
+# Private CA for TLS between the Gateway and backends that serve HTTPS
+# themselves, such as Keycloak. The CA key stays in the cluster; trust-manager
+# publishes only the certificate, as a ConfigMap for the BackendTLSPolicies.
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: internal-ca
+  namespace: cert-manager
+spec:
+  isCA: true
+  commonName: fdk-prod-internal-ca
+  secretName: internal-ca
+  duration: 87600h # 10 years
+  privateKey:
+    algorithm: RSA
+    size: 4096
+    # Keep the key when the root is renewed, so certificates it has already
+    # signed stay valid under the renewed root.
+    rotationPolicy: Never
+  issuerRef:
+    name: selfsigned-issuer
+    kind: ClusterIssuer
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: internal-ca
+spec:
+  ca:
+    secretName: internal-ca
