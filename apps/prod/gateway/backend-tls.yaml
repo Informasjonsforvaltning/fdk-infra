@@ -1,0 +1,22 @@
+# Keycloak only serves HTTPS. Its Service is created by the operator, so the
+# protocol is set here instead of with appProtocol on the port.
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: BackendTLSPolicy
+metadata:
+  name: keycloak-service
+  namespace: prod
+spec:
+  targetRefs:
+    - group: ""
+      kind: Service
+      name: keycloak-service
+      sectionName: https
+  validation:
+    hostname: auth.fellesdatakatalog.digdir.no
+    # Keycloak's certificate is issued by the internal CA, whose root
+    # trust-manager publishes as the ConfigMap internal-ca.
+    caCertificateRefs:
+      - group: ""
+        kind: ConfigMap
+        name: internal-ca
