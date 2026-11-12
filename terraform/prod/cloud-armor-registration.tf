@@ -1,4 +1,12 @@
 resource "google_compute_security_policy" "registration" {
+  # Layer 7 DDoS defence, opted in per policy via enable_ddos.
+  adaptive_protection_config {
+    layer_7_ddos_defense_config {
+      enable          = var.cloud_armor_policies.registration.enable_ddos
+      rule_visibility = "STANDARD"
+    }
+  }
+
   name    = var.cloud_armor_policies.registration.name
   project = var.project_id
 
@@ -28,6 +36,20 @@ resource "google_compute_security_policy" "registration" {
 
     preview  = var.cloud_armor_policies.registration.preview
     priority = 1000
+  }
+
+  # Same block as the nginx-controller policy. The pinned preview is deliberate.
+  rule {
+    action = "deny(403)"
+
+    match {
+      expr {
+        expression = var.cloud_armor_waf_expressions.nginx_controller_block
+      }
+    }
+
+    preview  = false
+    priority = 1090
   }
 
   rule {
