@@ -40,7 +40,7 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 - **Instances**: 3
 - **Resources**: 1000m-4 CPU, 2Gi-8Gi memory
 - **Database**: External PostgreSQL via secrets
-- **TLS**: Let's Encrypt between ingress-nginx and Keycloak
+- **TLS**: Internal CA between ingress-nginx and Keycloak
 
 ## Configuration Structure
 
@@ -91,7 +91,7 @@ Keycloak is configured with **two TLS layers**:
 - **Certificate**: `keycloak-internal-tls` managed by cert-manager
 - **Issuers per environment**:
   - **Staging** and **Demo**: `internal-ca`, which the Gateway trusts through its BackendTLSPolicy
-  - **Production**: `letsencrypt-prod`
+  - **Production**: `internal-ca`
 
 ## Prerequisites
 

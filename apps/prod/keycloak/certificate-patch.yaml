@@ -4,7 +4,14 @@ metadata:
   name: keycloak-internal-tls
   namespace: prod
 spec:
+  # Clients never see this certificate, only the hop inside the cluster to
+  # Keycloak does, so no public issuer is needed.
   issuerRef:
-    name: letsencrypt-prod # Use production environment issuer
+    name: internal-ca
+    kind: ClusterIssuer
+  usages:
+    - server auth
+    - digital signature
+    - key encipherment
   dnsNames:
     - auth.fellesdatakatalog.digdir.no
