@@ -9,8 +9,10 @@ resources:
   - keycloak-operator.yaml
   - cert-manager.yaml
   - cert-manager-issuers.yaml
+  - internal-ca.yaml
   - monitoring.yaml
   - nginx.yaml
   - postgres-dumps
   - trivy.yaml
+  - trust-manager.yaml
   - elasticsearch-operator

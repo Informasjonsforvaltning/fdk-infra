@@ -1,0 +1,21 @@
+---
+# Publishes the internal CA root as the ConfigMap `internal-ca` (key ca.crt)
+# in the namespaces whose BackendTLSPolicies validate against it.
+apiVersion: trust.cert-manager.io/v1alpha1
+kind: Bundle
+metadata:
+  name: internal-ca
+spec:
+  sources:
+    - secret:
+        name: internal-ca
+        key: ca.crt
+  target:
+    configMap:
+      key: ca.crt
+    namespaceSelector:
+      matchExpressions:
+        - key: kubernetes.io/metadata.name
+          operator: In
+          values:
+            - prod
