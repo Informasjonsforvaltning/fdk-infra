@@ -1,0 +1,66 @@
+# Blackbox probes for the prod hosts. Prometheus discovers probe targets from
+# Ingresses but not from HTTPRoutes, so each hostname the Gateway serves gets an
+# https://<host>/ target here. The certificate and HTTPS alerts read these
+# probes and group by hostname, so a host that is also on an Ingress is not
+# reported twice.
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: prod-hosts
+  namespace: prod
+  labels:
+    # Required by the Prometheus probeSelector.
+    release: monitoring-kube-prometheus-stack
+spec:
+  interval: 1m
+  module: http_2xx
+  prober:
+    url: monitoring-blackbox-exporter-prometheus-blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - https://access-request.api.fellesdatakatalog.digdir.no/
+        - https://admin.fellesdatakatalog.digdir.no/
+        - https://aisearch.api.fellesdatakatalog.digdir.no/
+        - https://alertmanager.fellesdatakatalog.digdir.no/
+        - https://auth.fellesdatakatalog.digdir.no/
+        - https://begrepskatalog.fellesdatakatalog.digdir.no/
+        - https://catalog-admin-service.fellesdatakatalog.digdir.no/
+        - https://catalog-admin.fellesdatakatalog.digdir.no/
+        - https://catalog-comments.fellesdatakatalog.digdir.no/
+        - https://catalog-history.fellesdatakatalog.digdir.no/
+        - https://catalog-portal.fellesdatakatalog.digdir.no/
+        - https://catalog-view.api.fellesdatakatalog.digdir.no/
+        - https://cms.fellesdatakatalog.digdir.no/
+        - https://concept-catalog.fellesdatakatalog.digdir.no/
+        - https://data-service-catalog.api.fellesdatakatalog.digdir.no/
+        - https://data.norge.no/
+        - https://datalandsbyen.norge.no/
+        - https://dataservice-catalog.fellesdatakatalog.digdir.no/
+        - https://dataset-catalog.fellesdatakatalog.digdir.no/
+        - https://datasettkatalog.fellesdatakatalog.digdir.no/
+        - https://datatjenestekatalog.fellesdatakatalog.digdir.no/
+        - https://fellesdatakatalog.digdir.no/
+        - https://grafana.fellesdatakatalog.digdir.no/
+        - https://harvest-admin.api.fellesdatakatalog.digdir.no/
+        - https://karma.fellesdatakatalog.digdir.no/
+        - https://mqa-scoring-api.fellesdatakatalog.digdir.no/
+        - https://nap.fellesdatakatalog.digdir.no/
+        - https://organization-bff.fellesdatakatalog.digdir.no/
+        - https://organization-catalog.fellesdatakatalog.digdir.no/
+        - https://organization-catalogue.fellesdatakatalog.digdir.no/
+        - https://prometheus.fellesdatakatalog.digdir.no/
+        - https://registrering.fellesdatakatalog.digdir.no/
+        - https://resource.api.fellesdatakatalog.digdir.no/
+        - https://search.api.fellesdatakatalog.digdir.no/
+        - https://service-catalog.api.fellesdatakatalog.digdir.no/
+        - https://service-catalog.fellesdatakatalog.digdir.no/
+        - https://sparql.fellesdatakatalog.digdir.no/
+        - https://statistics.api.fellesdatakatalog.digdir.no/
+        - https://terms.fellesdatakatalog.digdir.no/
+        - https://thanos-store.fellesdatakatalog.digdir.no/
+        - https://thanos.fellesdatakatalog.digdir.no/
+        - https://transportportal.no/
+        - https://www.data.norge.no/
+        - https://www.fellesdatakatalog.digdir.no/
