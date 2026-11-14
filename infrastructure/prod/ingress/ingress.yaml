@@ -1,4 +1,5 @@
 # prune: disabled — Flux must never delete the loadbalancer frontend.
+# Parked on temporary addresses; the prod Gateway holds the fixed ones.
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -8,7 +9,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v4
+    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-ingress-v4
 spec:
   tls:
     # Delivered from Secret Manager via ExternalSecret. A renewal is a new
@@ -530,7 +531,7 @@ metadata:
   annotations:
     kustomize.toolkit.fluxcd.io/prune: disabled
     networking.gke.io/v1beta1.FrontendConfig: prod-frontend-config
-    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-v6
+    kubernetes.io/ingress.global-static-ip-name: digdir-fdk-prod-ingress-v6
 spec:
   tls:
     # Delivered from Secret Manager via ExternalSecret. A renewal is a new
