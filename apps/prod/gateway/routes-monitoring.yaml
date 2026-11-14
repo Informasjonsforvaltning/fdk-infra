@@ -1,0 +1,32 @@
+# Monitoring hosts stay on ingress-nginx, which does basic auth for all of them
+# except grafana, which has its own login.
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: monitoring
+  namespace: prod
+spec:
+  parentRefs:
+    - name: prod
+      sectionName: https
+  hostnames:
+    - alertmanager.fellesdatakatalog.digdir.no
+    - grafana.fellesdatakatalog.digdir.no
+    - karma.fellesdatakatalog.digdir.no
+    - prometheus.fellesdatakatalog.digdir.no
+    - thanos.fellesdatakatalog.digdir.no
+    - thanos-store.fellesdatakatalog.digdir.no
+  rules:
+    - backendRefs:
+        - name: prod-nginx-gateway
+          port: 80
+      filters:
+        # Same as the BackendConfig on the controller Service: the load
+        # balancer sends no X-Forwarded-Port, and nginx would otherwise pass
+        # port 80 on to the apps.
+        - type: RequestHeaderModifier
+          requestHeaderModifier:
+            set:
+              - name: X-Forwarded-Port
+                value: "443"

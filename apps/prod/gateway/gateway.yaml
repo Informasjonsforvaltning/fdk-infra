@@ -1,0 +1,69 @@
+# The prod Gateway. It serves the hosts of the prod GKE Ingress with the same
+# certificates, which External Secrets delivers to this namespace.
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: prod
+  namespace: prod
+spec:
+  gatewayClassName: gke-l7-global-external-managed
+  addresses:
+    - type: NamedAddress
+      value: digdir-fdk-prod-gateway-v4
+    - type: NamedAddress
+      value: digdir-fdk-prod-gateway-v6
+  listeners:
+    - name: http
+      port: 80
+      protocol: HTTP
+      allowedRoutes:
+        namespaces:
+          from: Same
+    - name: https
+      port: 443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: api-fdk-digdir-no-tls
+          - name: fdk-digdir-no-tls
+          - name: registrering-fdk-digdir-no-tls
+          - name: organization-catalog-fdk-digdir-no-tls
+          - name: admin-fdk-digdir-no-tls
+          - name: catalogs-fdk-digdir-no-tls
+          - name: data-norge-no-tls
+          - name: transportportal-no-tls
+      allowedRoutes:
+        namespaces:
+          from: Same
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: https-redirect
+  namespace: prod
+spec:
+  parentRefs:
+    - name: prod
+      sectionName: http
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
+---
+# Minimum TLS version (terraform/prod/ssl-policy.tf).
+apiVersion: networking.gke.io/v1
+kind: GCPGatewayPolicy
+metadata:
+  name: prod
+  namespace: prod
+spec:
+  default:
+    sslPolicy: digdir-fdk-prod-tls
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: prod

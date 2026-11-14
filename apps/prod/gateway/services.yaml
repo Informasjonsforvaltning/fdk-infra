@@ -1,0 +1,232 @@
+# Copies of app Services, with the same selector and ports, for routes whose
+# original Service a Gateway rejects: most originals carry a BackendConfig
+# annotation from the app repos. The fdk-nginx-* originals have none and are
+# copied only to keep one pattern. prod-nginx-gateway is the copy of the
+# ingress-nginx controller Service.
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-search-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-search
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-registration-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-registration
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-dataservices-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-dataservices
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-organization-bff-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-organization-bff
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-community-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-community
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-sparql-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-nginx-sparql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: concept-catalog-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: concept-catalog
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: dataset-catalog-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: dataset-catalog
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-admin-gui-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: fdk-admin-gui
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-cms-service-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 1337
+  selector:
+    fdk.service: fdk-cms-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: organization-catalog-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: organization-catalog
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: terms-and-conditions-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: terms-and-conditions
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-mqa-scoring-api-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8082
+      protocol: TCP
+      targetPort: 8082
+  selector:
+    fdk.service: fdk-mqa-scoring-api
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-comments-service-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    fdk.service: catalog-comments-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: prod-nginx-gateway
+  namespace: prod
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/component: controller
+    app.kubernetes.io/instance: prod-nginx
+    app.kubernetes.io/name: ingress-nginx
