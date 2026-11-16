@@ -32,6 +32,19 @@ resource "google_compute_security_policy" "admin" {
   }
 
   rule {
+    action = "deny(403)"
+
+    match {
+      expr {
+        expression = var.cloud_armor_waf_expressions.admin_additional
+      }
+    }
+
+    preview  = var.cloud_armor_policies.admin.preview
+    priority = 1001
+  }
+
+  rule {
     action      = "deny(404)"
     description = "Health and metrics endpoints are internal"
 
