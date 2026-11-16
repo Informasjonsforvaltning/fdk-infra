@@ -38,6 +38,19 @@ resource "google_compute_security_policy" "admin" {
     priority = 1000
   }
 
+  rule {
+    action = "deny(403)"
+
+    match {
+      expr {
+        expression = var.cloud_armor_waf_expressions.admin_additional
+      }
+    }
+
+    preview  = var.cloud_armor_policies.admin.preview
+    priority = 1001
+  }
+
   # Same block as the nginx-controller policy. The pinned preview is deliberate.
   rule {
     action = "deny(403)"
