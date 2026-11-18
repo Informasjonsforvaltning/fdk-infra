@@ -72,7 +72,7 @@ spec:
             env:
               - name: ES_JAVA_OPTS
                 # CVE-2026-114938 (Java4Shell): disable the vectorized Base64 decode intrinsic.
-                # Interim until a bundled-JDK-patched Elasticsearch release is available to upgrade to.
+                # Remove once the bundled JDK includes the fix.
                 value: -Xms2G -Xmx2G -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_decodeBlock
               - name: xpack.security.enabled
                 value: "true"

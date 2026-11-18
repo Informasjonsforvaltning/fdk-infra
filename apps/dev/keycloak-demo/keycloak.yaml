@@ -106,6 +106,6 @@ spec:
         name: commonurl
         key: FDK_REGISTRATION_BASE_URI
     # CVE-2026-114938 (Java4Shell): disable the vectorized Base64 decode intrinsic.
-    # Must appear before DisableIntrinsic. Remove once the bundled JDK carries JDK-8393212.
+    # The unlock flag must appear before DisableIntrinsic. Remove once the bundled JDK carries JDK-8393212.
     - name: JAVA_OPTS_APPEND
       value: "-XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_decodeBlock"
