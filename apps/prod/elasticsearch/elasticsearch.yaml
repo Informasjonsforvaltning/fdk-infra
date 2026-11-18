@@ -36,6 +36,10 @@ spec:
                   value: "true"
                 - name: cluster.name
                   value: elasticsearch
+                - name: ES_JAVA_OPTS
+                  # CVE-2026-114938 (Java4Shell): disable the vectorized Base64 decode intrinsic.
+                  # Remove once the bundled JDK includes the fix.
+                  value: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_decodeBlock
               resources:
                 requests:
                   memory: 2Gi
@@ -67,22 +71,10 @@ spec:
                 privileged: true
                 runAsUser: 0
               command: ['sh', '-c', 'sysctl -w vm.max_map_count=262144']
-        containers:
-          - name: elasticsearch
-            env:
-              - name: ES_JAVA_OPTS
-                value: -Xms2G -Xmx2G
-              - name: xpack.security.enabled
-                value: "true"
-              - name: cluster.name
-                value: elasticsearch
-            resources:
-              requests:
-                memory: 6Gi
-                cpu: 500m
-              limits:
-                memory: 10Gi
-                cpu: 2
-            volumeMounts:
-              - name: data
-                mountPath: /usr/share/elasticsearch/data
+          containers:
+            - name: elasticsearch
+              env:
+                - name: ES_JAVA_OPTS
+                  # CVE-2026-114938 (Java4Shell): disable the vectorized Base64 decode intrinsic.
+                  # Remove once the bundled JDK includes the fix.
+                  value: -XX:+UnlockDiagnosticVMOptions -XX:DisableIntrinsic=_base64_decodeBlock
