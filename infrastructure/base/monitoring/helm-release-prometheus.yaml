@@ -179,6 +179,10 @@ spec:
           nginx.ingress.kubernetes.io/auth-realm: Authentication Required
       alertmanagerSpec:
         logLevel: debug
+        # Routing lives in `config` below, so this selector deliberately matches no
+        # AlertmanagerConfig resource. Leaving it unset is not the same as off: the chart
+        # then renders an empty selector, which together with the chart's empty namespace
+        # selector merges every AlertmanagerConfig in the cluster into the routing tree.
         alertmanagerConfigSelector:
           matchLabels:
             manager: default
