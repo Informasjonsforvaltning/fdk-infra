@@ -1,8 +1,8 @@
 # Blackbox probes for the prod hosts. Prometheus discovers probe targets from
 # Ingresses but not from HTTPRoutes, so each hostname the Gateway serves gets an
-# https://<host>/ target here. The certificate and HTTPS alerts read these
-# probes and group by hostname, so a host that is also on an Ingress is not
-# reported twice.
+# https://<host>/ target here. The certificate, HTTPS and HTTP server error
+# alerts read these probes and group by hostname or URL, so a host that is also
+# on an Ingress is not reported twice.
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: Probe

@@ -5,6 +5,7 @@ resources:
   - certificate-expiry-alerts.yaml
   - demo-alert.yaml
   - elasticsearch-alerts.yaml
+  - http-server-error-alerts.yaml
   - image-critical-vulnerabilities.yaml
   - mail-processing-failure.yaml
   - message-processing-failure.yaml
