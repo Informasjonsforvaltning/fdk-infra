@@ -41,6 +41,7 @@ spec:
         limit-req-status-code: "429"
         # Disable access log.
         disable-access-log: "true"
+        use-http2: "false"
         # Allow Critical-level annotations (configuration-snippet, server-snippet).
         # Required for compatibility with ingress-nginx 1.12+ (chart version 4.12+).
         annotations-risk-level: "Critical"
