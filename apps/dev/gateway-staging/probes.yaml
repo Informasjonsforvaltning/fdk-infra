@@ -1,6 +1,7 @@
 # Blackbox probes for the staging hosts. Prometheus discovers probe targets
 # from Ingresses but not from HTTPRoutes, so each hostname in the routes gets
-# an https://<host>/ target here. The certificate expiry alerts read these probes.
+# an https://<host>/ target here. The certificate, HTTPS and HTTP server error
+# alerts read these probes.
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: Probe

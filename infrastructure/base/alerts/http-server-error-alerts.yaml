@@ -1,0 +1,38 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: http-server-error-alerts
+  namespace: monitoring
+  labels:
+    # Required by the Prometheus ruleSelector; without it the rules are ignored.
+    release: monitoring-kube-prometheus-stack
+spec:
+  groups:
+    - name: http.server.error.rules
+      rules:
+        # The load balancer keeps answering when a backend is down, with 502 or
+        # 503, so neither TargetDown (the blackbox exporter itself answers) nor
+        # HTTPSNoResponse (status code 0 only) fires. Source metric is the
+        # kubernetes-ingresses blackbox job plus the Probes for hosts served by
+        # a Gateway. The same URL can be probed over both schemes and from both
+        # sources, so `target` is the URL without its scheme and the worst
+        # status wins. Redirects are followed, so a host that redirects to a
+        # login page reports the status of that page. Only 5xx counts: many API
+        # hosts answer 401 or 404 on `/` by design.
+        - alert: HTTPServerError
+          expr: |
+            max by (target) (
+              label_replace(
+                probe_http_status_code,
+                "target", "$1", "instance", "https?://(.+)"
+              )
+            ) >= 500
+          for: 10m
+          labels:
+            severity: critical
+          annotations:
+            summary: Host answers with a server error
+            description: >-
+              {{ $labels.target }} has answered with HTTP {{ $value }} for 10
+              minutes.

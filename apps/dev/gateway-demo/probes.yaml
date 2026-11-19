@@ -1,5 +1,6 @@
 # Prometheus discovers probe targets from Ingresses, not HTTPRoutes, so the
-# demo hosts on the Gateways are listed here for the certificate alerts.
+# demo hosts on the Gateways are listed here for the certificate, HTTPS and HTTP
+# server error alerts.
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
