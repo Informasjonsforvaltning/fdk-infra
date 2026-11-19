@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: nginx-resource-identificators
-          image: nginx:alpine
+          image: nginx:1.31.9-alpine
           ports:
             - containerPort: 8080
           volumeMounts:
