@@ -10,12 +10,16 @@ spec:
   groups:
     - name: fdk
       rules:
+        # The window must span several 30s scrapes, or increase() returns nothing.
         - alert: MessageProcessingFailure
           annotations:
-            description: A messsage was not processed successfully
             summary: Failed to process message
+            description: >-
+              {{ $labels.fdk_service }} in {{ $labels.namespace }} failed to
+              process {{ $value | printf "%.0f" }} messages in the last 10 minutes.
           expr: |-
-            rate(processed_messages{status="error"}[15s]) > 0
-          for: 0s
+            sum by (namespace, fdk_service) (
+              increase({__name__=~"processed_messages(_total)?", status="error"}[10m])
+            ) > 0
           labels:
             severity: warning
