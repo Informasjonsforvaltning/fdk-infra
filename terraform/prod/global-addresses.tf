@@ -34,14 +34,11 @@ resource "google_compute_global_address" "addresses" {
   }
 }
 
-# Temporary addresses. The Gateway is built on the gateway-* entries, then takes
-# the fixed `addresses` while the GKE Ingress moves to the ingress-* entries
-# (removing the static-ip annotation does not release an address). Remove the
-# set once the GKE Ingress is deleted.
+# Temporary addresses for the GKE Ingress. An Ingress keeps its address when the
+# static-ip annotation is removed, so it is parked on these while the Gateway
+# holds the fixed `addresses`. Remove the set once the GKE Ingress is deleted.
 resource "google_compute_global_address" "gateway_temporary" {
   for_each = {
-    "gateway-v4" = "IPV4"
-    "gateway-v6" = "IPV6"
     "ingress-v4" = "IPV4"
     "ingress-v6" = "IPV6"
   }
