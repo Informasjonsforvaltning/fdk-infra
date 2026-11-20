@@ -17,3 +17,5 @@ resources:
   - keycloak-demo.yaml
   - fdk-nginx-sparql-staging.yaml
   - fdk-nginx-sparql-demo.yaml
+  - fdk-nginx-registration-staging.yaml
+  - fdk-nginx-registration-demo.yaml
