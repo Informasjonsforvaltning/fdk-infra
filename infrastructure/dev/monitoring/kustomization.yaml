@@ -5,8 +5,17 @@ resources:
   - ../../base/monitoring
   - helm-release-elasticsearch-exporter-demo.yaml
   - helm-release-elasticsearch-exporter-staging.yaml
+  - helm-release-kafka-exporter-demo.yaml
 patches:
   - path: helm-release-kafka-exporter-values.yaml
+  # Must come after the values patch, which targets the base name.
+  - patch: |-
+      - op: replace
+        path: /metadata/name
+        value: prometheus-kafka-exporter-staging
+    target:
+      kind: HelmRelease
+      name: prometheus-kafka-exporter
   - path: helm-release-prometheus-values.yaml
   - path: helm-release-thanos-values.yaml
   - path: karma.yaml

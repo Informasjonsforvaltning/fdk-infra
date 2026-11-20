@@ -1,0 +1,38 @@
+---
+# One exporter per Kafka cluster: the exporter authenticates as a single SASL
+# user, and staging and demo each keep their own SCRAM credentials. The
+# release name becomes the Prometheus job label, which is what separates the
+# two clusters' metrics.
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: prometheus-kafka-exporter-demo
+  namespace: flux-system
+spec:
+  interval: 5m
+  targetNamespace: monitoring
+  chart:
+    spec:
+      version: 3.x
+      chart: prometheus-kafka-exporter
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+      interval: 60m
+  install:
+    crds: Create
+  upgrade:
+    crds: CreateReplace
+  values:
+    kafkaServer:
+      - kafka-1.demo:9094
+    sasl:
+      enabled: true
+      scram:
+        enabled: true
+        mechanism: scram-sha512
+        secretName: kafka-user-kafka-exporter-demo
+    prometheus:
+      serviceMonitor:
+        enabled: true
+        interval: 10s

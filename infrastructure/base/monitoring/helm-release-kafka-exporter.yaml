@@ -20,7 +20,7 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
-    # Credentials come from the kafka-user-kafka-exporter Secret delivered by
+    # Credentials come from the Secret named in secretName, delivered by
     # External Secrets; the chart reads its username and password keys.
     sasl:
       enabled: true
