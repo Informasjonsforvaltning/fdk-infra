@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-sparql
+  labels:
+    fdk.service: fdk-nginx-sparql
+  annotations:
+    cloud.google.com/backend-config: '{"default": "cloud-armor-sparql"}'
+spec:
+  type: NodePort
+  selector:
+    fdk.service: fdk-nginx-sparql
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080

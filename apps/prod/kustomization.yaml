@@ -8,3 +8,4 @@ resources:
   - nginx-resource-identificators.yaml
   - keycloak.yaml
   - gateway.yaml
+  - fdk-nginx-sparql.yaml
