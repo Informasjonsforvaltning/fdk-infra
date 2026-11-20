@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fdk-nginx-enhetsregisteret-proxy
+  labels:
+    fdk.service: fdk-nginx-enhetsregisteret-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      fdk.service: fdk-nginx-enhetsregisteret-proxy
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        fdk.service: fdk-nginx-enhetsregisteret-proxy
+    spec:
+      containers:
+        - name: fdk-nginx-enhetsregisteret-proxy
+          image: nginx:1.31.9-alpine
+          env:
+            - name: TZ
+              value: Europe/Oslo
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: 32Mi
+              cpu: 1m
+            limits:
+              memory: 32Mi
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+      volumes:
+        - name: config
+          configMap:
+            name: fdk-nginx-enhetsregisteret-proxy
