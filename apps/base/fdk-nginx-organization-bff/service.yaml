@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-organization-bff
+  labels:
+    fdk.service: fdk-nginx-organization-bff
+  annotations:
+    cloud.google.com/backend-config: '{"default": "cloud-armor-bff"}'
+spec:
+  type: NodePort
+  selector:
+    fdk.service: fdk-nginx-organization-bff
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080

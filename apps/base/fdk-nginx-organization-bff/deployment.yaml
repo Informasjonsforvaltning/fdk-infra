@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fdk-nginx-organization-bff
+  labels:
+    fdk.service: fdk-nginx-organization-bff
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      fdk.service: fdk-nginx-organization-bff
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        fdk.service: fdk-nginx-organization-bff
+    spec:
+      containers:
+        - name: fdk-nginx-organization-bff
+          image: nginx:1.31.9-alpine
+          env:
+            - name: TZ
+              value: Europe/Oslo
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: 300Mi
+              cpu: 1m
+            limits:
+              memory: 300Mi
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 5
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+            - mountPath: /data/nginx/cache
+              name: cache
+      volumes:
+        - name: config
+          configMap:
+            name: fdk-nginx-organization-bff
+        - name: cache
+          emptyDir: {}
