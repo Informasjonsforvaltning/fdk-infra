@@ -10,3 +10,8 @@ spec:
       - kafka-1.prod:9094
       - kafka-2.prod:9094
       - kafka-3.prod:9094
+    prometheus:
+      serviceMonitor:
+        relabelings:
+          - targetLabel: kafka_cluster
+            replacement: prod

@@ -15,3 +15,8 @@ spec:
     sasl:
       scram:
         secretName: kafka-user-kafka-exporter-staging
+    prometheus:
+      serviceMonitor:
+        relabelings:
+          - targetLabel: kafka_cluster
+            replacement: staging
