@@ -17,14 +17,12 @@ spec:
       labels:
         fdk.service: fdk-nginx-community
     spec:
-      # The preStop sleep plus time for in-flight requests to finish.
+      # preStop sleep plus time to finish in-flight requests.
       terminationGracePeriodSeconds: 45
       containers:
         - name: fdk-nginx-community
           image: nginx:1.31.9-alpine
-          # Keep accepting connections until the load balancer has removed the
-          # endpoint from its NEG. nginx closes its listener as soon as it is
-          # signalled, so connections still routed to the pod would be refused (503).
+          # Keep accepting connections until the endpoint is detached from the NEG.
           lifecycle:
             preStop:
               sleep:
