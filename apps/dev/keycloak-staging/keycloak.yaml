@@ -6,7 +6,9 @@ metadata:
 spec:
   hostname:
     hostname: https://auth.staging.fellesdatakatalog.digdir.no
-    admin: https://auth.staging.fellesdatakatalog.digdir.no
+    # The admin console is served on localhost and reached with a
+    # port-forward to keycloak-service on 8443.
+    admin: https://localhost:8443
   instances: 3
   update:
     strategy: Explicit
