@@ -23,3 +23,5 @@ resources:
   - fdk-nginx-dataservices-demo.yaml
   - fdk-nginx-organization-bff-staging.yaml
   - fdk-nginx-organization-bff-demo.yaml
+  - fdk-nginx-enhetsregisteret-proxy-mock-staging.yaml
+  - fdk-nginx-enhetsregisteret-proxy-mock-demo.yaml

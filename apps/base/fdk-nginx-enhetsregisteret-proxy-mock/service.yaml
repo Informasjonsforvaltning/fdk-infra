@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-enhetsregisteret-proxy-mock
+  labels:
+    fdk.service: fdk-nginx-enhetsregisteret-proxy-mock
+spec:
+  type: NodePort
+  selector:
+    fdk.service: fdk-nginx-enhetsregisteret-proxy-mock
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
