@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Anna Lyse R. Begrep",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800118"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

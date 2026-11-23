@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Tom Konto",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800072"
+  },
+  {
+    "Name": "Rana Bank",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111066",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "95a4da79-7097-5bac-abaf-defa186477bb",
+    "name": "Inco Gnito",
+    "organizationNumber": null,
+    "personId": "01018800001",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "acaa74fd-c57d-5713-97ad-55ad36d8470e",
+    "name": "Skaffeetaten",
+    "organizationNumber": "555111001",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

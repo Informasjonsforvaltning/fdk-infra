@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Barry B. Grepsskriver",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800112"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

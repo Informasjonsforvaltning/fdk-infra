@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "6d4a9414-3283-5d30-af77-0edf5aeab273",
+    "name": "Klaus Uler",
+    "organizationNumber": null,
+    "personId": "01018800102",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "b9a55e80-3c0f-558f-a8be-9331f993107f",
+    "name": "Direktoratet for liten skrift",
+    "organizationNumber": "555111093",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

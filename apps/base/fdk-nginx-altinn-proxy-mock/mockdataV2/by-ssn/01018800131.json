@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "bc93565d-4e92-517a-a18b-bc05140baf7a",
+    "name": "Jacques Uzzi",
+    "organizationNumber": null,
+    "personId": "01018800131",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "e9659fb8-0469-5dd0-b27e-339700fa0af0",
+    "name": "Spadirektoratet",
+    "organizationNumber": "555111060",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

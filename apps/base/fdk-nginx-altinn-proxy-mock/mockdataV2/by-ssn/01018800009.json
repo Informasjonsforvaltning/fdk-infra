@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "94e22f6b-d8e3-5682-8f4f-f7ff978efded",
+    "name": "Ragna Rokk",
+    "organizationNumber": null,
+    "personId": "01018800009",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "cfe40d73-5173-5b99-8b3e-330c81e42d84",
+    "name": "Brasker kommune",
+    "organizationNumber": "555111009",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "KOMM",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

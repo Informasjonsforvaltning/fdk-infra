@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "7572ceda-aca1-5e22-800b-a6d2a867bc4b",
+    "name": "Kaja N. Legg",
+    "organizationNumber": null,
+    "personId": "01018800011",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "c1a081d5-6afd-5e15-bfd5-d6bf61624e5d",
+    "name": "Havn- og kaidirektoratet",
+    "organizationNumber": "555111011",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

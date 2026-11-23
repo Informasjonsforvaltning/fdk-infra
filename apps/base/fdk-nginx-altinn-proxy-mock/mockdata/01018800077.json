@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Kåre Vinneren",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800077"
+  },
+  {
+    "Name": "Seiertilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111071",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

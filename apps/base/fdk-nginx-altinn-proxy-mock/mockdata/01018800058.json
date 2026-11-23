@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Tore Tilsyn",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800058"
+  },
+  {
+    "Name": "Tilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111053",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "136d22ca-aa0c-5b60-afe5-1922aa154202",
+    "name": "Boris Yden",
+    "organizationNumber": null,
+    "personId": "01018800013",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "16cf8880-18cc-5c8f-a250-46a9443645d6",
+    "name": "Registerforvaltningsetaten",
+    "organizationNumber": "555111013",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

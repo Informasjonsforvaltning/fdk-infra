@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "9a5fe5ba-fa98-594a-a079-308776bb6e73",
+    "name": "Gard R. Moen",
+    "organizationNumber": null,
+    "personId": "01018800046",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "b82052cf-6353-56c8-a71a-b6d16d08b6ce",
+    "name": "Papirflydirektoratet",
+    "organizationNumber": "555111042",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

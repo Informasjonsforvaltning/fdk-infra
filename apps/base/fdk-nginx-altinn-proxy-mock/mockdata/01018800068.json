@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Endre Opseth",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800068"
+  },
+  {
+    "Name": "It-utviklertilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111062",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

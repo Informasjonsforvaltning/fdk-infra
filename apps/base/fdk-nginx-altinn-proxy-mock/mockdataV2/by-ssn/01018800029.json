@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "f4cf0293-196a-5440-b708-56303187b928",
+    "name": "Stig B Dørmænen",
+    "organizationNumber": null,
+    "personId": "01018800029",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "8750a858-571a-5fd2-8dd2-bc51e9bfb9a1",
+    "name": "Høgskolen for IT og arkitektur",
+    "organizationNumber": "555111290",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "66b11b1c-7465-5de3-bde5-9df38dc33e56",
+    "name": "Tor Divel",
+    "organizationNumber": null,
+    "personId": "01018800062",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "1fa953a3-051f-5b4b-aafc-994c24c8f312",
+    "name": "Billetilsynet",
+    "organizationNumber": "555111056",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

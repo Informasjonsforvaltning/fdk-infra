@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "07027ed2-eab7-570a-ad60-1f388b071079",
+    "name": "Ruth Sjebane",
+    "organizationNumber": null,
+    "personId": "01018800061",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "a1d1054c-deae-5984-8e7e-0f0c51bcc861",
+    "name": "Lekeplasstilsynet",
+    "organizationNumber": "555111055",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

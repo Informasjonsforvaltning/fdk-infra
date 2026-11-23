@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Jan T. Loven",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800079"
+  },
+  {
+    "Name": "Suksessbedriftstilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111073",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

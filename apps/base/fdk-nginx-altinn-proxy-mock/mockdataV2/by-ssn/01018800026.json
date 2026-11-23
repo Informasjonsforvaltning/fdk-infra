@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "d7aa7f4e-a149-500b-a28a-3126d13b5565",
+    "name": "Synne Sikke",
+    "organizationNumber": null,
+    "personId": "01018800026",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "75330b91-b6c0-5954-934d-1997ad7c30e6",
+    "name": "Rettersetningstjenesten",
+    "organizationNumber": "555111026",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

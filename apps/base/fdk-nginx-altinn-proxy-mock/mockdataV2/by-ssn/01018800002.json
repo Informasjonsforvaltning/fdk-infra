@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "0c8951cb-58c5-5585-9328-5f9a84e131ac",
+    "name": "Kine Tikk",
+    "organizationNumber": null,
+    "personId": "01018800002",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "97978c47-f6b1-5406-8bf5-aaae77732c0e",
+    "name": "MAV",
+    "organizationNumber": "555111002",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

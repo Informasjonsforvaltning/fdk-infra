@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "809b185e-e7fc-5a03-9f55-c0e8ae1d3f2b",
+    "name": "Unni Son",
+    "organizationNumber": null,
+    "personId": "01018800015",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "f64b5024-ed0a-5850-90d8-714fd5fc042a",
+    "name": "Sang og musikktilsynet",
+    "organizationNumber": "555111015",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Ivan \"Totally not a hacker\" Drago",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800105"
+  },
+  {
+    "Name": "Trojansk forening for DDOS og løsepengevirus",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111096",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

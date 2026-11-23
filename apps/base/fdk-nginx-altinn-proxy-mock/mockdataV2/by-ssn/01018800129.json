@@ -1,0 +1,26 @@
+[
+  {
+    "partyUuid": "548fedb5-21a5-53c6-bc5e-05578c9dcc96",
+    "name": "Kristine B. Grepsnes",
+    "organizationNumber": null,
+    "personId": "01018800129",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "fe7c92af-96a1-5bf4-86db-30de23841de0",
+    "name": "Norsk forening for begrepworkshops i offentlig sektor",
+    "organizationNumber": "555111097",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-lesetilgang",
+      "datanorge-skrivetilgang",
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

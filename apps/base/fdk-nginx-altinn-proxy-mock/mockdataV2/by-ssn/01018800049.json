@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "45c6e1d9-dff7-5539-990a-556d32bc73ec",
+    "name": "Loke Motiv",
+    "organizationNumber": null,
+    "personId": "01018800049",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "bcd58074-e983-544c-bfdc-5832e9ce8c30",
+    "name": "Kollektivtransportdirektoratet",
+    "organizationNumber": "555111045",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

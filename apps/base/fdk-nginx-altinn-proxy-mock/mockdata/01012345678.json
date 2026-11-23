@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Nysgjerrig Naver",
+    "Type": "Person",
+    "SocialSecurityNumber": "01012345678"
+  },
+  {
+    "Name": "Arbeids- og velferdsetaten (NAV)",
+    "Type": "Enterprise",
+    "OrganizationNumber": "889640782",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

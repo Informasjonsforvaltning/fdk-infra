@@ -1,0 +1,27 @@
+[
+  {
+    "partyUuid": "a1b2c3d4-0001-4000-8000-000000000001",
+    "name": "DEMO ORG 920210023",
+    "organizationNumber": "920210023",
+    "personId": null,
+    "type": "Organization",
+    "partyId": 50001001,
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "onlyHierarchyElementWithNoAccess": false,
+    "authorizedResources": ["datanorge-skrivetilgang"]
+  },
+  {
+    "partyUuid": "a1b2c3d4-0002-4000-8000-000000000002",
+    "name": "DEMO ORG 910258028",
+    "organizationNumber": "910258028",
+    "personId": null,
+    "type": "Organization",
+    "partyId": 50001002,
+    "unitType": "KF",
+    "isDeleted": false,
+    "onlyHierarchyElementWithNoAccess": false,
+    "authorizedResources": ["datanorge-skrivetilgang"]
+  }
+]
+

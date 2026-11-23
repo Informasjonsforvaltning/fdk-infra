@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Frank Fuhrt",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800104"
+  },
+  {
+    "Name": "Norsk-tysk forening for pølse og pølsetilbehør",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111095",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

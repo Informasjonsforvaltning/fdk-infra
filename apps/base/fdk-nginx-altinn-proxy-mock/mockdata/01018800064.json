@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Aksel Erasjon",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800064"
+  },
+  {
+    "Name": "Superbiltilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111058",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

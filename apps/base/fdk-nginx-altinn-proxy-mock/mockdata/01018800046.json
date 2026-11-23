@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Gard R. Moen",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800046"
+  },
+  {
+    "Name": "Papirflydirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111042",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

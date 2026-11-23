@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "99048986-f30a-50a2-90bf-c9105828a233",
+    "name": "Storm Annsgal",
+    "organizationNumber": null,
+    "personId": "01018800089",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "31dd5f15-fc39-51de-a0b9-2f7d62261dcf",
+    "name": "Storevik Kommune",
+    "organizationNumber": "555111080",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

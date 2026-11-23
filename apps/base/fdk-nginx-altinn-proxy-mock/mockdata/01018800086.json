@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Helge Utfarten",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800086"
+  },
+  {
+    "Name": "Krisehåndteringsetaten",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111078",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

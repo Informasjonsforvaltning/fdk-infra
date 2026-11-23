@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Tore P. Øyemåhl",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800043"
+  },
+  {
+    "Name": "Feiljustervesenet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111039",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

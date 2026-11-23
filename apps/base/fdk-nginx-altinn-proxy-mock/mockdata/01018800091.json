@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Tom Gods",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800091"
+  },
+  {
+    "Name": "Pantedirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111082",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

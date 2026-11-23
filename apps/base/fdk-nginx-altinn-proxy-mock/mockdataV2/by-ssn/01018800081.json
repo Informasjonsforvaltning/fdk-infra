@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "8edb771f-6a63-5259-a46b-86b2d5c669c1",
+    "name": "Ulla Norakk",
+    "organizationNumber": null,
+    "personId": "01018800081",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "2ec06ded-e237-5749-abe7-75982d538e54",
+    "name": "Norsk forening for jakker og andre turklær",
+    "organizationNumber": "555111075",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

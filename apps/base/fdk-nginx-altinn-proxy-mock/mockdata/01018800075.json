@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Burgunder Gundersen",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800075"
+  },
+  {
+    "Name": "Norsk Druejuiceforening",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111069",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

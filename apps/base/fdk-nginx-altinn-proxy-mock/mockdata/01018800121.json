@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Cornelius Conceptus",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800121"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

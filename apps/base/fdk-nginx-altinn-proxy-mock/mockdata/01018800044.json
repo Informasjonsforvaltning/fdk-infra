@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Severin Suveren",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800044"
+  },
+  {
+    "Name": "Norsk forening for tur- og tidsspørsmål",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111040",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

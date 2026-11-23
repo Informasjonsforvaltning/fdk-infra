@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Vår T. Hus",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800054"
+  },
+  {
+    "Name": "Selveieretaten",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111050",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

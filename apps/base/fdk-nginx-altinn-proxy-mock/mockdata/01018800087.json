@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Atle Tisk",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800087"
+  },
+  {
+    "Name": "Seiertilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111071",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

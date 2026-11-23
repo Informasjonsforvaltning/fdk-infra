@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "b5e41b85-d738-55aa-b957-24772464dd8f",
+    "name": "Inga Kontroll",
+    "organizationNumber": null,
+    "personId": "01018800052",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "95e382c3-f6e8-5082-9499-a4f83e77a47c",
+    "name": "Direktoratet for akebrett og sklifremkomstmidler",
+    "organizationNumber": "555111048",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Anne Dammen",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800076"
+  },
+  {
+    "Name": "Direktoratet for marine parkinstallasjoner",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111070",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

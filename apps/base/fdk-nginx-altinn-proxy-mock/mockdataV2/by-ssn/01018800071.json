@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "b789cae5-b6ab-5521-b575-1b18bd3dc9ed",
+    "name": "Finn T. Vær",
+    "organizationNumber": null,
+    "personId": "01018800071",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "40109131-764a-5fb5-b66c-696855549875",
+    "name": "Værmelderforbundet",
+    "organizationNumber": "555111065",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

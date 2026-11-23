@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "7ee584dd-4dbf-5234-8ea4-07f64b342aa1",
+    "name": "Anne Dammen",
+    "organizationNumber": null,
+    "personId": "01018800076",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "0b126a01-0cb4-525e-be90-550b9feb3b72",
+    "name": "Direktoratet for marine parkinstallasjoner",
+    "organizationNumber": "555111070",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

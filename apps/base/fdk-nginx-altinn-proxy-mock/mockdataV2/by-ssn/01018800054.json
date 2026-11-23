@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "ea4b924d-84d0-56ea-ad2f-9b1021445300",
+    "name": "Vår T. Hus",
+    "organizationNumber": null,
+    "personId": "01018800054",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "7e7c9099-7f04-5a2a-ac86-482096ed44b3",
+    "name": "Selveieretaten",
+    "organizationNumber": "555111050",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

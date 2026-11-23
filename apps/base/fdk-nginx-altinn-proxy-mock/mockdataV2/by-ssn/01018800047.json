@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "5b9903ca-95d6-5c0d-858d-559b3f93f80c",
+    "name": "Tande Garder",
+    "organizationNumber": null,
+    "personId": "01018800047",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "99e0a128-fcc5-525b-b7d6-1ae5c7d7970c",
+    "name": "Tannreguleringstilsynet",
+    "organizationNumber": "555111043",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

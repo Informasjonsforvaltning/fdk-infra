@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "f5311eeb-f1f0-56dd-a63d-635fea5d9a97",
+    "name": "Noa P. Ferde",
+    "organizationNumber": null,
+    "personId": "01018800051",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "da4a9364-6237-56e4-870c-eac7a9939d1a",
+    "name": "Ugle- og mosetilsynet",
+    "organizationNumber": "555111047",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

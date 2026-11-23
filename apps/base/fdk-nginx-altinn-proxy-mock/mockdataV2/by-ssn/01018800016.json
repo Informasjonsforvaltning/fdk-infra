@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "a6a7091f-c34b-5817-a821-ad7a6f299445",
+    "name": "Pål Asset",
+    "organizationNumber": null,
+    "personId": "01018800016",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "3a5959b6-6ced-5314-b8bd-f649b6185fda",
+    "name": "Statens Sparekasse",
+    "organizationNumber": "555111016",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "SF",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

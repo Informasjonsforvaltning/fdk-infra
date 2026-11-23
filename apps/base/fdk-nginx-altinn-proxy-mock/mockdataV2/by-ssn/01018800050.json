@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "644d9424-61d1-5928-8e83-5361f57ded01",
+    "name": "Stina Gryhn",
+    "organizationNumber": null,
+    "personId": "01018800050",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "b2cb67bb-9edf-59bd-b036-21cb775b945d",
+    "name": "Pengebingedirektoratet",
+    "organizationNumber": "555111046",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Borghild B.Grehpsdeler",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800108"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Inga Krav",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800073"
+  },
+  {
+    "Name": "Innkrevingsetaten",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111067",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

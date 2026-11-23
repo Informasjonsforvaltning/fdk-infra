@@ -1,0 +1,48 @@
+[
+  {
+    "partyUuid": "6695bb37-90ee-500e-87da-e0e60ffe18d9",
+    "name": "STEIN EIDEM",
+    "organizationNumber": null,
+    "personId": "01066800187",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "8750a858-571a-5fd2-8dd2-bc51e9bfb9a1",
+    "name": "Høgskolen for IT og arkitektur",
+    "organizationNumber": "555111290",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  },
+  {
+    "partyUuid": "328a84e4-258f-5172-9d77-362df1754091",
+    "name": "RAMSUND OG ROGNAN REVISJON",
+    "organizationNumber": "910244132",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "KF",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  },
+  {
+    "partyUuid": "b86607b7-1276-50c5-a82e-43ded75a3dc5",
+    "name": "LILAND OG ERDAL REVISJON",
+    "organizationNumber": "910258028",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "AS",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

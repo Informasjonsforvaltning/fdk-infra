@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Konrad Konseptsson",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800110"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

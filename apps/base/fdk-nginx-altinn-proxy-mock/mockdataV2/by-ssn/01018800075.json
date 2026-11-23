@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "a19c6b14-b8ec-5c71-bd3c-850f63017fc8",
+    "name": "Burgunder Gundersen",
+    "organizationNumber": null,
+    "personId": "01018800075",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "e91af845-c225-5adf-bf70-e7a6da8f7e4d",
+    "name": "Norsk Druejuiceforening",
+    "organizationNumber": "555111069",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

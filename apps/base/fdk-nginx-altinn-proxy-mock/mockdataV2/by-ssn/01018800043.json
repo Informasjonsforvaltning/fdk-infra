@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "c2f9a305-8c95-5ecc-84a2-8ad4138a87b1",
+    "name": "Tore P. Øyemåhl",
+    "organizationNumber": null,
+    "personId": "01018800043",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "f39bc202-4a0d-5648-91fd-18c6e134abfb",
+    "name": "Feiljustervesenet",
+    "organizationNumber": "555111039",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

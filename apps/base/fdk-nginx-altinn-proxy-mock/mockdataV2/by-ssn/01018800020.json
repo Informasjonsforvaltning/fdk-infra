@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "d9fabe44-26de-5e21-9f79-1b3637852c52",
+    "name": "Vegar Beider",
+    "organizationNumber": null,
+    "personId": "01018800020",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "63dd3a1b-3d6b-5f2a-bf28-e4212f1a3453",
+    "name": "Samferdelsesvesenet",
+    "organizationNumber": "555111020",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

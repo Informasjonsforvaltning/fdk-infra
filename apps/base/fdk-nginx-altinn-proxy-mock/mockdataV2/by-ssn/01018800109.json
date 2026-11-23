@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "0e69695e-da2b-5791-b65b-8370e1ffed38",
+    "name": "Kornelia Konseptsdottir",
+    "organizationNumber": null,
+    "personId": "01018800109",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ac39124b-5e9a-5159-a333-9397825c67de",
+    "name": "Testdepartementet",
+    "organizationNumber": "555111098",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

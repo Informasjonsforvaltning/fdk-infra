@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "6de56b88-b3bf-59e8-a177-ace0dfe8b347",
+    "name": "Tor S. Ken",
+    "organizationNumber": null,
+    "personId": "01018800082",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "f39ee6f0-3f84-5dc6-a619-ceaa46a83589",
+    "name": "Direktoratet for skjeggete fisk",
+    "organizationNumber": "555111076",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

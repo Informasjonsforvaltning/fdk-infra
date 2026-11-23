@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "b122c81f-aeff-5ca8-9731-91dbfc3d83d2",
+    "name": "Ben Sin",
+    "organizationNumber": null,
+    "personId": "01018800010",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "b3c3eabf-6b23-5bae-adf9-d2702624aa98",
+    "name": "Gjøvhammer kommune",
+    "organizationNumber": "555111010",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "KOMM",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

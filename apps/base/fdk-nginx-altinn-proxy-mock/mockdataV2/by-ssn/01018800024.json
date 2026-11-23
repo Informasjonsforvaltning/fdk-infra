@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "472d7112-1274-5c9c-9f49-265ad77afd18",
+    "name": "Klara Nett",
+    "organizationNumber": null,
+    "personId": "01018800024",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "5e4b5921-f61f-5c39-a004-b40644387c2d",
+    "name": "Kommunenes korpsorganisasjon",
+    "organizationNumber": "555111024",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "ad69a3af-03f8-570f-97ae-5eba6db9a3ee",
+    "name": "Frank Fuhrt",
+    "organizationNumber": null,
+    "personId": "01018800104",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "01f81fdc-232b-5098-adbe-ebbb4594a3bb",
+    "name": "Norsk-tysk forening for pølse og pølsetilbehør",
+    "organizationNumber": "555111095",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

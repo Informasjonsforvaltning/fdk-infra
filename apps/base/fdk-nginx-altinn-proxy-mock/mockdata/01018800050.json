@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Stina Gryhn",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800050"
+  },
+  {
+    "Name": "Pengebingedirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111046",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

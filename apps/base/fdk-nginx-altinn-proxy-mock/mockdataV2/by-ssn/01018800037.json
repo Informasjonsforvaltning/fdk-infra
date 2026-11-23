@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "963f14d2-ae96-5be2-98e4-929247860ed4",
+    "name": "Stig Matis Ere",
+    "organizationNumber": null,
+    "personId": "01018800037",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "a33711d4-44b3-5cb2-881a-8d912db9ec3a",
+    "name": "Omdømmedirektoratet",
+    "organizationNumber": "555111033",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

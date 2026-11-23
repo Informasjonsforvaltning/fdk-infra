@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "7bd9b457-155c-5054-90a7-ad796660e78c",
+    "name": "Steinar Beider",
+    "organizationNumber": null,
+    "personId": "01018800063",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "7a80807d-389b-5beb-9085-0a67a8d9f734",
+    "name": "Pukkverkdirektoratet",
+    "organizationNumber": "555111057",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

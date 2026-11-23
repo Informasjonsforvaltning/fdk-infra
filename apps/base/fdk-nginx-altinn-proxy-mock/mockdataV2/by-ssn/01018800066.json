@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "6e401670-1226-521c-93e1-0b8553e73355",
+    "name": "Bob Lebad",
+    "organizationNumber": null,
+    "personId": "01018800066",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "e9659fb8-0469-5dd0-b27e-339700fa0af0",
+    "name": "Spadirektoratet",
+    "organizationNumber": "555111060",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

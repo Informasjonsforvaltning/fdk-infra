@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "bc7e83e8-e01d-5f54-92f6-b24b2e5030c4",
+    "name": "Finn B. Grehper",
+    "organizationNumber": null,
+    "personId": "01018800116",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ac39124b-5e9a-5159-a333-9397825c67de",
+    "name": "Testdepartementet",
+    "organizationNumber": "555111098",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

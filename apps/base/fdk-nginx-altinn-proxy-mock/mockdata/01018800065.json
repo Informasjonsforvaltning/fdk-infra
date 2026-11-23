@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Anna Lyse",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800065"
+  },
+  {
+    "Name": "Mikroskopforbundet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111059",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

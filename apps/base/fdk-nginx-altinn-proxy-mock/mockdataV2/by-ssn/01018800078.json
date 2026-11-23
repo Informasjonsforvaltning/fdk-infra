@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "a7752a07-ace2-5f66-8a8e-338379bca021",
+    "name": "Freddy Verden",
+    "organizationNumber": null,
+    "personId": "01018800078",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "c1aab848-b347-5835-84ad-395202889f51",
+    "name": "Fredsbevaringsinstituttet",
+    "organizationNumber": "555111072",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

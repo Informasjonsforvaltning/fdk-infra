@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "99175468-55dd-54c0-a510-9fe471068c27",
+    "name": "Inga Krav",
+    "organizationNumber": null,
+    "personId": "01018800073",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ccbe87e2-76ab-547d-8b9b-62b9200453a4",
+    "name": "Innkrevingsetaten",
+    "organizationNumber": "555111067",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

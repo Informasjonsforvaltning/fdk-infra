@@ -1,0 +1,22 @@
+[
+  {
+    "partyUuid": "528ee873-477d-5a70-b514-4c761524d3fa",
+    "name": "Nysgjerrig Naver",
+    "organizationNumber": null,
+    "personId": "01012345678",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "f331a260-0522-55f9-a8ec-129435a3a40a",
+    "name": "Arbeids- og velferdsetaten (NAV)",
+    "organizationNumber": "889640782",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": []
+  }
+]

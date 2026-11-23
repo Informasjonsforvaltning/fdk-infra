@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Kornelia Konseptsdottir",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800109"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

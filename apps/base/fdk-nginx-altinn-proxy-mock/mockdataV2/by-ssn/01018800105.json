@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "8e454776-39cc-5dc9-8d29-f3f84dd24d49",
+    "name": "Ivan \"Totally not a hacker\" Drago",
+    "organizationNumber": null,
+    "personId": "01018800105",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "d47db0eb-c3ff-5acb-befd-eec062d0bf48",
+    "name": "Trojansk forening for DDOS og løsepengevirus",
+    "organizationNumber": "555111096",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

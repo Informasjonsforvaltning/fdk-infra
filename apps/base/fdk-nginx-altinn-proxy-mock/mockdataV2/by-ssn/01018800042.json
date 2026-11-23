@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "69408ff4-9003-5ce0-9937-8230c9c70cdb",
+    "name": "Tom Last",
+    "organizationNumber": null,
+    "personId": "01018800042",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "c0a1426f-07b9-5ca0-8dee-f7e3e15f9613",
+    "name": "Direktoratet for gjenglemt bagasje",
+    "organizationNumber": "555111038",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

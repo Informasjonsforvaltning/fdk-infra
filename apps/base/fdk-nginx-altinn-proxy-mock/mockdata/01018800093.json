@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Harry K. Penger",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800093"
+  },
+  {
+    "Name": "Forbund for sløsere og pengelense",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111084",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

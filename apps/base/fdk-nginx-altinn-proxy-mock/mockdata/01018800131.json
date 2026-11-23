@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Jacques Uzzi",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800131"
+  },
+  {
+    "Name": "Spadirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111060",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

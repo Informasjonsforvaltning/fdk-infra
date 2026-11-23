@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Trude Luth",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800069"
+  },
+  {
+    "Name": "Visesangtilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111063",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

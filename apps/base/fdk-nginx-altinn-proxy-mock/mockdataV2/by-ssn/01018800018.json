@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "85d72cfc-4abe-5f01-91f0-899eb9c0113b",
+    "name": "Alf Arvei",
+    "organizationNumber": null,
+    "personId": "01018800018",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "f28c33af-689a-5e7f-9fc9-c970a828e126",
+    "name": "Statlig Samferdsel SF",
+    "organizationNumber": "555111018",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "SF",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

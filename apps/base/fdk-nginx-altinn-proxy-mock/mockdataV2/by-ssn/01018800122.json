@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "9db70bea-b73d-5392-96cb-2f31aff4a2a1",
+    "name": "Skosa P.N. O'Begrep",
+    "organizationNumber": null,
+    "personId": "01018800122",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ac39124b-5e9a-5159-a333-9397825c67de",
+    "name": "Testdepartementet",
+    "organizationNumber": "555111098",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

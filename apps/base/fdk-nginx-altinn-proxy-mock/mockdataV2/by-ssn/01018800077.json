@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "0ebb95ea-8a19-5937-ab34-d5062f75df68",
+    "name": "Kåre Vinneren",
+    "organizationNumber": null,
+    "personId": "01018800077",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "4504e27a-142a-54d3-849f-b0791854b853",
+    "name": "Seiertilsynet",
+    "organizationNumber": "555111071",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

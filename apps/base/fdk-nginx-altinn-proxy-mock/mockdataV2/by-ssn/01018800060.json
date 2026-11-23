@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "daf48480-114d-5f04-a10c-47e5c11aba77",
+    "name": "Finn Erik Efram",
+    "organizationNumber": null,
+    "personId": "01018800060",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "06bd03b0-c511-5e76-bdab-9a5eb2e8d970",
+    "name": "Desorienteringsforbundet",
+    "organizationNumber": "555111054",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

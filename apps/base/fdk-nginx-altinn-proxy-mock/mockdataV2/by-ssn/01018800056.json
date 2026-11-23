@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "d0b30bca-477b-549c-9596-a07246ed3e61",
+    "name": "Birman Burmese",
+    "organizationNumber": null,
+    "personId": "01018800056",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "6a4583a1-0a0b-5cb4-bf26-ae16f469971b",
+    "name": "Statens Kattverk",
+    "organizationNumber": "555111052",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

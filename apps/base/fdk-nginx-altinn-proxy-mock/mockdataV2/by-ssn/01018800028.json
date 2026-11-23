@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "b857dffb-a051-516b-99e9-7784f6c5da39",
+    "name": "Hjørdis Elv",
+    "organizationNumber": null,
+    "personId": "01018800028",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "f0ed67b1-66ed-5c9b-b6e2-af41b9049957",
+    "name": "Direktoratet for fornybar energi",
+    "organizationNumber": "555111028",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

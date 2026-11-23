@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Ane Rikke Raad",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800103"
+  },
+  {
+    "Name": "Hjelpemiddeltilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111094",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "df338e3d-058f-5e1e-97b6-bfe795167ee0",
+    "name": "Ernst Muffens",
+    "organizationNumber": null,
+    "personId": "01018800038",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "e04dfd8b-2efc-5241-b7e5-cc6ed34fec24",
+    "name": "Bufdir demo",
+    "organizationNumber": "555111034",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

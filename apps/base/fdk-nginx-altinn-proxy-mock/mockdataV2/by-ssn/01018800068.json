@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "2b764236-287e-5bf3-ad93-7357d29a637b",
+    "name": "Endre Opseth",
+    "organizationNumber": null,
+    "personId": "01018800068",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "3f5f7889-7cfc-5bee-b1bb-78eb8369ed21",
+    "name": "It-utviklertilsynet",
+    "organizationNumber": "555111062",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

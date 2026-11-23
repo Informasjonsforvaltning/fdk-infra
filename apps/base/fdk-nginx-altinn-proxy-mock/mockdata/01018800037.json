@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Stig Matis Ere",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800037"
+  },
+  {
+    "Name": "Omdømmedirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111033",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

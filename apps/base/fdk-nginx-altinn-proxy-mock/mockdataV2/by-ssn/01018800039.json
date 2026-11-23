@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "aada5bfe-a62b-56a3-8d6a-612644308e9f",
+    "name": "Tom Gate",
+    "organizationNumber": null,
+    "personId": "01018800039",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "3b0b5140-2d37-554b-8152-ca57d7cd2c45",
+    "name": "Hjemmekontortilsynet",
+    "organizationNumber": "555111035",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

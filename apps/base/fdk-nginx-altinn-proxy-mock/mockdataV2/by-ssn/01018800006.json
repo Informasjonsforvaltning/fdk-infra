@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "571b2e48-3850-56a4-86c8-4b49749f89c8",
+    "name": "Hildur Ogmoll",
+    "organizationNumber": null,
+    "personId": "01018800006",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "a5001d8a-3e5b-560b-a654-6d143cd245f2",
+    "name": "Bevaringsverket",
+    "organizationNumber": "555111006",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "c68659b2-947f-5ef4-971a-05ae5495b4b4",
+    "name": "Roger Stenbakk Olsen",
+    "organizationNumber": null,
+    "personId": "01018800031",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "8750a858-571a-5fd2-8dd2-bc51e9bfb9a1",
+    "name": "Høgskolen for IT og arkitektur",
+    "organizationNumber": "555111290",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

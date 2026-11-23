@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "54145943-455a-50a4-a6bf-9e4532679f9d",
+    "name": "Siteimprove user",
+    "organizationNumber": null,
+    "personId": "01018800032",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "8750a858-571a-5fd2-8dd2-bc51e9bfb9a1",
+    "name": "Høgskolen for IT og arkitektur",
+    "organizationNumber": "555111290",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Tor S. Ken",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800082"
+  },
+  {
+    "Name": "Direktoratet for skjeggete fisk",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111076",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

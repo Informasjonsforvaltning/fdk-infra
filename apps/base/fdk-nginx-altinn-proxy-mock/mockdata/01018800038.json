@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Ernst Muffens",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800038"
+  },
+  {
+    "Name": "Bufdir demo",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111034",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

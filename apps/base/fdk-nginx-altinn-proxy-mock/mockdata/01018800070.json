@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Ivar Meland",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800070"
+  },
+  {
+    "Name": "Sydendirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111064",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

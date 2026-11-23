@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "16409507-3da5-5de5-a669-eb9c6c34ca5a",
+    "name": "Vetle Petter",
+    "organizationNumber": null,
+    "personId": "01018800098",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "9700df53-777c-5802-a463-f0799bfc9363",
+    "name": "Norsk forening for sykler av Fiin Gammel Aargang",
+    "organizationNumber": "555111089",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

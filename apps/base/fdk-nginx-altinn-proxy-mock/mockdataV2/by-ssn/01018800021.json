@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "c1aaf497-4b84-5f18-a3f4-732ab1f5dd35",
+    "name": "Hogne Gran",
+    "organizationNumber": null,
+    "personId": "01018800021",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "35559a2f-2833-58d0-bf4e-3650b1164fe0",
+    "name": "Skogstilsynet",
+    "organizationNumber": "555111021",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

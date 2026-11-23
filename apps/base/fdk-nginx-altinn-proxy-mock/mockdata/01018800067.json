@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Justin Time",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800067"
+  },
+  {
+    "Name": "Produksjonseffektiviseringstilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111061",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Tor Divel",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800062"
+  },
+  {
+    "Name": "Billetilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111056",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "f4048c2c-0115-5a37-8540-11a8672e9890",
+    "name": "Lone Sten",
+    "organizationNumber": null,
+    "personId": "01018800027",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "6824dafb-152f-57d5-8d52-1826f3f72a00",
+    "name": "Leiekassen",
+    "organizationNumber": "555111027",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "SF",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

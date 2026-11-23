@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "39605135-82be-5758-a3eb-25e2aaa59e67",
+    "name": "Sol B. Rente",
+    "organizationNumber": null,
+    "personId": "01018800090",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "d55b195c-3cf6-5974-a005-8b20f3d65f8e",
+    "name": "Solsengtilsynet",
+    "organizationNumber": "555111081",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

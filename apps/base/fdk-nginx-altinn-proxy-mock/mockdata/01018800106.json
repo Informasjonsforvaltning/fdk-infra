@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Arne Krevin",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800106"
+  },
+  {
+    "Name": "Innkrevingsetaten",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111067",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

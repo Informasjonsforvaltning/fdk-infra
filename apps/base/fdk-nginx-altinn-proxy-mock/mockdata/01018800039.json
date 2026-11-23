@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Tom Gate",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800039"
+  },
+  {
+    "Name": "Hjemmekontortilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111035",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

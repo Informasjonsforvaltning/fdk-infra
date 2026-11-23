@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "0ba2ca41-cc6e-52ce-8c0b-f2dc3ca8c99a",
+    "name": "Helle Tut",
+    "organizationNumber": null,
+    "personId": "01018800099",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "f1ff42e8-22d8-5e28-accf-095a1ae747c2",
+    "name": "Skjenkeforbundet",
+    "organizationNumber": "555111090",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]
