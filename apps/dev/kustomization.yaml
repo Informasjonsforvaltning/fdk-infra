@@ -15,3 +15,5 @@ resources:
   - nginx-resource-identificators-demo.yaml
   - keycloak-staging.yaml
   - keycloak-demo.yaml
+  - fdk-nginx-sparql-staging.yaml
+  - fdk-nginx-sparql-demo.yaml

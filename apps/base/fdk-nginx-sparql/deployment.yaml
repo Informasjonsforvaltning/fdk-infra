@@ -1,0 +1,61 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fdk-nginx-sparql
+  labels:
+    fdk.service: fdk-nginx-sparql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      fdk.service: fdk-nginx-sparql
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        fdk.service: fdk-nginx-sparql
+    spec:
+      containers:
+        - name: fdk-nginx-sparql
+          image: nginx:1.31.9-alpine
+          env:
+            - name: TZ
+              value: Europe/Oslo
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: 100Mi
+              cpu: 1m
+            limits:
+              memory: 100Mi
+          livenessProbe:
+            httpGet:
+              path: /ping
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 5
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 30
+            successThreshold: 1
+            failureThreshold: 5
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+            - mountPath: /data/nginx/cache
+              name: cache
+      volumes:
+        - name: config
+          configMap:
+            name: fdk-nginx-sparql
+        - name: cache
+          emptyDir: {}
