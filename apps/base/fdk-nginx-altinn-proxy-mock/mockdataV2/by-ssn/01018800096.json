@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "a02a835f-d69c-57d5-a734-a31e93f07440",
+    "name": "Elle Overfølsom",
+    "organizationNumber": null,
+    "personId": "01018800096",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "2e00b7b4-0c84-5d03-826b-f5dff9f200a1",
+    "name": "Avdigitaliseringsdirektoratet",
+    "organizationNumber": "555111087",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

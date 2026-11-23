@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "db878884-808d-57ee-942b-8a856296e9ef",
+    "name": "Ove R. Drivelse",
+    "organizationNumber": null,
+    "personId": "01018800034",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "50ed8527-a98b-56d6-bbde-417205231420",
+    "name": "Verdens største direktorat",
+    "organizationNumber": "555111030",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

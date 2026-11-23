@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "8df674c1-1d39-50d0-aa75-05349da0779c",
+    "name": "Tom Gods",
+    "organizationNumber": null,
+    "personId": "01018800091",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "6ffbfde1-6fe0-5d7c-bbed-45d51fcc8977",
+    "name": "Pantedirektoratet",
+    "organizationNumber": "555111082",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

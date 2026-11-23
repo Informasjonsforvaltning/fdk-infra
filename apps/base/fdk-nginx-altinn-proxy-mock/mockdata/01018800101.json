@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Finn Kasso",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800101"
+  },
+  {
+    "Name": "Direktoratet for pengeoppkrav",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111092",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

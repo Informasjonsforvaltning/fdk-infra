@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "13bf8c8e-9ea0-5ecf-95e8-4cb44d0395e5",
+    "name": "Justin Time",
+    "organizationNumber": null,
+    "personId": "01018800067",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "aaf90799-99ec-5bff-97a1-cbddf500cfe9",
+    "name": "Produksjonseffektiviseringstilsynet",
+    "organizationNumber": "555111061",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

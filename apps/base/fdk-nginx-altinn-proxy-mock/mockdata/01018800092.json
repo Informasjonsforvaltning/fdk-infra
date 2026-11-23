@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Stein Røysen",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800092"
+  },
+  {
+    "Name": "Forbundet for steinbrudd og pukkverk",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111083",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

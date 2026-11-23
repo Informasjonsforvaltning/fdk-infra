@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Anne Misk",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800094"
+  },
+  {
+    "Name": "De blodfattiges landsforbund",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111085",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

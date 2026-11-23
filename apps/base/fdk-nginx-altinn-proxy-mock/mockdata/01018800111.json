@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Benny de la Begrep",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800111"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

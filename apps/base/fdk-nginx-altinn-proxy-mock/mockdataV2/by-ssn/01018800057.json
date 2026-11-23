@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "ef403e0d-f713-51ba-adf2-5c2e18221636",
+    "name": "Joachim Mørk-Eidem",
+    "organizationNumber": null,
+    "personId": "01018800057",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "8750a858-571a-5fd2-8dd2-bc51e9bfb9a1",
+    "name": "Høgskolen for IT og arkitektur",
+    "organizationNumber": "555111290",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

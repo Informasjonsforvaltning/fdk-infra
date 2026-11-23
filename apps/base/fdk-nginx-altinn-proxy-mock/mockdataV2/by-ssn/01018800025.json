@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "1c872fb9-8e84-5d10-b276-f7832a8099b2",
+    "name": "Edel Gran",
+    "organizationNumber": null,
+    "personId": "01018800025",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "256c632b-a931-5edd-bbec-77af207d9a8a",
+    "name": "Ytre Østfold kommune",
+    "organizationNumber": "555111025",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "KOMM",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

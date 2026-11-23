@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Tande Garder",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800047"
+  },
+  {
+    "Name": "Tannreguleringstilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111043",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

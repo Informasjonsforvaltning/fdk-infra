@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Ulla Norakk",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800081"
+  },
+  {
+    "Name": "Norsk forening for jakker og andre turklær",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111075",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

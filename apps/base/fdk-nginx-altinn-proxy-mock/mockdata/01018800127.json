@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Bjørnstjerne Begrepsson",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800127"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

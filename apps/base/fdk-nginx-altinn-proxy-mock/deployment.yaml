@@ -1,0 +1,90 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fdk-nginx-altinn-proxy-mock
+  labels:
+    fdk.service: fdk-nginx-altinn-proxy-mock
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      fdk.service: fdk-nginx-altinn-proxy-mock
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        fdk.service: fdk-nginx-altinn-proxy-mock
+    spec:
+      terminationGracePeriodSeconds: 5
+      containers:
+        - name: fdk-nginx-altinn-proxy-mock
+          image: nginx:1.31.9-alpine
+          env:
+            - name: TZ
+              value: Europe/Oslo
+            - name: NGINX_ENVSUBST_OUTPUT_DIR
+              value: /etc/nginx
+            - name: NGINX_ENVSUBST_FILTER
+              value: ^API_KEY$
+            - name: API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: fdk-altinn-proxy-mock
+                  key: API_KEY
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 10m
+            limits:
+              memory: 64Mi
+          volumeMounts:
+            - mountPath: /etc/nginx/templates/nginx.conf.template
+              name: config
+              subPath: nginx.conf.template
+            - mountPath: /mockdata
+              name: mockdata
+            - mountPath: /mockdata-authorization-mock
+              name: mockdata-authorization-mock
+            - mountPath: /mockdataV2
+              name: mockdata-v2
+        - name: v2-mock-server
+          image: python:3.14.10-alpine
+          command:
+            - python3
+            - /scripts/v2_mock_server.py
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 1m
+            limits:
+              memory: 64Mi
+          volumeMounts:
+            - mountPath: /scripts
+              name: server
+            - mountPath: /mockdataV2
+              name: mockdata-v2
+            - mountPath: /mockdataV2-by-ssn
+              name: mockdata-v2-by-ssn
+      volumes:
+        - name: config
+          configMap:
+            name: fdk-nginx-altinn-proxy-mock
+        - name: server
+          configMap:
+            name: fdk-nginx-altinn-proxy-mock-server
+        - name: mockdata
+          configMap:
+            name: fdk-nginx-altinn-proxy-mock-mockdata
+        - name: mockdata-authorization-mock
+          configMap:
+            name: fdk-nginx-altinn-proxy-mock-mockdata-authorization-mock
+        - name: mockdata-v2
+          configMap:
+            name: fdk-nginx-altinn-proxy-mock-mockdata-v2
+        - name: mockdata-v2-by-ssn
+          configMap:
+            name: fdk-nginx-altinn-proxy-mock-mockdata-v2-by-ssn

@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Skosa P.N. O'Begrep",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800122"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

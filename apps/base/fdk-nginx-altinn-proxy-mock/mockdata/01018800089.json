@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Storm Annsgal",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800089"
+  },
+  {
+    "Name": "Storevik Kommune",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111080",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

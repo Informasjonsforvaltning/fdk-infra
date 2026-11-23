@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "6beca11a-493c-5a8f-b072-b73b327bcf6c",
+    "name": "Ane Rikke Raad",
+    "organizationNumber": null,
+    "personId": "01018800103",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "20a15060-1753-5ec2-b98d-76e2ebc12fc1",
+    "name": "Hjelpemiddeltilsynet",
+    "organizationNumber": "555111094",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

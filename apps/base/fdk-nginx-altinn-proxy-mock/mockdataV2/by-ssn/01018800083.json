@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "d1f33e7e-3502-57c7-88f8-4136a6fa2a1d",
+    "name": "David Nittenborough",
+    "organizationNumber": null,
+    "personId": "01018800083",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "b4d48037-5427-5ed9-8e48-49b30b54daab",
+    "name": "Naturdokumentarforbundet",
+    "organizationNumber": "555111077",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

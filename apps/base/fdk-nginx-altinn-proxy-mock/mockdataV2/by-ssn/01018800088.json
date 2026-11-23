@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "c1a2c4c1-91d6-580a-8b10-bacfaffb8a28",
+    "name": "Tord Enski Old",
+    "organizationNumber": null,
+    "personId": "01018800088",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "47972afc-dca0-5bd0-8af8-8305561fbc1f",
+    "name": "Norsk forening for Peter Wessel og andre danskebåter",
+    "organizationNumber": "555111079",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

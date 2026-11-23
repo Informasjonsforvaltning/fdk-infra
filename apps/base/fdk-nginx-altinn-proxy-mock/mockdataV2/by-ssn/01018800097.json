@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "c3eb2115-5324-5dbe-8c12-f2ed4d15c9cd",
+    "name": "Bør S. Hai",
+    "organizationNumber": null,
+    "personId": "01018800097",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "665ad97a-bb18-58e1-b277-fed13868dea8",
+    "name": "Direktoratet for alternativ børsvirksomhet",
+    "organizationNumber": "555111088",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

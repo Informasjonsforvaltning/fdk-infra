@@ -1,0 +1,48 @@
+[
+  {
+    "partyUuid": "4d89ebe4-e83c-5f76-8c62-48ae2146f645",
+    "name": "LEONHARDSEN STURLA",
+    "organizationNumber": null,
+    "personId": "02084902333",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "328a84e4-258f-5172-9d77-362df1754091",
+    "name": "RAMSUND OG ROGNAN REVISJON",
+    "organizationNumber": "910244132",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "KF",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  },
+  {
+    "partyUuid": "2c1f4422-2d25-5814-a23f-f72b9e3d0f71",
+    "name": "KARMSUND OG KYSNESSTRAND REVISJON",
+    "organizationNumber": "910298062",
+    "personId": null,
+    "type": "Organization",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  },
+  {
+    "partyUuid": "dfe0d4c4-6f40-575c-9e62-d1e27414daa4",
+    "name": "REINLI OG BERLEVÅG REGNSKAP",
+    "organizationNumber": "910888447",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "AS",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

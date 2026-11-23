@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "9005f9e8-03c1-5c42-9e25-9790b3cee337",
+    "name": "Anne Misk",
+    "organizationNumber": null,
+    "personId": "01018800094",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "de010f4c-95cd-5924-9eb8-dd9128d21ea9",
+    "name": "De blodfattiges landsforbund",
+    "organizationNumber": "555111085",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

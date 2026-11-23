@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "254bff77-bc35-5f00-9009-cbe6ef63ccd7",
+    "name": "Tore Plicker",
+    "organizationNumber": null,
+    "personId": "01018800014",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "13663712-a01c-5f63-9e3b-58c48e6757dc",
+    "name": "Norsk debattforening",
+    "organizationNumber": "555111014",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "KF",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

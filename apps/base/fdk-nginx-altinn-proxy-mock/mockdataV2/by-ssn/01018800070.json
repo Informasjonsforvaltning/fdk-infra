@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "fd8a89fa-5978-5d17-890c-5813a362c27b",
+    "name": "Ivar Meland",
+    "organizationNumber": null,
+    "personId": "01018800070",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "4dbf3155-aec4-5f09-911b-a43cd701dc86",
+    "name": "Sydendirektoratet",
+    "organizationNumber": "555111064",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Loke Motiv",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800049"
+  },
+  {
+    "Name": "Kollektivtransportdirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111045",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

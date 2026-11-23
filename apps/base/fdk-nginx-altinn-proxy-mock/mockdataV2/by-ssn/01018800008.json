@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "26b3b9c4-b874-52a8-bec0-f65c79dccd88",
+    "name": "Kjell T. Ring",
+    "organizationNumber": null,
+    "personId": "01018800008",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "f1b3358c-0f01-5043-89ce-ddfc0ea95c43",
+    "name": "Internettilsynet",
+    "organizationNumber": "555111008",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

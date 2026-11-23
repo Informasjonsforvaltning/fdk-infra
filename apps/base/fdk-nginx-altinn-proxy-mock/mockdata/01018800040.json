@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Brede Last",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800040"
+  },
+  {
+    "Name": "Følgebiltilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111036",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

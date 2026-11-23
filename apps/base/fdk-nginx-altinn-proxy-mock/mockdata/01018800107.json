@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Reggie Streer B. Grehper",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800107"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

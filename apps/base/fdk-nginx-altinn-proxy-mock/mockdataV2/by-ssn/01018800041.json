@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "15ec06d9-0dd4-5415-9154-c699251d9e77",
+    "name": "Stein A. Live",
+    "organizationNumber": null,
+    "personId": "01018800041",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "fdde7296-36c2-5dd0-a68f-f2c757622b86",
+    "name": "Discodirektoratet",
+    "organizationNumber": "555111037",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

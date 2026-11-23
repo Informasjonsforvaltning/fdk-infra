@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "David Nittenborough",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800083"
+  },
+  {
+    "Name": "Naturdokumentarforbundet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111077",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

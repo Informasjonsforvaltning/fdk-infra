@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "74562bf2-9513-5c00-81a6-228c6b5fd647",
+    "name": "Tom Tank",
+    "organizationNumber": null,
+    "personId": "01018800080",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "4b7af3f7-0d01-587c-96e2-632e3aa5937e",
+    "name": "Norsk forening for ikke-bevegelige kjøretøy",
+    "organizationNumber": "555111074",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

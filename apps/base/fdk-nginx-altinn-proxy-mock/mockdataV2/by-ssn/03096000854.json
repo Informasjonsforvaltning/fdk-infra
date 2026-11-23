@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "08be4537-5d7b-5b0b-b6a6-d4668278df62",
+    "name": "MICHELLE WESTLIE",
+    "organizationNumber": null,
+    "personId": "03096000854",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "328a84e4-258f-5172-9d77-362df1754091",
+    "name": "RAMSUND OG ROGNAN REVISJON",
+    "organizationNumber": "910244132",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "KF",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

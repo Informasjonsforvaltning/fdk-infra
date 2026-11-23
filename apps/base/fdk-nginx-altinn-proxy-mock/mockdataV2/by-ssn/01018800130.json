@@ -1,0 +1,26 @@
+[
+  {
+    "partyUuid": "80dfcc3c-3bbc-51d9-aeb2-0169e4fec678",
+    "name": "Synne B. Grepsbakken",
+    "organizationNumber": null,
+    "personId": "01018800130",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "fe7c92af-96a1-5bf4-86db-30de23841de0",
+    "name": "Norsk forening for begrepworkshops i offentlig sektor",
+    "organizationNumber": "555111097",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-lesetilgang",
+      "datanorge-skrivetilgang",
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

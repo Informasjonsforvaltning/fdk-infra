@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Tom Last",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800042"
+  },
+  {
+    "Name": "Direktoratet for gjenglemt bagasje",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111038",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

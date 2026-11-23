@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "b2340579-bd5f-5c97-84ea-d6aaaee42ee1",
+    "name": "Tore Tilsyn",
+    "organizationNumber": null,
+    "personId": "01018800058",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "5b838dd7-63ba-5374-8da0-76792a6ae481",
+    "name": "Tilsynet",
+    "organizationNumber": "555111053",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

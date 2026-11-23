@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "e23d9c0d-b533-57c2-8b97-1a1baf9ec8c3",
+    "name": "Anna Lyse",
+    "organizationNumber": null,
+    "personId": "01018800065",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "9466ceba-4066-5a3c-a4d5-e72de2d84946",
+    "name": "Mikroskopforbundet",
+    "organizationNumber": "555111059",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

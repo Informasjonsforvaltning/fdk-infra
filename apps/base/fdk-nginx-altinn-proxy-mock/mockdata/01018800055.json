@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Teddy Nesen",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800055"
+  },
+  {
+    "Name": "Innemiljødirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111051",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

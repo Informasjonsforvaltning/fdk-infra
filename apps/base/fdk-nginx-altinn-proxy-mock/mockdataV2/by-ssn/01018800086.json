@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "e3347458-dcde-54b4-aac7-dda4536ac2f3",
+    "name": "Helge Utfarten",
+    "organizationNumber": null,
+    "personId": "01018800086",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "af94ba71-48a3-527e-8253-1fee349c8fb2",
+    "name": "Krisehåndteringsetaten",
+    "organizationNumber": "555111078",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

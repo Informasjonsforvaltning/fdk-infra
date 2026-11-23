@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "ee790f48-002d-5e6d-a640-ee1d916efdc4",
+    "name": "Brede Last",
+    "organizationNumber": null,
+    "personId": "01018800040",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "42af938a-b994-5c9f-829b-1dae05e033ca",
+    "name": "Følgebiltilsynet",
+    "organizationNumber": "555111036",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

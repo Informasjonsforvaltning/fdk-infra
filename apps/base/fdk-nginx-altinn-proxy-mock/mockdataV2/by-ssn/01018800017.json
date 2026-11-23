@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "c6b04eec-5eb5-552c-a953-ef2ea8803ae9",
+    "name": "Nina Boer",
+    "organizationNumber": null,
+    "personId": "01018800017",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ec50774d-02f1-5dea-b8f4-8edeb29bbca7",
+    "name": "Kollektivbanken",
+    "organizationNumber": "555111017",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "SF",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

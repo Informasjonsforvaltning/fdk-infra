@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "0538c989-b70c-525e-8025-2cf9c48ca11f",
+    "name": "Aksel Erasjon",
+    "organizationNumber": null,
+    "personId": "01018800064",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "cd7dce26-e4bd-53aa-a500-f2f59522bb7d",
+    "name": "Superbiltilsynet",
+    "organizationNumber": "555111058",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

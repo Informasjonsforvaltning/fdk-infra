@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "b1a7d3d4-7648-5f7c-8175-771ebc6d275e",
+    "name": "Teddy Nesen",
+    "organizationNumber": null,
+    "personId": "01018800055",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "d86bb484-bef9-5393-af77-fd271fed17de",
+    "name": "Innemiljødirektoratet",
+    "organizationNumber": "555111051",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

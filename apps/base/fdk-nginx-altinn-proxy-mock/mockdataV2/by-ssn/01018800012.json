@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "795eecba-4a90-5ce6-94c4-40562c92f044",
+    "name": "Endre Altnå",
+    "organizationNumber": null,
+    "personId": "01018800012",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "34897ed9-4162-58d9-9b3c-49e2e157252e",
+    "name": "Innovasjonsdirektoratet",
+    "organizationNumber": "555111012",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Sol B. Rente",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800090"
+  },
+  {
+    "Name": "Solsengtilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111081",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

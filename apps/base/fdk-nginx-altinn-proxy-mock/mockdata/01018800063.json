@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Steinar Beider",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800063"
+  },
+  {
+    "Name": "Pukkverkdirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111057",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

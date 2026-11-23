@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "4d3d5e88-0e85-5b34-a3d7-bf42d28741d6",
+    "name": "Borg Erly Begrep",
+    "organizationNumber": null,
+    "personId": "01018800119",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ac39124b-5e9a-5159-a333-9397825c67de",
+    "name": "Testdepartementet",
+    "organizationNumber": "555111098",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

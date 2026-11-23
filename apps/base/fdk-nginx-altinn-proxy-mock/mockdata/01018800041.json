@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Stein A. Live",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800041"
+  },
+  {
+    "Name": "Discodirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111037",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

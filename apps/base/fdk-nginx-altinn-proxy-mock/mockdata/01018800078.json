@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Freddy Verden",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800078"
+  },
+  {
+    "Name": "Fredsbevaringsinstituttet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111072",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "8941288e-b2a2-5fd4-b528-5632330e0022",
+    "name": "Per Pleks",
+    "organizationNumber": null,
+    "personId": "01018800023",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "157e4177-f01d-53ba-8328-74ffa3d2c504",
+    "name": "Direktoratet for helse og IOT",
+    "organizationNumber": "555111023",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "735a2d54-204a-59c0-8ff2-a7d297260120",
+    "name": "Knitre T. Papir",
+    "organizationNumber": null,
+    "personId": "01018800048",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "b3b4c226-77c9-5f63-ad3e-e452307488c8",
+    "name": "Banantwisttilsynet",
+    "organizationNumber": "555111044",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

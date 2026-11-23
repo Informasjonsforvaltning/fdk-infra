@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "6a48a212-f051-571a-83bb-17abe944195d",
+    "name": "Tord Envær",
+    "organizationNumber": null,
+    "personId": "01018800007",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "e4514eca-b0f0-54b7-a7d9-128002af9667",
+    "name": "Værdirektoratet",
+    "organizationNumber": "555111007",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

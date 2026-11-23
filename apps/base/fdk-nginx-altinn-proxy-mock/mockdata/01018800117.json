@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Toto B. Grehp",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800117"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

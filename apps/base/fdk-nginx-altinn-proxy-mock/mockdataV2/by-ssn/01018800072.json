@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "37872e50-f724-5464-a9b0-584c944a13cc",
+    "name": "Tom Konto",
+    "organizationNumber": null,
+    "personId": "01018800072",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "f0c1106a-11f2-5912-8bcb-ff859b168ac4",
+    "name": "Rana Bank",
+    "organizationNumber": "555111066",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

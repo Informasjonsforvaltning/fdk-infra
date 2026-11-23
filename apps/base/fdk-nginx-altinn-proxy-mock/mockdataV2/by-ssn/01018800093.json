@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "cf1de13e-d13f-57d7-bd94-7eaffc243d91",
+    "name": "Harry K. Penger",
+    "organizationNumber": null,
+    "personId": "01018800093",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "c1be650b-0ff6-54d3-a96a-d86638c16701",
+    "name": "Forbund for sløsere og pengelense",
+    "organizationNumber": "555111084",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

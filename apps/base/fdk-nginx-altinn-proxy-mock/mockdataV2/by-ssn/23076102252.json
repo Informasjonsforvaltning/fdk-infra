@@ -1,0 +1,48 @@
+[
+  {
+    "partyUuid": "bb9d4e89-06f3-5106-8dff-00d6080e2028",
+    "name": "MAUD GULLIKSEN",
+    "organizationNumber": null,
+    "personId": "23076102252",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "328a84e4-258f-5172-9d77-362df1754091",
+    "name": "RAMSUND OG ROGNAN REVISJON",
+    "organizationNumber": "910244132",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "KF",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  },
+  {
+    "partyUuid": "2c1f4422-2d25-5814-a23f-f72b9e3d0f71",
+    "name": "KARMSUND OG KYSNESSTRAND REVISJON",
+    "organizationNumber": "910298062",
+    "personId": null,
+    "type": "Organization",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  },
+  {
+    "partyUuid": "b486c447-e8fb-514a-b7bf-7f7be1501d13",
+    "name": "SKATVAL OG BREIVIKBOTN",
+    "organizationNumber": "911527170",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "AS",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

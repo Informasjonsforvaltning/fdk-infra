@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "d5bc4425-8f2c-5554-ac9e-dc54d6f8d5ab",
+    "name": "Sølvi Normalbakke",
+    "organizationNumber": null,
+    "personId": "01018800045",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "d7e67784-abd1-537a-ba2c-85e86470a877",
+    "name": "Norsk forening for skihopp og nestenseire",
+    "organizationNumber": "555111041",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

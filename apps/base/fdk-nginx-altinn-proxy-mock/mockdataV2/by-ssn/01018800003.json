@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "16a9d179-2734-5107-a26d-8113cd8726e0",
+    "name": "Inga Lykke",
+    "organizationNumber": null,
+    "personId": "01018800003",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "14ec47ca-b8c5-5983-9e69-fda751c94dfc",
+    "name": "Lilleskog Kommune",
+    "organizationNumber": "555111003",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "KOMM",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

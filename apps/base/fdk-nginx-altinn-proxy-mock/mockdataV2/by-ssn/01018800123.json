@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "741faa5c-0182-5ec3-af28-f5394a7560b2",
+    "name": "Era S. Begrep-Snälla",
+    "organizationNumber": null,
+    "personId": "01018800123",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ac39124b-5e9a-5159-a333-9397825c67de",
+    "name": "Testdepartementet",
+    "organizationNumber": "555111098",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

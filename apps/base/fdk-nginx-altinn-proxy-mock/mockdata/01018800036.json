@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Maj Ord Ølje",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800036"
+  },
+  {
+    "Name": "Direktoratet for ikke-eksisterende tjenester",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111032",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

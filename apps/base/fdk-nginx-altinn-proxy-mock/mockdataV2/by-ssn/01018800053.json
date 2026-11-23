@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "261a126d-7393-5e76-81aa-83b40d4b7b38",
+    "name": "Lars Æ. Gjøre",
+    "organizationNumber": null,
+    "personId": "01018800053",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "99b73696-f08d-5960-a24a-d945bf20d657",
+    "name": "Gjennomføringsdepartementet",
+    "organizationNumber": "555111049",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "9157084a-7204-504e-9d18-c700ecf7ffad",
+    "name": "Ulrik Smål",
+    "organizationNumber": null,
+    "personId": "01018800004",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "d326d2dd-3c01-52fa-b77c-d18552b80748",
+    "name": "Utlandstilsynet",
+    "organizationNumber": "555111004",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "38b97d21-ad48-5d98-8485-90dbeb4f1f85",
+    "name": "Vibeke Lager",
+    "organizationNumber": null,
+    "personId": "01018800100",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "d3138d1f-573d-592e-8e0e-e073d0202e41",
+    "name": "Unnskyldningsforbundet",
+    "organizationNumber": "555111091",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

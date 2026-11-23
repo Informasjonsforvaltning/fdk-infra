@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Vibeke Lager",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800100"
+  },
+  {
+    "Name": "Unnskyldningsforbundet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111091",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

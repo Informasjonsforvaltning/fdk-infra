@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Bob Lebad",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800066"
+  },
+  {
+    "Name": "Spadirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111060",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

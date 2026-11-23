@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "9d59a944-2374-539c-bf0b-e3fcb44f1eeb",
+    "name": "Maj Ord Ølje",
+    "organizationNumber": null,
+    "personId": "01018800036",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "532434ac-3415-5f43-9f7d-e24f3e910325",
+    "name": "Direktoratet for ikke-eksisterende tjenester",
+    "organizationNumber": "555111032",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

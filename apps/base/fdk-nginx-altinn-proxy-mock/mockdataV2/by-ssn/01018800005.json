@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "905b6a78-dfb3-563c-9025-edf8d378ab13",
+    "name": "Telli Graf",
+    "organizationNumber": null,
+    "personId": "01018800005",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ba9d42dc-53b7-528c-bac5-a3ef40d8ee1e",
+    "name": "Direktoratet for forvandling og KTI",
+    "organizationNumber": "555111005",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

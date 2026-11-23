@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Sol B. R. Busk",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800095"
+  },
+  {
+    "Name": "Bærplukketilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111086",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

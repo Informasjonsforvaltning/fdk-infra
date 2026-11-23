@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "7ffecbcf-bf04-54f6-b9d1-7a3a522b4b10",
+    "name": "Sol B. R. Busk",
+    "organizationNumber": null,
+    "personId": "01018800095",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "c5be93f3-c2b3-5935-9e36-43acf30fd2a8",
+    "name": "Bærplukketilsynet",
+    "organizationNumber": "555111086",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "7df0ba21-6655-5f55-9d71-1f7f39649c3a",
+    "name": "Jan T. Loven",
+    "organizationNumber": null,
+    "personId": "01018800079",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ce2e31e9-0f44-5131-9895-af74d964c86d",
+    "name": "Suksessbedriftstilsynet",
+    "organizationNumber": "555111073",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

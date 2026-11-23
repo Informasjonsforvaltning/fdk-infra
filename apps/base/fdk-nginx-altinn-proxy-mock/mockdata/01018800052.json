@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Inga Kontroll",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800052"
+  },
+  {
+    "Name": "Direktoratet for akebrett og sklifremkomstmidler",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111048",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

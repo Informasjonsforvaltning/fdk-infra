@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "67955c20-7c82-5160-b54b-8e7baac620c1",
+    "name": "Finn Kasso",
+    "organizationNumber": null,
+    "personId": "01018800101",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "80876579-c577-5e1c-b00d-4866679c642e",
+    "name": "Direktoratet for pengeoppkrav",
+    "organizationNumber": "555111092",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

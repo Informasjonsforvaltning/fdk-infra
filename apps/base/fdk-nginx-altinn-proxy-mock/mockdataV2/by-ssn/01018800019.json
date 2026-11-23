@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "66aeb076-9a0b-577c-840b-740273a76924",
+    "name": "Dan Orge Vant",
+    "organizationNumber": null,
+    "personId": "01018800019",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "b6a90d61-2237-5fca-ac38-42cbf0880a71",
+    "name": "Norsk forening for ballidrett og Sør-Amerikaspørsmål",
+    "organizationNumber": "555111019",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "IKS",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

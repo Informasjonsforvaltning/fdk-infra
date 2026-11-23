@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Era S. Begrep-Snälla",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800123"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

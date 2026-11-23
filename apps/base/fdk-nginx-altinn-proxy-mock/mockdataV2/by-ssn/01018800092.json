@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "175554c0-f5a2-5ace-9c46-2cd14cc76546",
+    "name": "Stein Røysen",
+    "organizationNumber": null,
+    "personId": "01018800092",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "fcc8bad8-0665-53a8-8277-2e65339aef3c",
+    "name": "Forbundet for steinbrudd og pukkverk",
+    "organizationNumber": "555111083",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

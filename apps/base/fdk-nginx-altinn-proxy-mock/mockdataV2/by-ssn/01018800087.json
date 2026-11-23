@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "93f404de-4167-568c-93c6-9d1ae97d8c2c",
+    "name": "Atle Tisk",
+    "organizationNumber": null,
+    "personId": "01018800087",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "4504e27a-142a-54d3-849f-b0791854b853",
+    "name": "Seiertilsynet",
+    "organizationNumber": "555111071",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

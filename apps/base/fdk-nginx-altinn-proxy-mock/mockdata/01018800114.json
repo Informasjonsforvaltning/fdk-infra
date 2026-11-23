@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Adele B. Grehp",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800114"
+  },
+  {
+    "Name": "Testdepartementet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111098",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

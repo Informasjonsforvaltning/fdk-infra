@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Helle Tut",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800099"
+  },
+  {
+    "Name": "Skjenkeforbundet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111090",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

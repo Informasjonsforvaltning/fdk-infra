@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Birman Burmese",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800056"
+  },
+  {
+    "Name": "Statens Kattverk",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111052",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

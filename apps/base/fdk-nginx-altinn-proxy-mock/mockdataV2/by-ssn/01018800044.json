@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "51872621-94d0-571d-8da6-3f8e56aec17b",
+    "name": "Severin Suveren",
+    "organizationNumber": null,
+    "personId": "01018800044",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "fecacfb8-f4df-58df-b46d-bc64178b6ad9",
+    "name": "Norsk forening for tur- og tidsspørsmål",
+    "organizationNumber": "555111040",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

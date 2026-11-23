@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "76dbbd4c-a13b-5764-b5c4-27bf958682f2",
+    "name": "Even Tyrli",
+    "organizationNumber": null,
+    "personId": "01018800022",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "9ee4b225-8f98-577f-b33a-fbfca30f20cf",
+    "name": "Litteraturdepartementet",
+    "organizationNumber": "555111022",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

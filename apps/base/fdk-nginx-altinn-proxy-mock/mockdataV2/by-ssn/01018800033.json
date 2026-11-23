@@ -1,0 +1,36 @@
+[
+  {
+    "partyUuid": "2e9e4f1a-1bd9-57e8-a39e-33b41ff5ac79",
+    "name": "Kari Katur",
+    "organizationNumber": null,
+    "personId": "01018800033",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "e479b997-3a96-5eb3-bdb3-717bf5e306e4",
+    "name": "Norsk Karikaturforening",
+    "organizationNumber": "555111029",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  },
+  {
+    "partyUuid": "55d40721-e650-5ac6-a8f6-087fcf1fbe54",
+    "name": "Forbruksdirektoratet",
+    "organizationNumber": "555111031",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

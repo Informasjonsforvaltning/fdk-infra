@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Elle Overfølsom",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800096"
+  },
+  {
+    "Name": "Avdigitaliseringsdirektoratet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111087",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]

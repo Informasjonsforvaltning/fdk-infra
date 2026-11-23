@@ -1,0 +1,24 @@
+[
+  {
+    "partyUuid": "1842068f-3f58-5a0d-bd44-7ac80d8d8d59",
+    "name": "Turid Skogen",
+    "organizationNumber": null,
+    "personId": "01018800074",
+    "type": "Person",
+    "unitType": null,
+    "isDeleted": false,
+    "authorizedResources": []
+  },
+  {
+    "partyUuid": "ea9cf461-8d9e-55b1-8760-f442ac9d1c2b",
+    "name": "Forbundet for Park og Mark(a)",
+    "organizationNumber": "555111068",
+    "personId": null,
+    "type": "Organization",
+    "unitType": "ORGL",
+    "isDeleted": false,
+    "authorizedResources": [
+      "datanorge-virksomhetsadministrator"
+    ]
+  }
+]

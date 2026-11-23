@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Knitre T. Papir",
+    "Type": "Person",
+    "SocialSecurityNumber": "01018800048"
+  },
+  {
+    "Name": "Banantwisttilsynet",
+    "Type": "Enterprise",
+    "OrganizationNumber": "555111044",
+    "OrganizationForm": "ORGL",
+    "Status": "Active"
+  }
+]
