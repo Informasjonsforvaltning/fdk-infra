@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="nb" data-dir="ltr" style="direction: ltr;">
+
+<head>
+    <title>Felles datakatalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta property="og:site_name" content="Felles datakatalog">
+    <meta name="title" content="Felles datakatalog">
+    <meta property="og:type" content="website">
+    <link rel="shortcut icon" type="image/jpg" href="favicon.ico" />
+    <style>
+        body {
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            min-height: 100%;
+            font-family: Heebo, sans-serif;
+            font-size: 14px;
+            color: #2d3741;
+            background-color: #eeeff0;
+        }
+
+        .h3,
+        .h4,
+        .h5,
+        .h6,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            line-height: 1.1;
+        }
+
+        ol,
+        ul {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        main {
+            padding-top: 0 !important;
+        }
+
+        .container {
+            margin-right: auto;
+            margin-left: auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 750px;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .container {
+                max-width: 970px;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .container {
+                max-width: 1170px;
+            }
+        }
+
+        .fdk-header {
+            background-color: #ffffff;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .fdk-logo svg,
+        .fdk-logo-footer svg {
+            height: 40px;
+        }
+
+        .fdk-logo svg path {
+            fill: #1e2b3c;
+        }
+
+        .fdk-logo-footer svg path {
+            fill: #ffffff;
+        }
+
+        .fdk-text-icon {
+            width: 15px;
+            vertical-align: middle;
+        }
+
+        .fdk-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0;
+        }
+
+        .fdk-container::before {
+            content: none;
+        }
+
+        .fdk-container::after {
+            content: none;
+        }
+
+        .fdk-main {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            -webkit-box-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            margin-top: -4rem;
+            margin-bottom: -60px;
+        }
+
+        .fdk-main-content {
+            text-align: center;
+        }
+
+        .fdk-main-content h1 {
+            margin: 1.6rem;
+            font-size: 3rem;
+            font-weight: 800;
+        }
+
+        .fdk-main-content p {
+            font-size: 1.4rem;
+
+        }
+
+        .fdk-main-upper-right-background {
+            position: absolute;
+            top: 40px;
+            right: 0px;
+            height: 300px;
+        }
+
+        @media(max-width: 1000px) {
+            .fdk-main-upper-right-background {
+                display: none;
+            }
+        }
+
+        .fdk-main-lower-left-background {
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            height: 300px;
+        }
+
+        @media(max-width: 1000px) {
+            .fdk-main-lower-left-background {
+                display: none;
+            }
+        }
+
+        .fdk-links {
+            display: flex;
+            font-size: 16px;
+        }
+
+        @media(max-width: 1000px) {
+            .fdk-links {
+                display: none;
+            }
+        }
+
+        .fdk-links a {
+            text-decoration: none;
+            margin-left: 10px;
+            color: #2d3741;
+        }
+
+        .fdk-links a:hover {
+            text-decoration: underline;
+        }
+
+        .fdk-links>.fdk-tools {
+            font-size: 16px;
+            margin-left: 10px;
+            display: inline-block;
+        }
+
+        .fdk-links>.fdk-tools:hover .fdk-tools-dropdown {
+            display: block;
+        }
+
+        .fdk-links>.fdk-tools>.fdk-tools-dropdown {
+            display: none;
+            position: absolute;
+            list-style: none;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1;
+            box-shadow: 2px 5px 6px rgba(0, 0, 0, 0.15);
+            margin-top: -10px
+        }
+
+        .fdk-links>.fdk-tools>.fdk-tools-dropdown>li {
+            margin-bottom: 10px;
+        }
+
+        .fdk-links>.fdk-tools>.fdk-tools-dropdown>li a {
+            display: block;
+        }
+
+        .fdk-links-dropdown {
+            font-size: 16px;
+            display: none;
+        }
+
+        @media(max-width: 1000px) {
+            .fdk-links-dropdown {
+                display: inherit;
+            }
+        }
+
+        .fdk-links-dropdown>.fdk-links-button {
+            border-style: none;
+            padding: 0px;
+            background-color: white;
+            font-family: inherit;
+            font-size: inherit;
+            line-height: inherit;
+            cursor: pointer;
+        }
+
+        .fdk-links-dropdown>.fdk-dropdown-menu {
+            display: none;
+            position: absolute;
+            width: 100vw;
+            top: 80px;
+            list-style: none;
+            left: 0;
+            background-color: #ffffff;
+            z-index: 1000;
+            border-top: 1px solid #eeeff0;
+            border-bottom: 1px solid #eeeff0;
+            padding-bottom: 25px;
+        }
+
+        .fdk-links-dropdown>.fdk-dropdown-menu>li {
+            white-space: nowrap;
+            font-size: 16px;
+            text-align: left;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .fdk-links-dropdown>.fdk-dropdown-menu>li a {
+            color: #2d3741;
+            text-decoration: underline;
+        }
+
+        .fdk-footer {
+            position: relative;
+            background-color: #2d3741;
+            color: #ffffff;
+            padding-top: 50px;
+            padding-bottom: 50px;
+            margin-top: auto;
+            display: flex;
+        }
+
+        .fdk-footer.footer-title>h6 {
+            color: #ffffff;
+        }
+
+        .fdk-footer a {
+            color: #ffffff;
+            border-bottom: 1px solid;
+            padding-bottom: 3px;
+            text-decoration: none;
+        }
+
+        .fdk-footer a#fdk-logo-link-footer {
+            border-bottom: 0;
+        }
+
+        .footer-content {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            z-index: 1;
+        }
+
+        .footer-content>ul {
+            list-style: none;
+            max-width: 300px;
+        }
+
+        .footer-content>ul>li {
+            margin-bottom: 8px;
+        }
+
+        .footer-content>ul>li>span>.fdk-text-icon {
+            margin-right: 10px;
+            margin-right: 10px;
+        }
+
+        .footer-content::before {
+            content: none;
+        }
+
+        .footer-content::after {
+            content: none;
+        }
+
+        .footer-illustration {
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+            height: 75%;
+            z-index: 0;
+        }
+
+        .show {
+            display: block !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fdk-header">
+        <div class="fdk-container container">
+            <div class="fdk-logo">
+                <a id="fdk-logo-link" href="">
+                    <svg id="logoer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 262.18 38.86">
+                        <title>Felles datakatalog_positiv</title>
+                        <path
+                            d="M19.73,7.06H7.56a.5.5,0,0,0-.5.5V31.3a.5.5,0,0,0,.5.5H19.73a12.37,12.37,0,0,0,0-24.73m1.19,21a8.8,8.8,0,1,1,7.18-7.18,8.8,8.8,0,0,1-7.18,7.18" />
+                        <path
+                            d="M42.42,10.78c0-.08,0-.12.13-.12H53.67a.11.11,0,0,1,.12.12v1.88a.11.11,0,0,1-.12.12H44.92c-.08,0-.12,0-.12.13V18a.12.12,0,0,0,.12.13h7.73a.11.11,0,0,1,.12.12v1.87a.12.12,0,0,1-.12.13H44.92a.11.11,0,0,0-.12.12v7.75a.11.11,0,0,1-.12.12H42.55a.12.12,0,0,1-.13-.12Z" />
+                        <path
+                            d="M67.16,21.94q0,.84-.18.84H57.85c-.08,0-.12,0-.12.13a3.43,3.43,0,0,0,3.56,3.47,3.3,3.3,0,0,0,3.18-1.75.16.16,0,0,1,.16-.12h2.06c.09,0,.13,0,.12.12a4.75,4.75,0,0,1-2,2.86,6.13,6.13,0,0,1-3.59,1,5.5,5.5,0,0,1-4.31-1.81,6.94,6.94,0,0,1-1.6-4.78,7,7,0,0,1,1.54-4.76,5.51,5.51,0,0,1,4.41-1.79,5.4,5.4,0,0,1,4.38,1.78A7.2,7.2,0,0,1,67.16,21.94Zm-2.38-1.15a3.4,3.4,0,0,0-.89-2.27,3.72,3.72,0,0,0-5.21.08,3.39,3.39,0,0,0-1,2.19.11.11,0,0,0,.12.12h6.81A.11.11,0,0,0,64.78,20.79Z" />
+                        <path
+                            d="M72.81,10.78V28.14a.11.11,0,0,1-.12.12H70.57a.12.12,0,0,1-.13-.12V10.78c0-.08,0-.12.13-.12h2.12A.11.11,0,0,1,72.81,10.78Z" />
+                        <path
+                            d="M78.81,10.78V28.14a.11.11,0,0,1-.12.12H76.56a.12.12,0,0,1-.13-.12V10.78c0-.08,0-.12.13-.12h2.12A.11.11,0,0,1,78.81,10.78Z" />
+                        <path
+                            d="M93.64,21.94q0,.84-.18.84H84.33c-.08,0-.12,0-.12.13a3.43,3.43,0,0,0,3.56,3.47,3.3,3.3,0,0,0,3.18-1.75.16.16,0,0,1,.16-.12h2.06c.09,0,.13,0,.12.12a4.75,4.75,0,0,1-2,2.86,6.13,6.13,0,0,1-3.59,1,5.5,5.5,0,0,1-4.31-1.81,6.94,6.94,0,0,1-1.6-4.78,7,7,0,0,1,1.54-4.76,5.51,5.51,0,0,1,4.41-1.79,5.4,5.4,0,0,1,4.38,1.78A7.2,7.2,0,0,1,93.64,21.94Zm-2.38-1.15a3.4,3.4,0,0,0-.89-2.27,3.72,3.72,0,0,0-5.21.08,3.39,3.39,0,0,0-1,2.19.11.11,0,0,0,.12.12h6.81A.11.11,0,0,0,91.26,20.79Z" />
+                        <path
+                            d="M106.91,19.89h-2.15a.11.11,0,0,1-.12-.12,2,2,0,0,0-.81-1.67,3.66,3.66,0,0,0-2.23-.61,3.71,3.71,0,0,0-2.1.48,1.35,1.35,0,0,0-.68,1.11,1,1,0,0,0,.31.85,4.92,4.92,0,0,0,.56.39,11.12,11.12,0,0,0,2.45.42,12.15,12.15,0,0,1,3.33.76,3,3,0,0,1,1.9,3,3.43,3.43,0,0,1-1.51,3.09,7.42,7.42,0,0,1-4.1,1,6.1,6.1,0,0,1-4.08-1.25,4,4,0,0,1-1.46-3.15.11.11,0,0,1,.12-.12h2.11c.1,0,.15,0,.15.12a1.93,1.93,0,0,0,.9,1.62,4,4,0,0,0,2.37.65q3.12,0,3.13-1.89a1.09,1.09,0,0,0-.31-.81,1.67,1.67,0,0,0-.62-.42l-.45-.16a3.11,3.11,0,0,0-.48-.1l-.63-.11a3.28,3.28,0,0,0-.63-.06A11.38,11.38,0,0,1,98.23,22a3.22,3.22,0,0,1-1.57-1.6,4.08,4.08,0,0,1-.22-1.33,3.23,3.23,0,0,1,1.4-2.65,6,6,0,0,1,3.75-1.07,6.42,6.42,0,0,1,3.89,1.14A3.82,3.82,0,0,1,107,19.77C107,19.85,107,19.89,106.91,19.89Z" />
+                        <path
+                            d="M127.35,28.27h-1.88s-.09,0-.12-.12l-.26-1q-.07-.22-.24,0a5.94,5.94,0,0,1-3.58,1.42,5.52,5.52,0,0,1-4.33-1.81,6.89,6.89,0,0,1-1.61-4.77,6.87,6.87,0,0,1,1.61-4.76,5.56,5.56,0,0,1,4.33-1.81,4.89,4.89,0,0,1,2.19.51,4.77,4.77,0,0,1,1.39.91c.06.07.12.08.17.06a.12.12,0,0,0,.07-.11V10.78c0-.08,0-.12.13-.12h2.12a.11.11,0,0,1,.12.12V28.14A.11.11,0,0,1,127.35,28.27Zm-9.64-6.33a4.87,4.87,0,0,0,1,3.21,3.38,3.38,0,0,0,2.74,1.24,3.22,3.22,0,0,0,2.68-1.22,5.06,5.06,0,0,0,.94-3.23,5.16,5.16,0,0,0-.94-3.23,3.17,3.17,0,0,0-2.67-1.22,3.41,3.41,0,0,0-2.75,1.22A4.92,4.92,0,0,0,117.71,21.94Z" />
+                        <path
+                            d="M143.69,26.26v1.88a.11.11,0,0,1-.12.12h-.9q-1.93,0-2.46-1.15c0-.13-.13-.15-.23,0a4.65,4.65,0,0,1-1.7,1,7.45,7.45,0,0,1-2.72.43,5.63,5.63,0,0,1-3.73-1.09,3.53,3.53,0,0,1-1.29-2.84,3.32,3.32,0,0,1,1.41-2.81,6.75,6.75,0,0,1,4.08-1h2.81c.47,0,.74-.12.81-.36a5.79,5.79,0,0,0,0-.72,2.5,2.5,0,0,0-.54-1.37q-.54-.77-2.71-.8a3.46,3.46,0,0,0-2.29.63,2.07,2.07,0,0,0-.76,1.67c0,.08,0,.13-.13.13h-2.13c-.08,0-.12,0-.12-.13a3.76,3.76,0,0,1,1.59-3.24,6.84,6.84,0,0,1,4-1.16,6.05,6.05,0,0,1,3.94,1.18A4.15,4.15,0,0,1,142,20V24.9a1.78,1.78,0,0,0,.19,1q.19.29.87.29h.47A.11.11,0,0,1,143.69,26.26Zm-4-3.55c0-.08,0-.12-.13-.12H136a4.4,4.4,0,0,0-2.47.6,1.65,1.65,0,0,0-.64,1.32,1.72,1.72,0,0,0,.62,1.33,3,3,0,0,0,2,.55,4.28,4.28,0,0,0,3.09-1,3.33,3.33,0,0,0,1.05-2.34Z" />
+                        <path
+                            d="M152.59,26.26v1.88c0,.08,0,.12-.13.12h-1.92q-3.27.07-3.28-3V17.62a.12.12,0,0,0-.12-.13h-2.22a.11.11,0,0,1-.12-.12V15.74a.11.11,0,0,1,.12-.12h2.22c.08,0,.12,0,.12-.13V12.11c0-.08,0-.12.13-.12h2.12a.11.11,0,0,1,.12.12v3.37a.12.12,0,0,0,.12.13h2.7a.12.12,0,0,1,.13.12v1.62c0,.08,0,.12-.13.12h-2.7c-.08,0-.12,0-.12.13V24.9q0,1.25,1.35,1.25h1.46C152.54,26.14,152.59,26.18,152.59,26.26Z" />
+                        <path
+                            d="M167.58,26.26v1.88a.11.11,0,0,1-.12.12h-.9q-1.93,0-2.46-1.15c0-.13-.13-.15-.23,0a4.65,4.65,0,0,1-1.7,1,7.45,7.45,0,0,1-2.72.43,5.63,5.63,0,0,1-3.73-1.09,3.53,3.53,0,0,1-1.29-2.84,3.32,3.32,0,0,1,1.41-2.81,6.75,6.75,0,0,1,4.08-1h2.81c.47,0,.74-.12.81-.36a5.79,5.79,0,0,0,0-.72,2.5,2.5,0,0,0-.54-1.37q-.54-.77-2.71-.8a3.46,3.46,0,0,0-2.29.63,2.07,2.07,0,0,0-.76,1.67c0,.08,0,.13-.13.13H155c-.08,0-.12,0-.12-.13a3.76,3.76,0,0,1,1.59-3.24,6.84,6.84,0,0,1,4-1.16,6.05,6.05,0,0,1,3.94,1.18A4.15,4.15,0,0,1,165.92,20V24.9a1.78,1.78,0,0,0,.19,1q.19.29.87.29h.47A.11.11,0,0,1,167.58,26.26Zm-4-3.55c0-.08,0-.12-.13-.12h-3.5a4.4,4.4,0,0,0-2.47.6,1.65,1.65,0,0,0-.64,1.32,1.72,1.72,0,0,0,.62,1.33,3,3,0,0,0,2,.55,4.28,4.28,0,0,0,3.09-1,3.33,3.33,0,0,0,1.05-2.34Z" />
+                        <path
+                            d="M181.85,28.27H179.6a.27.27,0,0,1-.23-.12l-4-6.82q-.07-.1-.18,0l-2.84,2.44a.22.22,0,0,0,0,.16v4.22c0,.08,0,.12-.13.12h-2.12a.11.11,0,0,1-.12-.12V10.78a.11.11,0,0,1,.12-.12h2.12a.12.12,0,0,1,.13.12v9.8s0,.06.06.07a.09.09,0,0,0,.11,0l5.75-4.89a.57.57,0,0,1,.38-.12h3.08a.08.08,0,0,1,.07,0s0,.06,0,.07l-4.65,4s0,.11,0,.2l4.82,8.25C182,28.22,182,28.27,181.85,28.27Z" />
+                        <path
+                            d="M196.79,26.26v1.88a.11.11,0,0,1-.12.12h-.9q-1.93,0-2.46-1.15c0-.13-.13-.15-.23,0a4.65,4.65,0,0,1-1.7,1,7.45,7.45,0,0,1-2.72.43,5.63,5.63,0,0,1-3.73-1.09,3.53,3.53,0,0,1-1.29-2.84A3.32,3.32,0,0,1,185,21.77a6.75,6.75,0,0,1,4.08-1h2.81c.47,0,.74-.12.81-.36a5.79,5.79,0,0,0,0-.72,2.5,2.5,0,0,0-.54-1.37q-.54-.77-2.71-.8a3.46,3.46,0,0,0-2.29.63,2.07,2.07,0,0,0-.76,1.67c0,.08,0,.13-.13.13h-2.13c-.08,0-.12,0-.12-.13a3.76,3.76,0,0,1,1.59-3.24,6.84,6.84,0,0,1,4-1.16,6.05,6.05,0,0,1,3.94,1.18A4.15,4.15,0,0,1,195.13,20V24.9a1.78,1.78,0,0,0,.19,1q.19.29.87.29h.47A.11.11,0,0,1,196.79,26.26Zm-4-3.55c0-.08,0-.12-.13-.12h-3.5a4.4,4.4,0,0,0-2.47.6,1.65,1.65,0,0,0-.64,1.32,1.72,1.72,0,0,0,.62,1.33,3,3,0,0,0,2,.55,4.28,4.28,0,0,0,3.09-1,3.33,3.33,0,0,0,1.05-2.34Z" />
+                        <path
+                            d="M205.69,26.26v1.88c0,.08,0,.12-.13.12h-1.92q-3.27.07-3.28-3V17.62a.12.12,0,0,0-.12-.13H198a.11.11,0,0,1-.12-.12V15.74a.11.11,0,0,1,.12-.12h2.22c.08,0,.12,0,.12-.13V12.11c0-.08,0-.12.13-.12h2.12a.11.11,0,0,1,.12.12v3.37a.12.12,0,0,0,.12.13h2.7a.12.12,0,0,1,.13.12v1.62c0,.08,0,.12-.13.12h-2.7c-.08,0-.12,0-.12.13V24.9q0,1.25,1.35,1.25h1.46C205.64,26.14,205.69,26.18,205.69,26.26Z" />
+                        <path
+                            d="M220.68,26.26v1.88a.11.11,0,0,1-.12.12h-.9q-1.93,0-2.46-1.15c0-.13-.13-.15-.23,0a4.65,4.65,0,0,1-1.7,1,7.45,7.45,0,0,1-2.72.43,5.63,5.63,0,0,1-3.73-1.09,3.53,3.53,0,0,1-1.29-2.84,3.32,3.32,0,0,1,1.41-2.81,6.75,6.75,0,0,1,4.08-1h2.81c.47,0,.74-.12.81-.36a5.79,5.79,0,0,0,0-.72,2.5,2.5,0,0,0-.54-1.37q-.54-.77-2.71-.8a3.46,3.46,0,0,0-2.29.63,2.07,2.07,0,0,0-.76,1.67c0,.08,0,.13-.13.13h-2.13c-.08,0-.12,0-.12-.13a3.76,3.76,0,0,1,1.59-3.24,6.84,6.84,0,0,1,4-1.16,6.05,6.05,0,0,1,3.94,1.18A4.15,4.15,0,0,1,219,20V24.9a1.78,1.78,0,0,0,.19,1q.19.29.87.29h.47A.11.11,0,0,1,220.68,26.26Zm-4-3.55c0-.08,0-.12-.13-.12H213a4.4,4.4,0,0,0-2.47.6,1.65,1.65,0,0,0-.64,1.32,1.72,1.72,0,0,0,.62,1.33,3,3,0,0,0,2,.55,4.28,4.28,0,0,0,3.09-1,3.33,3.33,0,0,0,1.05-2.34Z" />
+                        <path
+                            d="M225.5,10.78V28.14a.11.11,0,0,1-.12.12h-2.12a.12.12,0,0,1-.13-.12V10.78c0-.08,0-.12.13-.12h2.12A.11.11,0,0,1,225.5,10.78Z" />
+                        <path
+                            d="M240.92,21.94a6.75,6.75,0,0,1-1.66,4.77,6.66,6.66,0,0,1-9.09,0,6.78,6.78,0,0,1-1.65-4.77,6.78,6.78,0,0,1,1.65-4.77,5.86,5.86,0,0,1,4.54-1.79,5.92,5.92,0,0,1,4.55,1.78A6.8,6.8,0,0,1,240.92,21.94Zm-3.41,3.21a4.85,4.85,0,0,0,1-3.21,4.86,4.86,0,0,0-1-3.21,3.43,3.43,0,0,0-2.78-1.23,3.48,3.48,0,0,0-2.8,1.22,4.86,4.86,0,0,0-1,3.22,4.81,4.81,0,0,0,1,3.21,3.46,3.46,0,0,0,2.8,1.23A3.43,3.43,0,0,0,237.51,25.15Z" />
+                        <path
+                            d="M249.16,31.34a3.31,3.31,0,0,0,2.69-1,3.75,3.75,0,0,0,.85-2.52v-.67a.12.12,0,0,0-.09-.11c-.06,0-.11,0-.16.06a3.84,3.84,0,0,1-1.37.93,5,5,0,0,1-2.21.51,5.55,5.55,0,0,1-4.26-1.83,6.76,6.76,0,0,1-1.69-4.77,6.83,6.83,0,0,1,1.61-4.73,5.57,5.57,0,0,1,4.33-1.81,5.32,5.32,0,0,1,2,.42,4.82,4.82,0,0,1,1.61,1q.17.17.24,0l.26-1c0-.08.07-.12.12-.12H255a.11.11,0,0,1,.12.12v12a5.44,5.44,0,0,1-1.63,4.1,5.66,5.66,0,0,1-4.08,1.58,7,7,0,0,1-4.05-1.1,3.6,3.6,0,0,1-1.75-2.62.11.11,0,0,1,.12-.12h2.18s.09,0,.12.12a2.25,2.25,0,0,0,1,1.09A4,4,0,0,0,249.16,31.34Zm-3.84-9.41a4.87,4.87,0,0,0,1,3.21,3.38,3.38,0,0,0,2.74,1.24,3.19,3.19,0,0,0,2.67-1.22,5.11,5.11,0,0,0,1-3.23,5.11,5.11,0,0,0-1-3.23,3.19,3.19,0,0,0-2.67-1.22,3.4,3.4,0,0,0-2.74,1.22A4.92,4.92,0,0,0,245.32,21.94Z" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="fdk-main">
+        <div class="fdk-main-content">
+            <svg width="201" height="200" viewBox="0 0 201 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M100.5 196C153.519 196 196.5 153.019 196.5 100C196.5 46.9807 153.519 4 100.5 4C47.4807 4 4.5 46.9807 4.5 100C4.5 153.019 47.4807 196 100.5 196Z"
+                    fill="#89A2C4" stroke="#2D3741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M100.5 185.85C147.914 185.85 186.35 147.414 186.35 100C186.35 52.5863 147.914 14.15 100.5 14.15C53.0867 14.15 14.6504 52.5863 14.6504 100C14.6504 147.414 53.0867 185.85 100.5 185.85Z"
+                    fill="#D5E1F2" stroke="#2D3741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M62.4404 34.08L67.5104 42.87" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M34.5801 61.94L43.3701 67.01" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M24.3799 100H34.5299" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M34.5801 138.06L43.3701 132.99" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M62.4404 165.92L67.5104 157.13" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M100.5 176.12V165.97" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M138.56 165.92L133.49 157.13" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M166.42 138.06L157.63 132.99" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M166.42 61.94L157.63 67.01" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M138.56 34.08L133.49 42.87" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M100.5 23.88V34.03" stroke="#2D3741" stroke-width="4" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M176.62 100H166.47" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path d="M163.94 96.62H134.78V103.38H163.94L167.24 100.08L163.94 96.62Z" fill="white" stroke="#2D3741"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M134.78 105.92V94.08C134.78 93.1836 134.424 92.3239 133.79 91.69C133.156 91.0561 132.296 90.7 131.4 90.7H128.02L124.63 94.08L121.25 90.7H100.81C98.3343 90.6695 95.9445 91.6066 94.1495 93.312C92.3545 95.0173 91.2962 97.356 91.2 99.83C91.176 101.066 91.399 102.294 91.8557 103.443C92.3125 104.591 92.9939 105.637 93.86 106.519C94.7261 107.401 95.7595 108.101 96.8997 108.579C98.0399 109.056 99.2639 109.302 100.5 109.3H121.25L124.63 105.92L128.02 109.3H131.4C132.296 109.3 133.156 108.944 133.79 108.31C134.424 107.676 134.78 106.816 134.78 105.92Z"
+                    fill="#89A2C4" stroke="#2D3741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M117.87 100H100.5" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path
+                    d="M103.88 62.26H97.1204V37.31L93.8604 33.35L97.1204 20.39H103.88L107.14 33.35L103.88 37.31V62.26Z"
+                    fill="white" stroke="#2D3741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path
+                    d="M106.42 62.26H94.5799C94.1352 62.26 93.6949 62.3478 93.2842 62.5183C92.8734 62.6887 92.5004 62.9386 92.1864 63.2535C91.8724 63.5684 91.6236 63.9422 91.4544 64.3535C91.2851 64.7647 91.1986 65.2053 91.1999 65.65V69L94.5799 72.38L91.1999 75.8V99.62C91.1694 102.096 92.1066 104.486 93.8119 106.28C95.5172 108.075 97.8559 109.134 100.33 109.23C101.566 109.254 102.794 109.031 103.943 108.574C105.091 108.118 106.137 107.436 107.019 106.57C107.901 105.704 108.601 104.67 109.079 103.53C109.556 102.39 109.802 101.166 109.8 99.93V75.8L106.42 72.41L109.8 69V65.65C109.801 65.2053 109.715 64.7647 109.546 64.3535C109.376 63.9422 109.127 63.5684 108.814 63.2535C108.5 62.9386 108.126 62.6887 107.716 62.5183C107.305 62.3478 106.865 62.26 106.42 62.26Z"
+                    fill="#89A2C4" stroke="#2D3741" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M100.5 79.18V99.93" stroke="#2D3741" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" />
+                <path opacity="0.5"
+                    d="M26.0703 100C26.0703 80.2599 33.912 61.3284 47.8704 47.37C61.8287 33.4117 80.7603 25.57 100.5 25.57"
+                    stroke="white" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+                <path opacity="0.5" d="M164.971 137.22C158.426 148.529 149.03 157.925 137.721 164.47" stroke="white"
+                    stroke-width="12" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+
+            <h1>Arbeid pågår</h1>
+            <p>Vi jobber med å forbedre tjenesten. Prøv igjen om kort tid - vanligvis 1-2 minutt. Vi beklager ulempen.
+            </p>
+        </div>
+    </div>
+    <footer class="fdk-footer">
+        <div class="footer-content container">
+            <ul>
+                <li class="footer-title">
+                    <h6>Søk i kataloger</h6>
+                </li>
+                <li>
+                    <a href="/search-all" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Søk i alle kataloger
+
+                    </a>
+
+                </li>
+                <li>
+                    <a href="/datasets" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Søk i datasett
+                    </a>
+
+                </li>
+                <li>
+                    <a href="/apis" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Søk i datatjenester
+                    </a>
+
+                </li>
+                <li>
+                    <a href="/concepts" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Søk i begreper
+                    </a>
+
+                </li>
+                <li>
+                    <a href="/informationmodels" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Søk i informasjonsmodeller
+                    </a>
+                </li>
+            </ul>
+
+            <ul>
+                <li class="footer-title">
+                    <h6>Om Felles datakatalog</h6>
+                </li>
+                <li>
+                    <a href="/guidance" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Veiledere og standarder
+                    </a>
+                </li>
+                <li>
+                    <a href="/reports" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Rapporter
+                    </a>
+                </li>
+                <li>
+                    <a href="/organizations" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Virksomheter
+                    </a>
+                </li>
+                <li>
+                    <a href="/about" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Om Felles datakatalog
+                    </a>
+                </li>
+                <li>
+                    <a href="/about-registration" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Hjelp til å registrere
+                    </a>
+                </li>
+                <li>
+                    <a href="/news-archive" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Aktuelt
+                    </a>
+                </li>
+            </ul>
+
+            <ul>
+                <li class="footer-title">
+                    <h6>Om nettstedet
+                    </h6>
+                </li>
+                <li>
+                    <p>Digitaliseringsdirektoratet forvalter Felles datakatalog.
+
+                    </p>
+                </li>
+                <li>
+                    <a href="https://www.digdir.no/om-oss/personvernerklaering/706"
+                        class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Personvernerklæring
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.digdir.no/om-oss/informasjonskapsler/707"
+                        class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Informasjonskapsler
+                    </a>
+                </li>
+            </ul>
+
+            <ul>
+                <li class="footer-title">
+                    <h6>Kontakt
+
+                    </h6>
+                </li>
+                <li>
+                    <i class="styled__Icon-sc-19aiwhb-1 ijRdZm">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                                fill="white" stroke="none">
+
+                            </path>
+                        </svg>
+
+                    </i>
+                    <a href="mailto:fellesdatakatalog@digdir.no" class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        fellesdatakatalog@digdir.no
+                    </a>
+                </li>
+                <li>
+                    <i class="styled__Icon-sc-19aiwhb-1 ijRdZm">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+                            <path
+                                d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 01-1.93.07 4.28 4.28 0 004 2.98 8.521 8.521 0 01-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"
+                                fill="white">
+
+                            </path>
+                        </svg>
+                    </i>
+                    <a target="_blank"
+                        href="https://twitter.com/datakatalogen?ref_src=twsrc%5Etfw%7Ctwcamp%5Eembeddedtimeline%7Ctwterm%5Eprofile%3Adatakatalogen&amp;ref_url=https%3A%2F%2Ffellesdatakatalog.digdir.no%2F"
+                        class="styled__Link-sc-19aiwhb-0 kyqscy">
+                        Felles datakatalog på Twitter
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="18" height="18"
+                            class="styled__ExternalLinkIcon-sc-19aiwhb-2 kQhiVA">
+                            <path
+                                d="M11.5 9.5a.5.5 0 00-.5.5v2H4V5h2a.5.5 0 000-1H3.5a.5.5 0 00-.5.5v8a.5.5 0 00.5.5h8a.5.5 0 00.5-.5V10a.5.5 0 00-.5-.5z"
+                                fill="white">
+                            </path>
+                            <path
+                                d="M13 3.31a.51.51 0 00-.31-.31.41.41 0 00-.19 0h-4a.5.5 0 000 1h2.79l-3.6 3.61a.51.51 0 000 .71.52.52 0 00.71 0L12 4.71V7.5a.5.5 0 001 0v-4a.41.41 0 000-.19z"
+                                fill="white">
+
+                            </path>
+                        </svg>
+                    </a>
+                </li>
+                <li>
+            </ul>
+
+        </div>
+    </footer>
+</body>
+
+</html>

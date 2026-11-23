@@ -1,0 +1,17 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: prod
+resources:
+  - ../../base/fdk-nginx-search
+patches:
+  - target:
+      kind: Deployment
+      name: fdk-nginx-search
+    patch: |-
+      - op: test
+        path: /spec/template/spec/containers/0/volumeMounts/0/mountPath
+        value: /etc/nginx/nginx.conf
+      - op: replace
+        path: /spec/template/spec/containers/0/volumeMounts/0/subPath
+        value: nginx-prod.conf

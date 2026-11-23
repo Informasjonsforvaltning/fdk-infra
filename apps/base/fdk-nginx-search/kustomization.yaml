@@ -1,0 +1,22 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - service.yaml
+configMapGenerator:
+  - name: fdk-nginx-search
+    files:
+      - nginx.conf
+      - nginx-prod.conf
+      - web-headers.conf
+      - api-headers.conf
+      - dev-web-headers.conf
+      - dev-api-headers.conf
+      - redirections.conf
+  - name: fdk-nginx-search-favicon
+    files:
+      - http-error/favicon.ico
+  - name: fdk-nginx-search-maintenance
+    files:
+      - http-error/maintenance.html
