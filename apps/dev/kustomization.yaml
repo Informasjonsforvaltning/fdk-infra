@@ -28,3 +28,4 @@ resources:
   - fdk-nginx-altinn-proxy-mock-demo.yaml
   - fdk-nginx-search-staging.yaml
   - fdk-nginx-search-demo.yaml
+  - fdk-nginx-community-staging.yaml

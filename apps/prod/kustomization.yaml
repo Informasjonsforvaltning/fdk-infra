@@ -14,3 +14,4 @@ resources:
   - fdk-nginx-organization-bff.yaml
   - fdk-nginx-enhetsregisteret-proxy.yaml
   - fdk-nginx-search.yaml
+  - fdk-nginx-community.yaml
