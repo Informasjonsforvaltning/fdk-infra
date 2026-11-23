@@ -11,3 +11,4 @@ resources:
   - fdk-nginx-sparql.yaml
   - fdk-nginx-registration.yaml
   - fdk-nginx-dataservices.yaml
+  - fdk-nginx-organization-bff.yaml
