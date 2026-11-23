@@ -9,3 +9,4 @@ resources:
   - keycloak.yaml
   - gateway.yaml
   - fdk-nginx-sparql.yaml
+  - fdk-nginx-registration.yaml

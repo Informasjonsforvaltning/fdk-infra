@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fdk-nginx-registration
+  labels:
+    fdk.service: fdk-nginx-registration
+  annotations:
+    cloud.google.com/backend-config: '{"default": "cloud-armor-registration"}'
+spec:
+  type: NodePort
+  selector:
+    fdk.service: fdk-nginx-registration
+  ports:
+    - name: "8080"
+      port: 8080
+      targetPort: 8080
