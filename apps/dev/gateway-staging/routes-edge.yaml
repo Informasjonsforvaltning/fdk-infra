@@ -266,9 +266,6 @@ spec:
         - path:
             type: Exact
             value: /robots.txt
-        - path:
-            type: PathPrefix
-            value: /.well-known/acme-challenge/
       backendRefs:
         - name: nginx-gateway
           namespace: nginx
