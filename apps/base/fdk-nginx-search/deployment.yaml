@@ -17,9 +17,16 @@ spec:
       labels:
         fdk.service: fdk-nginx-search
     spec:
+      # preStop sleep plus time to finish in-flight requests.
+      terminationGracePeriodSeconds: 45
       containers:
         - name: fdk-nginx-search
           image: nginx:1.31.9-alpine
+          # Keep accepting connections until the endpoint is detached from the NEG.
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 15
           env:
             - name: TZ
               value: Europe/Oslo
