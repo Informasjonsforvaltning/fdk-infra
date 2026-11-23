@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fdk-nginx-search
+  labels:
+    fdk.service: fdk-nginx-search
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      fdk.service: fdk-nginx-search
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        fdk.service: fdk-nginx-search
+    spec:
+      containers:
+        - name: fdk-nginx-search
+          image: nginx:1.31.9-alpine
+          env:
+            - name: TZ
+              value: Europe/Oslo
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: 20Mi
+              cpu: 10m
+            limits:
+              memory: 20Mi
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+            - mountPath: /etc/nginx/web-headers.conf
+              name: config
+              subPath: web-headers.conf
+            - mountPath: /etc/nginx/api-headers.conf
+              name: config
+              subPath: api-headers.conf
+            - mountPath: /etc/nginx/dev-web-headers.conf
+              name: config
+              subPath: dev-web-headers.conf
+            - mountPath: /etc/nginx/dev-api-headers.conf
+              name: config
+              subPath: dev-api-headers.conf
+            - mountPath: /etc/nginx/redirections.conf
+              name: config
+              subPath: redirections.conf
+            - mountPath: /var/www/http-error/favicon.ico
+              name: favicon
+              subPath: favicon.ico
+            - mountPath: /var/www/http-error/maintenance.html
+              name: maintenance
+              subPath: maintenance.html
+      volumes:
+        - name: config
+          configMap:
+            name: fdk-nginx-search
+        - name: favicon
+          configMap:
+            name: fdk-nginx-search-favicon
+        - name: maintenance
+          configMap:
+            name: fdk-nginx-search-maintenance
