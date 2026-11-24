@@ -18,7 +18,7 @@ spec:
         fdk.service: fdk-nginx-registration
     spec:
       # preStop sleep plus time to finish in-flight requests.
-      terminationGracePeriodSeconds: 45
+      terminationGracePeriodSeconds: 60
       containers:
         - name: fdk-nginx-registration
           image: nginx:1.31.9-alpine
@@ -26,7 +26,7 @@ spec:
           lifecycle:
             preStop:
               sleep:
-                seconds: 15
+                seconds: 30
           env:
             - name: TZ
               value: Europe/Oslo
