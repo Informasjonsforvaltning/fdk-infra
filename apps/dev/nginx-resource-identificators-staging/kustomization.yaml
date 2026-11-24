@@ -4,7 +4,6 @@ kind: Kustomization
 namespace: staging
 resources:
   - ../../base/nginx-resource-identificators
-  - ingress.yaml
 configMapGenerator:
   - name: nginx-resource-identificators-server
     files:
