@@ -20,8 +20,20 @@ spec:
           name: postgresql-sqlproxy
           namespace: staging
         spec:
+          # Every app in the namespace reaches the database through this
+          # proxy, so one unresponsive node must not take it down.
+          replicas: 2
           template:
             spec:
+              topologySpreadConstraints:
+                - maxSkew: 1
+                  topologyKey: kubernetes.io/hostname
+                  whenUnsatisfiable: DoNotSchedule
+                  labelSelector:
+                    matchLabels:
+                      app: postgresql-sqlproxy
+              # Longer than the min and max SIGTERM delays together.
+              terminationGracePeriodSeconds: 50
               containers:
                 - name: cloud-sql-proxy
                   command:
@@ -29,7 +41,34 @@ spec:
                     - --structured-logs
                     - --address=0.0.0.0
                     - --port=5432
+                    # Keep accepting connections while the pod is removed from
+                    # the Service, then give open ones up to 30 s to finish.
+                    - --min-sigterm-delay=10s
+                    - --max-sigterm-delay=30s
+                    - --health-check
+                    - --http-address=0.0.0.0
+                    - --http-port=9090
                     - digdir-fdk-dev:europe-north1:digdir-fdk-dev
+                  ports:
+                    - containerPort: 9090
+                      name: health
+                      protocol: TCP
+                  startupProbe:
+                    httpGet:
+                      path: /startup
+                      port: 9090
+                    periodSeconds: 1
+                    timeoutSeconds: 5
+                    failureThreshold: 20
+                  livenessProbe:
+                    tcpSocket: null
+                    initialDelaySeconds: 0
+                    httpGet:
+                      path: /liveness
+                      port: 9090
+                    periodSeconds: 60
+                    timeoutSeconds: 30
+                    failureThreshold: 5
       target:
         kind: Deployment
         name: postgresql-sqlproxy
