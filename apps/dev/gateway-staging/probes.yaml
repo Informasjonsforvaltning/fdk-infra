@@ -1,7 +1,8 @@
 # Blackbox probes for the staging hosts. Prometheus discovers probe targets
 # from Ingresses but not from HTTPRoutes, so each hostname in the routes gets
-# an https://<host>/ target here. The certificate, HTTPS and HTTP server error
-# alerts read these probes.
+# an https://<host>/ target here, or another path when the root only
+# redirects. The certificate, HTTPS and HTTP server error alerts read these
+# probes.
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
@@ -22,7 +23,8 @@ spec:
         - https://access-request.api.staging.fellesdatakatalog.digdir.no/
         - https://admin.staging.fellesdatakatalog.digdir.no/
         - https://aisearch.api.staging.fellesdatakatalog.digdir.no/
-        - https://auth.staging.fellesdatakatalog.digdir.no/
+        # The root redirects to the admin console.
+        - https://auth.staging.fellesdatakatalog.digdir.no/realms/fdk/.well-known/openid-configuration
         - https://begrepskatalog.staging.fellesdatakatalog.digdir.no/
         - https://catalog-admin-service.staging.fellesdatakatalog.digdir.no/
         - https://catalog-admin.staging.fellesdatakatalog.digdir.no/

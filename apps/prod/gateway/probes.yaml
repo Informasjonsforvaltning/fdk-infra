@@ -1,8 +1,9 @@
 # Blackbox probes for the prod hosts. Prometheus discovers probe targets from
 # Ingresses but not from HTTPRoutes, so each hostname the Gateway serves gets an
-# https://<host>/ target here. The certificate, HTTPS and HTTP server error
-# alerts read these probes and group by hostname or URL, so a host that is also
-# on an Ingress is not reported twice.
+# https://<host>/ target here, or another path when the root only redirects.
+# The certificate, HTTPS and HTTP server error alerts read these probes and
+# group by hostname or URL, so a host that is also on an Ingress is not
+# reported twice.
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
@@ -24,7 +25,8 @@ spec:
         - https://admin.fellesdatakatalog.digdir.no/
         - https://aisearch.api.fellesdatakatalog.digdir.no/
         - https://alertmanager.fellesdatakatalog.digdir.no/
-        - https://auth.fellesdatakatalog.digdir.no/
+        # The root redirects to the admin console.
+        - https://auth.fellesdatakatalog.digdir.no/realms/fdk/.well-known/openid-configuration
         - https://begrepskatalog.fellesdatakatalog.digdir.no/
         - https://catalog-admin-service.fellesdatakatalog.digdir.no/
         - https://catalog-admin.fellesdatakatalog.digdir.no/

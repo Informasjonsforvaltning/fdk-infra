@@ -21,7 +21,8 @@ spec:
         - https://access-request.api.demo.fellesdatakatalog.digdir.no/
         - https://admin.demo.fellesdatakatalog.digdir.no/
         - https://aisearch.api.demo.fellesdatakatalog.digdir.no/
-        - https://auth.demo.fellesdatakatalog.digdir.no/
+        # The root redirects to the admin console.
+        - https://auth.demo.fellesdatakatalog.digdir.no/realms/fdk/.well-known/openid-configuration
         - https://begrepskatalog.demo.fellesdatakatalog.digdir.no/
         - https://catalog-admin-service.demo.fellesdatakatalog.digdir.no/
         - https://catalog-admin.demo.fellesdatakatalog.digdir.no/
