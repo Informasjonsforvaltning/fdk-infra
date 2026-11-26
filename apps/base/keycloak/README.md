@@ -18,7 +18,7 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 ### **Staging Environment** (`apps/dev/keycloak-staging/`)
 
 - **Domain**: `auth.staging.fellesdatakatalog.digdir.no`
-- **Admin Domain**: `auth.staging.fellesdatakatalog.digdir.no`
+- **Admin Domain**: `https://localhost:8443`, through `kubectl port-forward`
 - **Instances**: 3
 - **Resources**: 200m-500m CPU, 256Mi-1Gi memory
 - **Database**: External PostgreSQL via secrets
@@ -27,7 +27,7 @@ This directory contains the base configuration for Keycloak HA clusters deployed
 ### **Demo Environment** (`apps/dev/keycloak-demo/`)
 
 - **Domain**: `auth.demo.fellesdatakatalog.digdir.no`
-- **Admin Domain**: `auth.demo.fellesdatakatalog.digdir.no`
+- **Admin Domain**: `https://localhost:8443`, through `kubectl port-forward`
 - **Instances**: 3
 - **Resources**: 200m-500m CPU, 256Mi-1Gi memory
 - **Database**: External PostgreSQL via secrets
@@ -118,7 +118,7 @@ Flux deploys each environment through its Kustomization, which depends on the Ke
 
 - Health checks: `/health/ready`
 - Logs: Available via kubectl logs (cluster-internal access only)
-- **Security Note**: `/metrics` and the master realm's userinfo endpoint are blocked before they reach Keycloak
+- **Security Note**: internal paths such as `/metrics` are blocked before they reach Keycloak
 
 ## Troubleshooting
 

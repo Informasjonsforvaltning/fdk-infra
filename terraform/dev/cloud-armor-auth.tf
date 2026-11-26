@@ -40,14 +40,15 @@ resource "google_compute_security_policy" "auth" {
     priority = 1000
   }
 
-  # The paths the Keycloak Ingress server-snippet blocks, plus traversal and ';'.
+  # Admins reach the admin console and the master realm through localhost, so
+  # the public host answers 404 for them, as for metrics, traversal and ';'.
   rule {
     action      = "deny(404)"
-    description = "Keycloak metrics and master realm userinfo are internal"
+    description = "Keycloak metrics, admin and master realm are internal"
 
     match {
       expr {
-        expression = "request.path.urlDecode().lower().matches('^/+metrics|/+realms/+master/+protocol/+openid-connect/+userinfo|/[.][.]?(?:/|$)|;')"
+        expression = "request.path.urlDecode().lower().matches('^/+(?:metrics|admin(?:/|$)|realms/+master(?:/|$))|/[.][.]?(?:/|$)|;')"
       }
     }
 
