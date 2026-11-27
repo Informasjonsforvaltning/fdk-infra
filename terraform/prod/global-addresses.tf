@@ -33,18 +33,3 @@ resource "google_compute_global_address" "addresses" {
     prevent_destroy = true
   }
 }
-
-# Temporary addresses for the GKE Ingress. An Ingress keeps its address when the
-# static-ip annotation is removed, so it is parked on these while the Gateway
-# holds the fixed `addresses`. Remove the set once the GKE Ingress is deleted.
-resource "google_compute_global_address" "gateway_temporary" {
-  for_each = {
-    "ingress-v4" = "IPV4"
-    "ingress-v6" = "IPV6"
-  }
-
-  address_type = "EXTERNAL"
-  ip_version   = each.value
-  name         = "${var.project_id}-${each.key}"
-  project      = var.project_id
-}
