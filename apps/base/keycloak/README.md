@@ -83,15 +83,14 @@ Keycloak is configured with **two TLS layers**:
 
 - **Port 443**: HTTPS access from internet, terminated at the Google load balancer
 - **Staging** and **Demo**: the certificates on the `staging-edge` Gateway (`apps/dev/gateway-staging/`)
-- **Production**: the certificate on the production Ingress (`infrastructure/prod/ingress/`)
+- **Production**: the certificates on the `prod` Gateway (`apps/prod/gateway/`)
 
 ### **2. Internal TLS (Pod Level)**
 
-- **Port 8443**: HTTPS from the Gateway (Staging and Demo) or ingress-nginx (Production) to the Keycloak pods
+- **Port 8443**: HTTPS from the Gateway to the Keycloak pods
 - **Certificate**: `keycloak-internal-tls` managed by cert-manager
 - **Issuers per environment**:
-  - **Staging** and **Demo**: `internal-ca`, which the Gateway trusts through its BackendTLSPolicy
-  - **Production**: `internal-ca`
+  - **Staging**, **Demo** and **Production**: `internal-ca`, which the Gateway trusts through its BackendTLSPolicy
 
 ## Prerequisites
 

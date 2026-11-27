@@ -1,5 +1,5 @@
-# The prod Gateway. It serves the hosts of the prod GKE Ingress with the same
-# certificates, which External Secrets delivers to this namespace.
+# The prod Gateway. It terminates TLS for the prod hosts with certificates that
+# External Secrets delivers to this namespace.
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
