@@ -1,9 +1,9 @@
 ---
-# TLS material for the api.fellesdatakatalog.digdir.no hosts served from this
-# ingress, delivered from Secret Manager as a kubernetes.io/tls Secret.
-# Referenced from spec.tls on ingress-prod-v4/-v6, so GKE derives the
-# loadbalancer certificate from it and a renewal is a new Secret Manager
-# version — no compute ssl-certificate and no annotation change.
+# TLS material for the api.fellesdatakatalog.digdir.no hosts, delivered from
+# Secret Manager as a kubernetes.io/tls Secret. Referenced from certificateRefs
+# on the prod Gateway, so GKE derives the loadbalancer certificate from it and
+# a renewal is a new Secret Manager version — no compute ssl-certificate and no
+# Gateway change.
 #
 # Secret Manager entry api-fdk-digdir-no-tls-prod holds two properties,
 # `certificate` and `private-key`, mapped below to tls.crt and tls.key.
