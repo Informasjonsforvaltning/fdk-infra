@@ -364,7 +364,7 @@ spec:
           namespace: nginx
           port: 80
     - backendRefs:
-        - name: fdk-cms-service-gateway
+        - name: fdk-cms-service
           port: 8080
       filters:
         - type: ResponseHeaderModifier

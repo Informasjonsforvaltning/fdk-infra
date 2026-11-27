@@ -797,7 +797,7 @@ spec:
 apiVersion: networking.gke.io/v1
 kind: GCPBackendPolicy
 metadata:
-  name: fdk-cms-service-gateway
+  name: fdk-cms-service
   namespace: staging
 spec:
   default:
@@ -808,12 +808,12 @@ spec:
   targetRef:
     group: ""
     kind: Service
-    name: fdk-cms-service-gateway
+    name: fdk-cms-service
 ---
 apiVersion: networking.gke.io/v1
 kind: HealthCheckPolicy
 metadata:
-  name: fdk-cms-service-gateway
+  name: fdk-cms-service
   namespace: staging
 spec:
   default:
@@ -825,7 +825,7 @@ spec:
   targetRef:
     group: ""
     kind: Service
-    name: fdk-cms-service-gateway
+    name: fdk-cms-service
 ---
 apiVersion: networking.gke.io/v1
 kind: GCPBackendPolicy
